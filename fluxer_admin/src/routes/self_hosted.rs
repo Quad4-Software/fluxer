@@ -157,10 +157,7 @@ async fn load_instance_ops_state(state: &AppState, auth: &AuthContext) -> Instan
 
 fn read_backup_metadata(config: &AdminConfig) -> (Option<BackupMetadata>, Option<String>) {
     let Some(path) = config.backup_meta_path.as_deref() else {
-        return (
-            None,
-            Some("Backup metadata path is not configured.".to_owned()),
-        );
+        return (None, None);
     };
     match fs::read_to_string(path) {
         Ok(contents) => match serde_json::from_str::<BackupMetadata>(&contents) {
@@ -170,6 +167,7 @@ fn read_backup_metadata(config: &AdminConfig) -> (Option<BackupMetadata>, Option
                 Some(format!("Failed to parse backup metadata: {error}")),
             ),
         },
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => (None, None),
         Err(error) => (
             None,
             Some(format!("Could not read backup metadata at {path}: {error}")),

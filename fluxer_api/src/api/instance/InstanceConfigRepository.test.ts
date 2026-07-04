@@ -161,7 +161,7 @@ describe('InstanceConfigRepository', () => {
 		}
 	});
 
-	it('does not persist integration secrets to instance config on self-hosted deployments', async () => {
+	it('persists integration secrets in instance config on self-hosted deployments', async () => {
 		const executor = new CountingInMemoryCassandraQueryExecutor();
 		setCassandraQueryExecutorForTesting(executor);
 		const kvProvider = new MockKVProvider();
@@ -171,6 +171,9 @@ describe('InstanceConfigRepository', () => {
 		try {
 			config.instance.selfHosted = true;
 			await repository.setInstanceIntegrationsConfig({
+				gif: {
+					klipy_api_key: 'stored-klipy-key',
+				},
 				email: {
 					smtp: {
 						password: 'stored-password',
@@ -178,9 +181,64 @@ describe('InstanceConfigRepository', () => {
 				},
 			});
 			const stored = await repository.getInstanceIntegrationsConfig();
-			expect(stored.email.smtp.password).toBeNull();
+			expect(stored.gif.klipy_api_key).toBe('stored-klipy-key');
+			expect(stored.email.smtp.password).toBe('stored-password');
 		} finally {
 			config.instance.selfHosted = originalSelfHosted;
+		}
+	});
+
+	it('resolves effective klipy config from stored instance config when env is unset on self-hosted deployments', async () => {
+		const executor = new CountingInMemoryCassandraQueryExecutor();
+		setCassandraQueryExecutorForTesting(executor);
+		const kvProvider = new MockKVProvider();
+		const repository = createRepository(kvProvider);
+		const config = getConfig();
+		const originalSelfHosted = config.instance.selfHosted;
+		const originalKlipy = structuredClone(config.klipy);
+		try {
+			config.instance.selfHosted = true;
+			config.klipy = {};
+			await repository.setInstanceIntegrationsConfig({
+				gif: {
+					klipy_api_key: 'stored-klipy-key',
+				},
+			});
+			await expect(repository.getEffectiveGifConfig()).resolves.toMatchObject({
+				klipy_api_key: 'stored-klipy-key',
+				active_api_key: 'stored-klipy-key',
+				available: true,
+			});
+		} finally {
+			config.instance.selfHosted = originalSelfHosted;
+			config.klipy = originalKlipy;
+		}
+	});
+
+	it('prefers environment klipy config over stored instance config on self-hosted deployments', async () => {
+		const executor = new CountingInMemoryCassandraQueryExecutor();
+		setCassandraQueryExecutorForTesting(executor);
+		const kvProvider = new MockKVProvider();
+		const repository = createRepository(kvProvider);
+		const config = getConfig();
+		const originalSelfHosted = config.instance.selfHosted;
+		const originalKlipy = structuredClone(config.klipy);
+		try {
+			config.instance.selfHosted = true;
+			config.klipy = {apiKey: 'env-klipy-key'};
+			await repository.setInstanceIntegrationsConfig({
+				gif: {
+					klipy_api_key: 'stored-klipy-key',
+				},
+			});
+			await expect(repository.getEffectiveGifConfig()).resolves.toMatchObject({
+				klipy_api_key: 'env-klipy-key',
+				active_api_key: 'env-klipy-key',
+				available: true,
+			});
+		} finally {
+			config.instance.selfHosted = originalSelfHosted;
+			config.klipy = originalKlipy;
 		}
 	});
 

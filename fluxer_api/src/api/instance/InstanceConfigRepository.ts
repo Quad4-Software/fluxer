@@ -521,6 +521,15 @@ function resolveSelfHostedString(kv: string | null, env: string): string {
 	return env;
 }
 
+function resolveSelfHostedSecret(kv: string | null, env: string | undefined | null): string | null {
+	const normalizedEnv = normalizeSecretString(env);
+	const normalizedKv = normalizeSecretString(kv);
+	if (!Config.instance.selfHosted) {
+		return normalizedKv ?? normalizedEnv;
+	}
+	return normalizedEnv ?? normalizedKv;
+}
+
 function resolveSelfHostedBoolean(kv: boolean | null, env: boolean): boolean {
 	if (!Config.instance.selfHosted) {
 		return kv ?? env;
@@ -543,36 +552,6 @@ function resolveSelfHostedPort(kv: number | null, env: number): number {
 		return kv ?? env;
 	}
 	return env;
-}
-
-function stripSelfHostedIntegrationSecrets(config: InstanceIntegrationsConfig): InstanceIntegrationsConfig {
-	if (!Config.instance.selfHosted) {
-		return config;
-	}
-	return {
-		...config,
-		gif: {
-			...config.gif,
-			klipy_api_key: null,
-		},
-		youtube: {
-			...config.youtube,
-			api_key: null,
-		},
-		captcha: {
-			...config.captcha,
-			hcaptcha_secret_key: null,
-			turnstile_secret_key: null,
-			altcha_hmac_secret: null,
-		},
-		email: {
-			...config.email,
-			smtp: {
-				...config.email.smtp,
-				password: null,
-			},
-		},
-	};
 }
 
 function normalizeNullablePort(value: unknown): number | null {
@@ -1186,7 +1165,7 @@ export class InstanceConfigRepository {
 				...(config.sentry ?? {}),
 			},
 		});
-		const persisted = stripSelfHostedIntegrationSecrets(next);
+		const persisted = next;
 		await this.setConfig(INSTANCE_INTEGRATIONS_CONFIG_KEY, JSON.stringify(persisted));
 		return persisted;
 	}
@@ -1258,9 +1237,7 @@ export class InstanceConfigRepository {
 
 	async getEffectiveGifConfig(): Promise<InstanceGifEffectiveConfig> {
 		const integrations = await this.getInstanceIntegrationsConfig();
-		const klipyApiKey = Config.instance.selfHosted
-			? normalizeSecretString(Config.klipy.apiKey)
-			: (integrations.gif.klipy_api_key ?? normalizeSecretString(Config.klipy.apiKey));
+		const klipyApiKey = resolveSelfHostedSecret(integrations.gif.klipy_api_key, Config.klipy.apiKey);
 		return {
 			klipy_api_key: klipyApiKey,
 			active_api_key: klipyApiKey,
@@ -1270,10 +1247,7 @@ export class InstanceConfigRepository {
 
 	async getEffectiveYoutubeApiKey(): Promise<string | null> {
 		const integrations = await this.getInstanceIntegrationsConfig();
-		if (Config.instance.selfHosted) {
-			return normalizeSecretString(Config.youtube.apiKey);
-		}
-		return integrations.youtube.api_key ?? normalizeSecretString(Config.youtube.apiKey);
+		return resolveSelfHostedSecret(integrations.youtube.api_key, Config.youtube.apiKey);
 	}
 
 	async getEffectiveCaptchaConfig(): Promise<InstanceCaptchaEffectiveConfig> {
@@ -1287,19 +1261,22 @@ export class InstanceConfigRepository {
 			integrations.captcha.hcaptcha_site_key,
 			normalizeSecretString(Config.captcha.hcaptcha?.siteKey) ?? '',
 		);
-		const hcaptchaSecretKey = Config.instance.selfHosted
-			? normalizeSecretString(Config.captcha.hcaptcha?.secretKey)
-			: (integrations.captcha.hcaptcha_secret_key ?? normalizeSecretString(Config.captcha.hcaptcha?.secretKey));
+		const hcaptchaSecretKey = resolveSelfHostedSecret(
+			integrations.captcha.hcaptcha_secret_key,
+			Config.captcha.hcaptcha?.secretKey,
+		);
 		const turnstileSiteKey = resolveSelfHostedString(
 			integrations.captcha.turnstile_site_key,
 			normalizeSecretString(Config.captcha.turnstile?.siteKey) ?? '',
 		);
-		const turnstileSecretKey = Config.instance.selfHosted
-			? normalizeSecretString(Config.captcha.turnstile?.secretKey)
-			: (integrations.captcha.turnstile_secret_key ?? normalizeSecretString(Config.captcha.turnstile?.secretKey));
-		const altchaHmacSecretKey = Config.instance.selfHosted
-			? normalizeSecretString(Config.captcha.altcha?.hmacSecret)
-			: (integrations.captcha.altcha_hmac_secret ?? normalizeSecretString(Config.captcha.altcha?.hmacSecret));
+		const turnstileSecretKey = resolveSelfHostedSecret(
+			integrations.captcha.turnstile_secret_key,
+			Config.captcha.turnstile?.secretKey,
+		);
+		const altchaHmacSecretKey = resolveSelfHostedSecret(
+			integrations.captcha.altcha_hmac_secret,
+			Config.captcha.altcha?.hmacSecret,
+		);
 		const providerReady =
 			provider === 'hcaptcha'
 				? Boolean(hcaptchaSiteKey && hcaptchaSecretKey)
@@ -1334,9 +1311,8 @@ export class InstanceConfigRepository {
 						host: resolveSelfHostedString(integrations.email.smtp.host, Config.email.smtp?.host ?? ''),
 						port: resolveSelfHostedPort(integrations.email.smtp.port, Config.email.smtp?.port ?? 587),
 						username: resolveSelfHostedString(integrations.email.smtp.username, Config.email.smtp?.username ?? ''),
-						password: Config.instance.selfHosted
-							? (Config.email.smtp?.password ?? '')
-							: (integrations.email.smtp.password ?? Config.email.smtp?.password ?? ''),
+						password:
+							resolveSelfHostedSecret(integrations.email.smtp.password, Config.email.smtp?.password) ?? '',
 						secure: resolveSelfHostedBoolean(integrations.email.smtp.secure, Config.email.smtp?.secure ?? true),
 					}
 				: undefined;

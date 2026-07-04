@@ -219,16 +219,18 @@ fn integration_tests_section(
                                 placeholder="SMTP password"
                                 class="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm";
                         }
-                        label class="inline-flex items-center gap-2 text-sm text-neutral-700" {
-                            input type="checkbox" name="smtp_secure" value="true"
-                                checked[smtp_config
-                                    .map(|config| config.smtp.secure.unwrap_or(true))
-                                    .unwrap_or(true)];
-                            "Use TLS"
-                        }
-                        button type="submit"
-                            class="inline-flex items-center justify-center rounded-lg border border-neutral-300 bg-neutral-50 px-4 py-2 text-sm font-medium text-neutral-700 hover:border-neutral-400 hover:text-neutral-900" {
-                            "Test SMTP connection"
+                        div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between" {
+                            label class="inline-flex items-center gap-2 text-sm text-neutral-700" {
+                                input type="checkbox" name="smtp_secure" value="true"
+                                    checked[smtp_config
+                                        .map(|config| config.smtp.secure.unwrap_or(true))
+                                        .unwrap_or(true)];
+                                "Use TLS"
+                            }
+                            button type="submit"
+                                class="inline-flex w-fit items-center justify-center rounded-lg border border-neutral-300 bg-neutral-50 px-4 py-2 text-sm font-medium text-neutral-700 hover:border-neutral-400 hover:text-neutral-900" {
+                                "Test SMTP connection"
+                            }
                         }
                     }
                 }
