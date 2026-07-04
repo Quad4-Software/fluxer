@@ -15,7 +15,6 @@ import {FluxerButton} from '@app/features/app/components/layout/sidebar_nav/Flux
 import {GuildFolderItem} from '@app/features/app/components/layout/sidebar_nav/GuildFolderItem';
 import {DMListItem} from '@app/features/app/components/layout/sidebar_nav/GuildListDMItem';
 import {GuildListItem} from '@app/features/app/components/layout/sidebar_nav/GuildListItem';
-import {HelpButton} from '@app/features/app/components/layout/sidebar_nav/HelpButton';
 import {DND_TYPES, type GuildDragItem, type GuildDropResult} from '@app/features/app/components/layout/types/DndTypes';
 import {UserArea} from '@app/features/app/components/layout/UserArea';
 import {WHATS_NEW_ENTRIES} from '@app/features/app/components/whats_new/WhatsNewEntries';
@@ -821,7 +820,6 @@ const GuildList = observer(() => {
 						{!Platform.isElectron && !Platform.isPWA && (
 							<DownloadButton data-flx="app.guilds-layout.guild-list.download-button" />
 						)}
-						<HelpButton data-flx="app.guilds-layout.guild-list.help-button" />
 					</div>
 				</div>
 			</Scroller>

@@ -6,7 +6,6 @@ import {makeAutoObservable} from 'mobx';
 
 class HiddenGuildListButtons {
 	downloadButtonHidden = false;
-	helpButtonHidden = false;
 
 	constructor() {
 		makeAutoObservable(this, {}, {autoBind: true});
@@ -17,14 +16,12 @@ class HiddenGuildListButtons {
 		await makeSyncedField(this, {
 			field: 'hiddenGuildButtons',
 			schema: HiddenGuildListButtonsSchema,
-			persist: ['downloadButtonHidden', 'helpButtonHidden'],
+			persist: ['downloadButtonHidden'],
 			toMessage: (s) => ({
 				downloadButton: s.downloadButtonHidden,
-				helpButton: s.helpButtonHidden,
 			}),
 			applyMessage: (s, m) => {
 				s.downloadButtonHidden = m.downloadButton;
-				s.helpButtonHidden = m.helpButton;
 			},
 		});
 	}
@@ -35,14 +32,6 @@ class HiddenGuildListButtons {
 
 	showDownloadButton(): void {
 		this.downloadButtonHidden = false;
-	}
-
-	hideHelpButton(): void {
-		this.helpButtonHidden = true;
-	}
-
-	showHelpButton(): void {
-		this.helpButtonHidden = false;
 	}
 }
 
