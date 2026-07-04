@@ -35,6 +35,7 @@ const SELF_HOSTED_IMAGE_COMPONENTS: &[&str] = &[
     "fluxer-snowflakes",
     "fluxer-static",
     "fluxer-unfurl",
+    "fluxer-updater",
     "fluxer-users",
 ];
 
@@ -1086,6 +1087,7 @@ mod tests {
                 "fluxer-snowflakes",
                 "fluxer-static",
                 "fluxer-unfurl",
+                "fluxer-updater",
                 "fluxer-users",
             ]
         );

@@ -104,6 +104,8 @@ x-fluxer-env: &fluxer-env
 x-fluxer-service: &fluxer-service
   restart: unless-stopped
   networks: [fluxer]
+  labels:
+    fluxer.auto_update: "true"
 
 services:
   caddy:
@@ -513,6 +515,22 @@ services:
       timeout: 5s
       retries: 5
       start_period: 45s
+
+  updater:
+    <<: *fluxer-service
+    image: ${FLUXER_REGISTRY:-ghcr.io/${FLUXER_REGISTRY_OWNER:-fluxerapp}}/fluxer-updater:${FLUXER_IMAGE_TAG:-v1}
+    profiles: [auto-update]
+    environment:
+      FLUXER_AUTO_UPDATE_ENABLED: ${FLUXER_AUTO_UPDATE_ENABLED:-true}
+      FLUXER_AUTO_UPDATE_POLL_INTERVAL: ${FLUXER_AUTO_UPDATE_POLL_INTERVAL:-86400}
+      FLUXER_COMPOSE_PROJECT: fluxer
+      FLUXER_COMPOSE_FILE: /stack/docker-compose.coolify.yml
+      FLUXER_COMPOSE_DIR: /stack
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - .:/stack:ro
+    labels:
+      fluxer.auto_update: "false"
 
 networks:
   fluxer:

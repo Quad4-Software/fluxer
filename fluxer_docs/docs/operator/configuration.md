@@ -21,6 +21,8 @@ Common variables:
 | `FLUXER_EASYPWNED_ENABLED` | Use local [easypwned](https://github.com/easybill/easypwned) instead of the public HIBP API |
 | `FLUXER_EASYPWNED_URL` | Internal easypwned base URL (default `http://easypwned:3342`) |
 | `FLUXER_EASYPWNED_FAIL_OPEN` | Allow passwords when easypwned is unreachable (`true` by default) |
+| `FLUXER_AUTO_UPDATE_ENABLED` | Run the optional `fluxer-updater` service for Fluxer application images |
+| `FLUXER_AUTO_UPDATE_POLL_INTERVAL` | Seconds between registry checks when auto-update is enabled (default `86400`) |
 
 Integration secrets (SMTP password, S3 keys, API keys) should live in `.env` on self-hosted instances. The admin panel is best for non-secret settings.
 
@@ -44,6 +46,27 @@ For air-gapped or privacy-focused self-hosting, you can run [easypwned](https://
 The easypwned image is large (~1 GB bloom filter). Leave the profile off if you prefer the public HIBP API or do not need breached-password checks.
 
 Set `FLUXER_EASYPWNED_FAIL_OPEN=false` for strict mode: registration and password changes fail when easypwned is unavailable.
+
+## Automatic container updates
+
+By default, Fluxer does not pull or restart containers on its own. Operators upgrade with `docker compose pull` and `docker compose up -d`, or by running `./upgrade.sh`.
+
+To let the stack update Fluxer application images automatically when a newer image is published for `FLUXER_IMAGE_TAG` (for example the moving `v1` tag):
+
+1. Run setup with auto-update enabled, or set in `.env`:
+   - `FLUXER_AUTO_UPDATE_ENABLED=true`
+   - `FLUXER_AUTO_UPDATE_POLL_INTERVAL=86400` (optional; seconds between checks)
+2. Start the optional service profile:
+   ```bash
+   docker compose --profile auto-update up -d
+   ```
+   Or use `./setup.sh --auto-update --domain chat.example.com --start`.
+
+The updater is a small Fluxer service (`fluxer-updater`) that reads `docker-compose.yml` from the mounted stack directory, finds services labeled `fluxer.auto_update=true`, pulls each image, and recreates containers one at a time when the image changed. Infrastructure images pinned by digest in `docker-compose.yml` (Postgres, Caddy, NATS, and so on) are not labeled and are left alone.
+
+The updater does not refresh stack files from git; run `./upgrade.sh` when `docker-compose.yml`, Caddy routing, or other deployment files change.
+
+Pin `FLUXER_IMAGE_TAG` to a specific release if you do not want automatic image updates.
 
 ## Admin panel
 

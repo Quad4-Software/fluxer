@@ -205,6 +205,22 @@ run() {
 	fi
 }
 
+compose_profile_args() {
+	local profiles=()
+	if [[ -f .env ]]; then
+		if grep -q '^FLUXER_EASYPWNED_ENABLED=true' .env; then
+			profiles+=(easypwned)
+		fi
+		if grep -q '^FLUXER_AUTO_UPDATE_ENABLED=true' .env; then
+			profiles+=(auto-update)
+		fi
+	fi
+	local profile
+	for profile in "${profiles[@]}"; do
+		printf ' --profile %s' "$profile"
+	done
+}
+
 set_env() {
 	local key="$1"
 	local value="$2"
@@ -479,13 +495,17 @@ restore_stack_files() {
 restart_stack() {
 	if [[ "$SKIP_PULL" != true ]]; then
 		echo "Pulling container images..."
-		run docker compose pull
+		# shellcheck disable=SC2046
+		run docker compose $(compose_profile_args) pull
 	fi
 	echo "Stopping stack (volumes are kept)..."
-	run docker compose down --timeout "$DOWN_TIMEOUT"
+	# shellcheck disable=SC2046
+	run docker compose $(compose_profile_args) down --timeout "$DOWN_TIMEOUT"
 	echo "Starting stack..."
-	run docker compose up -d
-	run docker compose ps
+	# shellcheck disable=SC2046
+	run docker compose $(compose_profile_args) up -d
+	# shellcheck disable=SC2046
+	run docker compose $(compose_profile_args) ps
 }
 
 run_restore_list() {

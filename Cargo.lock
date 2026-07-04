@@ -2130,6 +2130,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "fluxer-updater"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "fluxer-users"
 version = "0.1.0"
 dependencies = [

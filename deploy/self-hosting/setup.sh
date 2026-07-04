@@ -11,6 +11,7 @@ VERIFY=false
 CLOUDFLARE_TUNNEL=false
 FORCE_SECRETS=false
 EASYPWNED=false
+AUTO_UPDATE=false
 
 usage() {
 	cat <<'EOF'
@@ -25,6 +26,7 @@ Options:
                            reverse proxy that exposes Fluxer on a non-standard port)
   --cloudflare-tunnel      Listen on :80 inside Caddy for Cloudflare Tunnel
   --easypwned              Enable offline breached-password checks (easypwned)
+  --auto-update            Enable automatic Fluxer image updates (fluxer-updater)
   --force-secrets          Regenerate secrets even if .env already has values
   --start                  Run "docker compose up -d" after setup
   --verify                 Check public health endpoints after --start
@@ -35,6 +37,7 @@ Examples:
   ./setup.sh --domain chat.example.com --start
   ./setup.sh --domain chat.example.com --cloudflare-tunnel --start --verify
   ./setup.sh --domain chat.example.com --easypwned --start
+  ./setup.sh --domain chat.example.com --auto-update --start
   ./setup.sh --domain chat.example.com --port 4443
 EOF
 }
@@ -55,6 +58,10 @@ while [[ $# -gt 0 ]]; do
 			;;
 		--easypwned)
 			EASYPWNED=true
+			shift
+			;;
+		--auto-update)
+			AUTO_UPDATE=true
 			shift
 			;;
 		--force-secrets)
@@ -122,6 +129,20 @@ public_url_for() {
 	else
 		printf '%s://%s:%s' "$scheme" "$domain" "$port"
 	fi
+}
+
+compose_profile_args() {
+	local profiles=()
+	if [[ "$EASYPWNED" == true ]] || grep -q '^FLUXER_EASYPWNED_ENABLED=true' .env 2>/dev/null; then
+		profiles+=(easypwned)
+	fi
+	if [[ "$AUTO_UPDATE" == true ]] || grep -q '^FLUXER_AUTO_UPDATE_ENABLED=true' .env 2>/dev/null; then
+		profiles+=(auto-update)
+	fi
+	local profile
+	for profile in "${profiles[@]}"; do
+		printf ' --profile %s' "$profile"
+	done
 }
 
 random_hex() {
@@ -193,6 +214,10 @@ if [[ "$EASYPWNED" == true ]]; then
 	set_env FLUXER_EASYPWNED_FAIL_OPEN true
 fi
 
+if [[ "$AUTO_UPDATE" == true ]]; then
+	set_env FLUXER_AUTO_UPDATE_ENABLED true
+fi
+
 SECRET_KEYS=(
 	POSTGRES_PASSWORD
 	MEILI_MASTER_KEY
@@ -239,10 +264,19 @@ Next steps:
   3. Start the stack: docker compose up -d
 EOF
 
+OPTIONAL_PROFILES=()
 if [[ "$EASYPWNED" == true ]]; then
-	cat <<'EOF'
-     (with easypwned: docker compose --profile easypwned up -d)
-EOF
+	OPTIONAL_PROFILES+=(easypwned)
+fi
+if [[ "$AUTO_UPDATE" == true ]]; then
+	OPTIONAL_PROFILES+=(auto-update)
+fi
+if [[ ${#OPTIONAL_PROFILES[@]} -gt 0 ]]; then
+	printf '     (with optional services: docker compose'
+	for profile in "${OPTIONAL_PROFILES[@]}"; do
+		printf ' --profile %s' "$profile"
+	done
+	printf ' up -d)\n'
 fi
 
 PUBLIC_URL="$(public_url_for https "$DOMAIN" "$PORT")"
@@ -254,11 +288,8 @@ EOF
 
 if [[ "$START" == true ]]; then
 	echo "Starting stack..."
-	if [[ "$EASYPWNED" == true ]]; then
-		docker compose --profile easypwned up -d
-	else
-		docker compose up -d
-	fi
+	# shellcheck disable=SC2046
+	docker compose $(compose_profile_args) up -d
 	docker compose ps
 fi
 

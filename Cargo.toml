@@ -16,6 +16,7 @@ members = [
 	"tools/marketing/update-gettext-catalogs",
 	"fluxer_users",
 	"fluxer_unfurl",
+	"fluxer_updater",
 	"packages/markdown_parser/rust",
 ]
 exclude = [

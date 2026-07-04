@@ -370,6 +370,8 @@ The `fluxer-static` image is part of the default stack, so static asset updates 
 
 To pin a specific release, set `FLUXER_IMAGE_TAG` in `.env` to the release tag you want, then pull and restart.
 
+For hands-off Fluxer image updates, enable the optional `fluxer-updater` profile (`FLUXER_AUTO_UPDATE_ENABLED=true` and `docker compose --profile auto-update up -d`). See [Configuration](configuration.md#automatic-container-updates) for details. Stack file changes still require `./upgrade.sh` or a manual refresh of `deploy/self-hosting`.
+
 ## Getting help
 
 - File issues and follow development on [GitHub](https://github.com/fluxerapp/fluxer).
