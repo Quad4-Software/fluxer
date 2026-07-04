@@ -183,4 +183,42 @@ describe('InstanceConfigRepository', () => {
 			config.instance.selfHosted = originalSelfHosted;
 		}
 	});
+
+	it('enables ALTCHA from environment settings on self-hosted deployments', async () => {
+		const executor = new CountingInMemoryCassandraQueryExecutor();
+		setCassandraQueryExecutorForTesting(executor);
+		const kvProvider = new MockKVProvider();
+		const repository = createRepository(kvProvider);
+		const config = getConfig();
+		const originalSelfHosted = config.instance.selfHosted;
+		const originalCaptcha = structuredClone(config.captcha);
+		const originalApiPublic = config.endpoints.apiPublic;
+		try {
+			config.instance.selfHosted = true;
+			config.endpoints.apiPublic = 'https://chat.example.com/api';
+			config.captcha = {
+				enabled: true,
+				provider: 'altcha',
+				altcha: {
+					hmacSecret: 'env-altcha-secret',
+				},
+			};
+			await repository.setInstanceIntegrationsConfig({
+				captcha: {
+					provider: 'none',
+					altcha_hmac_secret: 'kv-altcha-secret',
+				},
+			});
+			await expect(repository.getEffectiveCaptchaConfig()).resolves.toMatchObject({
+				enabled: true,
+				provider: 'altcha',
+				altcha_hmac_secret_key: 'env-altcha-secret',
+				altcha_challenge_url: 'https://chat.example.com/api/altcha/challenge',
+			});
+		} finally {
+			config.instance.selfHosted = originalSelfHosted;
+			config.captcha = originalCaptcha;
+			config.endpoints.apiPublic = originalApiPublic;
+		}
+	});
 });

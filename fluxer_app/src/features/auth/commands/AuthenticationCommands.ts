@@ -7,6 +7,7 @@ import Authentication from '@app/features/auth/state/Authentication';
 import GatewayConnection from '@app/features/gateway/transport/GatewayConnection';
 import {http} from '@app/features/platform/transport/RestTransport';
 import {HttpError} from '@app/features/platform/types/EndpointError';
+import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import {Logger} from '@app/features/platform/utils/AppLogger';
 import {failureCode} from '@app/features/platform/utils/ResponseInspection';
 import {isDesktop} from '@app/features/ui/utils/NativeUtils';
@@ -39,7 +40,7 @@ export const VerificationResult = {
 
 export type VerificationResult = ValueOf<typeof VerificationResult>;
 
-type CaptchaType = 'turnstile' | 'hcaptcha';
+type CaptchaType = 'turnstile' | 'hcaptcha' | 'altcha';
 
 type RegisterData = RegisterRequest & {
 	captchaToken?: string;
@@ -157,9 +158,12 @@ function captchaHeaders({captchaToken, captchaType}: CaptchaParams): Record<stri
 	if (!captchaToken) {
 		return {};
 	}
+	const resolvedType =
+		captchaType ??
+		(RuntimeConfig.captchaProvider === 'none' ? 'hcaptcha' : RuntimeConfig.captchaProvider);
 	return {
 		'X-Captcha-Token': captchaToken,
-		'X-Captcha-Type': captchaType || 'hcaptcha',
+		'X-Captcha-Type': resolvedType,
 	};
 }
 
@@ -384,7 +388,7 @@ export async function getUsernameSuggestions(globalName: string): Promise<Array<
 export async function forgotPassword(
 	email: string,
 	captchaToken?: string,
-	captchaType?: 'turnstile' | 'hcaptcha',
+	captchaType?: 'turnstile' | 'hcaptcha' | 'altcha',
 ): Promise<void> {
 	try {
 		await http.post(Endpoints.AUTH_FORGOT_PASSWORD, {

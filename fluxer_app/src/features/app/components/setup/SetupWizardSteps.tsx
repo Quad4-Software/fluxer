@@ -834,7 +834,7 @@ export interface MediaExpiryDraft {
 
 export type IntegrationStepKind = 'gif' | 'youtube' | 'captcha' | 'email' | 'bluesky';
 export type IntegrationSetupMode = 'later' | 'configure';
-export type CaptchaProvider = 'hcaptcha' | 'turnstile';
+export type CaptchaProvider = 'altcha' | 'hcaptcha' | 'turnstile';
 
 export interface ServiceIntegrationDraft {
 	gifMode: IntegrationSetupMode;
@@ -847,6 +847,7 @@ export interface ServiceIntegrationDraft {
 	hcaptchaSecretKey: string;
 	turnstileSiteKey: string;
 	turnstileSecretKey: string;
+	altchaHmacSecret: string;
 	emailMode: IntegrationSetupMode;
 	emailEnabled: boolean;
 	emailFromEmail: string;
@@ -928,6 +929,14 @@ const PROVIDER_LABEL_DESCRIPTOR = msg({
 	comment: 'Label for an integration provider choice.',
 });
 const HCAPTCHA_NAME_DESCRIPTOR = msg({message: 'hCaptcha', comment: 'hCaptcha provider option.'});
+const ALTCHA_NAME_DESCRIPTOR = msg({
+	message: 'ALTCHA (recommended)',
+	comment: 'ALTCHA provider option in the self-hosted setup wizard.',
+});
+const ALTCHA_SETUP_BODY_DESCRIPTOR = msg({
+	message: 'Built-in proof-of-work captcha. No third-party API keys required.',
+	comment: 'Setup wizard body for ALTCHA integration credentials.',
+});
 const TURNSTILE_NAME_DESCRIPTOR = msg({
 	message: 'Cloudflare Turnstile',
 	comment: 'Cloudflare Turnstile provider option.',
@@ -935,6 +944,10 @@ const TURNSTILE_NAME_DESCRIPTOR = msg({
 const API_KEY_LABEL_DESCRIPTOR = msg({message: 'API key', comment: 'Label for an integration API key input.'});
 const SITE_KEY_LABEL_DESCRIPTOR = msg({message: 'Site key', comment: 'Label for a CAPTCHA site key input.'});
 const SECRET_KEY_LABEL_DESCRIPTOR = msg({message: 'Secret key', comment: 'Label for a CAPTCHA secret key input.'});
+const HMAC_SECRET_LABEL_DESCRIPTOR = msg({
+	message: 'HMAC secret',
+	comment: 'Label for an ALTCHA HMAC secret input.',
+});
 const ENABLE_EMAIL_LABEL_DESCRIPTOR = msg({
 	message: 'Enable email delivery',
 	comment: 'Label for enabling SMTP email delivery in setup.',
@@ -1208,6 +1221,7 @@ export const IntegrationStep = observer(
 			[kind, onDraftChange],
 		);
 		const captchaOptions: ReadonlyArray<RadioOption<CaptchaProvider>> = [
+			{value: 'altcha', name: i18n._(ALTCHA_NAME_DESCRIPTOR), desc: i18n._(ALTCHA_SETUP_BODY_DESCRIPTOR)},
 			{value: 'hcaptcha', name: i18n._(HCAPTCHA_NAME_DESCRIPTOR), desc: i18n._(CAPTCHA_SETUP_BODY_DESCRIPTOR)},
 			{value: 'turnstile', name: i18n._(TURNSTILE_NAME_DESCRIPTOR), desc: i18n._(CAPTCHA_SETUP_BODY_DESCRIPTOR)},
 		];
@@ -1249,31 +1263,43 @@ export const IntegrationStep = observer(
 									disabled={disabled}
 									aria-label={i18n._(PROVIDER_LABEL_DESCRIPTOR)}
 								/>
-								<Input
-									label={i18n._(SITE_KEY_LABEL_DESCRIPTOR)}
-									value={draft.captchaProvider === 'hcaptcha' ? draft.hcaptchaSiteKey : draft.turnstileSiteKey}
-									onChange={(event) =>
-										onDraftChange(
-											draft.captchaProvider === 'hcaptcha'
-												? {hcaptchaSiteKey: event.target.value}
-												: {turnstileSiteKey: event.target.value},
-										)
-									}
-									disabled={disabled}
-								/>
-								<Input
-									label={i18n._(SECRET_KEY_LABEL_DESCRIPTOR)}
-									type="password"
-									value={draft.captchaProvider === 'hcaptcha' ? draft.hcaptchaSecretKey : draft.turnstileSecretKey}
-									onChange={(event) =>
-										onDraftChange(
-											draft.captchaProvider === 'hcaptcha'
-												? {hcaptchaSecretKey: event.target.value}
-												: {turnstileSecretKey: event.target.value},
-										)
-									}
-									disabled={disabled}
-								/>
+								{draft.captchaProvider === 'altcha' ? (
+									<Input
+										label={i18n._(HMAC_SECRET_LABEL_DESCRIPTOR)}
+										type="password"
+										value={draft.altchaHmacSecret}
+										onChange={(event) => onDraftChange({altchaHmacSecret: event.target.value})}
+										disabled={disabled}
+									/>
+								) : (
+									<>
+										<Input
+											label={i18n._(SITE_KEY_LABEL_DESCRIPTOR)}
+											value={draft.captchaProvider === 'hcaptcha' ? draft.hcaptchaSiteKey : draft.turnstileSiteKey}
+											onChange={(event) =>
+												onDraftChange(
+													draft.captchaProvider === 'hcaptcha'
+														? {hcaptchaSiteKey: event.target.value}
+														: {turnstileSiteKey: event.target.value},
+												)
+											}
+											disabled={disabled}
+										/>
+										<Input
+											label={i18n._(SECRET_KEY_LABEL_DESCRIPTOR)}
+											type="password"
+											value={draft.captchaProvider === 'hcaptcha' ? draft.hcaptchaSecretKey : draft.turnstileSecretKey}
+											onChange={(event) =>
+												onDraftChange(
+													draft.captchaProvider === 'hcaptcha'
+														? {hcaptchaSecretKey: event.target.value}
+														: {turnstileSecretKey: event.target.value},
+												)
+											}
+											disabled={disabled}
+										/>
+									</>
+								)}
 							</>
 						)}
 						{kind === 'email' && (

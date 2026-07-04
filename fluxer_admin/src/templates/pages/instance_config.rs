@@ -449,10 +449,12 @@ fn integrations_config_section(
                             h3 class="text-sm font-semibold text-neutral-900" { "Bot protection" }
                             (secret_badge("hCaptcha secret", integrations.captcha.hcaptcha_secret_key_set))
                             (secret_badge("Turnstile secret", integrations.captcha.turnstile_secret_key_set))
+                            (secret_badge("ALTCHA secret", integrations.captcha.altcha_hmac_secret_set))
                         }
                         div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" {
                             (select_input("integration_captcha_provider", "Provider", &[
                                 ("none", "Disabled"),
+                                ("altcha", "ALTCHA (recommended)"),
                                 ("hcaptcha", "hCaptcha"),
                                 ("turnstile", "Cloudflare Turnstile"),
                             ], captcha_provider))
@@ -470,6 +472,13 @@ fn integrations_config_section(
                                 "",
                             ))
                             (password_input("integration_turnstile_secret_key", "Turnstile secret key", Some("Leave blank to keep the current secret.")))
+                            (password_input("integration_altcha_hmac_secret", "ALTCHA HMAC secret", Some("Leave blank to keep the current secret.")))
+                            @if let Some(challenge_url) = integrations.captcha.altcha_challenge_url.as_deref() {
+                                p class="text-sm text-neutral-600" {
+                                    strong { "ALTCHA challenge URL: " }
+                                    (challenge_url)
+                                }
+                            }
                         }
                     }
 

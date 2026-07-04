@@ -523,6 +523,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 25.3.0
+      altcha-lib:
+        specifier: 2.2.0
+        version: 2.2.0(express@4.22.1)(hono@4.12.2)
       archiver:
         specifier: 'catalog:'
         version: 7.0.1
@@ -633,6 +636,9 @@ importers:
       '@fluxer/logger':
         specifier: workspace:*
         version: link:../../../packages/logger
+      altcha-lib:
+        specifier: 2.2.0
+        version: 2.2.0(express@4.22.1)(hono@4.12.2)
       itty-time:
         specifier: 'catalog:'
         version: 2.0.2
@@ -1348,6 +1354,9 @@ importers:
       '@tanstack/react-virtual':
         specifier: ^3.13.23
         version: 3.13.23(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      altcha:
+        specifier: 3.1.0
+        version: 3.1.0
       bowser:
         specifier: 'catalog:'
         version: 2.14.1
@@ -7184,6 +7193,54 @@ packages:
   ajv@8.18.0:
     resolution: {integrity: sha512-PlXPeEWMXMZ7sPYOHqmDyCJzcfNrUr3fGNKtezX14ykXOEIvyK81d+qydx89KY5O71FKMPaQ2vBfBFI5NHR63A==}
 
+  altcha-lib@2.2.0:
+    resolution: {integrity: sha512-O4+q6+JECTRgse9NVDsAJ8PwWhYpb+iAlT3wVcZ/BMGv2wkumAGWK3GE5FGbgzI7K5CJLDoNBKuQBUQui+62Ig==}
+    hasBin: true
+    peerDependencies:
+      '@fastify/cookie': ^11.0.0
+      '@fastify/cors': ^11.0.0
+      '@fastify/formbody': ^8.0.0
+      '@nestjs/common': ^10.0.0 || ^11.0.0
+      '@nestjs/core': ^10.0.0 || ^11.0.0
+      '@nestjs/platform-express': ^10.0.0 || ^11.0.0
+      '@sveltejs/kit': ^2.0.0
+      cookie-parser: ^1.0.0
+      cors: ^2.0.0
+      express: ^4.0.0 || ^5.0.0
+      fastify: ^5.0.0
+      h3: ^2.0.0
+      hono: ^4.0.0
+    peerDependenciesMeta:
+      '@fastify/cookie':
+        optional: true
+      '@fastify/cors':
+        optional: true
+      '@fastify/formbody':
+        optional: true
+      '@nestjs/common':
+        optional: true
+      '@nestjs/core':
+        optional: true
+      '@nestjs/platform-express':
+        optional: true
+      '@sveltejs/kit':
+        optional: true
+      cookie-parser:
+        optional: true
+      cors:
+        optional: true
+      express:
+        optional: true
+      fastify:
+        optional: true
+      h3:
+        optional: true
+      hono:
+        optional: true
+
+  altcha@3.1.0:
+    resolution: {integrity: sha512-rzz+F1xGG55X1LWylHZyabf9V4+5qAZeqd0+mo+8HdFsCqPC4YfUyjQ7lcbW/GVXy1XSnKsPMFkBuhmTymZuWw==}
+
   ansi-html-community@0.0.8:
     resolution: {integrity: sha512-1APHAyr3+PCamwNw3bXCPp4HFLONZt/yIH0sZp0/469KWNTEy+qN5jQ3GVX6DMZ1UXAi34yVwtTeaG/HpBuuzw==}
     engines: {'0': node >= 0.8.0}
@@ -8436,6 +8493,9 @@ packages:
   has-tostringtag@1.0.2:
     resolution: {integrity: sha512-NqADB8VjPFLM2V0VvHUewwwsw0ZWBaIdgo+ieHtK3hasLz4qeCRjYcqfB6AQrBggRKppKF8L52/VqdVsO47Dlw==}
     engines: {node: '>= 0.4'}
+
+  hash-wasm@4.12.0:
+    resolution: {integrity: sha512-+/2B2rYLb48I/evdOIhP+K/DD2ca2fgBjp6O+GBEnCDk2e4rpeXIK8GvIyRPjTezgmWn9gmKwkQjjx6BtqDHVQ==}
 
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
@@ -16916,6 +16976,15 @@ snapshots:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
 
+  altcha-lib@2.2.0(express@4.22.1)(hono@4.12.2):
+    optionalDependencies:
+      express: 4.22.1
+      hono: 4.12.2
+
+  altcha@3.1.0:
+    dependencies:
+      hash-wasm: 4.12.0
+
   ansi-html-community@0.0.8: {}
 
   ansi-regex@5.0.1: {}
@@ -18389,6 +18458,8 @@ snapshots:
   has-tostringtag@1.0.2:
     dependencies:
       has-symbols: 1.1.0
+
+  hash-wasm@4.12.0: {}
 
   hasown@2.0.2:
     dependencies:

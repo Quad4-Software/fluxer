@@ -614,6 +614,7 @@ fn build_integrations_update(form: &MultiValueForm) -> InstanceConfigUpdateReque
                 hcaptcha_secret_key: clean("integration_hcaptcha_secret_key"),
                 turnstile_site_key: clean("integration_turnstile_site_key"),
                 turnstile_secret_key: clean("integration_turnstile_secret_key"),
+                altcha_hmac_secret: clean("integration_altcha_hmac_secret"),
             }),
             email: Some(InstanceEmailIntegrationUpdateRequest {
                 enabled: Some(form.bool_value("integration_email_enabled")),

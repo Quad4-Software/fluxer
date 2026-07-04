@@ -45,6 +45,7 @@ cd deploy/self-hosting
 | Instance integrations config | Email and other integration settings saved in the admin panel are stored in `fluxer_kv` and previously overrode `.env` permanently | On self-hosted instances, non-empty environment variables take precedence over stored KV values; integration secrets are not written to KV |
 | SeaweedFS init race | `seaweedfs-init` could start before master/filer gRPC was ready | Wait for a SeaweedFS healthcheck, add an initial delay, and retry bucket creation with backoff |
 | Media proxy readiness | `media-proxy` had health checks disabled, so Caddy could route traffic before the service was listening | Enable an HTTP `/_health` check and gate Caddy on `media-proxy` being healthy |
+| Bot protection | Self-hosted stacks had no captcha by default | ALTCHA proof-of-work captcha is enabled by default (`FLUXER_CAPTCHA_PROVIDER=altcha`); `setup.sh` generates `FLUXER_CAPTCHA_ALTCHA_HMAC_SECRET` |
 | SMTP credentials in KV | SMTP passwords were stored in plaintext inside `instance_integrations_config` | Self-hosted deployments keep integration secrets in environment variables only |
 
 ### Operator notes

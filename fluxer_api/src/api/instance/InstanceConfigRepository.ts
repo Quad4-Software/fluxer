@@ -99,7 +99,7 @@ interface InstanceServicesPublicConfig {
 	bluesky_enabled: boolean;
 }
 
-export type InstanceCaptchaProvider = 'hcaptcha' | 'turnstile' | 'none';
+export type InstanceCaptchaProvider = 'hcaptcha' | 'turnstile' | 'altcha' | 'none';
 type InstanceEmailProvider = 'smtp' | 'none';
 
 interface InstanceGifIntegrationConfig {
@@ -116,6 +116,7 @@ interface InstanceCaptchaIntegrationConfig {
 	hcaptcha_secret_key: string | null;
 	turnstile_site_key: string | null;
 	turnstile_secret_key: string | null;
+	altcha_hmac_secret: string | null;
 }
 
 interface InstanceEmailSmtpIntegrationConfig {
@@ -171,6 +172,8 @@ export interface InstanceCaptchaEffectiveConfig {
 	hcaptcha_secret_key: string | null;
 	turnstile_site_key: string | null;
 	turnstile_secret_key: string | null;
+	altcha_hmac_secret_key: string | null;
+	altcha_challenge_url: string | null;
 }
 
 interface InstanceIntegrationsAdminConfig {
@@ -189,6 +192,8 @@ interface InstanceIntegrationsAdminConfig {
 		hcaptcha_secret_key_set: boolean;
 		turnstile_site_key: string | null;
 		turnstile_secret_key_set: boolean;
+		altcha_hmac_secret_set: boolean;
+		altcha_challenge_url: string | null;
 		effective_enabled: boolean;
 	};
 	email: {
@@ -444,6 +449,7 @@ const DEFAULT_INSTANCE_INTEGRATIONS_CONFIG: InstanceIntegrationsConfig = {
 		hcaptcha_secret_key: null,
 		turnstile_site_key: null,
 		turnstile_secret_key: null,
+		altcha_hmac_secret: null,
 	},
 	email: {
 		enabled: null,
@@ -487,7 +493,7 @@ const DEFAULT_INSTANCE_MEDIA_CONFIG: InstanceMediaConfig = {
 };
 
 function isCaptchaProvider(value: unknown): value is InstanceCaptchaProvider {
-	return value === 'hcaptcha' || value === 'turnstile' || value === 'none';
+	return value === 'hcaptcha' || value === 'turnstile' || value === 'altcha' || value === 'none';
 }
 
 function isEmailProvider(value: unknown): value is InstanceEmailProvider {
@@ -551,6 +557,7 @@ function stripSelfHostedIntegrationSecrets(config: InstanceIntegrationsConfig): 
 			...config.captcha,
 			hcaptcha_secret_key: null,
 			turnstile_secret_key: null,
+			altcha_hmac_secret: null,
 		},
 		email: {
 			...config.email,
@@ -629,6 +636,7 @@ function normalizeInstanceIntegrationsConfig(value: unknown): InstanceIntegratio
 			hcaptcha_secret_key: normalizeSecretString(captcha.hcaptcha_secret_key),
 			turnstile_site_key: normalizeSecretString(captcha.turnstile_site_key),
 			turnstile_secret_key: normalizeSecretString(captcha.turnstile_secret_key),
+			altcha_hmac_secret: normalizeSecretString(captcha.altcha_hmac_secret),
 		},
 		email: {
 			enabled: normalizeNullableBoolean(email.enabled),
@@ -1310,19 +1318,31 @@ export class InstanceConfigRepository {
 		const turnstileSecretKey = Config.instance.selfHosted
 			? normalizeSecretString(Config.captcha.turnstile?.secretKey)
 			: (integrations.captcha.turnstile_secret_key ?? normalizeSecretString(Config.captcha.turnstile?.secretKey));
+		const altchaHmacSecretKey = Config.instance.selfHosted
+			? normalizeSecretString(Config.captcha.altcha?.hmacSecret)
+			: (integrations.captcha.altcha_hmac_secret ?? normalizeSecretString(Config.captcha.altcha?.hmacSecret));
 		const providerReady =
 			provider === 'hcaptcha'
 				? Boolean(hcaptchaSiteKey && hcaptchaSecretKey)
 				: provider === 'turnstile'
 					? Boolean(turnstileSiteKey && turnstileSecretKey)
-					: false;
+					: provider === 'altcha'
+						? Boolean(altchaHmacSecretKey)
+						: false;
+		const enabled = provider !== 'none' && providerReady;
+		const altchaChallengeUrl =
+			enabled && provider === 'altcha'
+				? `${Config.endpoints.apiPublic.replace(/\/+$/u, '')}/altcha/challenge`
+				: null;
 		return {
-			enabled: provider !== 'none' && providerReady,
+			enabled,
 			provider,
 			hcaptcha_site_key: hcaptchaSiteKey,
 			hcaptcha_secret_key: hcaptchaSecretKey,
 			turnstile_site_key: turnstileSiteKey,
 			turnstile_secret_key: turnstileSecretKey,
+			altcha_hmac_secret_key: altchaHmacSecretKey,
+			altcha_challenge_url: altchaChallengeUrl,
 		};
 	}
 
@@ -1410,6 +1430,9 @@ export class InstanceConfigRepository {
 				turnstile_site_key: captcha.turnstile_site_key,
 				turnstile_secret_key_set:
 					secretIsSet(integrations.captcha.turnstile_secret_key) || secretIsSet(Config.captcha.turnstile?.secretKey),
+				altcha_hmac_secret_set:
+					secretIsSet(integrations.captcha.altcha_hmac_secret) || secretIsSet(Config.captcha.altcha?.hmacSecret),
+				altcha_challenge_url: captcha.altcha_challenge_url,
 				effective_enabled: captcha.enabled,
 			},
 			email: {

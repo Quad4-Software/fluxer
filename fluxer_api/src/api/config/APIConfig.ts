@@ -179,7 +179,7 @@ export interface APIConfig {
 	};
 	captcha: {
 		enabled: boolean;
-		provider: 'hcaptcha' | 'turnstile' | 'none';
+		provider: 'hcaptcha' | 'turnstile' | 'altcha' | 'none';
 		hcaptcha?: {
 			siteKey: string;
 			secretKey: string;
@@ -187,6 +187,9 @@ export interface APIConfig {
 		turnstile?: {
 			siteKey: string;
 			secretKey: string;
+		};
+		altcha?: {
+			hmacSecret: string;
 		};
 	};
 	contentModeration: {

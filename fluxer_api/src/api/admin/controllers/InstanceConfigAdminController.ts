@@ -305,6 +305,7 @@ export function InstanceConfigAdminController(app: HonoApp) {
 								hcaptcha_secret_key: readOptionalField(data.integrations.captcha, 'hcaptcha_secret_key'),
 								turnstile_site_key: readOptionalField(data.integrations.captcha, 'turnstile_site_key'),
 								turnstile_secret_key: readOptionalField(data.integrations.captcha, 'turnstile_secret_key'),
+								altcha_hmac_secret: readOptionalField(data.integrations.captcha, 'altcha_hmac_secret'),
 							})
 						: undefined,
 					email: data.integrations.email

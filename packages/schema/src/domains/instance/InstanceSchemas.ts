@@ -73,9 +73,10 @@ export const WellKnownFluxerResponse = z.object({
 		.describe('Endpoint URLs for various services'),
 	captcha: z
 		.object({
-			provider: z.string().describe('Captcha provider name (hcaptcha, turnstile, none)'),
+			provider: z.string().describe('Captcha provider name (hcaptcha, turnstile, altcha, none)'),
 			hcaptcha_site_key: z.string().nullable().describe('hCaptcha site key if using hCaptcha'),
 			turnstile_site_key: z.string().nullable().describe('Cloudflare Turnstile site key if using Turnstile'),
+			altcha_challenge_url: z.string().nullable().describe('ALTCHA challenge URL if using ALTCHA'),
 		})
 		.describe('Captcha configuration'),
 	features: z

@@ -2,6 +2,7 @@
 
 import * as Modal from '@app/features/app/components/dialogs/Modal';
 import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
+import {AltchaWidget} from '@app/features/auth/components/AltchaWidget';
 import styles from '@app/features/auth/components/modals/CaptchaModal.module.css';
 import {TurnstileWidget} from '@app/features/auth/components/TurnstileWidget';
 import {Logger} from '@app/features/platform/utils/AppLogger';
@@ -18,7 +19,7 @@ const VERIFY_YOU_RE_HUMAN_DESCRIPTOR = msg({
 });
 const logger = new Logger('CaptchaModal');
 
-export type CaptchaType = 'turnstile' | 'hcaptcha';
+export type CaptchaType = 'turnstile' | 'hcaptcha' | 'altcha';
 
 interface HCaptchaComponentProps {
 	sitekey: string;
@@ -30,6 +31,28 @@ interface HCaptchaComponentProps {
 }
 
 const HCaptchaComponent = HCaptcha as React.ComponentType<HCaptchaComponentProps>;
+
+function resolveInitialCaptchaType(preferredType?: CaptchaType): CaptchaType {
+	if (preferredType) {
+		return preferredType;
+	}
+	if (RuntimeConfig.captchaProvider === 'altcha' && RuntimeConfig.altchaChallengeUrl) {
+		return 'altcha';
+	}
+	if (RuntimeConfig.captchaProvider === 'turnstile' && RuntimeConfig.turnstileSiteKey) {
+		return 'turnstile';
+	}
+	if (RuntimeConfig.captchaProvider === 'hcaptcha' && RuntimeConfig.hcaptchaSiteKey) {
+		return 'hcaptcha';
+	}
+	if (RuntimeConfig.altchaChallengeUrl) {
+		return 'altcha';
+	}
+	if (RuntimeConfig.turnstileSiteKey) {
+		return 'turnstile';
+	}
+	return 'hcaptcha';
+}
 
 interface CaptchaModalProps {
 	onVerify: (token: string, captchaType: CaptchaType) => void;
@@ -44,16 +67,7 @@ export const CaptchaModal = observer(
 	({onVerify, onCancel, preferredType, error, isVerifying, closeOnVerify = true}: CaptchaModalProps) => {
 		const {i18n} = useLingui();
 		const hcaptchaRef = useRef<HCaptcha>(null);
-		const [captchaType, setCaptchaType] = useState<CaptchaType>(() => {
-			if (preferredType) return preferredType;
-			if (RuntimeConfig.captchaProvider === 'turnstile' && RuntimeConfig.turnstileSiteKey) {
-				return 'turnstile';
-			}
-			if (RuntimeConfig.captchaProvider === 'hcaptcha' && RuntimeConfig.hcaptchaSiteKey) {
-				return 'hcaptcha';
-			}
-			return RuntimeConfig.turnstileSiteKey ? 'turnstile' : 'hcaptcha';
-		});
+		const [captchaType, setCaptchaType] = useState<CaptchaType>(() => resolveInitialCaptchaType(preferredType));
 		useEffect(() => {
 			if (captchaType === 'hcaptcha') {
 				const timer = setTimeout(() => {
@@ -101,8 +115,9 @@ export const CaptchaModal = observer(
 			setCaptchaType('turnstile');
 		}, []);
 		const showSwitchButton =
-			(captchaType === 'turnstile' && RuntimeConfig.hcaptchaSiteKey) ||
-			(captchaType === 'hcaptcha' && RuntimeConfig.turnstileSiteKey);
+			captchaType !== 'altcha' &&
+			((captchaType === 'turnstile' && RuntimeConfig.hcaptchaSiteKey) ||
+				(captchaType === 'hcaptcha' && RuntimeConfig.turnstileSiteKey));
 		return (
 			<Modal.Root size="small" centered onClose={handleCancel} data-flx="auth.captcha-modal.modal-root">
 				<Modal.Header
@@ -123,7 +138,15 @@ export const CaptchaModal = observer(
 							</div>
 						)}
 						<div className={styles.captchaContainer} data-flx="auth.captcha-modal.captcha-container">
-							{captchaType === 'turnstile' ? (
+							{captchaType === 'altcha' ? (
+								<AltchaWidget
+									challengeUrl={RuntimeConfig.altchaChallengeUrl ?? ''}
+									onVerify={handleVerify}
+									onExpire={handleExpire}
+									onError={handleError}
+									data-flx="auth.captcha-modal.altcha-widget"
+								/>
+							) : captchaType === 'turnstile' ? (
 								<TurnstileWidget
 									sitekey={RuntimeConfig.turnstileSiteKey ?? ''}
 									onVerify={handleVerify}

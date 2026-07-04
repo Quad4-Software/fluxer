@@ -11,6 +11,7 @@
 	},
 	"dependencies": {
 		"@atproto/api": "catalog:",
+		"altcha-lib": "2.2.0",
 		"@aws-sdk/client-s3": "catalog:",
 		"@aws-sdk/lib-storage": "catalog:",
 		"@aws-sdk/s3-request-presigner": "catalog:",

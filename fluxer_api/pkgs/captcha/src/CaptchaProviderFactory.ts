@@ -2,6 +2,8 @@
 
 import type {LoggerInterface} from '@fluxer/logger/src/LoggerInterface';
 import type {ICaptchaProvider} from '@pkgs/captcha/src/ICaptchaProvider';
+import {AltchaProvider} from '@pkgs/captcha/src/providers/AltchaProvider';
+import type {Store} from 'altcha-lib/frameworks/types';
 import {HcaptchaProvider} from '@pkgs/captcha/src/providers/HcaptchaProvider';
 import type {HttpCaptchaProviderOptions} from '@pkgs/captcha/src/providers/HttpCaptchaProvider';
 import type {RecaptchaProviderOptions} from '@pkgs/captcha/src/providers/RecaptchaProvider';
@@ -47,12 +49,19 @@ interface CreateRecaptchaProviderParams extends BaseCaptchaProviderFactoryParams
 	fetchFn?: typeof fetch;
 }
 
+interface CreateAltchaProviderParams extends BaseCaptchaProviderFactoryParams {
+	mode: 'altcha';
+	hmacSecret: string;
+	store?: Store;
+}
+
 type CreateCaptchaProviderParams =
 	| CreateUnavailableCaptchaProviderParams
 	| CreateTestCaptchaProviderParams
 	| CreateHcaptchaProviderParams
 	| CreateTurnstileProviderParams
-	| CreateRecaptchaProviderParams;
+	| CreateRecaptchaProviderParams
+	| CreateAltchaProviderParams;
 
 function buildHttpOptions(
 	params: CreateHcaptchaProviderParams | CreateTurnstileProviderParams | CreateRecaptchaProviderParams,
@@ -82,6 +91,12 @@ export function createCaptchaProvider(params: CreateCaptchaProviderParams): ICap
 			minimumScore: params.minimumScore,
 		};
 		return new RecaptchaProvider(options);
+	}
+	if (params.mode === 'altcha') {
+		return new AltchaProvider({
+			hmacSecret: params.hmacSecret,
+			store: params.store,
+		});
 	}
 	return new UnavailableCaptchaProvider();
 }

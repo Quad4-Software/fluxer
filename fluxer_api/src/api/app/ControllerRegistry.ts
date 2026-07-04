@@ -16,6 +16,7 @@ import {GatewayController} from '../gateway/GatewayController';
 import {GeolocationController} from '../geolocation/GeolocationController';
 import {GifController} from '../gif/GifController';
 import {GuildController} from '../guild/GuildController';
+import {AltchaController} from '../altcha/AltchaController';
 import {InstanceController} from '../instance/InstanceController';
 import {InviteController} from '../invite/InviteController';
 import {Logger} from '../Logger';
@@ -50,6 +51,7 @@ export function registerControllers(routes: HonoApp, config: APIConfig): void {
 	ConnectionController(routes);
 	BlueskyOAuthController(routes);
 	InstanceController(routes);
+	AltchaController(routes);
 	OpenAPIController(routes);
 	DownloadController(routes);
 	FavoriteGifController(routes);

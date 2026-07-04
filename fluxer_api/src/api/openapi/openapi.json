@@ -24768,7 +24768,7 @@
 					"captcha": {
 						"type": "object",
 						"properties": {
-							"provider": {"type": "string", "description": "Captcha provider name (hcaptcha, turnstile, none)"},
+							"provider": {"type": "string", "description": "Captcha provider name (hcaptcha, turnstile, altcha, none)"},
 							"hcaptcha_site_key": {
 								"anyOf": [{"type": "string"}, {"type": "null"}],
 								"description": "hCaptcha site key if using hCaptcha"
@@ -24776,9 +24776,13 @@
 							"turnstile_site_key": {
 								"anyOf": [{"type": "string"}, {"type": "null"}],
 								"description": "Cloudflare Turnstile site key if using Turnstile"
+							},
+							"altcha_challenge_url": {
+								"anyOf": [{"type": "string"}, {"type": "null"}],
+								"description": "ALTCHA challenge URL if using ALTCHA"
 							}
 						},
-						"required": ["provider", "hcaptcha_site_key", "turnstile_site_key"],
+						"required": ["provider", "hcaptcha_site_key", "turnstile_site_key", "altcha_challenge_url"],
 						"description": "Captcha configuration"
 					},
 					"features": {

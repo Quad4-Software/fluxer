@@ -208,7 +208,7 @@ export interface MasterConfig {
 		};
 		captcha: {
 			enabled: boolean;
-			provider: 'hcaptcha' | 'turnstile' | 'none';
+			provider: 'hcaptcha' | 'turnstile' | 'altcha' | 'none';
 			hcaptcha?: {
 				site_key: string;
 				secret_key: string;
@@ -216,6 +216,9 @@ export interface MasterConfig {
 			turnstile?: {
 				site_key: string;
 				secret_key: string;
+			};
+			altcha?: {
+				hmac_secret: string;
 			};
 		};
 		voice: {

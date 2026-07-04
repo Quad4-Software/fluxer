@@ -2,6 +2,7 @@
 
 import {CaptchaRequiredError, InvalidCaptchaError} from '@fluxer/errors/src/CaptchaErrors';
 import {extractClientIp} from '@fluxer/ip_utils/src/ClientIp';
+import {getAltchaChallengeStore} from '@pkgs/captcha/src/AltchaChallengeStore';
 import {createCaptchaProvider} from '@pkgs/captcha/src/CaptchaProviderFactory';
 import type {ICaptchaProvider} from '@pkgs/captcha/src/ICaptchaProvider';
 import type {Context} from 'hono';
@@ -22,6 +23,9 @@ function resolveProviderSecret(
 	if (provider === 'turnstile') {
 		return config.turnstile_secret_key;
 	}
+	if (provider === 'altcha') {
+		return config.altcha_hmac_secret_key;
+	}
 	return null;
 }
 
@@ -33,9 +37,9 @@ function resolveCaptchaProvider(
 		return createCaptchaProvider({mode: 'test'});
 	}
 	const requestedProvider =
-		requestedType === 'hcaptcha' || requestedType === 'turnstile'
+		requestedType === 'hcaptcha' || requestedType === 'turnstile' || requestedType === 'altcha'
 			? requestedType
-			: config.provider === 'hcaptcha' || config.provider === 'turnstile'
+			: config.provider === 'hcaptcha' || config.provider === 'turnstile' || config.provider === 'altcha'
 				? config.provider
 				: null;
 	if (!requestedProvider) {
@@ -44,6 +48,13 @@ function resolveCaptchaProvider(
 	const secretKey = resolveProviderSecret(config, requestedProvider);
 	if (!secretKey) {
 		throw new Error(`Captcha provider ${requestedProvider} is enabled but has no configured secret key`);
+	}
+	if (requestedProvider === 'altcha') {
+		return createCaptchaProvider({
+			mode: 'altcha',
+			hmacSecret: secretKey,
+			store: getAltchaChallengeStore(),
+		});
 	}
 	return createCaptchaProvider({mode: requestedProvider, secretKey});
 }

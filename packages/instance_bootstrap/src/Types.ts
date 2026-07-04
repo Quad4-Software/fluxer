@@ -17,9 +17,10 @@ export interface InstanceEndpoints {
 }
 
 export interface InstanceCaptcha {
-	provider: 'hcaptcha' | 'turnstile' | 'none';
+	provider: 'hcaptcha' | 'turnstile' | 'altcha' | 'none';
 	hcaptcha_site_key: string | null;
 	turnstile_site_key: string | null;
+	altcha_challenge_url: string | null;
 }
 
 export interface InstanceFeatures {

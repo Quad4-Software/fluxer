@@ -125,6 +125,9 @@ pub struct InstanceCaptchaIntegrationResponse {
     #[serde(default)]
     pub turnstile_secret_key_set: bool,
     #[serde(default)]
+    pub altcha_hmac_secret_set: bool,
+    pub altcha_challenge_url: Option<String>,
+    #[serde(default)]
     pub effective_enabled: bool,
 }
 
@@ -569,6 +572,8 @@ pub struct InstanceCaptchaIntegrationUpdateRequest {
     pub turnstile_site_key: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub turnstile_secret_key: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub altcha_hmac_secret: Option<String>,
 }
 
 #[derive(Clone, Debug, Default, Serialize)]

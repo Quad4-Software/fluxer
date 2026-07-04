@@ -149,11 +149,12 @@ const DEFAULT_INTEGRATION_DRAFT: ServiceIntegrationDraft = {
 	youtubeMode: 'later',
 	youtubeApiKey: '',
 	captchaMode: 'later',
-	captchaProvider: 'hcaptcha',
+	captchaProvider: 'altcha',
 	hcaptchaSiteKey: '',
 	hcaptchaSecretKey: '',
 	turnstileSiteKey: '',
 	turnstileSecretKey: '',
+	altchaHmacSecret: '',
 	emailMode: 'later',
 	emailEnabled: true,
 	emailFromEmail: '',
@@ -272,6 +273,9 @@ function isIntegrationStepValid(kind: IntegrationStepKind, draft: ServiceIntegra
 			return draft.youtubeMode === 'later' || draft.youtubeApiKey.trim().length > 0;
 		case 'captcha':
 			if (draft.captchaMode === 'later') return true;
+			if (draft.captchaProvider === 'altcha') {
+				return draft.altchaHmacSecret.trim().length > 0;
+			}
 			return draft.captchaProvider === 'hcaptcha'
 				? draft.hcaptchaSiteKey.trim().length > 0 && draft.hcaptchaSecretKey.trim().length > 0
 				: draft.turnstileSiteKey.trim().length > 0 && draft.turnstileSecretKey.trim().length > 0;
@@ -306,11 +310,12 @@ function buildIntegrationsPatch(draft: ServiceIntegrationDraft) {
 			api_key: string;
 		};
 		captcha?: {
-			provider: 'hcaptcha' | 'turnstile';
+			provider: 'altcha' | 'hcaptcha' | 'turnstile';
 			hcaptcha_site_key?: string;
 			hcaptcha_secret_key?: string;
 			turnstile_site_key?: string;
 			turnstile_secret_key?: string;
+			altcha_hmac_secret?: string;
 		};
 		email?: {
 			enabled: boolean;
@@ -342,18 +347,25 @@ function buildIntegrationsPatch(draft: ServiceIntegrationDraft) {
 		integrations.youtube = {api_key: draft.youtubeApiKey.trim()};
 	}
 	if (draft.captchaMode === 'configure') {
-		integrations.captcha =
-			draft.captchaProvider === 'hcaptcha'
-				? {
-						provider: 'hcaptcha',
-						hcaptcha_site_key: draft.hcaptchaSiteKey.trim(),
-						hcaptcha_secret_key: draft.hcaptchaSecretKey.trim(),
-					}
-				: {
-						provider: 'turnstile',
-						turnstile_site_key: draft.turnstileSiteKey.trim(),
-						turnstile_secret_key: draft.turnstileSecretKey.trim(),
-					};
+		if (draft.captchaProvider === 'altcha') {
+			integrations.captcha = {
+				provider: 'altcha',
+				altcha_hmac_secret: draft.altchaHmacSecret.trim(),
+			};
+		} else {
+			integrations.captcha =
+				draft.captchaProvider === 'hcaptcha'
+					? {
+							provider: 'hcaptcha',
+							hcaptcha_site_key: draft.hcaptchaSiteKey.trim(),
+							hcaptcha_secret_key: draft.hcaptchaSecretKey.trim(),
+						}
+					: {
+							provider: 'turnstile',
+							turnstile_site_key: draft.turnstileSiteKey.trim(),
+							turnstile_secret_key: draft.turnstileSecretKey.trim(),
+						};
+		}
 	}
 	if (draft.emailMode === 'configure') {
 		integrations.email = {
@@ -569,7 +581,12 @@ export const SelfHostedSetupWizardGate = observer(() => {
 		});
 		setIntegrationDraft((current) => ({
 			...current,
-			captchaProvider: next.integrations.captcha.effective_provider === 'turnstile' ? 'turnstile' : 'hcaptcha',
+			captchaProvider:
+				next.integrations.captcha.effective_provider === 'turnstile'
+					? 'turnstile'
+					: next.integrations.captcha.effective_provider === 'hcaptcha'
+						? 'hcaptcha'
+						: 'altcha',
 			emailEnabled: next.integrations.email.effective_enabled || next.integrations.email.enabled !== false,
 			emailFromEmail: next.integrations.email.from_email ?? current.emailFromEmail,
 			emailFromName: next.integrations.email.from_name ?? current.emailFromName,

@@ -11,6 +11,7 @@
 	},
 	"dependencies": {
 		"@fluxer/logger": "workspace:*",
+		"altcha-lib": "2.2.0",
 		"itty-time": "catalog:"
 	},
 	"devDependencies": {

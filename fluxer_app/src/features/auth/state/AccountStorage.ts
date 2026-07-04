@@ -258,6 +258,7 @@ class AccountStorage {
 			captchaProvider: instance.captchaProvider,
 			hcaptchaSiteKey: instance.hcaptchaSiteKey,
 			turnstileSiteKey: instance.turnstileSiteKey,
+			altchaChallengeUrl: instance.altchaChallengeUrl,
 			apiCodeVersion: instance.apiCodeVersion,
 			features: {...instance.features},
 			sso: instance.sso,

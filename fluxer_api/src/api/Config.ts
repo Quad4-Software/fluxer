@@ -277,6 +277,11 @@ export function buildAPIConfigFromMaster(master: MasterConfig): APIConfig {
 						secretKey: master.integrations.captcha.turnstile.secret_key,
 					}
 				: undefined,
+			altcha: master.integrations.captcha.altcha
+				? {
+						hmacSecret: master.integrations.captcha.altcha.hmac_secret,
+					}
+				: undefined,
 		},
 		contentModeration: {
 			nsfwThreshold: master.services.api.content_moderation?.nsfw_threshold ?? 0.7,

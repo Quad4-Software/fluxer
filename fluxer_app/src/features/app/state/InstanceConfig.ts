@@ -212,6 +212,7 @@ class InstanceConfigs {
 				provider: RuntimeConfig.captchaProvider,
 				hcaptcha_site_key: RuntimeConfig.hcaptchaSiteKey,
 				turnstile_site_key: RuntimeConfig.turnstileSiteKey,
+				altcha_challenge_url: RuntimeConfig.altchaChallengeUrl,
 			},
 			features: RuntimeConfig.features,
 			gif: {

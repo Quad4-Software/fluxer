@@ -50,9 +50,10 @@ export interface RuntimeConfigSnapshot {
 	gifProvider: GifProvider;
 	gifProviderDisplayName: string;
 	gifAttributionRequired: boolean;
-	captchaProvider: 'hcaptcha' | 'turnstile' | 'none';
+	captchaProvider: 'hcaptcha' | 'turnstile' | 'altcha' | 'none';
 	hcaptchaSiteKey: string | null;
 	turnstileSiteKey: string | null;
+	altchaChallengeUrl: string | null;
 	apiCodeVersion: number;
 	features: InstanceFeatures;
 	sso: InstanceSsoConfig | null;
@@ -258,9 +259,10 @@ class RuntimeConfig {
 	gifProvider: GifProvider = DEFAULT_GIF_PROVIDER_INFO.name;
 	gifProviderDisplayName: string = DEFAULT_GIF_PROVIDER_INFO.displayName;
 	gifAttributionRequired: boolean = DEFAULT_GIF_PROVIDER_INFO.attributionRequired;
-	captchaProvider: 'hcaptcha' | 'turnstile' | 'none' = 'none';
+	captchaProvider: 'hcaptcha' | 'turnstile' | 'altcha' | 'none' = 'none';
 	hcaptchaSiteKey: string | null = null;
 	turnstileSiteKey: string | null = null;
+	altchaChallengeUrl: string | null = null;
 	apiCodeVersion: number = API_CODE_VERSION;
 	features: InstanceFeatures = {...DEFAULT_INSTANCE_FEATURES};
 	sso: InstanceSsoConfig | null = null;
@@ -311,6 +313,7 @@ class RuntimeConfig {
 		this.captchaProvider = snapshot.captchaProvider;
 		this.hcaptchaSiteKey = snapshot.hcaptchaSiteKey;
 		this.turnstileSiteKey = snapshot.turnstileSiteKey;
+		this.altchaChallengeUrl = snapshot.altchaChallengeUrl;
 		this.apiCodeVersion = snapshot.apiCodeVersion;
 		this.features = {
 			...DEFAULT_INSTANCE_FEATURES,
@@ -345,6 +348,7 @@ class RuntimeConfig {
 			captchaProvider: this.captchaProvider,
 			hcaptchaSiteKey: this.hcaptchaSiteKey,
 			turnstileSiteKey: this.turnstileSiteKey,
+			altchaChallengeUrl: this.altchaChallengeUrl,
 			apiCodeVersion: this.apiCodeVersion,
 			features: {...this.features},
 			sso: this.sso ? {...this.sso} : null,
@@ -502,6 +506,7 @@ class RuntimeConfig {
 			this.captchaProvider = instance.captcha.provider;
 			this.hcaptchaSiteKey = instance.captcha.hcaptcha_site_key;
 			this.turnstileSiteKey = instance.captcha.turnstile_site_key;
+			this.altchaChallengeUrl = instance.captcha.altcha_challenge_url;
 			this.apiCodeVersion = instance.api_code_version;
 			this.features = {
 				...DEFAULT_INSTANCE_FEATURES,

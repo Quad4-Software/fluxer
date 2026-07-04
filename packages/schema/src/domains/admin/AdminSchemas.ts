@@ -527,7 +527,7 @@ const InstancePolicyResponse = z.object({
 	}),
 });
 
-const CaptchaProviderSchema = z.enum(['hcaptcha', 'turnstile', 'none']);
+const CaptchaProviderSchema = z.enum(['hcaptcha', 'turnstile', 'altcha', 'none']);
 const EmailProviderSchema = z.enum(['smtp', 'none']);
 
 const AttachmentDecayEffectiveResponse = z.object({
@@ -573,6 +573,8 @@ const InstanceIntegrationsResponse = z.object({
 		hcaptcha_secret_key_set: z.boolean(),
 		turnstile_site_key: z.string().nullable(),
 		turnstile_secret_key_set: z.boolean(),
+		altcha_hmac_secret_set: z.boolean(),
+		altcha_challenge_url: z.string().nullable(),
 		effective_enabled: z.boolean(),
 	}),
 	email: z.object({
@@ -662,6 +664,7 @@ export const InstanceConfigUpdateRequest = z.object({
 					hcaptcha_secret_key: z.string().trim().max(4096).nullish(),
 					turnstile_site_key: z.string().trim().max(4096).nullish(),
 					turnstile_secret_key: z.string().trim().max(4096).nullish(),
+					altcha_hmac_secret: z.string().trim().max(4096).nullish(),
 				})
 				.nullish(),
 			email: z

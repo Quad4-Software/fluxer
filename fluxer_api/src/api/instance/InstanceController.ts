@@ -44,6 +44,7 @@ function buildDiscoveryStaticInput(
 			provider: runtime.captcha.provider,
 			hcaptcha_site_key: runtime.captcha.hcaptcha_site_key,
 			turnstile_site_key: runtime.captcha.turnstile_site_key,
+			altcha_challenge_url: runtime.captcha.altcha_challenge_url,
 		},
 		features: {
 			voice_enabled: Config.voice.enabled,

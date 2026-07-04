@@ -12605,12 +12605,14 @@
 							"captcha": {
 								"type": "object",
 								"properties": {
-									"provider": {"nullable": true, "enum": ["hcaptcha", "turnstile", "none"], "type": "string"},
-									"effective_provider": {"enum": ["hcaptcha", "turnstile", "none"], "type": "string"},
+									"provider": {"nullable": true, "enum": ["hcaptcha", "turnstile", "altcha", "none"], "type": "string"},
+									"effective_provider": {"enum": ["hcaptcha", "turnstile", "altcha", "none"], "type": "string"},
 									"hcaptcha_site_key": {"nullable": true, "type": "string"},
 									"hcaptcha_secret_key_set": {"type": "boolean"},
 									"turnstile_site_key": {"nullable": true, "type": "string"},
 									"turnstile_secret_key_set": {"type": "boolean"},
+									"altcha_hmac_secret_set": {"type": "boolean"},
+									"altcha_challenge_url": {"nullable": true, "type": "string"},
 									"effective_enabled": {"type": "boolean"}
 								},
 								"required": [
@@ -12620,6 +12622,8 @@
 									"hcaptcha_secret_key_set",
 									"turnstile_site_key",
 									"turnstile_secret_key_set",
+									"altcha_hmac_secret_set",
+									"altcha_challenge_url",
 									"effective_enabled"
 								]
 							},
@@ -12993,11 +12997,12 @@
 								"nullable": true,
 								"type": "object",
 								"properties": {
-									"provider": {"nullable": true, "enum": ["hcaptcha", "turnstile", "none"], "type": "string"},
+									"provider": {"nullable": true, "enum": ["hcaptcha", "turnstile", "altcha", "none"], "type": "string"},
 									"hcaptcha_site_key": {"nullable": true, "type": "string", "maxLength": 4096},
 									"hcaptcha_secret_key": {"nullable": true, "type": "string", "maxLength": 4096},
 									"turnstile_site_key": {"nullable": true, "type": "string", "maxLength": 4096},
-									"turnstile_secret_key": {"nullable": true, "type": "string", "maxLength": 4096}
+									"turnstile_secret_key": {"nullable": true, "type": "string", "maxLength": 4096},
+									"altcha_hmac_secret": {"nullable": true, "type": "string", "maxLength": 4096}
 								}
 							},
 							"email": {
