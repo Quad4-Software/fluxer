@@ -2,7 +2,6 @@
 
 import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import {Logger} from '@app/features/platform/utils/AppLogger';
-import {ExternalUrls} from '@fluxer/constants/src/ExternalUrls';
 import {makeAutoObservable, runInAction} from 'mobx';
 
 type IncidentStatus = 'investigating' | 'identified' | 'monitoring' | 'resolved';
@@ -208,7 +207,7 @@ export class StatusPage {
 	}
 
 	startPolling(): void {
-		if (this.isSelfHosted || this.pollingStarted) {
+		if (this.isSelfHosted || this.pollingStarted || !RuntimeConfig.statusPageUrl) {
 			return;
 		}
 
@@ -239,7 +238,7 @@ export class StatusPage {
 	}
 
 	async checkIncidents(): Promise<void> {
-		if (this.isSelfHosted) {
+		if (this.isSelfHosted || !RuntimeConfig.statusPageUrl) {
 			return;
 		}
 		if (this.checkInFlight) {
@@ -255,8 +254,12 @@ export class StatusPage {
 	}
 
 	private async fetchIncidents(): Promise<void> {
+		const statusPageUrl = RuntimeConfig.statusPageUrl;
+		if (!statusPageUrl) {
+			return;
+		}
 		try {
-			const response = await fetch(`${ExternalUrls.SERVICE_STATUS}/summary.json`, STATUS_PAGE_FETCH_OPTIONS);
+			const response = await fetch(`${statusPageUrl}/summary.json`, STATUS_PAGE_FETCH_OPTIONS);
 			if (!response.ok) {
 				runInAction(() => {
 					this.incident = null;
@@ -304,8 +307,12 @@ export class StatusPage {
 	}
 
 	private async fetchComponentMaintenances(): Promise<Array<InstatusMaintenance>> {
+		const statusPageUrl = RuntimeConfig.statusPageUrl;
+		if (!statusPageUrl) {
+			return [];
+		}
 		try {
-			const response = await fetch(`${ExternalUrls.SERVICE_STATUS}/components.json`, STATUS_PAGE_FETCH_OPTIONS);
+			const response = await fetch(`${statusPageUrl}/components.json`, STATUS_PAGE_FETCH_OPTIONS);
 			if (!response.ok) {
 				return [];
 			}

@@ -11,6 +11,7 @@ import DeveloperOptions from '@app/features/devtools/state/DeveloperOptions';
 import {configureClientSentry} from '@app/features/platform/monitoring/SentryClient';
 import {http} from '@app/features/platform/transport/RestTransport';
 import {API_CODE_VERSION} from '@fluxer/constants/src/AppConstants';
+import {ExternalUrls} from '@fluxer/constants/src/ExternalUrls';
 import type {
 	InstanceAppPublic,
 	InstanceCaptcha,
@@ -114,6 +115,8 @@ export const DEFAULT_APP_PUBLIC_CONFIG: InstanceAppPublic = {
 		wordmark_url: null,
 		favicon_url: null,
 		theme_color: null,
+		status_page_url: null,
+		status_page_incident_history_url: null,
 	},
 	setup: {
 		configured: false,
@@ -586,6 +589,29 @@ class RuntimeConfig {
 
 	get themeColor(): string | null {
 		return this.appPublic.branding.theme_color;
+	}
+
+	get statusPageUrl(): string | null {
+		const configured = this.appPublic.branding.status_page_url?.trim();
+		if (configured) {
+			return configured;
+		}
+		if (!this.isSelfHosted()) {
+			return ExternalUrls.SERVICE_STATUS;
+		}
+		return null;
+	}
+
+	get statusPageIncidentHistoryUrl(): string | null {
+		const configured = this.appPublic.branding.status_page_incident_history_url?.trim();
+		if (configured) {
+			return configured;
+		}
+		const statusPageUrl = this.statusPageUrl;
+		if (!statusPageUrl) {
+			return null;
+		}
+		return `${statusPageUrl.replace(/\/$/, '')}/history`;
 	}
 
 	get termsUrl(): string | null {

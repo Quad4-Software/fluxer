@@ -4981,6 +4981,120 @@
 				"security": [{"adminApiKey": []}]
 			}
 		},
+		"/admin/instance-config/integrations/livekit/test": {
+			"post": {
+				"operationId": "test_instance_livekit_config",
+				"summary": "Validate LiveKit connectivity",
+				"tags": ["Admin"],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {"schema": {"$ref": "#/components/schemas/InstanceIntegrationTestResponse"}}
+						}
+					},
+					"400": {
+						"description": "Bad Request - The request was malformed or contained invalid data",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"401": {
+						"description": "Unauthorized - Authentication is required or the token is invalid",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"403": {
+						"description": "Forbidden - You do not have permission to perform this action",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"429": {
+						"description": "Too Many Requests - You are being rate limited",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}},
+						"headers": {
+							"Retry-After": {
+								"description": "Number of seconds to wait before retrying (only on 429)",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Limit": {
+								"description": "The number of requests that can be made in the current window",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Remaining": {
+								"description": "The number of remaining requests that can be made",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Reset": {
+								"description": "Unix timestamp when the rate limit resets",
+								"schema": {"type": "integer"}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error - An unexpected error occurred",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					}
+				},
+				"description": "Lists rooms on configured LiveKit servers to verify API credentials and reachability. Requires INSTANCE_CONFIG_UPDATE permission.",
+				"security": [{"adminApiKey": []}]
+			}
+		},
+		"/admin/instance-config/integrations/s3/test": {
+			"post": {
+				"operationId": "test_instance_s3_config",
+				"summary": "Validate S3 object storage",
+				"tags": ["Admin"],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {"schema": {"$ref": "#/components/schemas/InstanceIntegrationTestResponse"}}
+						}
+					},
+					"400": {
+						"description": "Bad Request - The request was malformed or contained invalid data",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"401": {
+						"description": "Unauthorized - Authentication is required or the token is invalid",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"403": {
+						"description": "Forbidden - You do not have permission to perform this action",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"429": {
+						"description": "Too Many Requests - You are being rate limited",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}},
+						"headers": {
+							"Retry-After": {
+								"description": "Number of seconds to wait before retrying (only on 429)",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Limit": {
+								"description": "The number of requests that can be made in the current window",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Remaining": {
+								"description": "The number of remaining requests that can be made",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Reset": {
+								"description": "Unix timestamp when the rate limit resets",
+								"schema": {"type": "integer"}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error - An unexpected error occurred",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					}
+				},
+				"description": "Uploads and deletes a small test object in the configured uploads bucket. Requires INSTANCE_CONFIG_UPDATE permission.",
+				"security": [{"adminApiKey": []}],
+				"requestBody": {
+					"required": true,
+					"content": {"application/json": {"schema": {"$ref": "#/components/schemas/InstanceS3IntegrationTestRequest"}}}
+				}
+			}
+		},
 		"/admin/instance-config/integrations/sentry/test": {
 			"post": {
 				"operationId": "test_instance_sentry_config",
@@ -5378,6 +5492,59 @@
 					"required": true,
 					"content": {"application/json": {"schema": {"$ref": "#/components/schemas/InstanceConfigUpdateRequest"}}}
 				}
+			}
+		},
+		"/admin/instance-health": {
+			"get": {
+				"operationId": "get_instance_health",
+				"summary": "Get self-hosted instance health",
+				"tags": ["Admin"],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/InstanceHealthResponse"}}}
+					},
+					"400": {
+						"description": "Bad Request - The request was malformed or contained invalid data",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"401": {
+						"description": "Unauthorized - Authentication is required or the token is invalid",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"403": {
+						"description": "Forbidden - You do not have permission to perform this action",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"429": {
+						"description": "Too Many Requests - You are being rate limited",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}},
+						"headers": {
+							"Retry-After": {
+								"description": "Number of seconds to wait before retrying (only on 429)",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Limit": {
+								"description": "The number of requests that can be made in the current window",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Remaining": {
+								"description": "The number of remaining requests that can be made",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Reset": {
+								"description": "Unix timestamp when the rate limit resets",
+								"schema": {"type": "integer"}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error - An unexpected error occurred",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					}
+				},
+				"description": "Reports dependency and edge service health for self-hosted operators. Requires INSTANCE_CONFIG_VIEW permission.",
+				"security": [{"adminApiKey": []}]
 			}
 		},
 		"/admin/jobs/active": {
@@ -12564,7 +12731,9 @@
 									"logo_url": {"nullable": true, "type": "string"},
 									"wordmark_url": {"nullable": true, "type": "string"},
 									"favicon_url": {"nullable": true, "type": "string"},
-									"theme_color": {"nullable": true, "type": "string"}
+									"theme_color": {"nullable": true, "type": "string"},
+									"status_page_url": {"nullable": true, "type": "string"},
+									"status_page_incident_history_url": {"nullable": true, "type": "string"}
 								},
 								"required": [
 									"product_name",
@@ -12573,7 +12742,9 @@
 									"logo_url",
 									"wordmark_url",
 									"favicon_url",
-									"theme_color"
+									"theme_color",
+									"status_page_url",
+									"status_page_incident_history_url"
 								]
 							},
 							"setup": {
@@ -12918,6 +13089,19 @@
 				},
 				"required": ["kind"]
 			},
+			"InstanceIntegrationTestResponse": {
+				"type": "object",
+				"properties": {
+					"ok": {"type": "boolean"},
+					"error": {"nullable": true, "type": "string"},
+					"detail": {"nullable": true, "type": "string"}
+				},
+				"required": ["ok", "error"]
+			},
+			"InstanceS3IntegrationTestRequest": {
+				"type": "object",
+				"properties": {"bucket": {"type": "string", "minLength": 1, "maxLength": 120}}
+			},
 			"InstanceSentryTestResponse": {
 				"type": "object",
 				"properties": {
@@ -13057,7 +13241,9 @@
 									"logo_url": {"nullable": true, "type": "string", "maxLength": 2048},
 									"wordmark_url": {"nullable": true, "type": "string", "maxLength": 2048},
 									"favicon_url": {"nullable": true, "type": "string", "maxLength": 2048},
-									"theme_color": {"nullable": true, "type": "string", "maxLength": 64}
+									"theme_color": {"nullable": true, "type": "string", "maxLength": 64},
+									"status_page_url": {"nullable": true, "type": "string", "maxLength": 2048},
+									"status_page_incident_history_url": {"nullable": true, "type": "string", "maxLength": 2048}
 								}
 							},
 							"setup": {"nullable": true, "type": "object", "properties": {"configured": {"type": "boolean"}}},
@@ -13250,6 +13436,32 @@
 						"format": "int32"
 					}
 				}
+			},
+			"InstanceHealthResponse": {
+				"type": "object",
+				"properties": {
+					"checked_at": {"type": "string"},
+					"services": {"type": "array", "items": {"$ref": "#/components/schemas/InstanceServiceHealthStatusSchema"}},
+					"active_jobs": {
+						"type": "object",
+						"properties": {
+							"queued": {"type": "integer", "format": "int53"},
+							"running": {"type": "integer", "format": "int53"}
+						},
+						"required": ["queued", "running"]
+					}
+				},
+				"required": ["checked_at", "services", "active_jobs"]
+			},
+			"InstanceServiceHealthStatusSchema": {
+				"type": "object",
+				"properties": {
+					"name": {"type": "string"},
+					"ok": {"type": "boolean"},
+					"latency_ms": {"nullable": true, "type": "integer", "format": "int53"},
+					"detail": {"nullable": true, "type": "string"}
+				},
+				"required": ["name", "ok", "latency_ms", "detail"]
 			},
 			"ActiveJobsResponseSchema": {
 				"type": "object",

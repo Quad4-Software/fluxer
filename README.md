@@ -35,7 +35,7 @@ cd deploy/self-hosting
 ./setup.sh --domain chat.example.com --start
 ```
 
-`setup.sh` creates `.env`, sets the public hostname, and generates every required secret (including VAPID keys). Use `--cloudflare-tunnel` when Cloudflare terminates HTTPS in front of Caddy. Use `--verify` with `--start` to probe health endpoints after launch.
+`setup.sh` creates `.env`, sets the public hostname, and generates every required secret (including VAPID keys). Use `--cloudflare-tunnel` when Cloudflare terminates HTTPS in front of Caddy. Use `--verify` with `--start` to probe health endpoints after launch. For Coolify, use `docker-compose.coolify.yml` (see `fluxer_docs/docs/operator/configuration.md`).
 
 To upgrade an existing deployment (for example from upstream `fluxerapp/fluxer`) to this fork:
 

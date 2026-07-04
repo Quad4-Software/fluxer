@@ -10,9 +10,9 @@ import {NagbarContent} from '@app/features/app/components/layout/NagbarContent';
 import {getCachedNumberFormat} from '@app/features/i18n/utils/IntlCache';
 import {openExternalUrlWithWarning} from '@app/features/messaging/utils/ExternalLinkUtils';
 import NagbarState from '@app/features/ui/state/Nagbar';
+import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import StatusPage, {type MaintenanceStatus, type StatusPageMaintenance} from '@app/features/user/state/StatusPage';
 import * as LocaleUtils from '@app/features/user/utils/LocaleUtils';
-import {ExternalUrls} from '@fluxer/constants/src/ExternalUrls';
 import {HOURS_PER_DAY, MINUTES_PER_HOUR, MS_PER_HOUR} from '@fluxer/date_utils/src/DateConstants';
 import {getFormattedDateTime} from '@fluxer/date_utils/src/DateFormatting';
 import type {I18n} from '@lingui/core';
@@ -99,7 +99,7 @@ function getDeveloperScheduledMaintenance(): StatusPageMaintenance {
 		status: 'scheduled',
 		start: new Date(Date.now() + MS_PER_HOUR).toISOString(),
 		durationMinutes: MINUTES_PER_HOUR,
-		url: ExternalUrls.SERVICE_STATUS,
+		url: RuntimeConfig.statusPageUrl ?? '',
 	};
 }
 

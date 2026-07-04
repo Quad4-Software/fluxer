@@ -47,6 +47,8 @@ docker compose version
 
 Use Docker Engine 24 or newer and the Compose v2 plugin.
 
+For external reverse proxies, Coolify, status page URLs, and the full environment reference, see [Configuration](configuration.md).
+
 ## Step 2: Download the stack
 
 === "Quick setup (recommended)"

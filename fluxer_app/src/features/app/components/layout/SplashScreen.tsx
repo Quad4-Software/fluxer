@@ -6,13 +6,13 @@ import {NativeDragRegion} from '@app/features/app/components/layout/NativeDragRe
 import styles from '@app/features/app/components/layout/SplashScreen.module.css';
 import {useSplashScreenGuard} from '@app/features/app/hooks/useSplashScreenGuard';
 import Initialization from '@app/features/app/state/Initialization';
+import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import DeveloperOptions from '@app/features/devtools/state/DeveloperOptions';
 import GatewayConnection from '@app/features/gateway/transport/GatewayConnection';
 import {FluxerIcon} from '@app/features/ui/components/icons/FluxerIcon';
 import {getReducedMotionProps} from '@app/features/ui/utils/ReducedMotionAnimation';
 import StatusPage from '@app/features/user/state/StatusPage';
 import {type SplashQuote, useSplashQuotes} from '@app/media/data/SplashQuotes';
-import {ExternalUrls} from '@fluxer/constants/src/ExternalUrls';
 import {Trans} from '@lingui/react/macro';
 import {AnimatePresence, motion} from 'framer-motion';
 import {observer} from 'mobx-react-lite';
@@ -66,6 +66,7 @@ function pickRandomQuote(quotes: ReadonlyArray<SplashQuote>): SplashQuote {
 }
 
 const SplashScreenContent = observer(({mode}: SplashScreenContentProps) => {
+	const statusPageUrl = RuntimeConfig.statusPageUrl;
 	const splashOverlayRef = useRef<HTMLDivElement | null>(null);
 	useSplashScreenGuard(splashOverlayRef);
 	const isOutageMode = mode === 'outage';
@@ -127,7 +128,7 @@ const SplashScreenContent = observer(({mode}: SplashScreenContentProps) => {
 	}
 	const visibleIncident = frozenDisplayRef.current?.incident ?? liveIncident;
 	const displayText = frozenDisplayRef.current?.text ?? quote.text;
-	const incidentUrl = visibleIncident?.url ?? ExternalUrls.SERVICE_STATUS;
+	const incidentUrl = visibleIncident?.url || statusPageUrl;
 	if (isOutageMode) {
 		return (
 			<div
@@ -176,7 +177,7 @@ const SplashScreenContent = observer(({mode}: SplashScreenContentProps) => {
 						)}
 					</div>
 				</div>
-				{showProblems && !isReady && visibleIncident == null && (
+				{showProblems && !isReady && visibleIncident == null && statusPageUrl && (
 					<div
 						className={styles.connectionIssuesOverlay}
 						data-flx="app.splash-screen.splash-screen-content.connection-issues-overlay"
@@ -244,7 +245,7 @@ const SplashScreenContent = observer(({mode}: SplashScreenContentProps) => {
 				</div>
 			</div>
 			<AnimatePresence data-flx="app.splash-screen.splash-screen-content.animate-presence--2">
-				{showProblems && !isReady && visibleIncident == null && (
+				{showProblems && !isReady && visibleIncident == null && statusPageUrl && (
 					<motion.div
 						data-flx="app.splash-screen.splash-screen-content.connection-issues-overlay--2"
 						{...connectionIssuesMotion}

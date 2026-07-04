@@ -321,6 +321,8 @@ pub struct AppBrandingConfigResponse {
     pub wordmark_url: Option<String>,
     pub favicon_url: Option<String>,
     pub theme_color: Option<String>,
+    pub status_page_url: Option<String>,
+    pub status_page_incident_history_url: Option<String>,
 }
 
 impl Default for AppBrandingConfigResponse {
@@ -333,6 +335,8 @@ impl Default for AppBrandingConfigResponse {
             wordmark_url: None,
             favicon_url: None,
             theme_color: None,
+            status_page_url: None,
+            status_page_incident_history_url: None,
         }
     }
 }
@@ -748,6 +752,10 @@ pub struct AppBrandingConfigUpdateRequest {
     pub favicon_url: Option<Option<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub theme_color: Option<Option<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status_page_url: Option<Option<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status_page_incident_history_url: Option<Option<String>>,
 }
 
 #[derive(Clone, Debug, Default, Serialize)]

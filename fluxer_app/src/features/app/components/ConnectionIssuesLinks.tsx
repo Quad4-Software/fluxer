@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import styles from '@app/features/app/components/ConnectionIssuesLinks.module.css';
+import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import type {StatusPageIncident} from '@app/features/user/state/StatusPage';
-import {ExternalUrls} from '@fluxer/constants/src/ExternalUrls';
 import {Trans} from '@lingui/react/macro';
 
 interface ConnectionIssuesLinksProps {
@@ -10,11 +10,13 @@ interface ConnectionIssuesLinksProps {
 	className?: string;
 }
 
-const STATUS_HISTORY_URL = `${ExternalUrls.SERVICE_STATUS}/history`;
-
 export function ConnectionIssuesLinks({incident, className}: ConnectionIssuesLinksProps) {
+	const statusPageUrl = RuntimeConfig.statusPageUrl;
+	const incidentUrl = incident?.url || RuntimeConfig.statusPageIncidentHistoryUrl;
+	if (!statusPageUrl) {
+		return null;
+	}
 	const containerClassName = className != null ? `${styles.container} ${className}` : styles.container;
-	const incidentUrl = incident?.url ?? STATUS_HISTORY_URL;
 	return (
 		<div className={containerClassName} data-flx="app.connection-issues-links.div">
 			<p className={styles.prompt} data-flx="app.connection-issues-links.prompt">
@@ -22,7 +24,7 @@ export function ConnectionIssuesLinks({incident, className}: ConnectionIssuesLin
 			</p>
 			<p className={styles.links} data-flx="app.connection-issues-links.links">
 				<a
-					href={ExternalUrls.SERVICE_STATUS}
+					href={statusPageUrl}
 					target="_blank"
 					rel="noopener noreferrer"
 					className={styles.link}
@@ -30,18 +32,22 @@ export function ConnectionIssuesLinks({incident, className}: ConnectionIssuesLin
 				>
 					<Trans>Status page</Trans>
 				</a>
-				<span aria-hidden="true" className={styles.separator} data-flx="app.connection-issues-links.separator">
-					·
-				</span>
-				<a
-					href={incidentUrl}
-					target="_blank"
-					rel="noopener noreferrer"
-					className={styles.link}
-					data-flx="app.connection-issues-links.link--2"
-				>
-					{incident ? <Trans>Read incident</Trans> : <Trans>Incident history</Trans>}
-				</a>
+				{incidentUrl && (
+					<>
+						<span aria-hidden="true" className={styles.separator} data-flx="app.connection-issues-links.separator">
+							·
+						</span>
+						<a
+							href={incidentUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							className={styles.link}
+							data-flx="app.connection-issues-links.link--2"
+						>
+							{incident ? <Trans>Read incident</Trans> : <Trans>Incident history</Trans>}
+						</a>
+					</>
+				)}
 			</p>
 		</div>
 	);

@@ -25,6 +25,23 @@ pub struct ByteCoalescer {
     in_flight: Mutex<HashMap<String, Arc<Slot>>>,
 }
 
+struct CleanupGuard<'a> {
+    in_flight: &'a Mutex<HashMap<String, Arc<Slot>>>,
+    key: &'a str,
+    slot: &'a Arc<Slot>,
+    completed: bool,
+}
+
+impl Drop for CleanupGuard<'_> {
+    fn drop(&mut self) {
+        if !self.completed {
+            self.in_flight.lock().remove(self.key);
+            *self.slot.state.lock() = Some(Err(CoalescerError::WorkFailed));
+            self.slot.notify.notify_waiters();
+        }
+    }
+}
+
 impl ByteCoalescer {
     pub fn new() -> Self {
         Self::default()
@@ -71,10 +88,21 @@ impl ByteCoalescer {
             crate::metrics::GLOBAL
                 .coalescer_leader
                 .fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+
+            let mut guard = CleanupGuard {
+                in_flight: &self.in_flight,
+                key: key.as_str(),
+                slot: &slot,
+                completed: false,
+            };
+
             let result = work().await.map(Bytes::from).map_err(coalesced_work_error);
             *slot.state.lock() = Some(result.clone());
+            guard.completed = true;
+            drop(guard);
             slot.notify.notify_waiters();
             self.in_flight.lock().remove(&key);
+
             result
         } else {
             crate::metrics::GLOBAL
@@ -167,6 +195,44 @@ mod tests {
             .unwrap_err();
         assert_eq!(CoalescerError::RequestTimeout, err);
         task.await.unwrap();
+    }
+
+    #[tokio::test]
+    async fn leader_cancellation_notifies_waiters_and_releases_slot() {
+        let coalescer = Arc::new(ByteCoalescer::new());
+        let leader = coalescer.clone();
+        let leader_task = tokio::spawn(async move {
+            leader
+                .run_once("cancel-key", || async {
+                    tokio::time::sleep(Duration::from_secs(60)).await;
+                    Ok(b"never".to_vec())
+                })
+                .await
+        });
+        sleep(Duration::from_millis(5)).await;
+
+        let waiter_coalescer = coalescer.clone();
+        let waiter_task = tokio::spawn(async move {
+            waiter_coalescer
+                .run_once_until(
+                    "cancel-key",
+                    Some(Instant::now() + Duration::from_secs(2)),
+                    || async { Ok(b"should-not-run".to_vec()) },
+                )
+                .await
+        });
+        sleep(Duration::from_millis(5)).await;
+        leader_task.abort();
+        let _ = leader_task.await;
+
+        let waiter_err = waiter_task.await.unwrap().unwrap_err();
+        assert_eq!(CoalescerError::WorkFailed, waiter_err);
+
+        let recovered = coalescer
+            .run_once("cancel-key", || async { Ok(b"ok".to_vec()) })
+            .await
+            .unwrap();
+        assert_eq!(b"ok", recovered.as_ref());
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 4)]
