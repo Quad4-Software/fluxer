@@ -80,7 +80,10 @@ async fn instance_ops_post(
 
     match action {
         "refresh_health" => {
-            view.health = client.get_instance_health().await.log_error("refresh instance health");
+            view.health = client
+                .get_instance_health()
+                .await
+                .log_error("refresh instance health");
         }
         "test_smtp" => {
             let form = match MultiValueForm::from_request(request).await {
@@ -95,15 +98,16 @@ async fn instance_ops_post(
             };
             match build_smtp_test_request(&form) {
                 Ok(request) => {
-                    view.smtp_result = client
-                        .test_instance_smtp_config(&request)
-                        .await
-                        .ok()
-                        .map(|response| InstanceIntegrationTestResponse {
-                            ok: response.ok,
-                            error: response.error,
-                            detail: None,
-                        });
+                    view.smtp_result =
+                        client
+                            .test_instance_smtp_config(&request)
+                            .await
+                            .ok()
+                            .map(|response| InstanceIntegrationTestResponse {
+                                ok: response.ok,
+                                error: response.error,
+                                detail: None,
+                            });
                 }
                 Err(message) => {
                     return flash::redirect_with_flash(
@@ -187,7 +191,10 @@ fn render_instance_ops_page(
             health: view.health.as_ref(),
             backup: view.backup.as_ref(),
             backup_error: view.backup_error.as_deref(),
-            smtp_config: view.instance_config.as_ref().map(|config| &config.integrations.email),
+            smtp_config: view
+                .instance_config
+                .as_ref()
+                .map(|config| &config.integrations.email),
             smtp_result: view.smtp_result.as_ref(),
             s3_result: view.s3_result.as_ref(),
             livekit_result: view.livekit_result.as_ref(),
@@ -196,9 +203,7 @@ fn render_instance_ops_page(
     Html(markup.into_string()).into_response()
 }
 
-fn build_smtp_test_request(
-    form: &MultiValueForm,
-) -> Result<InstanceEmailSmtpTestRequest, String> {
+fn build_smtp_test_request(form: &MultiValueForm) -> Result<InstanceEmailSmtpTestRequest, String> {
     let host = form
         .clean("smtp_host")
         .ok_or_else(|| "SMTP host is required".to_owned())?;

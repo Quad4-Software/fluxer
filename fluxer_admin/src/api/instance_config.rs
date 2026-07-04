@@ -4,8 +4,8 @@ use super::client::{AdminApiClient, ApiResult};
 use super::types::{
     CreateRegistrationUrlRequest, CreateRegistrationUrlResponse, InstanceConfigResponse,
     InstanceConfigUpdateRequest, InstanceEmailSmtpTestRequest, InstanceEmailSmtpTestResponse,
-    InstanceSentryTestRequest, InstanceSentryTestResponse,
-    PendingRegistrationActionRequest, RegistrationUrlActionRequest,
+    InstanceSentryTestRequest, InstanceSentryTestResponse, PendingRegistrationActionRequest,
+    RegistrationUrlActionRequest,
 };
 
 impl AdminApiClient {

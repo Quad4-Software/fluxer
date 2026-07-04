@@ -312,13 +312,20 @@ pub const HTMX_FLASH_SCRIPT: &str = r#"
 	var hideTimer = 0;
 
 	function palette(level) {
+		var dark = document.documentElement.classList.contains('dark');
 		if (level === 'success') {
-			return {background: '#ecfdf3', border: '#bbf7d0', color: '#166534'};
+			return dark
+				? {background: '#052e16', border: '#166534', color: '#86efac'}
+				: {background: '#ecfdf3', border: '#bbf7d0', color: '#166534'};
 		}
 		if (level === 'error') {
-			return {background: '#fef2f2', border: '#fecaca', color: '#991b1b'};
+			return dark
+				? {background: '#450a0a', border: '#991b1b', color: '#fca5a5'}
+				: {background: '#fef2f2', border: '#fecaca', color: '#991b1b'};
 		}
-		return {background: '#eff6ff', border: '#bfdbfe', color: '#1e40af'};
+		return dark
+			? {background: '#172554', border: '#1e40af', color: '#93c5fd'}
+			: {background: '#eff6ff', border: '#bfdbfe', color: '#1e40af'};
 	}
 
 	function stack() {

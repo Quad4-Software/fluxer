@@ -47,6 +47,33 @@ const CLICK_TO_COPY_DESCRIPTOR = msg({
 	message: 'Click to copy',
 	comment: 'Short label in the settings dialog client info.',
 });
+const FORK_LABEL_DESCRIPTOR = msg({
+	message: 'Community fork',
+	comment: 'Label in settings client info indicating this build is from a community fork repository.',
+});
+const BUILD_COMMIT_DESCRIPTOR = msg({
+	message: 'Build {commit}',
+	comment: 'Git commit short hash for the running web build. Example: "Build a1b2c3d". Preserve placeholder.',
+});
+
+function resolveForkRepoLabel(repoUrl: string): string {
+	try {
+		const {pathname} = new URL(repoUrl);
+		const segments = pathname.split('/').filter(Boolean);
+		if (segments.length >= 2) {
+			return `${segments[0]}/${segments[1]}`;
+		}
+	} catch {
+		// Fall through to the raw URL.
+	}
+	return repoUrl;
+}
+
+function resolveForkCommitUrl(repoUrl: string, commit: string): string {
+	const normalizedRepoUrl = repoUrl.replace(/\/$/, '');
+	return `${normalizedRepoUrl}/commit/${commit}`;
+}
+
 export const ClientInfo = observer(() => {
 	const {i18n} = useLingui();
 	const [clientInfo, setClientInfo] = useState(getClientInfoSync());
@@ -82,6 +109,10 @@ export const ClientInfo = observer(() => {
 	const osDescription = buildOsDescription();
 	const releaseChannel = formatReleaseChannelLabel(Config.PUBLIC_RELEASE_CHANNEL);
 	const buildVersion = Config.PUBLIC_BUILD_VERSION || 'dev';
+	const buildCommit = Config.PUBLIC_BUILD_COMMIT || 'dev';
+	const forkRepoUrl = Config.PUBLIC_FORK_REPO_URL?.trim() || '';
+	const forkRepoLabel = forkRepoUrl ? resolveForkRepoLabel(forkRepoUrl) : null;
+	const forkCommitUrl = forkRepoUrl && buildCommit !== 'dev' ? resolveForkCommitUrl(forkRepoUrl, buildCommit) : null;
 	const desktopReleaseChannel = desktopChannel ? formatReleaseChannelLabel(desktopChannel) : null;
 	const primaryDesktopReleaseChannel = desktopReleaseChannel ?? releaseChannel;
 	const desktopBuildVariant =
@@ -112,17 +143,49 @@ export const ClientInfo = observer(() => {
 		TextCopyCommands.copy(i18n, formatClientBuildInfo(clientInfo, {unknownLabel}));
 	};
 	return (
-		<Tooltip text={i18n._(CLICK_TO_COPY_DESCRIPTOR)} data-flx="app.client-info.tooltip">
-			<FocusRing data-flx="app.client-info.focus-ring">
-				<button type="button" onClick={onClick} className={styles.button} data-flx="app.client-info.button.click">
-					{desktopBuildLabel && <span data-flx="app.client-info.span">{desktopBuildLabel}</span>}
-					<span data-flx="app.client-info.span--2">{buildLabel}</span>
-					<span data-flx="app.client-info.span--4">
-						{browserName} {browserVersion}
-					</span>
-					<span data-flx="app.client-info.span--5">{osDescription}</span>
-				</button>
-			</FocusRing>
-		</Tooltip>
+		<div className={styles.container} data-flx="app.client-info.container">
+			<Tooltip text={i18n._(CLICK_TO_COPY_DESCRIPTOR)} data-flx="app.client-info.tooltip">
+				<FocusRing data-flx="app.client-info.focus-ring">
+					<button type="button" onClick={onClick} className={styles.button} data-flx="app.client-info.button.click">
+						{desktopBuildLabel && <span data-flx="app.client-info.span">{desktopBuildLabel}</span>}
+						<span data-flx="app.client-info.span--2">{buildLabel}</span>
+						<span data-flx="app.client-info.span--4">
+							{browserName} {browserVersion}
+						</span>
+						<span data-flx="app.client-info.span--5">{osDescription}</span>
+					</button>
+				</FocusRing>
+			</Tooltip>
+			{forkRepoUrl && (
+				<div className={styles.forkInfo} data-flx="app.client-info.fork-info">
+					<a
+						href={forkRepoUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						className={styles.forkLink}
+						data-flx="app.client-info.fork-link"
+					>
+						{i18n._(FORK_LABEL_DESCRIPTOR)}
+						{forkRepoLabel ? ` · ${forkRepoLabel}` : ''}
+					</a>
+					{buildCommit !== 'dev' &&
+						(forkCommitUrl ? (
+							<a
+								href={forkCommitUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								className={styles.commitLink}
+								data-flx="app.client-info.commit-link"
+							>
+								{i18n._(BUILD_COMMIT_DESCRIPTOR, {commit: buildCommit})}
+							</a>
+						) : (
+							<span className={styles.commitLabel} data-flx="app.client-info.commit-label">
+								{i18n._(BUILD_COMMIT_DESCRIPTOR, {commit: buildCommit})}
+							</span>
+						))}
+				</div>
+			)}
+		</div>
 	);
 });

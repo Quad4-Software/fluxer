@@ -56,6 +56,8 @@ declare global {
 		readonly DEV: boolean;
 		readonly PROD: boolean;
 		readonly PUBLIC_BUILD_VERSION?: string;
+		readonly PUBLIC_BUILD_COMMIT?: string;
+		readonly PUBLIC_FORK_REPO_URL?: string;
 		readonly PUBLIC_RELEASE_CHANNEL?: 'stable' | 'canary';
 		readonly PUBLIC_BOOTSTRAP_API_ENDPOINT?: string;
 		readonly PUBLIC_BOOTSTRAP_API_PUBLIC_ENDPOINT?: string;

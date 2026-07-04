@@ -6,4 +6,5 @@ pub mod layout_header;
 pub mod layout_scripts;
 pub mod layout_sidebar;
 pub mod layout_sidebar_nav;
+pub mod layout_theme;
 pub mod pages;

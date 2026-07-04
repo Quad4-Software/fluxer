@@ -10,6 +10,7 @@ use super::layout_scripts::{
     HTMX_SCROLL_PRESERVER_SCRIPT, SH_LINK_REWRITE_SCRIPT, SIDEBAR_SCRIPT,
 };
 use super::layout_sidebar::render_sidebar;
+use super::layout_theme::{theme_init_script, theme_script};
 
 fn cache_busted_asset(base_path: &str, asset_version: &str, path: &str) -> String {
     format!("{base_path}{path}?t={asset_version}")
@@ -66,6 +67,7 @@ pub fn admin_layout_ext(
             head {
                 meta charset="UTF-8";
                 meta name="viewport" content="width=device-width, initial-scale=1.0";
+                (theme_init_script())
                 @if options.auto_refresh {
                     meta http-equiv="refresh" content="3";
                 }
@@ -106,6 +108,7 @@ pub fn admin_layout_ext(
                 script defer { (PreEscaped(HTMX_SCROLL_PRESERVER_SCRIPT)) }
                 script defer { (PreEscaped(HTMX_FLASH_SCRIPT)) }
                 script defer { (PreEscaped(COPY_TO_CLIPBOARD_SCRIPT)) }
+                (theme_script())
                 (drawer_controller_script())
                 @if let Some(extra) = options.extra_scripts {
                     script defer { (PreEscaped(extra)) }

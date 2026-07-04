@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {execSync} from 'node:child_process';
 import {existsSync, mkdirSync, readdirSync, writeFileSync} from 'node:fs';
 import path, {dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -103,10 +104,28 @@ function resolveReleaseChannel() {
 	return 'canary';
 }
 
+function resolveGitCommitShort() {
+	const fromEnv = envString('PUBLIC_BUILD_COMMIT', envString('BUILD_COMMIT'));
+	if (fromEnv) {
+		return fromEnv;
+	}
+	try {
+		return execSync('git rev-parse --short HEAD', {
+			cwd: MONOREPO_ROOT,
+			encoding: 'utf8',
+			stdio: ['ignore', 'pipe', 'ignore'],
+		}).trim();
+	} catch {
+		return 'dev';
+	}
+}
+
 function resolvePublicValues() {
 	return {
 		PUBLIC_API_VERSION: envString('PUBLIC_API_VERSION', '1'),
 		PUBLIC_BUILD_VERSION: envString('PUBLIC_BUILD_VERSION', envString('BUILD_VERSION', 'dev')),
+		PUBLIC_BUILD_COMMIT: resolveGitCommitShort(),
+		PUBLIC_FORK_REPO_URL: envString('PUBLIC_FORK_REPO_URL', ''),
 		PUBLIC_RELEASE_CHANNEL: resolveReleaseChannel(),
 		PUBLIC_BOOTSTRAP_API_ENDPOINT: envString('PUBLIC_BOOTSTRAP_API_ENDPOINT', '/api'),
 		PUBLIC_BOOTSTRAP_API_PUBLIC_ENDPOINT: envString('PUBLIC_BOOTSTRAP_API_PUBLIC_ENDPOINT'),
@@ -420,6 +439,8 @@ export default () => {
 				'import.meta.env.PROD': JSON.stringify(isProduction),
 				'import.meta.env.MODE': JSON.stringify(mode),
 				'import.meta.env.PUBLIC_BUILD_VERSION': getPublicEnvVar(publicValues, 'PUBLIC_BUILD_VERSION'),
+				'import.meta.env.PUBLIC_BUILD_COMMIT': getPublicEnvVar(publicValues, 'PUBLIC_BUILD_COMMIT'),
+				'import.meta.env.PUBLIC_FORK_REPO_URL': getPublicEnvVar(publicValues, 'PUBLIC_FORK_REPO_URL'),
 				'import.meta.env.PUBLIC_API_VERSION': getPublicEnvVar(publicValues, 'PUBLIC_API_VERSION'),
 				'import.meta.env.PUBLIC_RELEASE_CHANNEL': getPublicEnvVar(publicValues, 'PUBLIC_RELEASE_CHANNEL'),
 				'import.meta.env.PUBLIC_BOOTSTRAP_API_ENDPOINT': getPublicEnvVar(publicValues, 'PUBLIC_BOOTSTRAP_API_ENDPOINT'),
@@ -433,6 +454,7 @@ export default () => {
 					compiler.hooks.afterEmit.tap('VersionJsonPlugin', () => {
 						const versionData = {
 							version: publicValues.PUBLIC_BUILD_VERSION,
+							commit: publicValues.PUBLIC_BUILD_COMMIT,
 						};
 						mkdirSync(DIST_DIR, {recursive: true});
 						writeFileSync(path.join(DIST_DIR, 'version.json'), JSON.stringify(versionData));

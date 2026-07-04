@@ -2,8 +2,8 @@
 
 use crate::common::{
     CALVER_SCHEME, CalverEnv, CommandSpec, S3UploadPlanItem, append_github_env,
-    append_github_output, collect_files, path_to_s3_key, require_env, resolve_calver, run_command,
-    runner_temp, s3_client, trim_option, upload_s3_plan_append_only,
+    append_github_output, collect_files, output_text, path_to_s3_key, require_env, resolve_calver,
+    run_command, runner_temp, s3_client, trim_option, upload_s3_plan_append_only,
 };
 use anyhow::{Context, Result, anyhow, ensure};
 use base64::Engine;
@@ -117,6 +117,13 @@ fn ghcr_auth_value(username: &str, token: &str) -> String {
     BASE64.encode(format!("{username}:{token}"))
 }
 
+fn resolve_build_commit() -> String {
+    trim_option(env::var("BUILD_COMMIT").ok()).unwrap_or_else(|| {
+        output_text(CommandSpec::new("git").args(["rev-parse", "--short", "HEAD"]))
+            .unwrap_or_else(|_| "dev".to_string())
+    })
+}
+
 fn build_and_extract_step() -> Result<()> {
     run_command(build_and_extract_command()?)
 }
@@ -133,6 +140,7 @@ fn build_and_extract_command() -> Result<CommandSpec> {
         .args(["buildx", "bake", "-f", "fluxer_app_proxy/docker-bake.hcl"])
         .env("IMAGE_REPO", image_repo)
         .env("BUILD_VERSION", build_version)
+        .env("BUILD_COMMIT", resolve_build_commit())
         .env("PUBLIC_ASSET_BASE_URL", public_asset_base_url)
         .env(
             "FLUXER_APP_PROXY_TIME_FREEZE_ENABLED",
@@ -390,6 +398,7 @@ mod tests {
             .args(["buildx", "bake", "-f", "fluxer_app_proxy/docker-bake.hcl"])
             .env("IMAGE_REPO", "ghcr.io/example/fluxer-app-proxy")
             .env("BUILD_VERSION", "2026.520.1")
+            .env("BUILD_COMMIT", "abc1234")
             .env("PUBLIC_ASSET_BASE_URL", DEFAULT_PUBLIC_ASSET_BASE_URL)
             .env(
                 "FLUXER_APP_PROXY_TIME_FREEZE_ENABLED",
@@ -410,6 +419,11 @@ mod tests {
             OsString::from("BUILD_VERSION"),
             OsString::from("2026.520.1")
         )));
+        assert!(
+            command
+                .env
+                .contains(&(OsString::from("BUILD_COMMIT"), OsString::from("abc1234")))
+        );
         assert!(command.env.contains(&(
             OsString::from("FLUXER_APP_PROXY_TIME_FREEZE_ENABLED"),
             OsString::from(DEFAULT_APP_PROXY_TIME_FREEZE_ENABLED)

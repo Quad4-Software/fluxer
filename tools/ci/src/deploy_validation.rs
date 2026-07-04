@@ -67,7 +67,8 @@ fn validate_compose_files(self_hosting: &Path) -> Result<()> {
         for (key, value) in compose_validation_env() {
             spec = spec.env(key, value);
         }
-        run_command(spec).with_context(|| format!("docker compose config failed for {compose_file}"))?;
+        run_command(spec)
+            .with_context(|| format!("docker compose config failed for {compose_file}"))?;
     }
     Ok(())
 }
@@ -81,7 +82,10 @@ fn compose_validation_env() -> BTreeMap<&'static str, &'static str> {
         ("FLUXER_S3_ACCESS_KEY", "ci-s3-access-key"),
         ("FLUXER_S3_SECRET_KEY", "ci-s3-secret-key"),
         ("FLUXER_SUDO_MODE_SECRET", "ci-sudo-mode-secret"),
-        ("FLUXER_CONNECTION_INITIATION_SECRET", "ci-connection-initiation-secret"),
+        (
+            "FLUXER_CONNECTION_INITIATION_SECRET",
+            "ci-connection-initiation-secret",
+        ),
         ("FLUXER_GATEWAY_RPC_AUTH_TOKEN", "ci-gateway-rpc-auth-token"),
         ("FLUXER_MEDIA_PROXY_SECRET_KEY", "ci-media-proxy-secret-key"),
         (
@@ -89,7 +93,10 @@ fn compose_validation_env() -> BTreeMap<&'static str, &'static str> {
             "Y2ktdXBsb2FkLXJlbGF5LXNlY3JldA==",
         ),
         ("FLUXER_ADMIN_SECRET_KEY_BASE", "ci-admin-secret-key-base"),
-        ("FLUXER_ADMIN_OAUTH_CLIENT_SECRET", "ci-admin-oauth-client-secret"),
+        (
+            "FLUXER_ADMIN_OAUTH_CLIENT_SECRET",
+            "ci-admin-oauth-client-secret",
+        ),
         ("FLUXER_VAPID_PUBLIC_KEY", "ci-vapid-public-key"),
         ("FLUXER_VAPID_PRIVATE_KEY", "ci-vapid-private-key"),
         ("FLUXER_CAPTCHA_ALTCHA_HMAC_SECRET", "ci-altcha-hmac-secret"),

@@ -301,6 +301,8 @@ export async function getClientInfo(): Promise<ClientInfo> {
 export function formatClientBuildInfo(info: ClientInfo, options: {unknownLabel?: string} = {}): string {
 	const releaseChannel = formatReleaseChannelLabel(Config.PUBLIC_RELEASE_CHANNEL);
 	const buildVersion = Config.PUBLIC_BUILD_VERSION || 'dev';
+	const buildCommit = Config.PUBLIC_BUILD_COMMIT || 'dev';
+	const forkRepoUrl = Config.PUBLIC_FORK_REPO_URL?.trim() || '';
 	const browserName = info.browserName || options.unknownLabel || '';
 	const browserVersion = info.browserVersion || '';
 	const browserInfo = `${browserName} ${browserVersion}`.trim();
@@ -327,6 +329,8 @@ export function formatClientBuildInfo(info: ClientInfo, options: {unknownLabel?:
 		info.desktopChromeVersion ? `Chrome ${info.desktopChromeVersion}` : '',
 		info.desktopNodeVersion ? `Node ${info.desktopNodeVersion}` : '',
 		i18n.locale ? `Locale ${i18n.locale}` : '',
+		forkRepoUrl ? `Fork ${forkRepoUrl}` : '',
+		buildCommit !== 'dev' ? `Commit ${buildCommit}` : '',
 	];
 	return parts.filter(Boolean).join(', ');
 }

@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 use crate::config::AdminConfig;
+use crate::templates::layout_theme::{render_theme_toggle, theme_init_script, theme_script};
 use maud::{DOCTYPE, Markup, html};
 
 pub fn login_page(config: &AdminConfig, error_message: Option<&str>) -> Markup {
@@ -11,13 +12,17 @@ pub fn login_page(config: &AdminConfig, error_message: Option<&str>) -> Markup {
             head {
                 meta charset="UTF-8";
                 meta name="viewport" content="width=device-width, initial-scale=1.0";
+                (theme_init_script())
                 title { "Login ~ Fluxer Admin" }
                 link rel="stylesheet" href={(config.static_cdn_endpoint) "/fonts/ibm-plex.css?v=3"};
                 link rel="stylesheet" href={(config.static_cdn_endpoint) "/fonts/bricolage.css?v=3"};
                 link rel="stylesheet" href={(base) "/static/app.css"};
                 link rel="icon" type="image/x-icon" href={(config.static_cdn_endpoint) "/web/favicon.ico"};
             }
-            body class="flex min-h-[100dvh] items-center justify-center bg-neutral-50 p-4" {
+            body class="relative flex min-h-[100dvh] items-center justify-center bg-neutral-50 p-4" {
+                div class="fixed top-4 right-4 z-10" {
+                    (render_theme_toggle(""))
+                }
                 main class="w-full max-w-sm" {
                     div class="flex flex-col gap-4 items-stretch" {
                         div class="rounded-lg bg-white transition-all border border-neutral-200 p-8" {
@@ -45,6 +50,7 @@ pub fn login_page(config: &AdminConfig, error_message: Option<&str>) -> Markup {
                         }
                     }
                 }
+                (theme_script())
             }
         }
     }

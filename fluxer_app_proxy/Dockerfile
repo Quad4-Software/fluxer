@@ -1,14 +1,18 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 ARG BUILD_VERSION=""
+ARG BUILD_COMMIT=""
 ARG PUBLIC_ASSET_BASE_URL=""
+ARG PUBLIC_FORK_REPO_URL="https://github.com/Quad4-Software/fluxer"
 ARG FLUXER_APP_PROXY_TIME_FREEZE_ENABLED="true"
 
 # ---------- Stage 1: Build the SPA (fluxer_app) ----------
 FROM node:24-bookworm-slim AS app-build
 
 ARG BUILD_VERSION
+ARG BUILD_COMMIT
 ARG PUBLIC_ASSET_BASE_URL
+ARG PUBLIC_FORK_REPO_URL
 
 WORKDIR /usr/src/app
 
@@ -69,6 +73,9 @@ COPY fluxer_app/scripts/ ./fluxer_app/scripts/
 COPY fluxer_app/src/ ./fluxer_app/src/
 
 ENV BUILD_VERSION=${BUILD_VERSION} \
+	BUILD_COMMIT=${BUILD_COMMIT} \
+	PUBLIC_BUILD_COMMIT=${BUILD_COMMIT} \
+	PUBLIC_FORK_REPO_URL=${PUBLIC_FORK_REPO_URL} \
 	PUBLIC_ASSET_BASE_URL=${PUBLIC_ASSET_BASE_URL}
 
 RUN --mount=type=cache,target=/usr/local/cargo/registry \

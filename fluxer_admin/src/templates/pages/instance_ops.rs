@@ -47,7 +47,14 @@ pub fn instance_ops_page(
             (integration_tests_section(base, params.csrf_token, params.smtp_config, params.smtp_result, params.s3_result, params.livekit_result))
         }
     };
-    admin_layout(config, auth, "Instance Operations", "instance-ops", None, content)
+    admin_layout(
+        config,
+        auth,
+        "Instance Operations",
+        "instance-ops",
+        None,
+        content,
+    )
 }
 
 fn health_section(base: &str, csrf_token: &str, health: Option<&InstanceHealthResponse>) -> Markup {
