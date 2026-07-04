@@ -8,9 +8,12 @@ ARG TARGETARCH
 WORKDIR /usr/src/app
 
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends ca-certificates nodejs npm pkg-config \
-	&& npm install -g pnpm@11.9.0 \
-	&& rm -rf /var/lib/apt/lists/*
+	&& apt-get install -y --no-install-recommends ca-certificates curl pkg-config \
+	&& curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
+	&& apt-get install -y --no-install-recommends nodejs \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& corepack enable \
+	&& corepack prepare pnpm@11.9.0 --activate
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY patches patches
