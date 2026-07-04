@@ -6,6 +6,7 @@ import {
 	InstanceHealthResponse,
 	InstanceIntegrationTestResponse,
 	InstanceS3IntegrationTestRequest,
+	type InstanceServiceHealthStatus,
 } from '@fluxer/schema/src/domains/admin/AdminSchemas';
 import {createMiddleware} from 'hono/factory';
 import {Config} from '../../Config';
@@ -54,7 +55,7 @@ function requireSelfHosted() {
 		if (!Config.instance.selfHosted) {
 			return ctx.json({error: 'not_available'}, 404);
 		}
-		await next();
+		return await next();
 	});
 }
 
@@ -75,7 +76,7 @@ export function InstanceOpsAdminController(app: HonoApp) {
 			tags: 'Admin',
 		}),
 		async (ctx) => {
-			const services: Array<{name: string; ok: boolean; latency_ms: number | null; detail: string | null}> = [];
+			const services: Array<InstanceServiceHealthStatus> = [];
 
 			const postgresStartedAt = Date.now();
 			try {

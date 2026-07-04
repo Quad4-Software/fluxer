@@ -803,7 +803,7 @@ export const InstanceSentryTestResponse = z.object({
 
 export type InstanceSentryTestResponse = z.infer<typeof InstanceSentryTestResponse>;
 
-export const InstanceServiceHealthStatusSchema = z.object({
+const InstanceServiceHealthStatusSchema = z.object({
 	name: z.string(),
 	ok: z.boolean(),
 	latency_ms: z.number().int().nullable(),

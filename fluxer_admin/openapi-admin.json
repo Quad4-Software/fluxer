@@ -13441,7 +13441,19 @@
 				"type": "object",
 				"properties": {
 					"checked_at": {"type": "string"},
-					"services": {"type": "array", "items": {"$ref": "#/components/schemas/InstanceServiceHealthStatusSchema"}},
+					"services": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"name": {"type": "string"},
+								"ok": {"type": "boolean"},
+								"latency_ms": {"nullable": true, "type": "integer", "format": "int53"},
+								"detail": {"nullable": true, "type": "string"}
+							},
+							"required": ["name", "ok", "latency_ms", "detail"]
+						}
+					},
 					"active_jobs": {
 						"type": "object",
 						"properties": {
@@ -13452,16 +13464,6 @@
 					}
 				},
 				"required": ["checked_at", "services", "active_jobs"]
-			},
-			"InstanceServiceHealthStatusSchema": {
-				"type": "object",
-				"properties": {
-					"name": {"type": "string"},
-					"ok": {"type": "boolean"},
-					"latency_ms": {"nullable": true, "type": "integer", "format": "int53"},
-					"detail": {"nullable": true, "type": "string"}
-				},
-				"required": ["name", "ok", "latency_ms", "detail"]
 			},
 			"ActiveJobsResponseSchema": {
 				"type": "object",
