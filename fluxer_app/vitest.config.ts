@@ -14,9 +14,11 @@ export default defineConfig({
 			skip: (dir) => path.basename(dir) === '.claude',
 		}),
 	],
-	esbuild: {
-		jsx: 'automatic',
-		jsxImportSource: 'react',
+	oxc: {
+		jsx: {
+			runtime: 'automatic',
+			importSource: 'react',
+		},
 	},
 	test: {
 		globals: true,

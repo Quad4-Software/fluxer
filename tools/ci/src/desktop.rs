@@ -273,7 +273,8 @@ pub async fn run(args: BuildDesktopArgs) -> Result<()> {
         DesktopStep::InstallMsvcArm64Tools => install_msvc_arm64_tools_step(),
         DesktopStep::InstallRustWindowsTargets => install_rust_windows_targets_step(),
         DesktopStep::InstallDependencies => {
-            run_command(pnpm_command()?.args(["install", "--frozen-lockfile"]))
+            run_command(pnpm_command()?.args(["install", "--frozen-lockfile"]))?;
+            install_electron_binary_step()
         }
         DesktopStep::UpdateVersion => run_command(pnpm_command()?.args([
             "version",
@@ -1208,6 +1209,10 @@ fn install_rust_windows_targets_step() -> Result<()> {
         }
     }
     run_command(CommandSpec::new("cargo").arg("--version"))
+}
+
+fn install_electron_binary_step() -> Result<()> {
+    run_command(pnpm_command()?.args(["exec", "install-electron"]))
 }
 
 fn build_electron_main_step() -> Result<()> {

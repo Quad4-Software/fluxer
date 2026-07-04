@@ -370,6 +370,10 @@ export function registerNotificationIpcHandlers(getMainWindow: () => BrowserWind
 			notification.on('close', () => {
 				deleteActiveNotification(id, handle);
 			});
+			notification.on('failed', (_event, error) => {
+				logger.warn('Notification failed to display', {error});
+				deleteActiveNotification(id, handle);
+			});
 			notification.show();
 			return {id};
 		},
