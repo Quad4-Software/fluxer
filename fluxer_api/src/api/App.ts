@@ -14,6 +14,7 @@ import {configureMiddleware} from './app/MiddlewarePipeline';
 import type {APIConfig} from './config/APIConfig';
 import type {ILogger} from './ILogger';
 import {recordHttpClientError} from './middleware/AbusiveIpAutoBanner';
+import {captureSentryException} from '@pkgs/initialization/src/SentryService';
 import type {HonoApp, HonoEnv} from './types/HonoEnv';
 
 interface CreateAPIAppOptions {
@@ -32,6 +33,9 @@ function AbuseAwareAppErrorHandler(err: Error, ctx: Context<HonoEnv>): Response 
 		const status = resolveErrorStatus(err);
 		if (status !== null && !ctx.get('user')) {
 			recordHttpClientError(ctx.req.raw, status);
+		}
+		if (status === null || status >= 500) {
+			captureSentryException(err);
 		}
 	}
 	return AppErrorHandler(err, ctx);

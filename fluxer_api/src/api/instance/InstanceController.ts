@@ -12,7 +12,7 @@ import {RateLimitMiddleware} from '../middleware/RateLimitMiddleware';
 import {OpenAPI} from '../middleware/ResponseTypeMiddleware';
 import {RateLimitConfigs} from '../RateLimitConfig';
 import type {HonoEnv} from '../types/HonoEnv';
-import type {InstanceCaptchaEffectiveConfig} from './InstanceConfigRepository';
+import type {InstanceCaptchaEffectiveConfig, InstanceMonitoringPublicConfig} from './InstanceConfigRepository';
 
 function buildDiscoveryStaticInput(
 	gifService: GifService | undefined,
@@ -20,6 +20,7 @@ function buildDiscoveryStaticInput(
 	runtime: {
 		captcha: InstanceCaptchaEffectiveConfig;
 		emailEnabled: boolean;
+		monitoring: InstanceMonitoringPublicConfig;
 	},
 ): DiscoveryStaticInput {
 	const apiClientEndpoint = Config.endpoints.apiClient;
@@ -61,6 +62,7 @@ function buildDiscoveryStaticInput(
 		push: {
 			public_vapid_key: Config.push.publicVapidKey ?? null,
 		},
+		monitoring: runtime.monitoring,
 		appPublic,
 	};
 }
@@ -86,13 +88,14 @@ export function InstanceController(app: Hono<HonoEnv>) {
 			const limits = limitConfigService?.getConfigWireFormat();
 			const sso = await ctx.get('ssoService').getPublicStatus();
 			const instanceConfigRepository = ctx.get('instanceConfigRepository');
-			const [registration, community, services, appPublicConfig, captcha, email] = await Promise.all([
+			const [registration, community, services, appPublicConfig, captcha, email, monitoring] = await Promise.all([
 				instanceConfigRepository.getRegistrationPublicConfig(),
 				instanceConfigRepository.getInstanceCommunityPublicConfig(),
 				instanceConfigRepository.getResolvedServicesConfig(),
 				instanceConfigRepository.getAppPublicConfig(),
 				instanceConfigRepository.getEffectiveCaptchaConfig(),
 				instanceConfigRepository.getEffectiveEmailConfig(),
+				instanceConfigRepository.getMonitoringPublicConfig(),
 			]);
 			if (!limits) {
 				throw new Error('limit_config_service is not bound');
@@ -110,6 +113,7 @@ export function InstanceController(app: Hono<HonoEnv>) {
 					{
 						captcha,
 						emailEnabled: email.enabled,
+						monitoring,
 					},
 				),
 				{

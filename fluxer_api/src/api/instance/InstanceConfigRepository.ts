@@ -151,12 +151,20 @@ interface InstanceBlueskyIntegrationConfig {
 	keys: Array<InstanceBlueskyKeyIntegrationConfig>;
 }
 
+interface InstanceSentryIntegrationConfig {
+	enabled: boolean | null;
+	client_enabled: boolean | null;
+	dsn: string | null;
+	environment: string | null;
+}
+
 interface InstanceIntegrationsConfig {
 	gif: InstanceGifIntegrationConfig;
 	youtube: InstanceYoutubeIntegrationConfig;
 	captcha: InstanceCaptchaIntegrationConfig;
 	email: InstanceEmailIntegrationConfig;
 	bluesky: InstanceBlueskyIntegrationConfig;
+	sentry: InstanceSentryIntegrationConfig;
 }
 
 interface InstanceGifEffectiveConfig {
@@ -174,6 +182,19 @@ export interface InstanceCaptchaEffectiveConfig {
 	turnstile_secret_key: string | null;
 	altcha_hmac_secret_key: string | null;
 	altcha_challenge_url: string | null;
+}
+
+export interface InstanceSentryEffectiveConfig {
+	enabled: boolean;
+	clientEnabled: boolean;
+	dsn: string | null;
+	environment: string;
+}
+
+export interface InstanceMonitoringPublicConfig {
+	sentry_enabled: boolean;
+	sentry_dsn: string | null;
+	environment: string | null;
 }
 
 interface InstanceIntegrationsAdminConfig {
@@ -223,6 +244,16 @@ interface InstanceIntegrationsAdminConfig {
 		policy_uri: string | null;
 		key_count: number;
 	};
+	sentry: {
+		enabled: boolean | null;
+		effective_enabled: boolean;
+		client_enabled: boolean | null;
+		effective_client_enabled: boolean;
+		dsn: string | null;
+		dsn_set: boolean;
+		environment: string | null;
+		effective_environment: string;
+	};
 }
 
 interface InstanceAttachmentDecayConfig {
@@ -269,6 +300,7 @@ interface InstanceIntegrationsConfigPatch {
 	bluesky?: Partial<Omit<InstanceBlueskyIntegrationConfig, 'keys'>> & {
 		keys?: Array<Partial<InstanceBlueskyKeyIntegrationConfig>>;
 	};
+	sentry?: Partial<InstanceSentryIntegrationConfig>;
 }
 
 interface InstanceMediaConfigPatch {
@@ -474,6 +506,12 @@ const DEFAULT_INSTANCE_INTEGRATIONS_CONFIG: InstanceIntegrationsConfig = {
 		policy_uri: null,
 		keys: [],
 	},
+	sentry: {
+		enabled: null,
+		client_enabled: null,
+		dsn: null,
+		environment: null,
+	},
 };
 
 const DEFAULT_INSTANCE_ATTACHMENT_DECAY_CONFIG: InstanceAttachmentDecayConfig = {
@@ -617,6 +655,7 @@ function normalizeInstanceIntegrationsConfig(value: unknown): InstanceIntegratio
 	const email = isJsonRecord(value.email) ? value.email : {};
 	const smtp = isJsonRecord(email.smtp) ? email.smtp : {};
 	const bluesky = isJsonRecord(value.bluesky) ? value.bluesky : {};
+	const sentry = isJsonRecord(value.sentry) ? value.sentry : {};
 	const blueskyKeys = Array.isArray(bluesky.keys)
 		? bluesky.keys.flatMap((entry) => {
 				const normalized = normalizeBlueskyKey(entry);
@@ -660,6 +699,12 @@ function normalizeInstanceIntegrationsConfig(value: unknown): InstanceIntegratio
 			tos_uri: normalizePublicString(bluesky.tos_uri),
 			policy_uri: normalizePublicString(bluesky.policy_uri),
 			keys: blueskyKeys,
+		},
+		sentry: {
+			enabled: normalizeNullableBoolean(sentry.enabled),
+			client_enabled: normalizeNullableBoolean(sentry.client_enabled),
+			dsn: normalizeSecretString(sentry.dsn),
+			environment: normalizePublicString(sentry.environment),
 		},
 	};
 }
@@ -1206,6 +1251,10 @@ export class InstanceConfigRepository {
 				...(config.bluesky ?? {}),
 				keys: config.bluesky?.keys ?? current.bluesky.keys,
 			},
+			sentry: {
+				...current.sentry,
+				...(config.sentry ?? {}),
+			},
 		});
 		const persisted = stripSelfHostedIntegrationSecrets(next);
 		await this.setConfig(INSTANCE_INTEGRATIONS_CONFIG_KEY, JSON.stringify(persisted));
@@ -1403,14 +1452,40 @@ export class InstanceConfigRepository {
 		};
 	}
 
+	async getEffectiveSentryConfig(): Promise<InstanceSentryEffectiveConfig> {
+		const integrations = await this.getInstanceIntegrationsConfig();
+		const enabled = resolveSelfHostedBoolean(integrations.sentry.enabled, Config.sentry.enabled);
+		const clientEnabled = resolveSelfHostedBoolean(integrations.sentry.client_enabled, Config.sentry.clientEnabled);
+		const dsn = resolveSelfHostedString(integrations.sentry.dsn ?? '', Config.sentry.dsn).trim() || null;
+		const environment =
+			resolveSelfHostedString(integrations.sentry.environment ?? '', Config.sentry.environment).trim() || Config.nodeEnv;
+		const hasDsn = Boolean(dsn);
+		return {
+			enabled: enabled && hasDsn,
+			clientEnabled: clientEnabled && hasDsn,
+			dsn,
+			environment,
+		};
+	}
+
+	async getMonitoringPublicConfig(): Promise<InstanceMonitoringPublicConfig> {
+		const sentry = await this.getEffectiveSentryConfig();
+		return {
+			sentry_enabled: sentry.clientEnabled,
+			sentry_dsn: sentry.clientEnabled ? sentry.dsn : null,
+			environment: sentry.clientEnabled ? sentry.environment : null,
+		};
+	}
+
 	async getInstanceIntegrationsAdminConfig(): Promise<InstanceIntegrationsAdminConfig> {
-		const [integrations, gif, youtubeApiKey, captcha, email, bluesky] = await Promise.all([
+		const [integrations, gif, youtubeApiKey, captcha, email, bluesky, sentry] = await Promise.all([
 			this.getInstanceIntegrationsConfig(),
 			this.getEffectiveGifConfig(),
 			this.getEffectiveYoutubeApiKey(),
 			this.getEffectiveCaptchaConfig(),
 			this.getEffectiveEmailConfig(),
 			this.getEffectiveBlueskyConfig(),
+			this.getEffectiveSentryConfig(),
 		]);
 		return {
 			gif: {
@@ -1461,6 +1536,16 @@ export class InstanceConfigRepository {
 				tos_uri: bluesky.tos_uri || null,
 				policy_uri: bluesky.policy_uri || null,
 				key_count: bluesky.keys.length,
+			},
+			sentry: {
+				enabled: integrations.sentry.enabled,
+				effective_enabled: sentry.enabled,
+				client_enabled: integrations.sentry.client_enabled,
+				effective_client_enabled: sentry.clientEnabled,
+				dsn: sentry.dsn,
+				dsn_set: secretIsSet(integrations.sentry.dsn) || secretIsSet(Config.sentry.dsn),
+				environment: integrations.sentry.environment,
+				effective_environment: sentry.environment,
 			},
 		};
 	}

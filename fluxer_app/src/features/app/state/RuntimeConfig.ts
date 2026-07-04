@@ -8,6 +8,7 @@ import {
 	normalizeGifProviderInfo,
 } from '@app/features/app/state/GifProviderConfig';
 import DeveloperOptions from '@app/features/devtools/state/DeveloperOptions';
+import {configureClientSentry} from '@app/features/platform/monitoring/SentryClient';
 import {http} from '@app/features/platform/transport/RestTransport';
 import {API_CODE_VERSION} from '@fluxer/constants/src/AppConstants';
 import type {
@@ -521,6 +522,11 @@ class RuntimeConfig {
 			this.appPublic = appPublic;
 		});
 		applyDocumentBranding(appPublic);
+		configureClientSentry({
+			enabled: instance.monitoring?.sentry_enabled ?? false,
+			dsn: instance.monitoring?.sentry_dsn ?? null,
+			environment: instance.monitoring?.environment ?? null,
+		});
 	}
 
 	private assertCodeVersion(instanceVersion: number): void {

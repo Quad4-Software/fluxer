@@ -96,6 +96,8 @@ pub struct InstanceIntegrationsResponse {
     pub email: InstanceEmailIntegrationResponse,
     #[serde(default)]
     pub bluesky: InstanceBlueskyIntegrationResponse,
+    #[serde(default)]
+    pub sentry: InstanceSentryIntegrationResponse,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -171,6 +173,22 @@ pub struct InstanceBlueskyIntegrationResponse {
     pub policy_uri: Option<String>,
     #[serde(default)]
     pub key_count: u16,
+}
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct InstanceSentryIntegrationResponse {
+    pub enabled: Option<bool>,
+    #[serde(default)]
+    pub effective_enabled: bool,
+    pub client_enabled: Option<bool>,
+    #[serde(default)]
+    pub effective_client_enabled: bool,
+    pub dsn: Option<String>,
+    #[serde(default)]
+    pub dsn_set: bool,
+    pub environment: Option<String>,
+    #[serde(default)]
+    pub effective_environment: String,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -546,6 +564,8 @@ pub struct InstanceIntegrationsUpdateRequest {
     pub email: Option<InstanceEmailIntegrationUpdateRequest>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub bluesky: Option<InstanceBlueskyIntegrationUpdateRequest>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sentry: Option<InstanceSentryIntegrationUpdateRequest>,
 }
 
 #[derive(Clone, Debug, Default, Serialize)]
@@ -631,6 +651,18 @@ pub struct InstanceBlueskyKeyIntegrationUpdateRequest {
 }
 
 #[derive(Clone, Debug, Default, Serialize)]
+pub struct InstanceSentryIntegrationUpdateRequest {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub client_enabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dsn: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub environment: Option<String>,
+}
+
+#[derive(Clone, Debug, Default, Serialize)]
 pub struct InstanceMediaUpdateRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub attachment_decay: Option<InstanceAttachmentDecayUpdateRequest>,
@@ -672,6 +704,20 @@ pub struct InstanceEmailSmtpTestResponse {
     #[serde(default)]
     pub ok: bool,
     pub error: Option<String>,
+}
+
+#[derive(Clone, Debug, Default, Serialize)]
+pub struct InstanceSentryTestRequest {
+    pub dsn: String,
+    pub environment: Option<String>,
+}
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct InstanceSentryTestResponse {
+    #[serde(default)]
+    pub ok: bool,
+    pub error: Option<String>,
+    pub event_id: Option<String>,
 }
 
 #[derive(Clone, Debug, Default, Serialize)]

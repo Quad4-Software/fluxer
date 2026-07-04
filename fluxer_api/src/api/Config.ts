@@ -371,6 +371,12 @@ export function buildAPIConfigFromMaster(master: MasterConfig): APIConfig {
 		youtube: {
 			apiKey: master.integrations.youtube.api_key,
 		},
+		sentry: {
+			enabled: master.integrations.sentry.enabled,
+			clientEnabled: master.integrations.sentry.client_enabled,
+			dsn: master.integrations.sentry.dsn,
+			environment: master.integrations.sentry.environment,
+		},
 		instance: {
 			selfHosted: master.instance.self_hosted,
 			autoJoinInviteCode: master.instance.auto_join_invite_code,

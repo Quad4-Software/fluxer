@@ -46,12 +46,12 @@ require_command bash
 mkdir -p "$TARGET_DIR"
 cd "$TARGET_DIR"
 
-for file in docker-compose.yml Caddyfile livekit.yaml .env.example setup.sh install.sh; do
+for file in docker-compose.yml Caddyfile livekit.yaml .env.example setup.sh install.sh upgrade.sh; do
 	echo "Downloading ${file}..."
 	curl -fsSLO "${BASE}/${file}"
 done
 
-chmod +x setup.sh install.sh
+chmod +x setup.sh install.sh upgrade.sh
 
 if [[ ! -f .env ]]; then
 	cp .env.example .env

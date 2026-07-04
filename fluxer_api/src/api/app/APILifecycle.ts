@@ -31,6 +31,7 @@ import {
 	getReportRepository,
 	getUserRepository,
 } from '../middleware/ServiceSingletons';
+import {applyInstanceSentryMonitoring} from '../monitoring/InstanceSentryMonitoring';
 import {torExitListCache} from '../middleware/TorExitListCache';
 import {initializeSearch, shutdownSearch} from '../SearchFactory';
 import {warmupAdminSearchIndexes} from '../search/SearchWarmup';
@@ -257,6 +258,20 @@ export function createInitializer(config: APIConfig, logger: ILogger): () => Pro
 				} catch (error) {
 					logger.warn({error}, 'Failed to reset SSO config for test mode');
 				}
+			}
+			try {
+				const sentryConfig = await getInstanceConfigRepository().getEffectiveSentryConfig();
+				await applyInstanceSentryMonitoring({
+					enabled: sentryConfig.enabled,
+					clientEnabled: sentryConfig.clientEnabled,
+					dsn: sentryConfig.dsn,
+					environment: sentryConfig.environment,
+				});
+				if (sentryConfig.enabled) {
+					logger.info({environment: sentryConfig.environment}, 'Monitoring initialized');
+				}
+			} catch (error) {
+				logger.warn({error}, 'Monitoring initialization failed');
 			}
 			logger.info('API service initialization complete');
 		} catch (error) {

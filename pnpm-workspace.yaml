@@ -72,6 +72,8 @@ catalog:
   '@radix-ui/react-switch': 1.2.6
   '@rspack/cli': 1.7.6
   '@rspack/core': 1.7.6
+  '@sentry/node': 10.63.0
+  '@sentry/react': 10.63.0
   '@simplewebauthn/browser': 13.2.2
   '@simplewebauthn/server': 13.2.3
   '@svgr/webpack': 8.1.0

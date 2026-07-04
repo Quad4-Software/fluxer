@@ -221,4 +221,61 @@ describe('InstanceConfigRepository', () => {
 			config.endpoints.apiPublic = originalApiPublic;
 		}
 	});
+
+	it('resolves effective sentry config from environment on self-hosted deployments', async () => {
+		const executor = new CountingInMemoryCassandraQueryExecutor();
+		setCassandraQueryExecutorForTesting(executor);
+		const kvProvider = new MockKVProvider();
+		const repository = createRepository(kvProvider);
+		const config = getConfig();
+		const originalSelfHosted = config.instance.selfHosted;
+		const originalSentry = structuredClone(config.sentry);
+		try {
+			config.instance.selfHosted = true;
+			config.sentry = {
+				enabled: true,
+				clientEnabled: true,
+				dsn: 'https://0123456789abcdef0123456789abcdef@glitchtip.example.com/1',
+				environment: 'staging',
+			};
+			await repository.setInstanceIntegrationsConfig({
+				sentry: {
+					enabled: false,
+					client_enabled: false,
+					dsn: 'https://0123456789abcdef0123456789abcdef@ignored.example.com/2',
+					environment: 'ignored',
+				},
+			});
+			await expect(repository.getEffectiveSentryConfig()).resolves.toMatchObject({
+				enabled: true,
+				clientEnabled: true,
+				dsn: 'https://0123456789abcdef0123456789abcdef@glitchtip.example.com/1',
+				environment: 'staging',
+			});
+		} finally {
+			config.instance.selfHosted = originalSelfHosted;
+			config.sentry = originalSentry;
+		}
+	});
+
+	it('persists sentry DSN in instance config on self-hosted deployments', async () => {
+		const executor = new CountingInMemoryCassandraQueryExecutor();
+		setCassandraQueryExecutorForTesting(executor);
+		const kvProvider = new MockKVProvider();
+		const repository = createRepository(kvProvider);
+		const config = getConfig();
+		const originalSelfHosted = config.instance.selfHosted;
+		try {
+			config.instance.selfHosted = true;
+			await repository.setInstanceIntegrationsConfig({
+				sentry: {
+					dsn: 'https://0123456789abcdef0123456789abcdef@glitchtip.example.com/1',
+				},
+			});
+			const stored = await repository.getInstanceIntegrationsConfig();
+			expect(stored.sentry.dsn).toBe('https://0123456789abcdef0123456789abcdef@glitchtip.example.com/1');
+		} finally {
+			config.instance.selfHosted = originalSelfHosted;
+		}
+	});
 });

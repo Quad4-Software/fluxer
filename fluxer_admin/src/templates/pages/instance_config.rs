@@ -544,6 +544,51 @@ fn integrations_config_section(
 
                     div class="space-y-4 border-t border-neutral-200 pt-6" {
                         div class="flex flex-wrap items-center gap-2" {
+                            h3 class="text-sm font-semibold text-neutral-900" { "Sentry / GlitchTip monitoring" }
+                            @if integrations.sentry.effective_enabled {
+                                (badge("Server: enabled", BadgeVariant::Success))
+                            } @else {
+                                (badge("Server: disabled", BadgeVariant::Default))
+                            }
+                            @if integrations.sentry.effective_client_enabled {
+                                (badge("Client: enabled", BadgeVariant::Success))
+                            } @else {
+                                (badge("Client: disabled", BadgeVariant::Default))
+                            }
+                            @if integrations.sentry.dsn_set {
+                                (secret_badge("DSN", true))
+                            }
+                        }
+                        (checkbox("integration_sentry_enabled", "true", "Enable server-side error reporting", integrations.sentry.effective_enabled, true))
+                        (checkbox("integration_sentry_client_enabled", "true", "Enable web client error reporting", integrations.sentry.effective_client_enabled, true))
+                        div class="grid grid-cols-1 gap-4 sm:grid-cols-2" {
+                            (text_input(
+                                "integration_sentry_dsn",
+                                "DSN",
+                                integrations.sentry.dsn.as_deref().unwrap_or(""),
+                                "https://examplePublicKey@glitchtip.example.com/1",
+                            ))
+                            (text_input(
+                                "integration_sentry_environment",
+                                "Environment",
+                                integrations.sentry.environment.as_deref().unwrap_or(&integrations.sentry.effective_environment),
+                                "production",
+                            ))
+                        }
+                        p class="text-sm text-neutral-600" {
+                            "Use a Sentry or GlitchTip project DSN. The DSN is safe to expose to web clients when client reporting is enabled."
+                        }
+                        div class="flex flex-wrap gap-2" {
+                            button type="submit"
+                                formaction={(base) "/instance-config?action=test_sentry"}
+                                class="inline-flex w-fit items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-neutral-50 px-4 py-2 font-medium text-base text-neutral-700 transition-all duration-150 hover:border-neutral-400 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white" {
+                                span { "Send test event" }
+                            }
+                        }
+                    }
+
+                    div class="space-y-4 border-t border-neutral-200 pt-6" {
+                        div class="flex flex-wrap items-center gap-2" {
                             h3 class="text-sm font-semibold text-neutral-900" { "Bluesky OAuth" }
                             @if integrations.bluesky.effective_enabled {
                                 (badge("Effective: enabled", BadgeVariant::Success))

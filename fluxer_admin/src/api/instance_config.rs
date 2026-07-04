@@ -4,6 +4,7 @@ use super::client::{AdminApiClient, ApiResult};
 use super::types::{
     CreateRegistrationUrlRequest, CreateRegistrationUrlResponse, InstanceConfigResponse,
     InstanceConfigUpdateRequest, InstanceEmailSmtpTestRequest, InstanceEmailSmtpTestResponse,
+    InstanceSentryTestRequest, InstanceSentryTestResponse,
     PendingRegistrationActionRequest, RegistrationUrlActionRequest,
 };
 
@@ -25,6 +26,14 @@ impl AdminApiClient {
         request: &InstanceEmailSmtpTestRequest,
     ) -> ApiResult<InstanceEmailSmtpTestResponse> {
         self.post_typed("/admin/instance-config/integrations/smtp/test", request)
+            .await
+    }
+
+    pub async fn test_instance_sentry_config(
+        &self,
+        request: &InstanceSentryTestRequest,
+    ) -> ApiResult<InstanceSentryTestResponse> {
+        self.post_typed("/admin/instance-config/integrations/sentry/test", request)
             .await
     }
 

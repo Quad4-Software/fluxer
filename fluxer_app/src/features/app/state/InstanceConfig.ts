@@ -8,6 +8,7 @@ import RuntimeConfig, {
 	normalizeInstanceRegistration,
 	normalizeInstanceServices,
 } from '@app/features/app/state/RuntimeConfig';
+import {configureClientSentry} from '@app/features/platform/monitoring/SentryClient';
 import {Logger} from '@app/features/platform/utils/AppLogger';
 import {MS_PER_HOUR, MS_PER_MINUTE} from '@fluxer/date_utils/src/DateConstants';
 import type {
@@ -17,6 +18,7 @@ import type {
 	InstanceDiscoveryResponse,
 	InstanceEndpoints,
 	InstanceFeatures,
+	InstanceMonitoring,
 	InstanceRegistration,
 	InstanceServices,
 	InstanceSso as InstanceSsoConfig,
@@ -49,6 +51,7 @@ export interface InstanceConfig {
 	push: {
 		public_vapid_key: string | null;
 	} | null;
+	monitoring: InstanceMonitoring;
 	appPublic: InstanceAppPublic;
 }
 
@@ -158,8 +161,18 @@ class InstanceConfigs {
 			services: normalizeInstanceServices(data.services),
 			limits,
 			push: data.push ?? null,
+			monitoring: data.monitoring ?? {
+				sentry_enabled: false,
+				sentry_dsn: null,
+				environment: null,
+			},
 			appPublic: normalizeAppPublicConfig(data.app_public),
 		};
+		configureClientSentry({
+			enabled: config.monitoring.sentry_enabled,
+			dsn: config.monitoring.sentry_dsn,
+			environment: config.monitoring.environment,
+		});
 		runInAction(() => {
 			this.instanceConfigs.set(domain, config);
 			this.configValidators.set(domain, {
@@ -226,6 +239,11 @@ class InstanceConfigs {
 			services: RuntimeConfig.services,
 			limits: RuntimeConfig.limits,
 			push: {public_vapid_key: RuntimeConfig.publicPushVapidKey},
+			monitoring: {
+				sentry_enabled: false,
+				sentry_dsn: null,
+				environment: null,
+			},
 			appPublic: normalizeAppPublicConfig(RuntimeConfig.appPublic),
 		};
 	}

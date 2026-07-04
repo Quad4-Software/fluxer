@@ -9,6 +9,7 @@ import type {
 	InstanceEndpoints,
 	InstanceFeatures,
 	InstanceGif,
+	InstanceMonitoring,
 	InstancePush,
 	InstanceRegistration,
 	InstanceServices,
@@ -22,6 +23,7 @@ export interface DiscoveryStaticInput {
 	features: InstanceFeatures;
 	gif: InstanceGif;
 	push: InstancePush;
+	monitoring: InstanceMonitoring;
 	appPublic: InstanceAppPublic;
 }
 
@@ -49,6 +51,7 @@ export function buildDiscoveryResponse(
 		services: dynamicInput.services,
 		limits: dynamicInput.limits,
 		push: staticInput.push,
+		monitoring: staticInput.monitoring,
 		app_public: staticInput.appPublic,
 	};
 }

@@ -14,7 +14,8 @@ use crate::{
             InstanceEmailSmtpIntegrationUpdateRequest, InstanceEmailSmtpTestRequest,
             InstanceGifIntegrationUpdateRequest, InstanceIntegrationsUpdateRequest,
             InstanceMediaUpdateRequest, InstancePolicyUpdateRequest,
-            InstanceRegistrationConfigUpdateRequest, InstanceServicesUpdateRequest,
+            InstanceRegistrationConfigUpdateRequest, InstanceSentryIntegrationUpdateRequest,
+            InstanceSentryTestRequest, InstanceServicesUpdateRequest,
             InstanceYoutubeIntegrationUpdateRequest, LimitConfigUpdateRequest, LimitRule,
             LimitRuleFilters, PremiumMode, RegistrationMode, SsoConfigUpdateRequest,
             VoiceE2eeScope,
@@ -211,6 +212,26 @@ pub async fn instance_config_post(
                 Err(error) => {
                     tracing::warn!(%error, "admin API request failed: test SMTP config");
                     FlashData::error("Failed to validate SMTP configuration")
+                }
+            },
+            Err(message) => FlashData::error(message),
+        },
+        "test_sentry" => match build_sentry_test_request(&form) {
+            Ok(request) => match client.test_instance_sentry_config(&request).await {
+                Ok(response) if response.ok => FlashData::success(
+                    response
+                        .event_id
+                        .map(|event_id| format!("Monitoring test event sent ({event_id})"))
+                        .unwrap_or_else(|| "Monitoring test event sent".to_owned()),
+                ),
+                Ok(response) => FlashData::error(
+                    response
+                        .error
+                        .unwrap_or_else(|| "Monitoring validation failed".to_owned()),
+                ),
+                Err(error) => {
+                    tracing::warn!(%error, "admin API request failed: test monitoring config");
+                    FlashData::error("Failed to validate monitoring configuration")
                 }
             },
             Err(message) => FlashData::error(message),
@@ -641,6 +662,12 @@ fn build_integrations_update(form: &MultiValueForm) -> InstanceConfigUpdateReque
                 policy_uri: clean("integration_bluesky_policy_uri"),
                 keys: bluesky_keys,
             }),
+            sentry: Some(InstanceSentryIntegrationUpdateRequest {
+                enabled: Some(form.bool_value("integration_sentry_enabled")),
+                client_enabled: Some(form.bool_value("integration_sentry_client_enabled")),
+                dsn: clean("integration_sentry_dsn"),
+                environment: clean("integration_sentry_environment"),
+            }),
         }),
         media: None,
     }
@@ -694,6 +721,16 @@ fn build_smtp_test_request(form: &MultiValueForm) -> Result<InstanceEmailSmtpTes
         username,
         password,
         secure: form.bool_value("integration_smtp_secure"),
+    })
+}
+
+fn build_sentry_test_request(form: &MultiValueForm) -> Result<InstanceSentryTestRequest, String> {
+    let dsn = form
+        .clean("integration_sentry_dsn")
+        .ok_or_else(|| "Sentry or GlitchTip DSN is required".to_owned())?;
+    Ok(InstanceSentryTestRequest {
+        dsn,
+        environment: form.clean("integration_sentry_environment"),
     })
 }
 

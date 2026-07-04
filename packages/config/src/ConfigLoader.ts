@@ -250,6 +250,12 @@ function defaultConfig(): MasterConfig {
 					apps: [],
 				},
 			},
+			sentry: {
+				enabled: false,
+				client_enabled: false,
+				dsn: '',
+				environment: '',
+			},
 		},
 		instance: {
 			self_hosted: false,

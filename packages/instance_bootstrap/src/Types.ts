@@ -65,6 +65,12 @@ export interface InstancePush {
 	public_vapid_key: string | null;
 }
 
+export interface InstanceMonitoring {
+	sentry_enabled: boolean;
+	sentry_dsn: string | null;
+	environment: string | null;
+}
+
 export interface InstanceBranding {
 	product_name: string;
 	icon_url: string | null;
@@ -108,6 +114,7 @@ export interface InstanceDiscoveryResponse {
 	services: InstanceServices;
 	limits: LimitConfigSnapshot | LimitConfigWireFormat;
 	push: InstancePush;
+	monitoring: InstanceMonitoring;
 	app_public: InstanceAppPublic;
 }
 

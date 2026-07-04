@@ -283,6 +283,12 @@ export interface MasterConfig {
 				reverse_dns_timeout_ms: number;
 			};
 		};
+		sentry: {
+			enabled: boolean;
+			client_enabled: boolean;
+			dsn: string;
+			environment: string;
+		};
 		push: {
 			apns: {
 				enabled: boolean;

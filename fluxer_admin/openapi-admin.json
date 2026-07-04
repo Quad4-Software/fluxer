@@ -4981,6 +4981,63 @@
 				"security": [{"adminApiKey": []}]
 			}
 		},
+		"/admin/instance-config/integrations/sentry/test": {
+			"post": {
+				"operationId": "test_instance_sentry_config",
+				"summary": "Validate Sentry or GlitchTip configuration",
+				"tags": ["Admin"],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/InstanceSentryTestResponse"}}}
+					},
+					"400": {
+						"description": "Bad Request - The request was malformed or contained invalid data",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"401": {
+						"description": "Unauthorized - Authentication is required or the token is invalid",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"403": {
+						"description": "Forbidden - You do not have permission to perform this action",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"429": {
+						"description": "Too Many Requests - You are being rate limited",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}},
+						"headers": {
+							"Retry-After": {
+								"description": "Number of seconds to wait before retrying (only on 429)",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Limit": {
+								"description": "The number of requests that can be made in the current window",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Remaining": {
+								"description": "The number of remaining requests that can be made",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Reset": {
+								"description": "Unix timestamp when the rate limit resets",
+								"schema": {"type": "integer"}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error - An unexpected error occurred",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					}
+				},
+				"description": "Sends a test event to the configured Sentry or GlitchTip DSN. Requires INSTANCE_CONFIG_UPDATE permission.",
+				"security": [{"adminApiKey": []}],
+				"requestBody": {
+					"required": true,
+					"content": {"application/json": {"schema": {"$ref": "#/components/schemas/InstanceSentryTestRequest"}}}
+				}
+			}
+		},
 		"/admin/instance-config/integrations/smtp/test": {
 			"post": {
 				"operationId": "test_instance_smtp_config",
@@ -12684,9 +12741,32 @@
 									"policy_uri",
 									"key_count"
 								]
+							},
+							"sentry": {
+								"type": "object",
+								"properties": {
+									"enabled": {"nullable": true, "type": "boolean"},
+									"effective_enabled": {"type": "boolean"},
+									"client_enabled": {"nullable": true, "type": "boolean"},
+									"effective_client_enabled": {"type": "boolean"},
+									"dsn": {"nullable": true, "type": "string"},
+									"dsn_set": {"type": "boolean"},
+									"environment": {"nullable": true, "type": "string"},
+									"effective_environment": {"type": "string"}
+								},
+								"required": [
+									"enabled",
+									"effective_enabled",
+									"client_enabled",
+									"effective_client_enabled",
+									"dsn",
+									"dsn_set",
+									"environment",
+									"effective_environment"
+								]
 							}
 						},
-						"required": ["gif", "youtube", "captcha", "email", "bluesky"]
+						"required": ["gif", "youtube", "captcha", "email", "bluesky", "sentry"]
 					},
 					"media": {
 						"type": "object",
@@ -12837,6 +12917,23 @@
 					"image": {"nullable": true, "type": "string", "maxLength": 16000000}
 				},
 				"required": ["kind"]
+			},
+			"InstanceSentryTestResponse": {
+				"type": "object",
+				"properties": {
+					"ok": {"type": "boolean"},
+					"error": {"nullable": true, "type": "string"},
+					"event_id": {"nullable": true, "type": "string"}
+				},
+				"required": ["ok", "error", "event_id"]
+			},
+			"InstanceSentryTestRequest": {
+				"type": "object",
+				"properties": {
+					"dsn": {"type": "string", "minLength": 1, "maxLength": 4096},
+					"environment": {"nullable": true, "type": "string", "maxLength": 120}
+				},
+				"required": ["dsn"]
 			},
 			"InstanceEmailSmtpTestResponse": {
 				"type": "object",
@@ -13049,6 +13146,16 @@
 										},
 										"maxItems": 8
 									}
+								}
+							},
+							"sentry": {
+								"nullable": true,
+								"type": "object",
+								"properties": {
+									"enabled": {"nullable": true, "type": "boolean"},
+									"client_enabled": {"nullable": true, "type": "boolean"},
+									"dsn": {"nullable": true, "type": "string", "maxLength": 4096},
+									"environment": {"nullable": true, "type": "string", "maxLength": 120}
 								}
 							}
 						}

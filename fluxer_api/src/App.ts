@@ -6,6 +6,7 @@ import {initializeLogger} from '@app/api/Logger';
 import {Config} from '@app/Config';
 import {shutdownInstrumentation} from '@app/Instrument';
 import {Logger} from '@app/Logger';
+import {captureSentryException} from '@pkgs/initialization/src/SentryService';
 import {createServer, setupGracefulShutdown} from '@fluxer/hono/src/Server';
 
 async function closeHttpServer(server: {close: (callback: (error?: Error) => void) => void}): Promise<void> {
@@ -29,9 +30,11 @@ async function main(): Promise<void> {
 	});
 	await initialize();
 	process.on('uncaughtException', (error) => {
+		captureSentryException(error);
 		Logger.error({error}, 'Uncaught exception');
 	});
 	process.on('unhandledRejection', (reason) => {
+		captureSentryException(reason);
 		Logger.error({reason}, 'Unhandled rejection (suppressed)');
 	});
 	const server = createServer(app, {port: Config.port});

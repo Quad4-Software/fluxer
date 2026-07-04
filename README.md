@@ -37,6 +37,22 @@ cd deploy/self-hosting
 
 `setup.sh` creates `.env`, sets the public hostname, and generates every required secret (including VAPID keys). Use `--cloudflare-tunnel` when Cloudflare terminates HTTPS in front of Caddy. Use `--verify` with `--start` to probe health endpoints after launch.
 
+To upgrade an existing deployment (for example from upstream `fluxerapp/fluxer`) to this fork:
+
+```bash
+cd deploy/self-hosting   # or your install directory
+./upgrade.sh --verify
+```
+
+`upgrade.sh` backs up stack files, downloads the latest templates from `Quad4-Software/fluxer`, appends any missing `.env` keys without overwriting your values, generates new secrets such as `FLUXER_CAPTCHA_ALTCHA_HMAC_SECRET`, switches `FLUXER_REGISTRY_OWNER` from `fluxerapp` to `Quad4-Software` when appropriate, then runs `docker compose pull`, `down`, and `up -d` while keeping data volumes. Pass `--no-fork` to keep your current image registry.
+
+If an upgrade goes wrong, roll back stack files from the automatic backup:
+
+```bash
+./upgrade.sh restore --list
+./upgrade.sh restore latest --verify
+```
+
 ### Changes in this repository
 
 | Area | Problem | Change |

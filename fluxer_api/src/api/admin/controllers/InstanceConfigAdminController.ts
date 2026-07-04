@@ -10,11 +10,14 @@ import {
 	InstanceConfigUpdateRequest,
 	InstanceEmailSmtpTestRequest,
 	InstanceEmailSmtpTestResponse,
+	InstanceSentryTestRequest,
+	InstanceSentryTestResponse,
 	PendingRegistrationActionRequest,
 	RegistrationUrlActionRequest,
 } from '@fluxer/schema/src/domains/admin/AdminSchemas';
 import {GatewayRolloutConfigSchema} from '@fluxer/schema/src/domains/admin/GatewayRolloutSchemas';
 import {SmtpEmailProvider} from '@pkgs/email/src/SmtpEmailProvider';
+import {sendSentryTestEvent} from '@pkgs/initialization/src/SentryTest';
 import type {Context} from 'hono';
 import {createMiddleware} from 'hono/factory';
 import {createUserID} from '../../BrandedTypes';
@@ -26,6 +29,7 @@ import {
 	REGISTRATION_REJECTED_TRAIT,
 } from '../../instance/InstanceConfigRepository';
 import {deriveSsoRedirectUri, normalizeAndValidateSsoConfig} from '../../instance/SsoConfigValidation';
+import {applyInstanceSentryMonitoring} from '../../monitoring/InstanceSentryMonitoring';
 import {requireAdminACL} from '../../middleware/AdminMiddleware';
 import {RateLimitMiddleware} from '../../middleware/RateLimitMiddleware';
 import {OpenAPI} from '../../middleware/ResponseTypeMiddleware';
@@ -341,7 +345,32 @@ export function InstanceConfigAdminController(app: HonoApp) {
 								keys: readOptionalField(data.integrations.bluesky, 'keys'),
 							}
 						: undefined,
+					sentry: data.integrations.sentry
+						? omitUndefinedFields({
+								enabled: readOptionalField(data.integrations.sentry, 'enabled'),
+								client_enabled: readOptionalField(data.integrations.sentry, 'client_enabled'),
+								dsn: readOptionalField(data.integrations.sentry, 'dsn'),
+								environment: readOptionalField(data.integrations.sentry, 'environment'),
+							})
+						: undefined,
 				});
+				try {
+					const sentryConfig = await instanceConfigRepository.getEffectiveSentryConfig();
+					await applyInstanceSentryMonitoring({
+						enabled: sentryConfig.enabled,
+						clientEnabled: sentryConfig.clientEnabled,
+						dsn: sentryConfig.dsn,
+						environment: sentryConfig.environment,
+					});
+				} catch (error) {
+					return ctx.json(
+						{
+							code: 'SENTRY_CONFIGURATION_FAILED',
+							message: error instanceof Error ? error.message : 'Failed to apply monitoring configuration',
+						},
+						400,
+					);
+				}
 			}
 			if (data.media) {
 				await instanceConfigRepository.setInstanceMediaConfig({
@@ -432,6 +461,39 @@ export function InstanceConfigAdminController(app: HonoApp) {
 				return ctx.json({ok: true, error: null});
 			} catch (error) {
 				return ctx.json({ok: false, error: error instanceof Error ? error.message : String(error)});
+			}
+		},
+	);
+	app.post(
+		'/admin/instance-config/integrations/sentry/test',
+		RateLimitMiddleware(RateLimitConfigs.ADMIN_USER_MODIFY),
+		requireSetupSessionOrAdminACL(AdminACLs.INSTANCE_CONFIG_UPDATE),
+		Validator('json', InstanceSentryTestRequest),
+		OpenAPI({
+			operationId: 'test_instance_sentry_config',
+			summary: 'Validate Sentry or GlitchTip configuration',
+			description:
+				'Sends a test event to the configured Sentry or GlitchTip DSN. Requires INSTANCE_CONFIG_UPDATE permission.',
+			responseSchema: InstanceSentryTestResponse,
+			statusCode: 200,
+			security: 'adminApiKey',
+			tags: 'Admin',
+		}),
+		async (ctx) => {
+			const data = ctx.req.valid('json');
+			try {
+				const result = await sendSentryTestEvent({
+					dsn: data.dsn,
+					environment: data.environment?.trim() || Config.nodeEnv,
+					serviceName: 'fluxer-api',
+				});
+				return ctx.json({ok: true, error: null, event_id: result.eventId});
+			} catch (error) {
+				return ctx.json({
+					ok: false,
+					error: error instanceof Error ? error.message : String(error),
+					event_id: null,
+				});
 			}
 		},
 	);

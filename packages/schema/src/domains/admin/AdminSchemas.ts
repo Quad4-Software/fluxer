@@ -604,6 +604,16 @@ const InstanceIntegrationsResponse = z.object({
 		policy_uri: z.string().nullable(),
 		key_count: z.number().int().min(0),
 	}),
+	sentry: z.object({
+		enabled: z.boolean().nullable(),
+		effective_enabled: z.boolean(),
+		client_enabled: z.boolean().nullable(),
+		effective_client_enabled: z.boolean(),
+		dsn: z.string().nullable(),
+		dsn_set: z.boolean(),
+		environment: z.string().nullable(),
+		effective_environment: z.string(),
+	}),
 });
 
 export const InstanceConfigResponse = z.object({
@@ -704,6 +714,14 @@ export const InstanceConfigUpdateRequest = z.object({
 						.optional(),
 				})
 				.nullish(),
+			sentry: z
+				.object({
+					enabled: z.boolean().nullish(),
+					client_enabled: z.boolean().nullish(),
+					dsn: z.string().trim().max(4096).nullish(),
+					environment: z.string().trim().max(120).nullish(),
+				})
+				.nullish(),
 		})
 		.nullish(),
 	media: z
@@ -765,6 +783,21 @@ export const InstanceEmailSmtpTestResponse = z.object({
 });
 
 export type InstanceEmailSmtpTestResponse = z.infer<typeof InstanceEmailSmtpTestResponse>;
+
+export const InstanceSentryTestRequest = z.object({
+	dsn: z.string().trim().min(1).max(4096),
+	environment: z.string().trim().max(120).nullish(),
+});
+
+export type InstanceSentryTestRequest = z.infer<typeof InstanceSentryTestRequest>;
+
+export const InstanceSentryTestResponse = z.object({
+	ok: z.boolean(),
+	error: z.string().nullable(),
+	event_id: z.string().nullable(),
+});
+
+export type InstanceSentryTestResponse = z.infer<typeof InstanceSentryTestResponse>;
 
 export const CreateRegistrationUrlRequest = z.object({
 	label: z.string().trim().min(1).max(120).nullish(),

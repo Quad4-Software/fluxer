@@ -67,6 +67,61 @@
 				"description": "Returns the instance discovery document including API endpoints, feature flags, and limits. This is the canonical discovery endpoint for all Fluxer clients."
 			}
 		},
+		"/altcha/challenge": {
+			"get": {
+				"operationId": "get_altcha_challenge",
+				"summary": "Get ALTCHA proof-of-work challenge",
+				"tags": ["Instance"],
+				"responses": {
+					"200": {"description": "Success", "content": {"application/json": {"schema": {"type": "object"}}}},
+					"400": {
+						"description": "Bad Request - The request was malformed or contained invalid data",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"429": {
+						"description": "Too Many Requests - You are being rate limited",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"code": {"type": "string", "enum": ["RATE_LIMITED"]},
+										"message": {"type": "string"},
+										"retry_after": {"type": "number", "description": "Seconds to wait before retrying"},
+										"global": {"type": "boolean", "description": "Whether this is a global rate limit"}
+									},
+									"required": ["code", "message", "retry_after"]
+								}
+							}
+						},
+						"headers": {
+							"Retry-After": {
+								"description": "Number of seconds to wait before retrying (only on 429)",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Limit": {
+								"description": "The number of requests that can be made in the current window",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Remaining": {
+								"description": "The number of remaining requests that can be made",
+								"schema": {"type": "integer"}
+							},
+							"X-RateLimit-Reset": {
+								"description": "Unix timestamp when the rate limit resets",
+								"schema": {"type": "integer"}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error - An unexpected error occurred",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					}
+				},
+				"x-mint": {"metadata": {"title": "Get ALTCHA proof-of-work challenge"}},
+				"description": "Returns a proof-of-work challenge for the ALTCHA widget. Used when captcha.provider is altcha."
+			}
+		},
 		"/applications/@me": {
 			"get": {
 				"operationId": "get_current_user_applications",
@@ -24768,7 +24823,10 @@
 					"captcha": {
 						"type": "object",
 						"properties": {
-							"provider": {"type": "string", "description": "Captcha provider name (hcaptcha, turnstile, altcha, none)"},
+							"provider": {
+								"type": "string",
+								"description": "Captcha provider name (hcaptcha, turnstile, altcha, none)"
+							},
 							"hcaptcha_site_key": {
 								"anyOf": [{"type": "string"}, {"type": "null"}],
 								"description": "hCaptcha site key if using hCaptcha"
@@ -24948,6 +25006,25 @@
 						"required": ["public_vapid_key"],
 						"description": "Push notification configuration"
 					},
+					"monitoring": {
+						"type": "object",
+						"properties": {
+							"sentry_enabled": {
+								"type": "boolean",
+								"description": "Whether client-side error reporting to Sentry or GlitchTip is enabled"
+							},
+							"sentry_dsn": {
+								"anyOf": [{"type": "string"}, {"type": "null"}],
+								"description": "Sentry or GlitchTip DSN for client-side error reporting"
+							},
+							"environment": {
+								"anyOf": [{"type": "string"}, {"type": "null"}],
+								"description": "Environment tag attached to reported client errors"
+							}
+						},
+						"required": ["sentry_enabled", "sentry_dsn", "environment"],
+						"description": "Optional client-side monitoring configuration"
+					},
 					"app_public": {
 						"type": "object",
 						"properties": {
@@ -25049,6 +25126,7 @@
 					"services",
 					"limits",
 					"push",
+					"monitoring",
 					"app_public"
 				]
 			},

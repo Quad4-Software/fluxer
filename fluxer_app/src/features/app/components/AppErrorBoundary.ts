@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {captureClientException} from '@app/features/platform/monitoring/SentryClient';
 import {Logger} from '@app/features/platform/utils/AppLogger';
 import React from 'react';
 
@@ -26,6 +27,7 @@ export class AppErrorBoundary extends React.Component<AppErrorBoundaryProps, App
 	}
 
 	override componentDidCatch(error: Error): void {
+		captureClientException(error);
 		logger.error('Unhandled application error:', error);
 	}
 

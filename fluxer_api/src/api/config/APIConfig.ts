@@ -280,6 +280,12 @@ export interface APIConfig {
 	youtube: {
 		apiKey?: string;
 	};
+	sentry: {
+		enabled: boolean;
+		clientEnabled: boolean;
+		dsn: string;
+		environment: string;
+	};
 	instance: {
 		selfHosted: boolean;
 		autoJoinInviteCode?: string;

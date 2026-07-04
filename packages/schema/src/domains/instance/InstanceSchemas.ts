@@ -133,6 +133,13 @@ export const WellKnownFluxerResponse = z.object({
 			public_vapid_key: z.string().nullable().describe('VAPID public key for web push notifications'),
 		})
 		.describe('Push notification configuration'),
+	monitoring: z
+		.object({
+			sentry_enabled: z.boolean().describe('Whether client-side error reporting to Sentry or GlitchTip is enabled'),
+			sentry_dsn: z.string().nullable().describe('Sentry or GlitchTip DSN for client-side error reporting'),
+			environment: z.string().nullable().describe('Environment tag attached to reported client errors'),
+		})
+		.describe('Optional client-side monitoring configuration'),
 	app_public: AppPublicConfigResponse.describe('Public application configuration for client-side features'),
 });
 
