@@ -356,7 +356,7 @@ msgstr "{count, plural, one {# bookmark} other {# bookmarks}}"
 msgid "{count, plural, one {# community found} other {# communities found}}"
 msgstr "{count, plural, one {# community found} other {# communities found}}"
 
-#: src/features/app/components/layout/GuildsLayout.tsx:730
+#: src/features/app/components/layout/GuildsLayout.tsx:729
 msgid "{count, plural, one {# community is temporarily unavailable due to a flux capacitor malfunction.} other {# communities are temporarily unavailable due to a flux capacitor malfunction.}}"
 msgstr "{count, plural, one {# community is temporarily unavailable due to a flux capacitor malfunction.} other {# communities are temporarily unavailable due to a flux capacitor malfunction.}}"
 
@@ -775,7 +775,7 @@ msgid "{guildName} channels"
 msgstr "{guildName} channels"
 
 #. Section heading in the in-call soundboard panel for a server-uploaded sound catalog.
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:46
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:41
 msgid "{guildName} sounds"
 msgstr "{guildName} sounds"
 
@@ -4054,6 +4054,11 @@ msgstr "Assets"
 msgid "Assistive technology"
 msgstr "Assistive technology"
 
+#. Password strength rule shown during registration.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:33
+msgid "At least 8 characters"
+msgstr "At least 8 characters"
+
 #: src/features/guild/components/modals/guild_tabs/GuildVanityURLTab.tsx:197
 msgid "At least one channel must have \"{viewChannelPermissionLabel}\" permission enabled for {EVERYONE_MENTION} in order for the vanity URL to work. Currently, no channels are viewable to {EVERYONE_MENTION}."
 msgstr "At least one channel must have \"{viewChannelPermissionLabel}\" permission enabled for {EVERYONE_MENTION} in order for the vanity URL to work. Currently, no channels are viewable to {EVERYONE_MENTION}."
@@ -5464,6 +5469,10 @@ msgstr "Branding"
 msgid "Branding asset preview"
 msgstr "Branding asset preview"
 
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:185
+msgid "Breach check unavailable"
+msgstr "Breach check unavailable"
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:154
 msgid "Brightness"
@@ -6704,6 +6713,10 @@ msgstr "Checkboxes"
 #: src/features/ui/action_menu/items/CloneStickerMenuItem.tsx:28
 msgid "Checking access..."
 msgstr "Checking access..."
+
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:152
+msgid "Checking breach database"
+msgstr "Checking breach database"
 
 #. Loading state in the screen-share picker while checking macOS screen recording permission.
 #: src/features/voice/components/modals/screen_share_picker_modal/ScreenSharePickerDisplayPermissionPrompt.tsx:22
@@ -8255,7 +8268,7 @@ msgid "Confirm new password"
 msgstr "Confirm new password"
 
 #. Short label in the authentication auth register form core. Keep the tone plain and specific.
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:35
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:36
 msgid "Confirm password"
 msgstr "Confirm password"
 
@@ -10399,7 +10412,7 @@ msgstr "Date and time"
 #. Short label in the authentication auth register form core. Keep the tone plain and specific.
 #. Short label in the authentication date of birth field. Keep the tone plain and specific.
 #: src/features/auth/flow/AuthMinimalRegisterFormCore.tsx:27
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:39
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:40
 #: src/features/auth/flow/DateOfBirthField.tsx:16
 #: src/features/auth/flow/DateOfBirthField.tsx:98
 #: src/features/auth/flow/DateOfBirthField.tsx:264
@@ -10617,11 +10630,6 @@ msgstr "Default search engine"
 #: src/features/user/components/settings_utils/search_index/KeybindsIndex.ts:130
 msgid "Default shortcuts"
 msgstr "Default shortcuts"
-
-#. Section heading in the in-call soundboard panel for the bundled default sound catalog.
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:42
-msgid "Default sounds"
-msgstr "Default sounds"
 
 #. Developer tools debug menu label. Internal-only surface for developers; translators may keep this terse.
 #: src/features/channel/components/channel_header_components/developer_tools/MockingMenu.tsx:71
@@ -11817,7 +11825,7 @@ msgstr "Display name"
 #. Short label in the authentication auth minimal register form core. Keep the tone plain and specific.
 #. Short label in the authentication auth register form core. Keep the tone plain and specific.
 #: src/features/auth/flow/AuthMinimalRegisterFormCore.tsx:31
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:51
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:52
 #: src/features/auth/flow/MockMinimalRegisterForm.tsx:91
 msgid "Display name (optional)"
 msgstr "Display name (optional)"
@@ -14510,6 +14518,11 @@ msgstr "Failed to upload emojis. Try again."
 msgid "Failed to upload soundboard sound"
 msgstr "Failed to upload soundboard sound"
 
+#. Password strength label shown when the password is fair.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:21
+msgid "Fair"
+msgstr "Fair"
+
 #. IAR modal: rule description.
 #: src/features/moderation/components/report_modal/IARModalCopy.ts:263
 msgid "False claims likely to cause real-world harm."
@@ -15209,6 +15222,10 @@ msgstr "Forwarded from"
 #: src/features/app/components/dialogs/components/AllSettingsRenderer.tsx:268
 msgid "Found {resultCount} results in {categoryCount} categories"
 msgstr "Found {resultCount} results in {categoryCount} categories"
+
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:174
+msgid "Found in a data breach"
+msgstr "Found in a data breach"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/VoiceVideoSections.ts:229
@@ -15950,6 +15967,11 @@ msgstr "Go to sixth community"
 msgid "Go to third community"
 msgstr "Go to third community"
 
+#. Password strength label shown when the password is good.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:25
+msgid "Good"
+msgstr "Good"
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts:287
 msgid "Google lens"
@@ -16293,7 +16315,7 @@ msgstr "Hate speech"
 msgid "Having fun?"
 msgstr "Having fun?"
 
-#: src/features/auth/components/modals/CaptchaModal.tsx:180
+#: src/features/auth/components/modals/CaptchaModal.tsx:194
 msgid "Having issues? Try hCaptcha instead"
 msgstr "Having issues? Try hCaptcha instead"
 
@@ -16372,11 +16394,6 @@ msgstr "Hello, {username}! Nice to have you here."
 #: src/features/platform/utils/DesktopLocaleBridge.ts:78
 msgid "Help"
 msgstr "Help"
-
-#. Short label in the sidebar navigation help button.
-#: src/features/app/components/layout/sidebar_nav/HelpButton.tsx:27
-msgid "Help center"
-msgstr "Help center"
 
 #. Description for a WebRTC content hint select. Keep Motion, Detail, and text as plain option concepts.
 #: src/features/user/components/modals/tabs/advanced_settings_tab/AdvancedVideoControls.tsx:134
@@ -16489,10 +16506,6 @@ msgstr "Hide expiry footnotes"
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:695
 msgid "Hide favorites"
 msgstr "Hide favorites"
-
-#: src/features/app/components/layout/sidebar_nav/HelpButton.tsx:63
-msgid "Hide help center button"
-msgstr "Hide help center button"
 
 #. Short label in the system welcome section. Keep it concise.
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/sections/SystemWelcomeSection.tsx:32
@@ -16728,7 +16741,7 @@ msgstr "Hover me"
 msgid "Hover over buttons to see tooltips in different positions."
 msgstr "Hover over buttons to see tooltips in different positions."
 
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:386
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:387
 msgid "How about:"
 msgstr "How about:"
 
@@ -18706,7 +18719,7 @@ msgid "Leave"
 msgstr "Leave"
 
 #. Short label in the authentication auth register form core. Keep the tone plain and specific.
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:63
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:64
 msgid "Leave blank for a random username"
 msgstr "Leave blank for a random username"
 
@@ -19321,6 +19334,10 @@ msgstr "Long-form content"
 msgid "Look and feel"
 msgstr "Look and feel"
 
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:155
+msgid "Looking to see whether this password appears in known data breaches."
+msgstr "Looking to see whether this password appears in known data breaches."
+
 #. placeholder {0}: externalProcessor.name
 #: src/features/user/components/modals/tabs/UserVoiceTab.tsx:648
 msgid "Looks like you're using {0}. Stacking {PRODUCT_NAME}'s processing on top can cause pumping or distortion. Direct input passes your audio through untouched."
@@ -19339,6 +19356,11 @@ msgstr "Loudness"
 #: src/features/guild/components/modals/guild_tabs/GuildModerationTab.tsx:56
 msgid "Low"
 msgstr "Low"
+
+#. Password strength rule shown during registration.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:37
+msgid "Lowercase letter"
+msgstr "Lowercase letter"
 
 #. Toast shown after adaptive screen-share quality lowers bitrate. {reason} is the limitation reason.
 #: src/features/voice/engine/AdaptiveScreenShareEngine.ts:80
@@ -19545,7 +19567,7 @@ msgid "Manage roles"
 msgstr "Manage roles"
 
 #. Tooltip on the settings shortcut in the in-call soundboard panel.
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:58
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:53
 msgid "Manage server sounds"
 msgstr "Manage server sounds"
 
@@ -21205,7 +21227,7 @@ msgid "Mute shortcut"
 msgstr "Mute shortcut"
 
 #. Tooltip on the mute-all toggle in the in-call soundboard panel.
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:34
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:33
 msgid "Mute soundboard sounds for me"
 msgstr "Mute soundboard sounds for me"
 
@@ -21607,7 +21629,7 @@ msgid "New"
 msgstr "New"
 
 #. Small badge on a new or recently added app navigation item.
-#: src/features/app/components/layout/GuildsLayout.tsx:66
+#: src/features/app/components/layout/GuildsLayout.tsx:65
 msgctxt "navigation-badge"
 msgid "New"
 msgstr "New"
@@ -22267,7 +22289,7 @@ msgstr "No soundboard slots available"
 #. Empty-state text in the in-call soundboard panel.
 #. Empty-state title in the guild soundboard tab.
 #: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:42
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:50
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:45
 msgid "No sounds found"
 msgstr "No sounds found"
 
@@ -22482,6 +22504,10 @@ msgstr "Not enough members"
 msgid "Not for you? Turn it off anytime."
 msgstr "Not for you? Turn it off anytime."
 
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:163
+msgid "Not found in known breaches"
+msgstr "Not found in known breaches"
+
 #. Button that cancels a subscription billing change.
 #. Secondary button on the voice-session-restore nagbar. Dismisses the reconnect prompt.
 #. Short label in the Plutonium self serve refund section. Keep the tone plain and specific.
@@ -22630,6 +22656,11 @@ msgstr "Notify on reply"
 #: src/features/channel/components/AutocompleteMention.tsx:31
 msgid "Notify users with this role who have permission to view this channel."
 msgstr "Notify users with this role who have permission to view this channel."
+
+#. Password strength rule shown during registration.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:45
+msgid "Number"
+msgstr "Number"
 
 #. Settings search entry label. Names the settings search entry in the settings UI.
 #: src/features/user/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection.tsx:83
@@ -22813,7 +22844,7 @@ msgid "Only friends can call you (recommended)"
 msgstr "Only friends can call you (recommended)"
 
 #. Short label in the authentication auth register form core. Keep the tone plain and specific.
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:47
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:48
 msgid "Only letters, numbers, and underscores"
 msgstr "Only letters, numbers, and underscores"
 
@@ -23749,6 +23780,10 @@ msgstr "Password"
 msgid "Password changed"
 msgstr "Password changed"
 
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:223
+msgid "Password strength"
+msgstr "Password strength"
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/AccountSecurityIndex.ts:102
@@ -23758,7 +23793,7 @@ msgstr "Passwordless"
 
 #. Label in the password change modal. Keep the tone plain and specific.
 #. Short label in the authentication auth register form core. Keep the tone plain and specific.
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:31
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:32
 #: src/features/user/components/modals/PasswordChangeModal.tsx:34
 msgid "Passwords do not match"
 msgstr "Passwords do not match"
@@ -25807,7 +25842,7 @@ msgid "Registration"
 msgstr "Registration"
 
 #: src/features/auth/flow/AuthMinimalRegisterFormCore.tsx:211
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:312
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:313
 msgid "Registration is currently closed. Use a registration link from an admin to create an account."
 msgstr "Registration is currently closed. Use a registration link from an admin to create an account."
 
@@ -28065,7 +28100,7 @@ msgstr "Search shortcuts…"
 #. Search input placeholder in the guild soundboard settings tab.
 #. Search input placeholder in the in-call soundboard panel.
 #: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:38
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:30
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:29
 msgid "Search sounds"
 msgstr "Search sounds"
 
@@ -30494,7 +30529,7 @@ msgid "Sound volume"
 msgstr "Sound volume"
 
 #. Title of the in-call soundboard panel.
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:26
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:25
 msgid "Soundboard"
 msgstr "Soundboard"
 
@@ -31404,6 +31439,11 @@ msgstr "Stripe could not verify this card for localized pricing. Use another car
 msgid "Stripe reported a card issued in {countryName}. To pay in this localized currency, use a card issued in your billing country, choose another payment method, or return to {productName} and switch to the standard price."
 msgstr "Stripe reported a card issued in {countryName}. To pay in this localized currency, use a card issued in your billing country, choose another payment method, or return to {productName} and switch to the standard price."
 
+#. Password strength label shown when the password is strong.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:29
+msgid "Strong"
+msgstr "Strong"
+
 #. Codec description in the screen share codec policy menu. Technical surface; keep Chromium as a literal proper noun.
 #: src/features/voice/utils/ScreenShareCodecPolicy.ts:15
 msgid "Strong quality at moderate CPU cost. Good Chromium fallback for screen sharing."
@@ -31715,7 +31755,9 @@ msgid "Switches"
 msgstr "Switches"
 
 #. Label for the symbol branding asset.
+#. Password strength rule shown during registration.
 #: src/features/app/components/setup/SetupWizardSteps.tsx:126
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:49
 msgid "Symbol"
 msgstr "Symbol"
 
@@ -33096,6 +33138,14 @@ msgstr "This participant is deafened"
 msgid "This participant was deafened by moderators"
 msgstr "This participant was deafened by moderators"
 
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:166
+msgid "This password does not appear in our breach database."
+msgstr "This password does not appear in our breach database."
+
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:177
+msgid "This password has appeared in known breaches. Choose a different one."
+msgstr "This password has appeared in known breaches. Choose a different one."
+
 #. Required-action form error when the backend rejects a phone number.
 #: src/features/auth/components/modals/required_action/RequiredActionDescriptors.ts:410
 msgid "This phone number cannot be used. Try another mobile number or contact support."
@@ -34054,7 +34104,7 @@ msgstr "Try security key / passkey instead"
 msgid "Try sending your message again."
 msgstr "Try sending your message again."
 
-#: src/features/auth/components/modals/CaptchaModal.tsx:182
+#: src/features/auth/components/modals/CaptchaModal.tsx:196
 msgid "Try Turnstile instead"
 msgstr "Try Turnstile instead"
 
@@ -34896,7 +34946,7 @@ msgid "Unmute microphone"
 msgstr "Unmute microphone"
 
 #. Tooltip on the mute-all toggle in the in-call soundboard panel when currently muted.
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:38
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:37
 msgid "Unmute soundboard sounds for me"
 msgstr "Unmute soundboard sounds for me"
 
@@ -35491,6 +35541,11 @@ msgstr "Uploading emojis"
 msgid "Upper bitrate cap before WebRTC adapts to the network."
 msgstr "Upper bitrate cap before WebRTC adapts to the network."
 
+#. Password strength rule shown during registration.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:41
+msgid "Uppercase letter"
+msgstr "Uppercase letter"
+
 #. Channel overview settings tab label, control, or validation message (name, topic, slowmode, voice region, mature content gate).
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label for the URL input in the embed debugger.
@@ -36035,7 +36090,7 @@ msgid "Username"
 msgstr "Username"
 
 #. Short label in the authentication auth register form core. Keep the tone plain and specific.
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:59
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:60
 msgid "Username (optional)"
 msgstr "Username (optional)"
 
@@ -36055,7 +36110,7 @@ msgid "Username is required"
 msgstr "Username is required"
 
 #. Registration form validation error when the username exceeds the maximum length. Limit is interpolated.
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:43
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:44
 msgid "Username must be {maxUsernameLength} characters or less"
 msgstr "Username must be {maxUsernameLength} characters or less"
 
@@ -36337,7 +36392,7 @@ msgid "Verify phone number form"
 msgstr "Verify phone number form"
 
 #. Short label in the authentication captcha modal. Keep the tone plain and specific.
-#: src/features/auth/components/modals/CaptchaModal.tsx:16
+#: src/features/auth/components/modals/CaptchaModal.tsx:17
 msgid "Verify you're human"
 msgstr "Verify you're human"
 
@@ -37280,6 +37335,10 @@ msgstr "Wayland's xdg-desktop-portal owns the picker and shows every window and 
 msgid "We can't add you right now"
 msgstr "We can't add you right now"
 
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:188
+msgid "We could not check this password right now. You can still continue."
+msgstr "We could not check this password right now. You can still continue."
+
 #. Premium checkout error shown when card verification fails unexpectedly. productName is the app name.
 #: src/features/premium/components/pages/PremiumCallbackPage.tsx:44
 msgid "We could not confirm your card right now. Refresh this page or return to {productName} and try again."
@@ -37356,7 +37415,7 @@ msgstr "We found an existing {premiumProductFullName} subscription for this acco
 msgid "We need one verification step before you continue. This helps protect accounts and keep spam off {productName}."
 msgstr "We need one verification step before you continue. This helps protect accounts and keep spam off {productName}."
 
-#: src/features/auth/components/modals/CaptchaModal.tsx:131
+#: src/features/auth/components/modals/CaptchaModal.tsx:136
 msgid "We need to make sure you're not a bot. Complete the verification below."
 msgstr "We need to make sure you're not a bot. Complete the verification below."
 
@@ -37478,6 +37537,11 @@ msgstr "We've sent password reset instructions to your email. Check your inbox f
 #: src/features/app/components/layout/app_layout/nagbars/TermsAcceptanceNagbar.tsx:14
 msgid "We've updated our policies. Review and accept them to continue."
 msgstr "We've updated our policies. Review and accept them to continue."
+
+#. Password strength label shown when the password is weak.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:17
+msgid "Weak"
+msgstr "Weak"
 
 #. Client info web build identifier shown after the desktop build when both are present. Example: "Web 2026.518.0". Preserve placeholder.
 #: src/features/app/components/dialogs/components/ClientInfo.tsx:28
@@ -37683,7 +37747,7 @@ msgstr "What kind of rule was broken?"
 #. Question prompt in the authentication auth register form core. Keep the tone plain and specific.
 #. Question prompt in the authentication mock minimal register form. Keep the tone plain and specific.
 #: src/features/auth/flow/AuthMinimalRegisterFormCore.tsx:35
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:55
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:56
 #: src/features/auth/flow/MockMinimalRegisterForm.tsx:29
 msgid "What should people call you?"
 msgstr "What should people call you?"
@@ -38420,7 +38484,7 @@ msgid "You don't have permission to rename this emoji. The name was reverted to 
 msgstr "You don't have permission to rename this emoji. The name was reverted to what it was before."
 
 #. Empty-state text in the in-call soundboard panel when the user lacks the Use Soundboard permission.
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:54
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:49
 msgid "You don't have permission to use the soundboard here"
 msgstr "You don't have permission to use the soundboard here"
 
@@ -38983,7 +39047,7 @@ msgid "Your account is too new to send messages in this community."
 msgstr "Your account is too new to send messages in this community."
 
 #: src/features/auth/flow/AuthMinimalRegisterFormCore.tsx:220
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:321
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:322
 msgid "Your account request is pending approval. You can sign in after an admin approves it."
 msgstr "Your account request is pending approval. You can sign in after an admin approves it."
 

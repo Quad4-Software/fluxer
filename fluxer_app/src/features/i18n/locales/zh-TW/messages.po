@@ -1,17 +1,5 @@
 msgid ""
-msgstr ""
-"POT-Creation-Date: 2025-09-12 11:17+0200\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: @lingui/cli\n"
-"Language: zh-TW\n"
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Plural-Forms: \n"
+msgstr "POT-Creation-Date: 2025-09-12 11:17+0200\nMIME-Version: 1.0\nContent-Type: text/plain; charset=utf-8\nContent-Transfer-Encoding: 8bit\nX-Generator: @lingui/cli\nLanguage: zh-TW\nProject-Id-Version: \nReport-Msgid-Bugs-To: \nPO-Revision-Date: \nLast-Translator: \nLanguage-Team: \nPlural-Forms: \n"
 
 #. Description text in the messages tab.
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx:51
@@ -355,7 +343,7 @@ msgstr "{count, plural, one {# 個書籤} other {# 個書籤}}"
 msgid "{count, plural, one {# community found} other {# communities found}}"
 msgstr "{count, plural, one {# 個社群} other {# 個社群}}"
 
-#: src/features/app/components/layout/GuildsLayout.tsx:730
+#: src/features/app/components/layout/GuildsLayout.tsx:729
 msgid "{count, plural, one {# community is temporarily unavailable due to a flux capacitor malfunction.} other {# communities are temporarily unavailable due to a flux capacitor malfunction.}}"
 msgstr "{count, plural, one {# 個社群} other {# 個社群}}因時空電容器故障，暫時無法使用"
 
@@ -774,9 +762,9 @@ msgid "{guildName} channels"
 msgstr "{guildName} 頻道"
 
 #. Section heading in the in-call soundboard panel for a server-uploaded sound catalog.
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:46
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:41
 msgid "{guildName} sounds"
-msgstr ""
+msgstr "{guildName} sounds"
 
 #: src/features/ui/action_menu/items/VoiceParticipantMenuData.tsx:675
 msgid "{hiddenConnectionCount, plural, one {Expand # other device} other {Expand # other devices}}"
@@ -1586,7 +1574,7 @@ msgstr "<0>僅限網址的珍藏項目（預設）</0>：在你的所有裝置�
 #. Placeholder example emoji in the soundboard sound emoji field.
 #: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:75
 msgid "📯"
-msgstr ""
+msgstr "📯"
 
 #. Summary chip text in the mobile channel search sheet when exactly one channel is selected as a filter.
 #: src/features/channel/components/bottomsheets/ChannelSearchBottomSheet.tsx:160
@@ -2659,7 +2647,7 @@ msgstr "分享前請先新增一些 CSS。"
 #. Title of the modal that lets the user crop a long audio file down to the soundboard clip length cap.
 #: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:27
 msgid "Add soundboard sound"
-msgstr ""
+msgstr "Add soundboard sound"
 
 #. Action that opens the add-sticker modal.
 #: src/features/expressions/components/modals/AddGuildStickerModal.tsx:72
@@ -2906,7 +2894,7 @@ msgstr "此日期之後"
 #. Placeholder example name in the soundboard sound name field.
 #: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:67
 msgid "Airhorn"
-msgstr ""
+msgstr "Airhorn"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/NotificationsSections.ts:143
@@ -3297,7 +3285,7 @@ msgstr "替代文字已更新"
 #. ALTCHA provider option in the self-hosted setup wizard.
 #: src/features/app/components/setup/SetupWizardSteps.tsx:906
 msgid "ALTCHA (recommended)"
-msgstr ""
+msgstr "ALTCHA (recommended)"
 
 #. Short label in the markdown tab. Keep it concise.
 #: src/features/user/components/modals/tabs/component_gallery_tab/MarkdownTab.tsx:61
@@ -4052,6 +4040,11 @@ msgstr "素材"
 #: src/features/user/components/settings_utils/search_index/AccessibilityIndex.ts:189
 msgid "Assistive technology"
 msgstr "輔助技術"
+
+#. Password strength rule shown during registration.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:33
+msgid "At least 8 characters"
+msgstr "At least 8 characters"
 
 #: src/features/guild/components/modals/guild_tabs/GuildVanityURLTab.tsx:197
 msgid "At least one channel must have \"{viewChannelPermissionLabel}\" permission enabled for {EVERYONE_MENTION} in order for the vanity URL to work. Currently, no channels are viewable to {EVERYONE_MENTION}."
@@ -5463,6 +5456,10 @@ msgstr "品牌設定"
 msgid "Branding asset preview"
 msgstr "品牌素材預覽"
 
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:185
+msgid "Breach check unavailable"
+msgstr "Breach check unavailable"
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:154
 msgid "Brightness"
@@ -5516,7 +5513,7 @@ msgstr "瀏覽器不會在螢幕分享選取器中列出相機。請改從此裝
 #. Git commit short hash for the running web build. Example: "Build a1b2c3d". Preserve placeholder.
 #: src/features/app/components/dialogs/components/ClientInfo.tsx:54
 msgid "Build {commit}"
-msgstr ""
+msgstr "Build {commit}"
 
 #. Description shown on the settings page above the Export my data button.
 #: src/features/user/components/modals/tabs/privacy_safety_tab/data_request_modal/DataRequestModal.tsx:267
@@ -5531,7 +5528,7 @@ msgstr "使用範圍、重新導向和機器人權限來建立授權網址"
 #. Setup wizard body for ALTCHA integration credentials.
 #: src/features/app/components/setup/SetupWizardSteps.tsx:910
 msgid "Built-in proof-of-work captcha. No third-party API keys required."
-msgstr ""
+msgstr "Built-in proof-of-work captcha. No third-party API keys required."
 
 #. Label in the search engines tab.
 #: src/features/user/components/modals/tabs/chat_settings_tab/SearchEnginesTab.tsx:117
@@ -6703,6 +6700,10 @@ msgstr "核取方塊"
 #: src/features/ui/action_menu/items/CloneStickerMenuItem.tsx:28
 msgid "Checking access..."
 msgstr "正在檢查存取權限…"
+
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:152
+msgid "Checking breach database"
+msgstr "Checking breach database"
 
 #. Loading state in the screen-share picker while checking macOS screen recording permission.
 #: src/features/voice/components/modals/screen_share_picker_modal/ScreenSharePickerDisplayPermissionPrompt.tsx:22
@@ -7891,7 +7892,7 @@ msgstr "社群篩選條件"
 #. Label in settings client info indicating this build is from a community fork repository.
 #: src/features/app/components/dialogs/components/ClientInfo.tsx:50
 msgid "Community fork"
-msgstr ""
+msgstr "Community fork"
 
 #: src/features/guild/components/modals/add_guild_modal/GuildCreateForm.tsx:270
 #: src/features/guild/components/modals/add_guild_modal/TemplateImportForm.tsx:587
@@ -8254,7 +8255,7 @@ msgid "Confirm new password"
 msgstr "確認新密碼"
 
 #. Short label in the authentication auth register form core. Keep the tone plain and specific.
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:35
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:36
 msgid "Confirm password"
 msgstr "確認密碼"
 
@@ -8718,12 +8719,12 @@ msgstr "複製代碼"
 #. Accessible label for copying the openssl command that generates an ALTCHA HMAC secret.
 #: src/features/app/components/setup/SetupWizardSteps.tsx:929
 msgid "Copy command to generate a secure HMAC secret"
-msgstr ""
+msgstr "Copy command to generate a secure HMAC secret"
 
 #. Link text that copies the openssl command for generating an ALTCHA HMAC secret.
 #: src/features/app/components/setup/SetupWizardSteps.tsx:933
 msgid "Copy command: openssl rand -hex 32"
-msgstr ""
+msgstr "Copy command: openssl rand -hex 32"
 
 #. Developer-mode action that copies a community snowflake/ID to the clipboard.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:727
@@ -10398,7 +10399,7 @@ msgstr "日期和時間"
 #. Short label in the authentication auth register form core. Keep the tone plain and specific.
 #. Short label in the authentication date of birth field. Keep the tone plain and specific.
 #: src/features/auth/flow/AuthMinimalRegisterFormCore.tsx:27
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:39
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:40
 #: src/features/auth/flow/DateOfBirthField.tsx:16
 #: src/features/auth/flow/DateOfBirthField.tsx:98
 #: src/features/auth/flow/DateOfBirthField.tsx:264
@@ -10617,11 +10618,6 @@ msgstr "預設搜尋引擎"
 msgid "Default shortcuts"
 msgstr "預設捷徑"
 
-#. Section heading in the in-call soundboard panel for the bundled default sound catalog.
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:42
-msgid "Default sounds"
-msgstr ""
-
 #. Developer tools debug menu label. Internal-only surface for developers; translators may keep this terse.
 #: src/features/channel/components/channel_header_components/developer_tools/MockingMenu.tsx:71
 msgid "Default tab"
@@ -10696,7 +10692,7 @@ msgstr "要刪除「{memeName}」嗎？此動作無法復原。"
 #. Confirm dialog body before deleting a soundboard sound.
 #: src/features/guild/components/modals/guild_tabs/soundboard/SoundboardSoundRow.tsx:31
 msgid "Delete \"{soundName}\"? Can't be undone."
-msgstr ""
+msgstr "Delete \"{soundName}\"? Can't be undone."
 
 #. Confirm dialog body before deleting a sticker.
 #: src/features/emoji/components/stickers/StickerGridItem.tsx:30
@@ -10875,7 +10871,7 @@ msgstr "刪除捷徑"
 #. Destructive action that deletes the selected soundboard sound.
 #: src/features/guild/components/modals/guild_tabs/soundboard/SoundboardSoundRow.tsx:27
 msgid "Delete sound"
-msgstr ""
+msgstr "Delete sound"
 
 #. Destructive action that deletes the selected sticker.
 #: src/features/emoji/components/stickers/StickerGridItem.tsx:26
@@ -11816,7 +11812,7 @@ msgstr "顯示名稱"
 #. Short label in the authentication auth minimal register form core. Keep the tone plain and specific.
 #. Short label in the authentication auth register form core. Keep the tone plain and specific.
 #: src/features/auth/flow/AuthMinimalRegisterFormCore.tsx:31
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:51
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:52
 #: src/features/auth/flow/MockMinimalRegisterForm.tsx:91
 msgid "Display name (optional)"
 msgstr "顯示名稱（選填）"
@@ -12159,7 +12155,7 @@ msgstr "下載套件"
 
 #: src/features/connection/components/modals/AddConnectionModal.tsx:280
 msgid "Download token file"
-msgstr ""
+msgstr "Download token file"
 
 #. Media context menu action that downloads a video attachment.
 #: src/features/ui/action_menu/items/MediaMenuData.tsx:116
@@ -12214,7 +12210,7 @@ msgstr "拖曳貼圖檔案到這裡 (一次一個)"
 
 #: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:235
 msgid "Drag and drop an audio file here (one at a time)"
-msgstr ""
+msgstr "Drag and drop an audio file here (one at a time)"
 
 #. Label in the community upload drop zone.
 #: src/features/guild/components/UploadDropZone.tsx:11
@@ -12576,7 +12572,7 @@ msgstr "編輯捷徑"
 #. Title of the modal for editing a guild soundboard sound.
 #: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:22
 msgid "Edit soundboard sound"
-msgstr ""
+msgstr "Edit soundboard sound"
 
 #. Action that opens the edit-sticker modal.
 #: src/features/expressions/components/modals/EditGuildStickerModal.tsx:28
@@ -12807,17 +12803,17 @@ msgstr "嵌入內容未隱藏"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:58
 msgid "Ember"
-msgstr ""
+msgstr "Ember"
 
 #. Short label in the theme studio. Keep it concise.
 #: src/features/theme_studio/ThemeStudio.tsx:65
 msgid "Ember base"
-msgstr ""
+msgstr "Ember base"
 
 #. Short label in the theme tab content. Keep it concise.
 #: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:21
 msgid "Ember theme"
-msgstr ""
+msgstr "Ember theme"
 
 #. Audit log target-type filter label. Filters entries that target a custom emoji.
 #. Column header for the custom emoji image or glyph.
@@ -12841,7 +12837,7 @@ msgstr "表情符號"
 #: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:30
 #: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:71
 msgid "Emoji (optional)"
-msgstr ""
+msgstr "Emoji (optional)"
 
 #. TTS substitution token spoken in place of a custom emoji. {emojiName} is the emoji shortcode without colons. Lowercase, mid-sentence.
 #: src/features/voice/utils/TtsTextFormatter.ts:37
@@ -14291,7 +14287,7 @@ msgstr "無法載入可分享的來源。"
 #. Error message in the guild soundboard tab.
 #: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:58
 msgid "Failed to load soundboard sounds"
-msgstr ""
+msgstr "Failed to load soundboard sounds"
 
 #. Error message in the guild stickers tab.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:71
@@ -14473,7 +14469,7 @@ msgstr "更新加值福利狀態失敗。"
 #. Error message shown when updating a soundboard sound fails.
 #: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:38
 msgid "Failed to update soundboard sound"
-msgstr ""
+msgstr "Failed to update soundboard sound"
 
 #. Error toast shown when updating a sticker fails.
 #: src/features/expressions/components/modals/EditGuildStickerModal.tsx:24
@@ -14507,7 +14503,12 @@ msgstr "表情符號上傳失敗。請再試一次。"
 #. Error message shown when uploading a soundboard sound fails.
 #: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:78
 msgid "Failed to upload soundboard sound"
-msgstr ""
+msgstr "Failed to upload soundboard sound"
+
+#. Password strength label shown when the password is fair.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:21
+msgid "Fair"
+msgstr "Fair"
 
 #. IAR modal: rule description.
 #: src/features/moderation/components/report_modal/IARModalCopy.ts:263
@@ -15209,6 +15210,10 @@ msgstr "轉傳自"
 msgid "Found {resultCount} results in {categoryCount} categories"
 msgstr "在 {categoryCount} 個類別中找到 {resultCount} 個結果"
 
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:174
+msgid "Found in a data breach"
+msgstr "Found in a data breach"
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/VoiceVideoSections.ts:229
 msgid "FPS"
@@ -15518,7 +15523,7 @@ msgstr "產生可分享的連結，或複製您合併的自訂 CSS。"
 #. Accessible label for a button that generates a random ALTCHA HMAC secret.
 #: src/features/app/components/setup/SetupWizardSteps.tsx:925
 msgid "Generate HMAC secret"
-msgstr ""
+msgstr "Generate HMAC secret"
 
 #: src/features/expressions/components/modals/PackInviteModal.tsx:213
 msgid "Generate invite"
@@ -15949,6 +15954,11 @@ msgstr "前往第 6 個社群"
 msgid "Go to third community"
 msgstr "前往第三個社群"
 
+#. Password strength label shown when the password is good.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:25
+msgid "Good"
+msgstr "Good"
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts:287
 msgid "Google lens"
@@ -16292,7 +16302,7 @@ msgstr "仇恨言論"
 msgid "Having fun?"
 msgstr "玩得開心嗎？"
 
-#: src/features/auth/components/modals/CaptchaModal.tsx:180
+#: src/features/auth/components/modals/CaptchaModal.tsx:194
 msgid "Having issues? Try hCaptcha instead"
 msgstr "有問題嗎？試試 hCaptcha 吧"
 
@@ -16371,11 +16381,6 @@ msgstr "哈囉，{username}！很高興你在這裡。"
 #: src/features/platform/utils/DesktopLocaleBridge.ts:78
 msgid "Help"
 msgstr "說明"
-
-#. Short label in the sidebar navigation help button.
-#: src/features/app/components/layout/sidebar_nav/HelpButton.tsx:27
-msgid "Help center"
-msgstr "說明中心"
 
 #. Description for a WebRTC content hint select. Keep Motion, Detail, and text as plain option concepts.
 #: src/features/user/components/modals/tabs/advanced_settings_tab/AdvancedVideoControls.tsx:134
@@ -16488,10 +16493,6 @@ msgstr "隱藏到期註腳"
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:695
 msgid "Hide favorites"
 msgstr "隱藏我的最愛"
-
-#: src/features/app/components/layout/sidebar_nav/HelpButton.tsx:63
-msgid "Hide help center button"
-msgstr "隱藏說明中心按鈕"
 
 #. Short label in the system welcome section. Keep it concise.
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/sections/SystemWelcomeSection.tsx:32
@@ -16636,7 +16637,7 @@ msgstr "提示"
 #. Label for an ALTCHA HMAC secret input.
 #: src/features/app/components/setup/SetupWizardSteps.tsx:921
 msgid "HMAC secret"
-msgstr ""
+msgstr "HMAC secret"
 
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleSidebar.tsx:79
 msgid "Hoist order"
@@ -16692,7 +16693,7 @@ msgstr "主辦人"
 
 #: src/features/connection/components/modals/AddConnectionModal.tsx:266
 msgid "Host the verification token at <0>{dnsUrl}</0>."
-msgstr ""
+msgstr "Host the verification token at <0>{dnsUrl}</0>."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/KeybindsIndex.ts:34
@@ -16727,7 +16728,7 @@ msgstr "將滑鼠移到我上方"
 msgid "Hover over buttons to see tooltips in different positions."
 msgstr "將滑鼠移到按鈕上方，即可查看不同位置的工具提示。"
 
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:386
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:387
 msgid "How about:"
 msgstr "推薦："
 
@@ -18705,7 +18706,7 @@ msgid "Leave"
 msgstr "離開"
 
 #. Short label in the authentication auth register form core. Keep the tone plain and specific.
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:63
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:64
 msgid "Leave blank for a random username"
 msgstr "留空以隨機產生使用者名稱"
 
@@ -19320,6 +19321,10 @@ msgstr "長篇內容"
 msgid "Look and feel"
 msgstr "外觀和風格"
 
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:155
+msgid "Looking to see whether this password appears in known data breaches."
+msgstr "Looking to see whether this password appears in known data breaches."
+
 #. placeholder {0}: externalProcessor.name
 #: src/features/user/components/modals/tabs/UserVoiceTab.tsx:648
 msgid "Looks like you're using {0}. Stacking {PRODUCT_NAME}'s processing on top can cause pumping or distortion. Direct input passes your audio through untouched."
@@ -19338,6 +19343,11 @@ msgstr "音量"
 #: src/features/guild/components/modals/guild_tabs/GuildModerationTab.tsx:56
 msgid "Low"
 msgstr "低"
+
+#. Password strength rule shown during registration.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:37
+msgid "Lowercase letter"
+msgstr "Lowercase letter"
 
 #. Toast shown after adaptive screen-share quality lowers bitrate. {reason} is the limitation reason.
 #: src/features/voice/engine/AdaptiveScreenShareEngine.ts:80
@@ -19544,9 +19554,9 @@ msgid "Manage roles"
 msgstr "管理身分組"
 
 #. Tooltip on the settings shortcut in the in-call soundboard panel.
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:58
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:53
 msgid "Manage server sounds"
-msgstr ""
+msgstr "Manage server sounds"
 
 #. Billing action that opens subscription management or the customer billing portal.
 #: src/features/premium/utils/PremiumMessageDescriptors.ts:13
@@ -21204,9 +21214,9 @@ msgid "Mute shortcut"
 msgstr "靜音捷徑"
 
 #. Tooltip on the mute-all toggle in the in-call soundboard panel.
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:34
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:33
 msgid "Mute soundboard sounds for me"
-msgstr ""
+msgstr "Mute soundboard sounds for me"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:234
@@ -21453,7 +21463,7 @@ msgstr "名稱長度必須在 30 個字元以下"
 #. Validation error when the soundboard sound name is too short.
 #: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:83
 msgid "Name must be at least {min} characters."
-msgstr ""
+msgstr "Name must be at least {min} characters."
 
 #. Form validation error for a name that is too short.
 #: src/features/expressions/components/modals/sticker_form/StickerFormFields.tsx:20
@@ -21606,7 +21616,7 @@ msgid "New"
 msgstr "新訊息"
 
 #. Small badge on a new or recently added app navigation item.
-#: src/features/app/components/layout/GuildsLayout.tsx:66
+#: src/features/app/components/layout/GuildsLayout.tsx:65
 msgctxt "navigation-badge"
 msgid "New"
 msgstr "新"
@@ -22261,19 +22271,19 @@ msgstr "沒有符合搜尋條件的捷徑。"
 #. Empty-state title shown when the soundboard limit is reached.
 #: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:46
 msgid "No soundboard slots available"
-msgstr ""
+msgstr "No soundboard slots available"
 
 #. Empty-state text in the in-call soundboard panel.
 #. Empty-state title in the guild soundboard tab.
 #: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:42
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:50
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:45
 msgid "No sounds found"
-msgstr ""
+msgstr "No sounds found"
 
 #. Empty-state text in the guild soundboard tab.
 #: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:54
 msgid "No sounds found matching your search."
-msgstr ""
+msgstr "No sounds found matching your search."
 
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthScopesStep.tsx:115
 msgid "No specific scopes requested."
@@ -22481,6 +22491,10 @@ msgstr "成員不足"
 msgid "Not for you? Turn it off anytime."
 msgstr "不喜歡？隨時都能關閉。"
 
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:163
+msgid "Not found in known breaches"
+msgstr "Not found in known breaches"
+
 #. Button that cancels a subscription billing change.
 #. Secondary button on the voice-session-restore nagbar. Dismisses the reconnect prompt.
 #. Short label in the Plutonium self serve refund section. Keep the tone plain and specific.
@@ -22629,6 +22643,11 @@ msgstr "回覆時通知"
 #: src/features/channel/components/AutocompleteMention.tsx:31
 msgid "Notify users with this role who have permission to view this channel."
 msgstr "通知有權限查看此頻道的此角色成員。"
+
+#. Password strength rule shown during registration.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:45
+msgid "Number"
+msgstr "Number"
 
 #. Settings search entry label. Names the settings search entry in the settings UI.
 #: src/features/user/components/modals/tabs/applications_tab/application_detail/OAuthBuilderSection.tsx:83
@@ -22812,7 +22831,7 @@ msgid "Only friends can call you (recommended)"
 msgstr "僅限朋友可以致電您（建議）"
 
 #. Short label in the authentication auth register form core. Keep the tone plain and specific.
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:47
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:48
 msgid "Only letters, numbers, and underscores"
 msgstr "僅限使用字母、數字和底線"
 
@@ -23253,7 +23272,7 @@ msgstr "開啟設定"
 #. Tooltip / button label in the voice control bar that opens the soundboard sound picker.
 #: src/features/voice/components/VoiceControlBar.tsx:159
 msgid "Open soundboard"
-msgstr ""
+msgstr "Open soundboard"
 
 #. Action that opens the sticker URL in an external browser.
 #: src/features/ui/action_menu/items/StickerContextMenuItems.tsx:40
@@ -23748,6 +23767,10 @@ msgstr "密碼"
 msgid "Password changed"
 msgstr "密碼已變更"
 
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:223
+msgid "Password strength"
+msgstr "Password strength"
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/AccountSecurityIndex.ts:102
@@ -23757,7 +23780,7 @@ msgstr "免密碼"
 
 #. Label in the password change modal. Keep the tone plain and specific.
 #. Short label in the authentication auth register form core. Keep the tone plain and specific.
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:31
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:32
 #: src/features/user/components/modals/PasswordChangeModal.tsx:34
 msgid "Passwords do not match"
 msgstr "密碼不相符"
@@ -25806,7 +25829,7 @@ msgid "Registration"
 msgstr "註冊"
 
 #: src/features/auth/flow/AuthMinimalRegisterFormCore.tsx:211
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:312
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:313
 msgid "Registration is currently closed. Use a registration link from an admin to create an account."
 msgstr "目前已關閉註冊。請使用管理員提供的註冊連結建立帳號。"
 
@@ -28064,9 +28087,9 @@ msgstr "搜尋快捷鍵…"
 #. Search input placeholder in the guild soundboard settings tab.
 #. Search input placeholder in the in-call soundboard panel.
 #: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:38
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:30
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:29
 msgid "Search sounds"
-msgstr ""
+msgstr "Search sounds"
 
 #. Button or menu action label in the guild stickers tab. Keep it concise.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:46
@@ -30247,7 +30270,7 @@ msgstr "SMTP 主機"
 #. Fallback message when SMTP credential validation fails without a specific error.
 #: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:65
 msgid "SMTP validation failed."
-msgstr ""
+msgstr "SMTP validation failed."
 
 #: src/features/user/components/modals/tabs/component_gallery_tab/SelectionsTab.tsx:390
 msgid "Snaps to increments of 5."
@@ -30493,19 +30516,19 @@ msgid "Sound volume"
 msgstr "音量"
 
 #. Title of the in-call soundboard panel.
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:26
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:25
 msgid "Soundboard"
-msgstr ""
+msgstr "Soundboard"
 
 #. Community settings tab for managing custom soundboard sounds uploaded to the community.
 #: src/features/user/components/settings_utils/GuildSettingsConstants.ts:48
 msgctxt "community-settings-tab"
 msgid "Soundboard"
-msgstr ""
+msgstr "Soundboard"
 
 #: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:225
 msgid "Soundboard slots"
-msgstr ""
+msgstr "Soundboard slots"
 
 #. Section heading / tab label for the notification-sounds area.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -30523,7 +30546,7 @@ msgstr "音效"
 #. Description in the community soundboard upload section. {maxSize} is the formatted size limit.
 #: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:66
 msgid "Sounds must be under {maxSize} and 5.2 seconds. Files longer than that get trimmed before upload."
-msgstr ""
+msgstr "Sounds must be under {maxSize} and 5.2 seconds. Files longer than that get trimmed before upload."
 
 #. Resolution option in the stream settings menu meaning the original source resolution (no downscale).
 #. Short label in the video tab for the native source resolution option. Keep it concise.
@@ -31403,6 +31426,11 @@ msgstr "Stripe 無法驗證此卡片是否適用於當地定價。請使用其�
 msgid "Stripe reported a card issued in {countryName}. To pay in this localized currency, use a card issued in your billing country, choose another payment method, or return to {productName} and switch to the standard price."
 msgstr "Stripe 回報此卡片發行於 {countryName}。若要以當地貨幣付款，請使用您帳單國家/地區發行的卡片、選擇其他付款方式，或返回 {productName} 並切換為標準價格。"
 
+#. Password strength label shown when the password is strong.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:29
+msgid "Strong"
+msgstr "Strong"
+
 #. Codec description in the screen share codec policy menu. Technical surface; keep Chromium as a literal proper noun.
 #: src/features/voice/utils/ScreenShareCodecPolicy.ts:15
 msgid "Strong quality at moderate CPU cost. Good Chromium fallback for screen sharing."
@@ -31714,7 +31742,9 @@ msgid "Switches"
 msgstr "開關"
 
 #. Label for the symbol branding asset.
+#. Password strength rule shown during registration.
 #: src/features/app/components/setup/SetupWizardSteps.tsx:126
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:49
 msgid "Symbol"
 msgstr "符號"
 
@@ -32512,7 +32542,7 @@ msgstr "載入邀請時發生錯誤。請再試一次。"
 #. Error message in the guild soundboard tab.
 #: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:62
 msgid "There was an error loading the soundboard sounds. Try again."
-msgstr ""
+msgstr "There was an error loading the soundboard sounds. Try again."
 
 #. Error message in the guild stickers tab.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:75
@@ -32841,7 +32871,7 @@ msgstr "此檔案為 {fileSize}，超過 {maxSize} 的限制。動畫貼圖和 S
 #. Description of the error modal shown when an unsupported audio file is selected.
 #: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:74
 msgid "This file type is not supported. Try an MP3, OGG, M4A, or WAV file."
-msgstr ""
+msgstr "This file type is not supported. Try an MP3, OGG, M4A, or WAV file."
 
 #. Empty state title in the friends list when the user has no friends. Tone can be friendly and playful.
 #: src/features/channel/components/friends/views/FriendsList.tsx:20
@@ -33094,6 +33124,14 @@ msgstr "此參與者已靜音"
 #: src/features/voice/utils/VoiceMessageDescriptors.ts:65
 msgid "This participant was deafened by moderators"
 msgstr "此參與者已被管理員靜音"
+
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:166
+msgid "This password does not appear in our breach database."
+msgstr "This password does not appear in our breach database."
+
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:177
+msgid "This password has appeared in known breaches. Choose a different one."
+msgstr "This password has appeared in known breaches. Choose a different one."
 
 #. Required-action form error when the backend rejects a phone number.
 #: src/features/auth/components/modals/required_action/RequiredActionDescriptors.ts:410
@@ -34053,7 +34091,7 @@ msgstr "改用安全金鑰或通行密鑰登入"
 msgid "Try sending your message again."
 msgstr "再試一次傳送訊息。"
 
-#: src/features/auth/components/modals/CaptchaModal.tsx:182
+#: src/features/auth/components/modals/CaptchaModal.tsx:196
 msgid "Try Turnstile instead"
 msgstr "改用 Turnstile 驗證"
 
@@ -34895,9 +34933,9 @@ msgid "Unmute microphone"
 msgstr "解除麥克風靜音"
 
 #. Tooltip on the mute-all toggle in the in-call soundboard panel when currently muted.
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:38
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:37
 msgid "Unmute soundboard sounds for me"
-msgstr ""
+msgstr "Unmute soundboard sounds for me"
 
 #. Tooltip / button label on a voice participant tile that unmutes the remote screen-share or camera audio.
 #: src/features/voice/components/voice_participant_tile/shared.ts:15
@@ -35069,7 +35107,7 @@ msgstr "未儲存的變更"
 #. Title of the error modal shown when an unsupported audio file is selected.
 #: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:70
 msgid "Unsupported audio file"
-msgstr ""
+msgstr "Unsupported audio file"
 
 #. Error modal body shown when an entrance sound upload has an unsupported audio format.
 #: src/features/user/components/modals/tabs/hooks/useEntranceSound.ts:38
@@ -35490,6 +35528,11 @@ msgstr "正在上傳表情符號"
 msgid "Upper bitrate cap before WebRTC adapts to the network."
 msgstr "在 WebRTC 根據網路狀況調整之前，設定最高的位元速率上限。"
 
+#. Password strength rule shown during registration.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:41
+msgid "Uppercase letter"
+msgstr "Uppercase letter"
+
 #. Channel overview settings tab label, control, or validation message (name, topic, slowmode, voice region, mature content gate).
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label for the URL input in the embed debugger.
@@ -35686,7 +35729,7 @@ msgstr "使用電子郵件"
 #. Label in the theme tab content.
 #: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:25
 msgid "Use ember theme (red and black palette)"
-msgstr ""
+msgstr "Use ember theme (red and black palette)"
 
 #. Premium upsell shown when sending external emoji without a subscription.
 #: src/features/expressions/utils/ExpressionPermissionUtils.ts:24
@@ -36034,7 +36077,7 @@ msgid "Username"
 msgstr "使用者名稱"
 
 #. Short label in the authentication auth register form core. Keep the tone plain and specific.
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:59
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:60
 msgid "Username (optional)"
 msgstr "使用者名稱（選填）"
 
@@ -36054,7 +36097,7 @@ msgid "Username is required"
 msgstr "必須填寫使用者名稱"
 
 #. Registration form validation error when the username exceeds the maximum length. Limit is interpolated.
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:43
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:44
 msgid "Username must be {maxUsernameLength} characters or less"
 msgstr "使用者名稱必須為 {maxUsernameLength} 個字元或更少"
 
@@ -36301,7 +36344,7 @@ msgstr "驗證連線"
 
 #: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:375
 msgid "Verify domain ownership to display it on your profile."
-msgstr ""
+msgstr "Verify domain ownership to display it on your profile."
 
 #. Shared action or page-title label for starting or completing email address verification.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:164
@@ -36336,7 +36379,7 @@ msgid "Verify phone number form"
 msgstr "驗證電話號碼表單"
 
 #. Short label in the authentication captcha modal. Keep the tone plain and specific.
-#: src/features/auth/components/modals/CaptchaModal.tsx:16
+#: src/features/auth/components/modals/CaptchaModal.tsx:17
 msgid "Verify you're human"
 msgstr "驗證您是真人"
 
@@ -37279,6 +37322,10 @@ msgstr "Wayland 的 xdg-desktop-portal 擁有選取器，並會同時顯示所�
 msgid "We can't add you right now"
 msgstr "目前無法將您新增至社群"
 
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:188
+msgid "We could not check this password right now. You can still continue."
+msgstr "We could not check this password right now. You can still continue."
+
 #. Premium checkout error shown when card verification fails unexpectedly. productName is the app name.
 #: src/features/premium/components/pages/PremiumCallbackPage.tsx:44
 msgid "We could not confirm your card right now. Refresh this page or return to {productName} and try again."
@@ -37355,7 +37402,7 @@ msgstr "我們發現此帳號已有 {premiumProductFullName} 訂閱。請前往�
 msgid "We need one verification step before you continue. This helps protect accounts and keep spam off {productName}."
 msgstr "在您繼續之前，我們需要一個驗證步驟。這有助於保護帳戶並防止垃圾訊息出現在 {productName} 上。"
 
-#: src/features/auth/components/modals/CaptchaModal.tsx:131
+#: src/features/auth/components/modals/CaptchaModal.tsx:136
 msgid "We need to make sure you're not a bot. Complete the verification below."
 msgstr "我們需要確認您不是機器人。請完成下方的驗證。"
 
@@ -37477,6 +37524,11 @@ msgstr "我們已將重設密碼的指示寄到您的電子郵件。請檢查您
 #: src/features/app/components/layout/app_layout/nagbars/TermsAcceptanceNagbar.tsx:14
 msgid "We've updated our policies. Review and accept them to continue."
 msgstr "我們已更新政策。請檢閱並接受以繼續使用。"
+
+#. Password strength label shown when the password is weak.
+#: src/features/ui/components/form/PasswordStrengthFeedback.tsx:17
+msgid "Weak"
+msgstr "Weak"
 
 #. Client info web build identifier shown after the desktop build when both are present. Example: "Web 2026.518.0". Preserve placeholder.
 #: src/features/app/components/dialogs/components/ClientInfo.tsx:28
@@ -37682,7 +37734,7 @@ msgstr "違反了哪種規定？"
 #. Question prompt in the authentication auth register form core. Keep the tone plain and specific.
 #. Question prompt in the authentication mock minimal register form. Keep the tone plain and specific.
 #: src/features/auth/flow/AuthMinimalRegisterFormCore.tsx:35
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:55
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:56
 #: src/features/auth/flow/MockMinimalRegisterForm.tsx:29
 msgid "What should people call you?"
 msgstr "大家該怎麼稱呼你？"
@@ -38419,9 +38471,9 @@ msgid "You don't have permission to rename this emoji. The name was reverted to 
 msgstr "您沒有重新命名此表情符號的權限。名稱已還原為先前的名稱。"
 
 #. Empty-state text in the in-call soundboard panel when the user lacks the Use Soundboard permission.
-#: src/features/voice/components/soundboard/SoundboardPanel.tsx:54
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:49
 msgid "You don't have permission to use the soundboard here"
-msgstr ""
+msgstr "You don't have permission to use the soundboard here"
 
 #. Body of the error modal shown when the user is banned from a discovery community.
 #: src/features/discovery/discovery/DiscoveryGuildCard.tsx:60
@@ -38915,7 +38967,7 @@ msgstr "您已達到表情符號數量上限。請刪除一些現有的表情符
 #. Soundboard upload limit message in community soundboard settings.
 #: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:50
 msgid "You've reached the maximum number of soundboard sounds. Delete one to make room."
-msgstr ""
+msgstr "You've reached the maximum number of soundboard sounds. Delete one to make room."
 
 #. Sticker upload limit message in community sticker settings. Do not suggest that communities can be upgraded.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:62
@@ -38982,7 +39034,7 @@ msgid "Your account is too new to send messages in this community."
 msgstr "您的帳號啟用時間過短，目前無法在此社群傳送訊息。"
 
 #: src/features/auth/flow/AuthMinimalRegisterFormCore.tsx:220
-#: src/features/auth/flow/AuthRegisterFormCore.tsx:321
+#: src/features/auth/flow/AuthRegisterFormCore.tsx:322
 msgid "Your account request is pending approval. You can sign in after an admin approves it."
 msgstr "你的帳號申請正在等待核准。管理員核准後即可登入。"
 

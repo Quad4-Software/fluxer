@@ -4,7 +4,9 @@ mod compose;
 mod config;
 
 use anyhow::Context;
-use compose::{list_auto_update_services, pull_service, recreate_service, sort_services, wait_for_service};
+use compose::{
+    list_auto_update_services, pull_service, recreate_service, sort_services, wait_for_service,
+};
 use config::Config;
 use std::time::Duration;
 use tokio::time::sleep;
@@ -41,8 +43,8 @@ async fn main() -> anyhow::Result<()> {
 }
 
 async fn run_update_cycle(config: &Config) -> anyhow::Result<()> {
-    let services = list_auto_update_services(config)
-        .context("list services marked for auto-update")?;
+    let services =
+        list_auto_update_services(config).context("list services marked for auto-update")?;
     if services.is_empty() {
         warn!("no compose services carry the fluxer.auto_update label");
         return Ok(());

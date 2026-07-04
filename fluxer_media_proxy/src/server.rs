@@ -3031,7 +3031,9 @@ mod tests {
     #[test]
     fn soundboard_sound_path_parses_valid_keys() {
         assert_eq!(
-            parse_soundboard_sound_path("/soundboard-sounds/1130650140672000000/eb417d05ad2e14c4.ogg"),
+            parse_soundboard_sound_path(
+                "/soundboard-sounds/1130650140672000000/eb417d05ad2e14c4.ogg"
+            ),
             Some("soundboard-sounds/1130650140672000000/eb417d05ad2e14c4.ogg".to_owned())
         );
         for ext in ["mp3", "ogg", "m4a", "wav"] {
@@ -3061,7 +3063,10 @@ mod tests {
             None
         );
         assert_eq!(parse_soundboard_sound_path("/soundboard-sounds/42"), None);
-        assert_eq!(parse_soundboard_sound_path("/soundboard-sounds//abc.wav"), None);
+        assert_eq!(
+            parse_soundboard_sound_path("/soundboard-sounds//abc.wav"),
+            None
+        );
         assert_eq!(parse_soundboard_sound_path("/avatars/42/abc.wav"), None);
     }
 

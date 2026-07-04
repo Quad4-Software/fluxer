@@ -67,7 +67,12 @@ pub fn sort_services(mut services: Vec<String>) -> Vec<String> {
 pub fn pull_service(config: &Config, service: &str) -> anyhow::Result<bool> {
     let image = service_image(config, service)?;
     let before = local_image_id(&image)?;
-    debug!(service, image, before = before.as_deref().unwrap_or("none"), "checking image");
+    debug!(
+        service,
+        image,
+        before = before.as_deref().unwrap_or("none"),
+        "checking image"
+    );
 
     let output = run_compose(config, &["pull", service])?;
     if !output.status.success() {
@@ -90,7 +95,14 @@ pub fn pull_service(config: &Config, service: &str) -> anyhow::Result<bool> {
 pub fn recreate_service(config: &Config, service: &str) -> anyhow::Result<()> {
     let output = run_compose(
         config,
-        &["up", "-d", "--no-deps", "--force-recreate", "--remove-orphans", service],
+        &[
+            "up",
+            "-d",
+            "--no-deps",
+            "--force-recreate",
+            "--remove-orphans",
+            service,
+        ],
     )?;
     if !output.status.success() {
         bail!(
@@ -195,7 +207,12 @@ fn label_is_true(labels: &serde_json::Map<String, Value>, key: &str) -> bool {
     labels
         .get(key)
         .and_then(Value::as_str)
-        .is_some_and(|value| matches!(value.trim().to_ascii_lowercase().as_str(), "true" | "1" | "yes"))
+        .is_some_and(|value| {
+            matches!(
+                value.trim().to_ascii_lowercase().as_str(),
+                "true" | "1" | "yes"
+            )
+        })
 }
 
 fn local_image_id(image: &str) -> anyhow::Result<Option<String>> {

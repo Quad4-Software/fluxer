@@ -10,7 +10,7 @@ import {HTTP_STATUS, TEST_IDS} from './TestConstants';
 import {createBuilder, createBuilderWithoutAuth} from './TestRequestBuilder';
 
 interface HarnessConfigSnapshot {
-	nodeEnv: string;
+	nodeEnv: 'development' | 'production';
 	testModeEnabled: boolean;
 	testHarnessToken: string | undefined;
 	selfHosted: boolean;
