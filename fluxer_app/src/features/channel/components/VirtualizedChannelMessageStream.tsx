@@ -189,7 +189,15 @@ export const VirtualizedChannelMessageStream = observer(
 			useLayoutEffect(() => {
 				virtualizer.measure();
 				scrollManager.scrollHandle();
-			}, [messages.version, messageDisplayCompact, messageGroupSpacing, fontSize, scrollManager, virtualizer]);
+			}, [
+				messages.version,
+				messageDisplayCompact,
+				messageGroupSpacing,
+				fontSize,
+				scrollMarginTop,
+				scrollManager,
+				virtualizer,
+			]);
 			useEffect(() => {
 				const scrollerNode = scrollManager.ref.current?.getScrollerNode();
 				if (!scrollerNode) {
@@ -219,7 +227,9 @@ export const VirtualizedChannelMessageStream = observer(
 								ref={virtualizer.measureElement}
 								data-index={virtualRow.index}
 								className={styles.virtualMessageRow}
-								style={{transform: `translateY(${virtualRow.start}px)`}}
+								style={{
+									transform: `translateY(${virtualRow.start - scrollMarginTop}px)`,
+								}}
 								data-flx="channel.messages.virtual-message-row"
 							>
 								{renderMessageListRow(row, renderProps)}

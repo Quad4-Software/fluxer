@@ -61,6 +61,7 @@
 .virtualMessageList {
 	position: relative;
 	width: 100%;
+	min-width: 0;
 	flex: 0 0 auto;
 }
 
@@ -68,7 +69,9 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+	right: 0;
 	width: 100%;
+	min-width: 0;
 	overflow: visible;
 }
 
