@@ -18,6 +18,8 @@ Fluxer is a free and open source instant messaging and VoIP chat app built for f
 
 This repository is maintained by [Quad4 Software](https://github.com/Quad4-Software). It is based on [fluxerapp/fluxer](https://github.com/fluxerapp/fluxer) with a focus on reliable self-hosting.
 
+**This is a bleeding-edge fork.** Changes land here quickly and may be less tested than upstream. Problems you hit on this fork may be unrelated to [fluxerapp/fluxer](https://github.com/fluxerapp/fluxer). No support is guaranteed for this repository.
+
 ## Self-hosting
 
 ### Quick start
