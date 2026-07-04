@@ -84,9 +84,6 @@ catalogs:
     '@radix-ui/react-switch':
       specifier: 1.2.6
       version: 1.2.6
-    '@rspack/dev-server':
-      specifier: 2.1.0
-      version: 2.1.0
     '@sentry/node':
       specifier: 10.63.0
       version: 10.63.0
@@ -372,6 +369,7 @@ overrides:
   '@lingui/swc-plugin': 5.11.0
   '@rspack/cli': 2.1.2
   '@rspack/core': 2.1.2
+  '@rspack/dev-server': 2.1.0
   '@floating-ui/dom': 1.7.5
   '@babel/plugin-transform-modules-systemjs': 7.29.4
   '@vitest/browser': 4.1.9
@@ -1541,7 +1539,7 @@ importers:
         specifier: 2.1.2
         version: 2.1.2
       '@rspack/dev-server':
-        specifier: 'catalog:'
+        specifier: 2.1.0
         version: 2.1.0(@rspack/core@2.1.2)
       '@svgr/webpack':
         specifier: 'catalog:'
@@ -6407,7 +6405,7 @@ packages:
     hasBin: true
     peerDependencies:
       '@rspack/core': 2.1.2
-      '@rspack/dev-server': ^2.0.0-0
+      '@rspack/dev-server': 2.1.0
     peerDependenciesMeta:
       '@rspack/dev-server':
         optional: true

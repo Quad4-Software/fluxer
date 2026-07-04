@@ -18,10 +18,32 @@ Common variables:
 | `FLUXER_EMAIL_*` | SMTP settings when email is enabled |
 | `FLUXER_APP_STATUS_PAGE_URL` | Public status page URL shown during connection delays |
 | `FLUXER_APP_STATUS_PAGE_INCIDENT_HISTORY_URL` | Optional incident history URL |
+| `FLUXER_EASYPWNED_ENABLED` | Use local [easypwned](https://github.com/easybill/easypwned) instead of the public HIBP API |
+| `FLUXER_EASYPWNED_URL` | Internal easypwned base URL (default `http://easypwned:3342`) |
+| `FLUXER_EASYPWNED_FAIL_OPEN` | Allow passwords when easypwned is unreachable (`true` by default) |
 
 Integration secrets (SMTP password, S3 keys, API keys) should live in `.env` on self-hosted instances. The admin panel is best for non-secret settings.
 
 See `deploy/self-hosting/.env.example` for the full list.
+
+## Offline breached-password checks (easypwned)
+
+By default, Fluxer checks new passwords against the public [Have I Been Pwned](https://haveibeenpwned.com/) k-anonymity API. That requires outbound HTTPS from the API container.
+
+For air-gapped or privacy-focused self-hosting, you can run [easypwned](https://github.com/easybill/easypwned) inside the stack. easypwned ships a local bloom filter of known breached passwords and exposes a small HTTP API. Only SHA-1 hashes are sent to easypwned; plaintext passwords never leave the API process.
+
+1. Run setup with easypwned enabled, or set in `.env`:
+   - `FLUXER_EASYPWNED_ENABLED=true`
+   - `FLUXER_EASYPWNED_URL=http://easypwned:3342`
+2. Start the optional service profile:
+   ```bash
+   docker compose --profile easypwned up -d
+   ```
+   Or use `./setup.sh --easypwned --domain chat.example.com --start`.
+
+The easypwned image is large (~1 GB bloom filter). Leave the profile off if you prefer the public HIBP API or do not need breached-password checks.
+
+Set `FLUXER_EASYPWNED_FAIL_OPEN=false` for strict mode: registration and password changes fail when easypwned is unavailable.
 
 ## Admin panel
 

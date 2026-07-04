@@ -338,6 +338,11 @@ export function buildAPIConfigFromMaster(master: MasterConfig): APIConfig {
 			port: master.integrations.clamav.port,
 			failOpen: master.integrations.clamav.fail_open,
 		},
+		easypwned: {
+			enabled: master.integrations.easypwned.enabled,
+			url: master.integrations.easypwned.url,
+			failOpen: master.integrations.easypwned.fail_open,
+		},
 		ncmec: {
 			enabled: master.integrations.ncmec.enabled,
 			baseUrl: master.integrations.ncmec.base_url,

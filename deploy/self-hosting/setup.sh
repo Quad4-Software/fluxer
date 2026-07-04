@@ -9,6 +9,7 @@ START=false
 VERIFY=false
 CLOUDFLARE_TUNNEL=false
 FORCE_SECRETS=false
+EASYPWNED=false
 
 usage() {
 	cat <<'EOF'
@@ -20,6 +21,7 @@ generate required secrets.
 Options:
   --domain HOST            Public hostname (for example chat.example.com)
   --cloudflare-tunnel      Listen on :80 inside Caddy for Cloudflare Tunnel
+  --easypwned              Enable offline breached-password checks (easypwned)
   --force-secrets          Regenerate secrets even if .env already has values
   --start                  Run "docker compose up -d" after setup
   --verify                 Check public health endpoints after --start
@@ -29,6 +31,7 @@ Examples:
   ./setup.sh --domain chat.example.com
   ./setup.sh --domain chat.example.com --start
   ./setup.sh --domain chat.example.com --cloudflare-tunnel --start --verify
+  ./setup.sh --domain chat.example.com --easypwned --start
 EOF
 }
 
@@ -40,6 +43,10 @@ while [[ $# -gt 0 ]]; do
 			;;
 		--cloudflare-tunnel)
 			CLOUDFLARE_TUNNEL=true
+			shift
+			;;
+		--easypwned)
+			EASYPWNED=true
 			shift
 			;;
 		--force-secrets)
@@ -155,6 +162,12 @@ set_env FLUXER_VAPID_EMAIL "admin@${DOMAIN}"
 set_env FLUXER_CAPTCHA_ENABLED true
 set_env FLUXER_CAPTCHA_PROVIDER altcha
 
+if [[ "$EASYPWNED" == true ]]; then
+	set_env FLUXER_EASYPWNED_ENABLED true
+	set_env FLUXER_EASYPWNED_URL http://easypwned:3342
+	set_env FLUXER_EASYPWNED_FAIL_OPEN true
+fi
+
 SECRET_KEYS=(
 	POSTGRES_PASSWORD
 	MEILI_MASTER_KEY
@@ -199,13 +212,26 @@ Next steps:
   1. Point DNS at this server (or configure Cloudflare Tunnel).
   2. Open firewall ports 80/tcp, 443/tcp, and 7881/tcp + 7882/udp for voice.
   3. Start the stack: docker compose up -d
+EOF
+
+if [[ "$EASYPWNED" == true ]]; then
+	cat <<'EOF'
+     (with easypwned: docker compose --profile easypwned up -d)
+EOF
+fi
+
+cat <<EOF
   4. Open https://${DOMAIN} and register the first account (it becomes admin).
 
 EOF
 
 if [[ "$START" == true ]]; then
 	echo "Starting stack..."
-	docker compose up -d
+	if [[ "$EASYPWNED" == true ]]; then
+		docker compose --profile easypwned up -d
+	else
+		docker compose up -d
+	fi
 	docker compose ps
 fi
 

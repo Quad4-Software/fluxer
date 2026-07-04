@@ -423,6 +423,12 @@ tasks:
     cmds:
       - '{{.CI}} deploy-validation'
 
+  deploy:easypwned:up:
+    desc: Start self-hosting stack with optional easypwned profile
+    dir: deploy/self-hosting
+    cmds:
+      - docker compose --profile easypwned up -d
+
   helm:deps:
     desc: Update Helm chart dependencies
     cmds:

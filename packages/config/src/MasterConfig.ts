@@ -264,6 +264,11 @@ export interface MasterConfig {
 			port: number;
 			fail_open: boolean;
 		};
+		easypwned: {
+			enabled: boolean;
+			url: string;
+			fail_open: boolean;
+		};
 		klipy: {
 			api_key: string;
 		};

@@ -19,6 +19,7 @@ export const EXTERNAL_RESPONSE_LIMITS = {
 	wikipediaSummaryBytes: 256 * 1024,
 	oEmbedBytes: 256 * 1024,
 	pwnedPasswordsBytes: 1024 * 1024,
+	easypwnedCheckBytes: 4096,
 	rdapBytes: 512 * 1024,
 	externalTemplateBytes: 512 * 1024,
 	bunnyErrorBytes: 16 * 1024,

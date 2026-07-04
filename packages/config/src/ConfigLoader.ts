@@ -219,6 +219,11 @@ function defaultConfig(): MasterConfig {
 				port: 3310,
 				fail_open: false,
 			},
+			easypwned: {
+				enabled: false,
+				url: 'http://127.0.0.1:3342',
+				fail_open: true,
+			},
 			klipy: {
 				api_key: '',
 			},

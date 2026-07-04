@@ -11,6 +11,7 @@ import {getSameIpDecisionKey} from '@fluxer/ip_utils/src/IpAddress';
 import type {ForgotPasswordRequest, ResetPasswordRequest} from '@fluxer/schema/src/domains/auth/AuthSchemas';
 import {ms, seconds} from 'itty-time';
 import type {ApiContext} from '../ApiContext';
+import {Config} from '../Config';
 import {createMfaTicket, createPasswordResetToken} from '../BrandedTypes';
 import {Logger} from '../Logger';
 import type {User} from '../models/User';
@@ -97,25 +98,11 @@ type ResetPasswordResult =
 
 const pwnedPasswordCache = new PwnedPasswordCache(1000, ms('1 hour'));
 
-export async function hashPassword(_ctx: ApiContext, password: string): Promise<string> {
-	return hashPasswordUtil(password);
+function sha1PasswordHash(password: string): string {
+	return crypto.createHash('sha1').update(password).digest('hex').toUpperCase();
 }
 
-export async function verifyPassword(
-	_ctx: ApiContext,
-	{password, passwordHash}: VerifyPasswordParams,
-): Promise<boolean> {
-	return verifyPasswordUtil({password, passwordHash});
-}
-
-export async function isPasswordPwned(_ctx: ApiContext, password: string): Promise<boolean> {
-	const hashed = crypto.createHash('sha1').update(password).digest('hex').toUpperCase();
-	const hashPrefix = hashed.slice(0, 5);
-	const hashSuffix = hashed.slice(5);
-	const cachedResult = pwnedPasswordCache.get(hashed);
-	if (cachedResult !== undefined) {
-		return cachedResult;
-	}
+async function checkPasswordPwnedViaHibp(hashPrefix: string, hashSuffix: string): Promise<boolean> {
 	try {
 		const response = await fetch(`https://api.pwnedpasswords.com/range/${hashPrefix}`, {
 			headers: {
@@ -161,16 +148,84 @@ export async function isPasswordPwned(_ctx: ApiContext, password: string): Promi
 				crypto.timingSafeEqual(Buffer.from(hashSuffixLine), Buffer.from(hashSuffix)) &&
 				Number.parseInt(count, 10) > 0
 			) {
-				pwnedPasswordCache.set(hashed, true);
 				return true;
 			}
 		}
-		pwnedPasswordCache.set(hashed, false);
 		return false;
 	} catch (error) {
 		Logger.error({error}, 'Failed to check password against Pwned Passwords API');
 		return false;
 	}
+}
+
+interface EasypwnedCheckResponse {
+	secure?: boolean;
+}
+
+async function checkPasswordPwnedViaEasypwned(hashed: string): Promise<boolean> {
+	const baseUrl = Config.easypwned.url.replace(/\/+$/u, '');
+	try {
+		const response = await fetch(`${baseUrl}/check`, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({hash: hashed}),
+		});
+		if (!response.ok) {
+			Logger.warn(
+				{
+					status: response.status,
+					statusText: response.statusText,
+					url: baseUrl,
+				},
+				'easypwned returned non-OK status',
+			);
+			return !Config.easypwned.failOpen;
+		}
+		const bodyText = await FetchUtils.streamToStringWithLimit(response.body, {
+			maxBytes: EXTERNAL_RESPONSE_LIMITS.easypwnedCheckBytes,
+			headers: response.headers,
+			url: response.url,
+			description: 'easypwned check response',
+		});
+		const body = JSON.parse(bodyText) as EasypwnedCheckResponse;
+		if (typeof body.secure !== 'boolean') {
+			Logger.warn({url: baseUrl, body: bodyText}, 'easypwned returned an unexpected response shape');
+			return !Config.easypwned.failOpen;
+		}
+		return !body.secure;
+	} catch (error) {
+		Logger.error({error, url: baseUrl}, 'Failed to check password against easypwned');
+		return !Config.easypwned.failOpen;
+	}
+}
+
+export async function hashPassword(_ctx: ApiContext, password: string): Promise<string> {
+	return hashPasswordUtil(password);
+}
+
+export async function verifyPassword(
+	_ctx: ApiContext,
+	{password, passwordHash}: VerifyPasswordParams,
+): Promise<boolean> {
+	return verifyPasswordUtil({password, passwordHash});
+}
+
+export async function isPasswordPwned(_ctx: ApiContext, password: string): Promise<boolean> {
+	const hashed = sha1PasswordHash(password);
+	const cachedResult = pwnedPasswordCache.get(hashed);
+	if (cachedResult !== undefined) {
+		return cachedResult;
+	}
+	const hashPrefix = hashed.slice(0, 5);
+	const hashSuffix = hashed.slice(5);
+	const isPwned = Config.easypwned.enabled
+		? await checkPasswordPwnedViaEasypwned(hashed)
+		: await checkPasswordPwnedViaHibp(hashPrefix, hashSuffix);
+	pwnedPasswordCache.set(hashed, isPwned);
+	return isPwned;
 }
 
 export async function forgotPassword(ctx: ApiContext, {data, request}: ForgotPasswordParams): Promise<void> {

@@ -251,6 +251,11 @@ export interface APIConfig {
 		port: number;
 		failOpen: boolean;
 	};
+	easypwned: {
+		enabled: boolean;
+		url: string;
+		failOpen: boolean;
+	};
 	admin: {
 		basePath: string;
 		oauthClientSecret?: string;
