@@ -264,7 +264,7 @@
 		"@typescript/native-preview": "catalog:",
 		"autoprefixer": "catalog:",
 		"esbuild": "catalog:",
-		"happy-dom": "20.7.0",
+		"happy-dom": "catalog:",
 		"postcss": "catalog:",
 		"postcss-discard-comments": "catalog:",
 		"postcss-loader": "catalog:",

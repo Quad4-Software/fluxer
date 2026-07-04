@@ -6,6 +6,7 @@ mod app_wasm;
 mod calver;
 mod ci_workflow;
 mod common;
+mod deploy_validation;
 mod desktop;
 mod desktop_native;
 mod functions;
@@ -36,6 +37,7 @@ enum Command {
     BuildGatewayNifs(gateway::BuildGatewayNifsArgs),
     Ci(ci_workflow::CiArgs),
     CiScripts(ci_workflow::CiScriptsArgs),
+    DeployValidation(deploy_validation::DeployValidationArgs),
     CleanSchemaGeneratedFiles(schema::CleanSchemaGeneratedFilesArgs),
     Gateway(gateway::GatewayArgs),
     RepairStaticAssetMetadata(static_bucket::RepairStaticAssetMetadataArgs),
@@ -58,6 +60,7 @@ pub async fn run() -> Result<()> {
         Command::BuildGatewayNifs(args) => gateway::run_build_gateway_nifs(args),
         Command::Ci(args) => ci_workflow::run_ci(args).await,
         Command::CiScripts(args) => ci_workflow::run_ci_scripts(args).await,
+        Command::DeployValidation(args) => deploy_validation::run(args),
         Command::CleanSchemaGeneratedFiles(args) => schema::run_clean_generated_files(args),
         Command::Gateway(args) => gateway::run_gateway(args),
         Command::RepairStaticAssetMetadata(args) => {

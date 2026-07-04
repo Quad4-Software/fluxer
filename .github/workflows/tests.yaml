@@ -291,6 +291,22 @@ jobs:
           cargo run --locked --quiet --manifest-path tools/ci/Cargo.toml -- ci-scripts
           --step test
 
+  deploy-validation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+
+      - name: Set up Rust toolchain (CI helpers)
+        uses: dtolnay/rust-toolchain@e97e2d8cc328f1b50210efc529dca0028893a2d9
+        with:
+          toolchain: "1.93.0"
+
+      - name: Validate self-hosting deploy assets
+        run: >-
+          cargo run --locked --quiet --manifest-path tools/ci/Cargo.toml -- deploy-validation
+
   helm-and-scripts:
     runs-on: ubuntu-24.04
     timeout-minutes: 10

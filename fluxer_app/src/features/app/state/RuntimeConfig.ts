@@ -7,6 +7,10 @@ import {
 	type GifProviderInfoInput,
 	normalizeGifProviderInfo,
 } from '@app/features/app/state/GifProviderConfig';
+import {
+	resolveStatusPageIncidentHistoryUrl,
+	resolveStatusPageUrl,
+} from '@app/features/app/utils/StatusPageUrlUtils';
 import DeveloperOptions from '@app/features/devtools/state/DeveloperOptions';
 import {configureClientSentry} from '@app/features/platform/monitoring/SentryClient';
 import {http} from '@app/features/platform/transport/RestTransport';
@@ -592,26 +596,18 @@ class RuntimeConfig {
 	}
 
 	get statusPageUrl(): string | null {
-		const configured = this.appPublic.branding.status_page_url?.trim();
-		if (configured) {
-			return configured;
-		}
-		if (!this.isSelfHosted()) {
-			return ExternalUrls.SERVICE_STATUS;
-		}
-		return null;
+		return resolveStatusPageUrl({
+			configuredUrl: this.appPublic.branding.status_page_url,
+			selfHosted: this.isSelfHosted(),
+			defaultHostedStatusUrl: ExternalUrls.SERVICE_STATUS,
+		});
 	}
 
 	get statusPageIncidentHistoryUrl(): string | null {
-		const configured = this.appPublic.branding.status_page_incident_history_url?.trim();
-		if (configured) {
-			return configured;
-		}
-		const statusPageUrl = this.statusPageUrl;
-		if (!statusPageUrl) {
-			return null;
-		}
-		return `${statusPageUrl.replace(/\/$/, '')}/history`;
+		return resolveStatusPageIncidentHistoryUrl({
+			configuredHistoryUrl: this.appPublic.branding.status_page_incident_history_url,
+			statusPageUrl: this.statusPageUrl,
+		});
 	}
 
 	get termsUrl(): string | null {
