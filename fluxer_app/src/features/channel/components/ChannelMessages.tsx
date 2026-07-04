@@ -2,16 +2,13 @@
 
 import Accessibility from '@app/features/accessibility/state/Accessibility';
 import {usePlaceholderSpecs} from '@app/features/app/utils/PlaceholderSpecs';
+import {renderChannelStream} from '@app/features/channel/components/ChannelMessageStream';
 import styles from '@app/features/channel/components/ChannelMessages.module.css';
 import {ChannelWelcomeSection} from '@app/features/channel/components/ChannelWelcomeSection';
 import {CollapsedMessageVisibilityProvider} from '@app/features/channel/components/CollapsedMessageVisibilityContext';
 import {NewMessagesBar} from '@app/features/channel/components/NewMessagesBar';
 import ScrollFillerSkeleton from '@app/features/channel/components/ScrollFillerSkeleton';
 import {UploadManager} from '@app/features/channel/components/UploadManager';
-import {
-	VirtualizedChannelMessageStream,
-	type VirtualizedChannelMessageStreamHandle,
-} from '@app/features/channel/components/VirtualizedChannelMessageStream';
 import type {Channel} from '@app/features/channel/models/Channel';
 import GatewayConnection from '@app/features/gateway/transport/GatewayConnection';
 import GuildVerification from '@app/features/guild/state/GuildVerification';
@@ -55,7 +52,7 @@ import {useLingui} from '@lingui/react/macro';
 import {runInAction} from 'mobx';
 import {observer, useLocalObservable} from 'mobx-react-lite';
 import type React from 'react';
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {useCallback, useEffect, useMemo, useRef} from 'react';
 
 const MESSAGE_LIST_FOR_DESCRIPTOR = msg({
 	message: 'Message list for {channelName}',
@@ -153,8 +150,6 @@ export const Messages = observer(function Messages({
 }: MessagesProps) {
 	const {i18n} = useLingui();
 	const scrollerInnerRef = useRef<HTMLDivElement | null>(null);
-	const virtualStreamRef = useRef<VirtualizedChannelMessageStreamHandle | null>(null);
-	const listPrefixRef = useRef<HTMLDivElement | null>(null);
 	const lastStateSnapshotRef = useRef<MessagesStateSnapshot | null>(null);
 	const recoveryFetchChannelIdRef = useRef<string | null>(null);
 	interface MessageState extends MessagesStateSnapshot {
@@ -216,12 +211,6 @@ export const Messages = observer(function Messages({
 		},
 		[channel.id, state],
 	);
-	const ensureMessageVisible = useCallback((messageId: string, callback: () => void) => {
-		virtualStreamRef.current?.scrollToMessageId(messageId, 'center');
-		window.requestAnimationFrame(() => {
-			window.requestAnimationFrame(callback);
-		});
-	}, []);
 	const scrollManager = useScrollManager({
 		messages: safeMessages,
 		channel,
@@ -244,7 +233,6 @@ export const Messages = observer(function Messages({
 		additionalMessagePadding: 48,
 		canAutoAck,
 		handleJumpHighlight,
-		ensureMessageVisible,
 	});
 	useEffect(() => {
 		ChannelMessages.retainChannel(channel.id);
@@ -555,25 +543,30 @@ export const Messages = observer(function Messages({
 		() => checkPermissions(channel),
 		[channel.id, channel.guildId, state.permissionVersion],
 	);
-	const [listPrefixHeight, setListPrefixHeight] = useState(0);
-	useEffect(() => {
-		const prefixNode = listPrefixRef.current;
-		if (!prefixNode) {
-			setListPrefixHeight(0);
-			return;
-		}
-		const updateHeight = () => {
-			setListPrefixHeight(prefixNode.offsetHeight);
-		};
-		updateHeight();
-		const resizeObserver = new ResizeObserver(updateHeight);
-		resizeObserver.observe(prefixNode);
-		return () => resizeObserver.disconnect();
-	}, [channel.id, state.messages?.ready, state.messages?.hasMoreBefore, placeholderSpecs.totalHeight]);
-	const pinnedMessageIds = useMemo(
-		() => [highlightedMessageId, state.messages?.jumpTargetId],
-		[highlightedMessageId, state.messages?.jumpTargetId],
-	);
+	const streamMarkup = useMemo(() => {
+		if (!state.messages?.ready) return null;
+		return renderChannelStream({
+			channelStream,
+			messages: state.messages,
+			channel,
+			highlightedMessageId,
+			messageDisplayCompact: state.messageDisplayCompact,
+			messageGroupSpacing: state.messageGroupSpacing,
+			revealedMessageId: state.revealedMessageId,
+			onMessageEdit,
+			onReveal,
+		});
+	}, [
+		channelStream,
+		state.messages?.ready,
+		channel,
+		highlightedMessageId,
+		state.messageDisplayCompact,
+		state.messageGroupSpacing,
+		state.revealedMessageId,
+		onMessageEdit,
+		onReveal,
+	]);
 	const hasJumpToPresentBar = Boolean(state.messages?.ready && state.messages.hasMoreAfter);
 	const hasLoadErrorBar = Boolean(state.messages?.error);
 	const hasBottomBar = hasJumpToPresentBar || hasLoadErrorBar;
@@ -625,33 +618,16 @@ export const Messages = observer(function Messages({
 	const messageListLiveMode = Accessibility.screenReaderAnnounceNewMessages && state.isAtBottom ? 'polite' : 'off';
 	const scrollerInner = readyMessages ? (
 		<>
-			<div ref={listPrefixRef} data-flx="channel.messages.list-prefix">
-				{!readyMessages.hasMoreBefore && (
-					<ChannelWelcomeSection channel={channel} data-flx="channel.messages.channel-welcome-section" />
-				)}
-				{readyMessages.hasMoreBefore && (
-					<>
-						<div className={styles.placeholderSpacer} data-flx="channel.messages.placeholder-spacer" />
-						<ScrollFillerSkeleton data-flx="channel.messages.scroll-filler-skeleton" {...placeholderSpecs} />
-					</>
-				)}
-			</div>
-			<VirtualizedChannelMessageStream
-				ref={virtualStreamRef}
-				channelStream={channelStream}
-				messages={readyMessages}
-				channel={channel}
-				highlightedMessageId={highlightedMessageId}
-				messageDisplayCompact={state.messageDisplayCompact}
-				messageGroupSpacing={state.messageGroupSpacing}
-				fontSize={state.fontSize}
-				revealedMessageId={state.revealedMessageId}
-				scrollMarginTop={listPrefixHeight}
-				scrollManager={scrollManager}
-				pinnedMessageIds={pinnedMessageIds}
-				onMessageEdit={onMessageEdit}
-				onReveal={onReveal}
-			/>
+			{!readyMessages.hasMoreBefore && (
+				<ChannelWelcomeSection channel={channel} data-flx="channel.messages.channel-welcome-section" />
+			)}
+			{readyMessages.hasMoreBefore && (
+				<>
+					<div className={styles.placeholderSpacer} data-flx="channel.messages.placeholder-spacer" />
+					<ScrollFillerSkeleton data-flx="channel.messages.scroll-filler-skeleton" {...placeholderSpecs} />
+				</>
+			)}
+			{streamMarkup}
 			{readyMessages.hasMoreAfter && (
 				<ScrollFillerSkeleton data-flx="channel.messages.scroll-filler-skeleton--2" {...placeholderSpecs} />
 			)}
