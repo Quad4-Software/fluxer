@@ -592,6 +592,5 @@ export default () => {
 				watch: false,
 			},
 		},
-		experiments: {css: true},
 	};
 };

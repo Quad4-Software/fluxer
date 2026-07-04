@@ -253,6 +253,7 @@
 		"@lingui/swc-plugin": "catalog:",
 		"@rspack/cli": "catalog:",
 		"@rspack/core": "catalog:",
+		"@rspack/dev-server": "catalog:",
 		"@svgr/webpack": "catalog:",
 		"@types/combokeys": "catalog:",
 		"@types/lodash": "catalog:",
