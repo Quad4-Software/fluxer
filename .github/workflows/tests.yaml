@@ -14,9 +14,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
-env:
-  GHCR_REGISTRY: ghcr.io/${{ github.repository_owner }}
-
 jobs:
   typecheck:
     runs-on: ubuntu-24.04
@@ -321,6 +318,9 @@ jobs:
 
       - name: Install helm
         uses: azure/setup-helm@9bc31f4ebc9c6b171d7bfbaa5d006ae7abdb4310
+
+      - name: Set GHCR registry
+        run: echo "GHCR_REGISTRY=ghcr.io/$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_ENV"
 
       - name: Resolve Helm test build version
         run: >-

@@ -172,7 +172,7 @@ fn ghcr_owner() -> Result<String> {
         if let Ok(value) = env::var(key) {
             let value = value.trim();
             if !value.is_empty() {
-                return Ok(value.to_string());
+                return Ok(value.to_ascii_lowercase());
             }
         }
     }
@@ -182,7 +182,7 @@ fn ghcr_owner() -> Result<String> {
     {
         let owner = owner.trim();
         if !owner.is_empty() {
-            return Ok(owner.to_string());
+            return Ok(owner.to_ascii_lowercase());
         }
     }
 
