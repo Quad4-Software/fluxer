@@ -508,7 +508,7 @@ services:
       test:
         [
           "CMD-SHELL",
-          "wget -qO- http://127.0.0.1:3342/hash/5BAA61E4C9B93F3F0682250B6CF8331B7EE68FD8 | grep -q '\"secure\":false'",
+          "bash -c 'exec 3<>/dev/tcp/127.0.0.1/3342 && printf \"GET /hash/5BAA61E4C9B93F3F0682250B6CF8331B7EE68FD8 HTTP/1.0\\r\\n\\r\\n\" >&3 && grep -q \"\\\"secure\\\":false\" <&3'",
         ]
       interval: 30s
       timeout: 5s

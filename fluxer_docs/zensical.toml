@@ -105,8 +105,8 @@ nav = [
 # Read more: https://zensical.org/docs/customization/#additional-css
 #
 extra_css = [
-  "https://fluxerstatic.com/fonts/ibm-plex.css?v=3",
-  "https://fluxerstatic.com/fonts/bricolage.css?v=3",
+  "assets/fonts/ibm-plex.css?v=3",
+  "assets/fonts/bricolage.css?v=3",
   "stylesheets/fluxer.css",
 ]
 

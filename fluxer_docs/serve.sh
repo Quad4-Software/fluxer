@@ -9,6 +9,10 @@ PORT="${ADDR##*:}"
 
 cd "$HERE"
 
+sync_fonts() {
+	bash "$HERE/scripts/sync_fonts.sh"
+}
+
 ensure_env() {
 	if [ ! -x "$VENV/bin/python" ]; then
 		python3 -m venv "$VENV"
@@ -20,9 +24,11 @@ ensure_env() {
 case "${1:-serve}" in
 	--bootstrap)
 		ensure_env
+		sync_fonts
 		;;
 	--daemon)
 		ensure_env
+		sync_fonts
 		if curl -sf -o /dev/null "http://127.0.0.1:${PORT}/" 2>/dev/null; then
 			echo "zensical already serving on ${ADDR}"
 			exit 0
@@ -33,10 +39,12 @@ case "${1:-serve}" in
 		;;
 	serve)
 		ensure_env
+		sync_fonts
 		exec "$VENV/bin/zensical" serve -a "$ADDR"
 		;;
 	*)
 		ensure_env
+		sync_fonts
 		exec "$VENV/bin/zensical" "$@"
 		;;
 esac

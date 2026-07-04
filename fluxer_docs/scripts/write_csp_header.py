@@ -63,9 +63,9 @@ def main() -> None:
         [
             "default-src 'self'",
             f"script-src 'self' {script_sources}",
-            "style-src 'self' 'unsafe-inline' https://fluxerstatic.com",
+            "style-src 'self' 'unsafe-inline'",
             "img-src 'self' data:",
-            "font-src 'self' data: https://fluxerstatic.com",
+            "font-src 'self' data:",
             "connect-src 'self' https://api.github.com",
             "worker-src 'self'",
             "frame-src 'none'",

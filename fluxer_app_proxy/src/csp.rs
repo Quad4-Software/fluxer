@@ -44,15 +44,9 @@ const STYLE_SOURCES: &[&str] = &[
     "https://*.fluxer.app",
     "https://hcaptcha.com",
     "https://*.hcaptcha.com",
-    "https://fonts.googleapis.com",
-    "https://api.fonts.coollabs.io",
 ];
 
-const FONT_SOURCES: &[&str] = &[
-    "https://*.fluxer.app",
-    "https://fonts.gstatic.com",
-    "https://api.fonts.coollabs.io",
-];
+const FONT_SOURCES: &[&str] = &["https://*.fluxer.app"];
 
 const CONNECT_SOURCES: &[&str] = &[
     "https://*.fluxer.app",
