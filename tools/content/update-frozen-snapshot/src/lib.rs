@@ -6,6 +6,54 @@ use sha2::{Digest, Sha256};
 use std::fs;
 use std::path::Path;
 
+const FROZEN_CONST_SUFFIXES: &[(&str, &str)] = &[
+    ("STABLE_SNAPSHOT_SHA", "CANARY_SNAPSHOT_SHA"),
+    ("STABLE_INDEX_HTML", "CANARY_INDEX_HTML"),
+    ("STABLE_SW_JS", "CANARY_SW_JS"),
+    ("STABLE_VERSION_JSON", "CANARY_VERSION_JSON"),
+];
+
+pub fn promote_stable_from_canary(frozen_snapshots_path: &Path) -> Result<()> {
+    let content = fs::read_to_string(frozen_snapshots_path)
+        .with_context(|| format!("failed to read {}", frozen_snapshots_path.display()))?;
+    let updated = promote_stable_from_canary_source(&content)?;
+    if updated == content {
+        bail!("stable snapshot already matches canary; no changes written");
+    }
+    fs::write(frozen_snapshots_path, updated)
+        .with_context(|| format!("failed to write {}", frozen_snapshots_path.display()))?;
+    Ok(())
+}
+
+fn promote_stable_from_canary_source(content: &str) -> Result<String> {
+    let mut updated = content.to_owned();
+    for (stable_name, canary_name) in FROZEN_CONST_SUFFIXES {
+        let canary_block = extract_const_block(content, canary_name)
+            .with_context(|| format!("missing canary block {canary_name}"))?;
+        let stable_block = extract_const_block(&updated, stable_name)
+            .with_context(|| format!("missing stable block {stable_name}"))?;
+        let replacement = canary_block.replacen(canary_name, stable_name, 1);
+        if !updated.contains(&stable_block) {
+            bail!("stable block {stable_name} disappeared while promoting");
+        }
+        updated = updated.replacen(&stable_block, &replacement, 1);
+    }
+    Ok(updated)
+}
+
+fn extract_const_block(content: &str, const_name: &str) -> Result<String> {
+    let marker = format!("const {const_name}:");
+    let start = content
+        .find(&marker)
+        .with_context(|| format!("could not find {marker}"))?;
+    let after_marker = &content[start..];
+    let end = after_marker
+        .find("\";\n")
+        .or_else(|| after_marker.find("\";\r\n"))
+        .with_context(|| format!("could not find end of {const_name} block"))?;
+    Ok(after_marker[..end + 3].to_owned())
+}
+
 pub fn generate_snapshot_source(static_dir: &Path) -> Result<String> {
     if !static_dir.is_dir() {
         bail!("{} is not a directory", static_dir.display());
@@ -154,5 +202,24 @@ mod tests {
             .to_string();
 
         assert!(err.contains("sw.js does not exist"));
+    }
+
+    #[test]
+    fn promote_stable_from_canary_copies_canary_blocks() {
+        let source = "\
+const STABLE_SNAPSHOT_SHA: &str = \"old-stable\";\n\
+const CANARY_SNAPSHOT_SHA: &str = \"new-canary\";\n\
+const STABLE_INDEX_HTML: &str = \"\\\nold\\\n\";\n\
+const CANARY_INDEX_HTML: &str = \"\\\ncanary\\\n\";\n\
+const STABLE_SW_JS: &str = \"\\\nold-sw\\\n\";\n\
+const CANARY_SW_JS: &str = \"\\\ncanary-sw\\\n\";\n\
+const STABLE_VERSION_JSON: &str = \"\\\nold-version\\\n\";\n\
+const CANARY_VERSION_JSON: &str = \"\\\ncanary-version\\\n\";\n";
+        let promoted = promote_stable_from_canary_source(source).unwrap();
+        assert!(promoted.contains("const STABLE_SNAPSHOT_SHA: &str = \"new-canary\";"));
+        assert!(promoted.contains("const STABLE_INDEX_HTML: &str = \"\\\ncanary\\\n\";"));
+        assert!(promoted.contains("const STABLE_SW_JS: &str = \"\\\ncanary-sw\\\n\";"));
+        assert!(promoted.contains("const STABLE_VERSION_JSON: &str = \"\\\ncanary-version\\\n\";"));
+        assert!(promoted.contains("const CANARY_SNAPSHOT_SHA: &str = \"new-canary\";"));
     }
 }
