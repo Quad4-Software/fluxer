@@ -1,54 +1,131 @@
 {
 	servers {
 		trusted_proxies static private_ranges
+		protocols h1 h2 h3
+	}
+}
+
+(upstream_transport) {
+	transport http {
+		keepalive 2m
+		keepalive_idle_conns 50
+		read_timeout 5m
+		write_timeout 5m
+	}
+}
+
+(proxy_api) {
+	encode zstd gzip {
+		minimum_length 1024
+	}
+	request_body {
+		max_size 50MB
+	}
+	reverse_proxy api:8080 {
+		transport http {
+			keepalive 2m
+			keepalive_idle_conns 100
+			read_timeout 5m
+			write_timeout 5m
+		}
+	}
+}
+
+(proxy_gateway) {
+	reverse_proxy gateway:8080 {
+		transport http {
+			keepalive 2m
+			keepalive_idle_conns 100
+			read_timeout 1h
+			write_timeout 1h
+		}
+		flush_interval -1
+	}
+}
+
+(proxy_media) {
+	reverse_proxy media-proxy:8080 {
+		transport http {
+			keepalive 2m
+			keepalive_idle_conns 50
+			read_timeout 15m
+			write_timeout 15m
+			response_header_timeout 15m
+		}
+		flush_interval -1
+	}
+}
+
+(proxy_livekit) {
+	reverse_proxy livekit:7880 {
+		transport http {
+			keepalive 2m
+			keepalive_idle_conns 50
+			read_timeout 1h
+			write_timeout 1h
+		}
+		flush_interval -1
 	}
 }
 
 {$FLUXER_CADDY_SITE_ADDRESS} {
-	encode zstd gzip
-
 	handle_path /api/* {
-		reverse_proxy api:8080
+		import proxy_api
 	}
 
 	handle /gateway {
 		rewrite * /
-		reverse_proxy gateway:8080
+		import proxy_gateway
 	}
 
 	handle_path /gateway/* {
-		reverse_proxy gateway:8080
+		import proxy_gateway
 	}
 
 	handle_path /media/* {
-		reverse_proxy media-proxy:8080
+		import proxy_media
 	}
 
 	handle_path /livekit/* {
-		reverse_proxy livekit:7880
+		import proxy_livekit
 	}
 
 	handle /admin {
 		rewrite * /
-		reverse_proxy admin:8080
+		reverse_proxy admin:8080 {
+			import upstream_transport
+		}
 	}
 
 	handle_path /admin/* {
-		reverse_proxy admin:8080
+		reverse_proxy admin:8080 {
+			import upstream_transport
+		}
 	}
 
 	@staticAssets path /fonts/* /web/* /emoji/* /libs/* /avatars/* /badges/* /desktop/* /embeds/*
 	handle @staticAssets {
-		reverse_proxy static-proxy:8080
+		reverse_proxy static-proxy:8080 {
+			import upstream_transport
+		}
 	}
 
 	handle {
-		reverse_proxy app-proxy:8080
+		reverse_proxy app-proxy:8080 {
+			import upstream_transport
+		}
 	}
 }
 
 :8088 {
 	handle_path /api/* {
-		reverse_proxy api:8080
+		reverse_proxy api:8080 {
+			transport http {
+				keepalive 2m
+				keepalive_idle_conns 20
+				read_timeout 30s
+				write_timeout 30s
+			}
+		}
 	}
 }

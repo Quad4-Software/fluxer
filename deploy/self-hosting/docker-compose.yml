@@ -109,6 +109,10 @@ services:
       - "443:443/udp"
     environment:
       FLUXER_CADDY_SITE_ADDRESS: ${FLUXER_CADDY_SITE_ADDRESS:?set FLUXER_CADDY_SITE_ADDRESS in .env}
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy-data:/data
@@ -124,6 +128,23 @@ services:
     image: postgres:16-alpine
     restart: unless-stopped
     networks: [fluxer]
+    shm_size: 256mb
+    command:
+      - postgres
+      - -c
+      - shared_buffers=128MB
+      - -c
+      - effective_cache_size=384MB
+      - -c
+      - work_mem=4MB
+      - -c
+      - maintenance_work_mem=64MB
+      - -c
+      - max_connections=150
+      - -c
+      - random_page_cost=1.1
+      - -c
+      - effective_io_concurrency=200
     environment:
       POSTGRES_DB: fluxer
       POSTGRES_USER: fluxer
@@ -140,7 +161,16 @@ services:
     image: valkey/valkey:8.1-alpine
     restart: unless-stopped
     networks: [fluxer]
-    command: ["valkey-server", "--save", "", "--appendonly", "no"]
+    command:
+      - valkey-server
+      - --save
+      - ""
+      - --appendonly
+      - "no"
+      - --maxmemory
+      - ${FLUXER_VALKEY_MAXMEMORY:-512mb}
+      - --maxmemory-policy
+      - allkeys-lru
     healthcheck:
       test: ["CMD", "valkey-cli", "ping"]
       interval: 10s
@@ -151,7 +181,14 @@ services:
     image: nats:2.14-alpine
     restart: unless-stopped
     networks: [fluxer]
-    command: ["-js", "-sd", "/data", "-m", "8222"]
+    command:
+      - -js
+      - -sd
+      - /data
+      - -m
+      - "8222"
+      - --max_payload
+      - "8388608"
     volumes:
       - nats-data:/data
 
@@ -163,6 +200,8 @@ services:
       MEILI_ENV: production
       MEILI_NO_ANALYTICS: "true"
       MEILI_MASTER_KEY: ${MEILI_MASTER_KEY:?set MEILI_MASTER_KEY in .env}
+      MEILI_MAX_INDEXING_MEMORY: ${FLUXER_MEILI_MAX_INDEXING_MEMORY:-512Mb}
+      MEILI_HTTP_PAYLOAD_SIZE_LIMIT: ${FLUXER_MEILI_HTTP_PAYLOAD_SIZE_LIMIT:-104857600}
     volumes:
       - meilisearch-data:/meili_data
 
