@@ -30,9 +30,8 @@
 	word-break: break-word;
 	-webkit-tap-highlight-color: transparent;
 	display: grid;
-	grid-template-columns: var(--chat-horizontal-padding, var(--message-gutter)) var(--message-avatar-size) var(
-			--message-gutter
-		) minmax(0, 1fr);
+	grid-template-columns: var(--chat-horizontal-padding, var(--message-gutter, 1rem)) var(--message-avatar-size, 2.5rem)
+		var(--message-gutter, 1rem) minmax(0, 1fr);
 	grid-template-rows: auto auto auto;
 	grid-template-areas: '. . . reply' 'gutter-left avatar gutter-right content' '. . . container';
 	padding-block: var(--message-spacing-y);
@@ -145,9 +144,8 @@
 .messageGrouped {
 	grid-template-areas: '. . . reply' 'gutter-left timestamp gutter-right content' '. . . container';
 
-	grid-template-columns: var(--chat-horizontal-padding, var(--message-gutter)) var(--message-avatar-size) var(
-			--message-gutter
-		) minmax(0, 1fr);
+	grid-template-columns: var(--chat-horizontal-padding, var(--message-gutter, 1rem)) var(--message-avatar-size, 2.5rem)
+		var(--message-gutter, 1rem) minmax(0, 1fr);
 }
 
 .messageCompact {
@@ -695,6 +693,9 @@
 	.message
 	.buttons.emojiPickerOpen,
 :global(:where(html.window-focused, html.unfocused-fully-interactive):not(.window-focus-activation-guard))
+	.message
+	.hoverAction.emojiPickerOpen,
+:global(:where(html.window-focused, html.unfocused-fully-interactive):not(.window-focus-activation-guard))
 	.messageCompact.messageHovered
 	.buttons,
 :global(:where(html.window-focused, html.unfocused-fully-interactive):not(.window-focus-activation-guard))
@@ -708,7 +709,10 @@
 	.buttons,
 :global(:where(html.window-focused, html.unfocused-fully-interactive):not(.window-focus-activation-guard))
 	.messageCompact
-	.buttons.emojiPickerOpen {
+	.buttons.emojiPickerOpen,
+:global(:where(html.window-focused, html.unfocused-fully-interactive):not(.window-focus-activation-guard))
+	.messageCompact
+	.hoverAction.emojiPickerOpen {
 	opacity: 1;
 	pointer-events: auto;
 }
@@ -797,6 +801,47 @@
 .container > * {
 	justify-self: start;
 	align-self: start;
+}
+
+.message :global([data-action='message-add-reaction-button']),
+.messageCompact :global([data-action='message-add-reaction-button']) {
+	opacity: 0;
+	pointer-events: none;
+}
+
+:global(:where(html.window-focused, html.unfocused-fully-interactive):not(.window-focus-activation-guard))
+	.message.messageHovered
+	:global([data-action='message-add-reaction-button']),
+:global(:where(html.window-focused, html.unfocused-fully-interactive):not(.window-focus-activation-guard))
+	.message.contextMenuActive
+	:global([data-action='message-add-reaction-button']),
+:global(:where(html.window-focused, html.unfocused-fully-interactive):not(.window-focus-activation-guard))
+	.message
+	:global([data-action='message-add-reaction-button'][aria-expanded='true']),
+:global(:where(html.window-focused, html.unfocused-fully-interactive):not(.window-focus-activation-guard))
+	.messageCompact.messageHovered
+	:global([data-action='message-add-reaction-button']),
+:global(:where(html.window-focused, html.unfocused-fully-interactive):not(.window-focus-activation-guard))
+	.messageCompact.contextMenuActive
+	:global([data-action='message-add-reaction-button']),
+:global(:where(html.window-focused, html.unfocused-fully-interactive):not(.window-focus-activation-guard))
+	.messageCompact
+	:global([data-action='message-add-reaction-button'][aria-expanded='true']),
+.keyboardFocused :global([data-action='message-add-reaction-button']) {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+@media (pointer: coarse) {
+	:global(:where(html.window-focused, html.unfocused-fully-interactive):not(.window-focus-activation-guard))
+		.message:hover
+		:global([data-action='message-add-reaction-button']),
+	:global(:where(html.window-focused, html.unfocused-fully-interactive):not(.window-focus-activation-guard))
+		.messageCompact:hover
+		:global([data-action='message-add-reaction-button']) {
+		opacity: 0;
+		pointer-events: none;
+	}
 }
 
 .messageNoText .container {

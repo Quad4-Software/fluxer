@@ -3,6 +3,7 @@
 export const REM_BASE_PX = 16;
 
 export function remFromPx(px: number): `${number}rem` {
-	const rounded = Math.round((px / REM_BASE_PX) * 1e5) / 1e5;
+	const safePx = Number.isFinite(px) ? px : REM_BASE_PX;
+	const rounded = Math.round((safePx / REM_BASE_PX) * 1e5) / 1e5;
 	return `${rounded}rem`;
 }

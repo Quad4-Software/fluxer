@@ -400,12 +400,12 @@ export default () => {
 			],
 			generator: {
 				'css/module': {
-					localIdentName: '[name]__[local]___[hash:base64:6]',
+					localIdentName: '[local]___[hash:base64:6]',
 					exportsConvention: 'camel-case-only',
 					exportsOnly: false,
 				},
 				'css/auto': {
-					localIdentName: '[name]__[local]___[hash:base64:6]',
+					localIdentName: '[local]___[hash:base64:6]',
 					exportsConvention: 'camel-case-only',
 					exportsOnly: false,
 				},

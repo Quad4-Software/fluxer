@@ -5,8 +5,8 @@
 	align-items: center;
 	justify-content: center;
 	align-self: flex-start;
-	min-width: var(--textarea-button-height);
-	height: var(--textarea-button-height);
+	min-width: var(--textarea-button-height, var(--user-area-content-height));
+	height: var(--textarea-button-height, var(--user-area-content-height));
 	padding: 0;
 	color: var(--text-primary-muted);
 	transition: color var(--transition-normal);
@@ -32,18 +32,18 @@
 }
 
 .icon {
-	width: var(--textarea-button-icon-size);
-	height: var(--textarea-button-icon-size);
+	width: var(--textarea-button-icon-size, 1.625rem);
+	height: var(--textarea-button-icon-size, 1.625rem);
 	flex-shrink: 0;
 }
 
 .buttonCompact {
 	composes: button;
-	height: var(--textarea-button-compact-height);
-	min-width: var(--textarea-button-compact-height);
+	height: var(--textarea-button-compact-height, var(--user-area-content-height));
+	min-width: var(--textarea-button-compact-height, var(--user-area-content-height));
 }
 
 .buttonCompact .icon {
-	width: var(--textarea-button-compact-icon-size);
-	height: var(--textarea-button-compact-icon-size);
+	width: var(--textarea-button-compact-icon-size, 1.375rem);
+	height: var(--textarea-button-compact-icon-size, 1.375rem);
 }

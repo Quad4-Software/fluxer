@@ -29,8 +29,8 @@
 }
 
 .icon svg {
-	width: var(--textarea-button-icon-size);
-	height: var(--textarea-button-icon-size);
+	width: var(--textarea-button-icon-size, 1.625rem);
+	height: var(--textarea-button-icon-size, 1.625rem);
 }
 
 .messageArea {

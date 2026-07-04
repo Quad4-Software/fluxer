@@ -804,9 +804,22 @@ const ChannelTextareaContent = observer(
 			let lastWidth = -1;
 			let rafId: number | null = null;
 			let pendingWidth: number | null = null;
+			const readContainerWidth = (entry?: ResizeObserverEntry): number => {
+				const node = containerRef.current;
+				if (!node) return 0;
+				const borderBoxWidth = entry?.borderBoxSize?.[0]?.inlineSize;
+				if (typeof borderBoxWidth === 'number' && borderBoxWidth > 0) {
+					return borderBoxWidth;
+				}
+				const contentRectWidth = entry?.contentRect.width ?? 0;
+				if (contentRectWidth > 0) {
+					return contentRectWidth;
+				}
+				return node.getBoundingClientRect().width;
+			};
 			const updateButtonVisibility = () => {
 				rafId = null;
-				const containerWidthLocal = pendingWidth ?? containerRef.current?.clientWidth ?? 0;
+				const containerWidthLocal = pendingWidth ?? readContainerWidth();
 				pendingWidth = null;
 				if (containerWidthLocal === lastWidth) return;
 				lastWidth = containerWidthLocal;
@@ -821,11 +834,10 @@ const ChannelTextareaContent = observer(
 				rafId = requestAnimationFrame(updateButtonVisibility);
 			};
 			const resizeObserver = new ResizeObserver((entries) => {
-				const entry = entries[0];
-				scheduleButtonVisibilityCheck(entry?.contentRect.width);
+				scheduleButtonVisibilityCheck(readContainerWidth(entries[0]));
 			});
 			resizeObserver.observe(containerRef.current);
-			scheduleButtonVisibilityCheck(containerRef.current.clientWidth);
+			scheduleButtonVisibilityCheck(readContainerWidth());
 			return () => {
 				if (rafId != null) {
 					cancelAnimationFrame(rafId);
