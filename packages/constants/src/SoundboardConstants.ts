@@ -72,11 +72,3 @@ export function soundboardSoundExtensionFromFormat(format: string | null | undef
 	}
 	return null;
 }
-
-/** Reserved sound_id range for the bundled default soundboard catalog; guild sound snowflakes never fall in this range. */
-export const SOUNDBOARD_DEFAULT_SOUND_ID_MIN = 1n;
-export const SOUNDBOARD_DEFAULT_SOUND_ID_MAX = 999999n;
-
-export function isDefaultSoundboardSoundId(soundId: bigint): boolean {
-	return soundId >= SOUNDBOARD_DEFAULT_SOUND_ID_MIN && soundId <= SOUNDBOARD_DEFAULT_SOUND_ID_MAX;
-}

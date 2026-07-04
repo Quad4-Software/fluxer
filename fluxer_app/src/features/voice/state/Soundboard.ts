@@ -3,13 +3,8 @@
 import type {GuildReadyData} from '@app/features/gateway/types/GatewayGuildTypes';
 import {ComponentDispatch} from '@app/features/platform/utils/ComponentBus';
 import {SoundboardSound} from '@app/features/voice/models/SoundboardSound';
-import {DEFAULT_SOUNDBOARD_SOUNDS} from '@fluxer/constants/src/DefaultSoundboardSounds';
 import type {GuildSoundboardSoundResponse} from '@fluxer/schema/src/domains/guild/GuildSoundboardSchemas';
 import {makeAutoObservable} from 'mobx';
-
-const DEFAULT_SOUNDS: ReadonlyArray<SoundboardSound> = Object.freeze(
-	DEFAULT_SOUNDBOARD_SOUNDS.map((sound) => SoundboardSound.fromDefault(sound)),
-);
 
 class Soundboard {
 	guildSounds: Map<string, Array<SoundboardSound>> = new Map();
@@ -19,21 +14,11 @@ class Soundboard {
 		makeAutoObservable(this, {}, {autoBind: true});
 	}
 
-	get defaultSounds(): ReadonlyArray<SoundboardSound> {
-		return DEFAULT_SOUNDS;
-	}
-
-	getDefaultSound(soundId: string): SoundboardSound | null {
-		return DEFAULT_SOUNDS.find((sound) => sound.id === soundId) ?? null;
-	}
-
 	getGuildSounds(guildId: string): ReadonlyArray<SoundboardSound> {
 		return this.guildSounds.get(guildId) ?? [];
 	}
 
 	getSound(soundId: string, guildId?: string | null): SoundboardSound | null {
-		const defaultSound = this.getDefaultSound(soundId);
-		if (defaultSound) return defaultSound;
 		if (guildId) {
 			const inGuild = this.getGuildSounds(guildId).find((sound) => sound.id === soundId);
 			if (inGuild) return inGuild;

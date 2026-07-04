@@ -14,7 +14,6 @@ import type {SoundboardSound} from '@app/features/voice/models/SoundboardSound';
 import Soundboard from '@app/features/voice/state/Soundboard';
 import SoundboardListenerPrefs from '@app/features/voice/state/SoundboardListenerPrefs';
 import {Permissions} from '@fluxer/constants/src/ChannelConstants';
-import {findDefaultSoundboardSound} from '@fluxer/constants/src/DefaultSoundboardSounds';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
 import {GearIcon, MagnifyingGlassIcon, MusicNotesIcon, SpeakerHighIcon, SpeakerSlashIcon} from '@phosphor-icons/react';
@@ -38,10 +37,6 @@ const MUTE_SOUNDBOARD_DESCRIPTOR = msg({
 const UNMUTE_SOUNDBOARD_DESCRIPTOR = msg({
 	message: 'Unmute soundboard sounds for me',
 	comment: 'Tooltip on the mute-all toggle in the in-call soundboard panel when currently muted.',
-});
-const DEFAULT_SOUNDS_DESCRIPTOR = msg({
-	message: 'Default sounds',
-	comment: 'Section heading in the in-call soundboard panel for the bundled default sound catalog.',
 });
 const SERVER_SOUNDS_DESCRIPTOR = msg({
 	message: '{guildName} sounds',
@@ -77,24 +72,16 @@ export const SoundboardPanel = observer(function SoundboardPanel() {
 			Permission.can(Permissions.SPEAK, {channelId}),
 	);
 	const isMuted = SoundboardListenerPrefs.isDisabled();
-	const defaultSounds = Soundboard.defaultSounds;
-	const filteredDefaultSounds = useMemo(() => {
-		if (!searchQuery) return defaultSounds;
-		return matchSorter(defaultSounds, searchQuery, {keys: [(sound) => sound.name]});
-	}, [defaultSounds, searchQuery]);
 	const filteredGuildSounds = useMemo(() => {
 		if (!searchQuery) return guildSounds;
 		return matchSorter(guildSounds, searchQuery, {keys: [(sound) => sound.name]});
 	}, [guildSounds, searchQuery]);
-	const hasAnyResults = filteredDefaultSounds.length > 0 || filteredGuildSounds.length > 0;
+	const hasAnyResults = filteredGuildSounds.length > 0;
 	const handlePlay = useCallback(
 		(sound: SoundboardSound) => {
 			if (!canUseSoundboard || !channelId) return;
 			setPlayingSoundId(sound.id);
-			if (sound.isDefault) {
-				const recipe = findDefaultSoundboardSound(sound.id);
-				if (recipe) void SoundboardPlaybackEngine.playDefault({soundId: sound.id, recipe});
-			} else if (sound.url) {
+			if (sound.url) {
 				void SoundboardPlaybackEngine.playCustom({soundId: sound.id, url: sound.url, volume: sound.volume});
 			}
 			void SoundboardCommands.play(channelId, sound.id, sound.guildId).catch((error) => {
@@ -211,28 +198,14 @@ export const SoundboardPanel = observer(function SoundboardPanel() {
 			)}
 			<Scroller className={styles.body} data-flx="voice.soundboard.soundboard-panel.scroller">
 				{hasAnyResults ? (
-					<>
-						{filteredGuildSounds.length > 0 && (
-							<div className={styles.section} data-flx="voice.soundboard.soundboard-panel.section.guild">
-								<h2 className={styles.sectionTitle} data-flx="voice.soundboard.soundboard-panel.section-title.guild">
-									{i18n._(SERVER_SOUNDS_DESCRIPTOR, {guildName: guild?.name ?? ''})}
-								</h2>
-								<div className={styles.grid} data-flx="voice.soundboard.soundboard-panel.grid.guild">
-									{filteredGuildSounds.map(renderTile)}
-								</div>
-							</div>
-						)}
-						{filteredDefaultSounds.length > 0 && (
-							<div className={styles.section} data-flx="voice.soundboard.soundboard-panel.section.default">
-								<h2 className={styles.sectionTitle} data-flx="voice.soundboard.soundboard-panel.section-title.default">
-									{i18n._(DEFAULT_SOUNDS_DESCRIPTOR)}
-								</h2>
-								<div className={styles.grid} data-flx="voice.soundboard.soundboard-panel.grid.default">
-									{filteredDefaultSounds.map(renderTile)}
-								</div>
-							</div>
-						)}
-					</>
+					<div className={styles.section} data-flx="voice.soundboard.soundboard-panel.section.guild">
+						<h2 className={styles.sectionTitle} data-flx="voice.soundboard.soundboard-panel.section-title.guild">
+							{i18n._(SERVER_SOUNDS_DESCRIPTOR, {guildName: guild?.name ?? ''})}
+						</h2>
+						<div className={styles.grid} data-flx="voice.soundboard.soundboard-panel.grid.guild">
+							{filteredGuildSounds.map(renderTile)}
+						</div>
+					</div>
 				) : (
 					<p className={styles.emptyText} data-flx="voice.soundboard.soundboard-panel.empty-text">
 						{i18n._(NO_SOUNDS_FOUND_DESCRIPTOR)}

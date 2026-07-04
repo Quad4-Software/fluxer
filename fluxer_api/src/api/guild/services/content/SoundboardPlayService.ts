@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {Permissions} from '@fluxer/constants/src/ChannelConstants';
-import {isDefaultSoundboardSoundId} from '@fluxer/constants/src/SoundboardConstants';
 import {ValidationErrorCodes} from '@fluxer/constants/src/ValidationErrorCodes';
 import {UnknownChannelError} from '@fluxer/errors/src/domains/channel/UnknownChannelError';
 import {InputValidationError} from '@fluxer/errors/src/domains/core/InputValidationError';
@@ -90,9 +89,6 @@ export class SoundboardPlayService {
 			guild_id: guildId.toString(),
 			sound_id: soundId.toString(),
 		};
-		if (isDefaultSoundboardSoundId(BigInt(soundId))) {
-			return {...baseData, is_default: true};
-		}
 		const isExternal = sourceGuildId != null && sourceGuildId !== guildId;
 		if (isExternal) {
 			if (!checkIsPremium(user)) {
@@ -126,7 +122,6 @@ export class SoundboardPlayService {
 		const url = soundboardSoundCdnUrl(sound);
 		return {
 			...baseData,
-			is_default: false,
 			source_guild_id: sound.guildId.toString(),
 			sound: mapGuildSoundboardSoundToResponse(sound, url),
 		};

@@ -4,7 +4,6 @@ import type {GatewayHandlerContext} from '@app/features/gateway/events/EventRout
 import {Logger} from '@app/features/platform/utils/AppLogger';
 import MediaEngine from '@app/features/voice/engine/MediaEngineFacade';
 import SoundboardPlaybackEngine from '@app/features/voice/engine/SoundboardPlaybackEngine';
-import {findDefaultSoundboardSound} from '@fluxer/constants/src/DefaultSoundboardSounds';
 import type {GuildSoundboardSoundResponse} from '@fluxer/schema/src/domains/guild/GuildSoundboardSchemas';
 
 const logger = new Logger('SoundboardSoundPlay');
@@ -14,7 +13,6 @@ interface SoundboardSoundPlayPayload {
 	channel_id: string;
 	guild_id: string;
 	sound_id: string;
-	is_default: boolean;
 	source_guild_id?: string | null;
 	sound?: GuildSoundboardSoundResponse;
 }
@@ -26,15 +24,6 @@ export function handleSoundboardSoundPlay(data: SoundboardSoundPlayPayload, _con
 			eventChannelId: data.channel_id,
 			localChannelId: MediaEngine.channelId,
 		});
-		return;
-	}
-	if (data.is_default) {
-		const recipe = findDefaultSoundboardSound(data.sound_id);
-		if (!recipe) {
-			logger.warn('Received SOUNDBOARD_SOUND_PLAY for unknown default sound', {soundId: data.sound_id});
-			return;
-		}
-		void SoundboardPlaybackEngine.playDefault({soundId: data.sound_id, recipe});
 		return;
 	}
 	if (!data.sound?.url) {

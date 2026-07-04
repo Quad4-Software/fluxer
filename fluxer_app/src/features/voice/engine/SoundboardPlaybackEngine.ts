@@ -6,8 +6,6 @@ import Sound from '@app/features/ui/state/Sound';
 import {getEffectiveAudioState} from '@app/features/voice/engine/VoiceEffectiveAudioState';
 import SoundboardListenerPrefs from '@app/features/voice/state/SoundboardListenerPrefs';
 import VoiceSettings from '@app/features/voice/state/VoiceSettings';
-import {synthesizeDefaultSoundboardSound} from '@app/features/voice/utils/VoiceClipToneSynthesizer';
-import type {DefaultSoundboardSound} from '@fluxer/constants/src/DefaultSoundboardSounds';
 
 const logger = new Logger('SoundboardPlaybackEngine');
 
@@ -18,11 +16,6 @@ interface PlayCustomParams {
 	soundId: string;
 	url: string;
 	volume: number;
-}
-
-interface PlayDefaultParams {
-	soundId: string;
-	recipe: DefaultSoundboardSound;
 }
 
 class SoundboardPlaybackEngine {
@@ -91,20 +84,6 @@ class SoundboardPlaybackEngine {
 		}
 	}
 
-	private async getDefaultBuffer(recipe: DefaultSoundboardSound): Promise<AudioBuffer | null> {
-		const key = `default:${recipe.soundId}`;
-		const cached = this.touchCache(key);
-		if (cached) return cached;
-		try {
-			const buffer = await synthesizeDefaultSoundboardSound(recipe);
-			this.cacheBuffer(key, buffer);
-			return buffer;
-		} catch (error) {
-			logger.warn('Failed to synthesize default soundboard sound', {soundId: recipe.soundId, error});
-			return null;
-		}
-	}
-
 	private getMasterVolumeMultiplier(): number {
 		return Math.max(0, Math.min(MAX_MASTER_VOLUME_PERCENT, Sound.getMasterVolume())) / 100;
 	}
@@ -158,13 +137,6 @@ class SoundboardPlaybackEngine {
 		this.playBuffer(buffer, volume);
 	}
 
-	async playDefault(params: PlayDefaultParams): Promise<void> {
-		if (!this.shouldPlay()) return;
-		const buffer = await this.getDefaultBuffer(params.recipe);
-		if (!buffer) return;
-		this.playBuffer(buffer, 1);
-	}
-
 	playPreview(buffer: AudioBuffer, volume = 1): void {
 		const ctx = this.ensureContext();
 		if (!ctx) return;
@@ -182,10 +154,6 @@ class SoundboardPlaybackEngine {
 
 	async fetchBuffer(url: string, soundId: string): Promise<AudioBuffer | null> {
 		return this.fetchAndDecode(url, `custom:${soundId}:${url}`);
-	}
-
-	async previewDefault(recipe: DefaultSoundboardSound): Promise<AudioBuffer | null> {
-		return this.getDefaultBuffer(recipe);
 	}
 }
 
