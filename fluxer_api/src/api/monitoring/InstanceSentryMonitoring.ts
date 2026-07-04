@@ -15,10 +15,3 @@ export async function applyInstanceSentryMonitoring(config: ResolvedSentryRuntim
 		config,
 	);
 }
-
-export async function applyConfiguredSentryMonitoring(): Promise<void> {
-	await applyServiceInstrumentation({
-		serviceName: SERVICE_NAME,
-		config: Config,
-	});
-}

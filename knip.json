@@ -22,13 +22,27 @@
 		"fluxer_app/scripts/build/Config.tsx": ["exports"],
 		"fluxer_app/scripts/build/rspack/static-files.mjs": ["exports"],
 		"fluxer_app/src/index.tsx": ["unlisted"],
+		"fluxer_desktop/native/linux-audio-capture/vm_tests/direct_capture_validation.mjs": ["binaries"],
+		"fluxer_desktop/native/linux-audio-capture/vm_tests/pw_graph_validation.mjs": ["binaries"],
 		"fluxer_desktop/native/mac-app-audio/index.test.mjs": ["unlisted"],
 		"fluxer_desktop/src/common/DesktopConfig.ts": ["types"],
 		"fluxer_desktop/src/common/Types.ts": ["types"],
 		"fluxer_desktop/src/main/Autostart.ts": ["exports"],
-		"fluxer_desktop/src/main/LinuxDesktopEntry.ts": ["exports"],
+		"fluxer_desktop/src/main/LinuxDesktopEntry.ts": ["exports", "binaries"],
+		"fluxer_desktop/src/main/NativeScreenCapture.ts": ["binaries"],
 		"fluxer_desktop/src/main/NotificationState.ts": ["exports", "types"],
-		"fluxer_desktop/src/main/WindowsVulkanGameCaptureLayer.ts": ["exports"],
+		"fluxer_desktop/src/main/OpenH264Manager.ts": ["binaries"],
+		"fluxer_desktop/src/main/SpellcheckDictionaries.ts": ["types"],
+		"fluxer_desktop/src/main/WindowsVulkanGameCaptureLayer.ts": ["exports", "binaries"],
+		"fluxer_api/pkgs/**": ["types"],
+		"fluxer_api/src/api/**": ["types"],
+		"packages/config/**": ["types"],
+		"packages/constants/**": ["types"],
+		"packages/errors/**": ["types"],
+		"packages/hono/**": ["types"],
+		"packages/i18n/**": ["types"],
+		"packages/openapi/**": ["types"],
+		"packages/voice_engine_v2/**": ["types"],
 		"pnpm-workspace.yaml": ["catalog"]
 	},
 	"workspaces": {
@@ -63,7 +77,10 @@
 			"project": ["src/**/*.ts"]
 		},
 		"packages/schema": {
-			"project": ["src/**/*.ts", "!src/gen/**"]
+			"project": ["src/**/*.ts", "!src/gen/**"],
+			"ignoreIssues": {
+				"src/**": ["exports", "types"]
+			}
 		},
 		"packages/voice_engine_v2": {
 			"entry": ["src/**/*.bench.ts"]

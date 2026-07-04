@@ -128,7 +128,7 @@ const SplashScreenContent = observer(({mode}: SplashScreenContentProps) => {
 	}
 	const visibleIncident = frozenDisplayRef.current?.incident ?? liveIncident;
 	const displayText = frozenDisplayRef.current?.text ?? quote.text;
-	const incidentUrl = visibleIncident?.url || statusPageUrl;
+	const incidentUrl = visibleIncident?.url ?? statusPageUrl ?? undefined;
 	if (isOutageMode) {
 		return (
 			<div

@@ -12,7 +12,3 @@ export function getAltchaChallengeStore(maxSize = DEFAULT_MAX_SIZE): CappedMap<s
 	}
 	return challengeStore;
 }
-
-export function resetAltchaChallengeStoreForTesting(): void {
-	challengeStore = null;
-}

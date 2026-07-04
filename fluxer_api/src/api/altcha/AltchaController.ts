@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import type {Hono} from 'hono';
-import {Config} from '../Config';
 import {RateLimitMiddleware} from '../middleware/RateLimitMiddleware';
 import {OpenAPI} from '../middleware/ResponseTypeMiddleware';
 import {RateLimitConfigs} from '../RateLimitConfig';
@@ -33,8 +32,4 @@ export function AltchaController(app: Hono<HonoEnv>): void {
 			return handleAltchaChallenge(ctx, captcha.altcha_hmac_secret_key);
 		},
 	);
-}
-
-export function isAltchaConfigured(): boolean {
-	return Boolean(Config.captcha.enabled && Config.captcha.provider === 'altcha' && Config.captcha.altcha?.hmacSecret);
 }

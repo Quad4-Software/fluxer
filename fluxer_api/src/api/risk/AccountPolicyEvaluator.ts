@@ -405,7 +405,7 @@ export function createAccountPolicyContactDomainContext(
 	});
 }
 
-export class AccountPolicyContactDecision {
+class AccountPolicyContactDecision {
 	private readonly capabilitySet: ReadonlySet<AccountPolicyContactCapability>;
 
 	constructor(capabilities: ReadonlyArray<AccountPolicyContactCapability>) {

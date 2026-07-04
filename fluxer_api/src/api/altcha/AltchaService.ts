@@ -35,8 +35,3 @@ export async function handleAltchaChallenge(ctx: Context, hmacSecret: string): P
 	const altcha = await getRuntime(hmacSecret);
 	return altcha.challengeHandler(ctx);
 }
-
-export function resetAltchaServiceForTesting(): void {
-	runtime = null;
-	runtimeSecret = null;
-}
