@@ -29,6 +29,7 @@ import type {FavoriteMemeRequestService} from '../favorite_meme/FavoriteMemeRequ
 import type {FavoriteMemeService} from '../favorite_meme/FavoriteMemeService';
 import type {GatewayRequestService} from '../gateway/GatewayRequestService';
 import type {GifService} from '../gif/GifService';
+import type {SoundboardPlayService} from '../guild/services/content/SoundboardPlayService';
 import type {IGuildDiscoveryService} from '../guild/services/GuildDiscoveryService';
 import type {GuildService} from '../guild/services/GuildService';
 import type {EmbedService} from '../infrastructure/EmbedService';
@@ -139,6 +140,7 @@ export interface HonoEnv {
 		gatewayRequestService: GatewayRequestService;
 		discoveryService: IGuildDiscoveryService;
 		guildService: GuildService;
+		soundboardPlayService: SoundboardPlayService;
 		packService: PackService;
 		packRepository: PackRepository;
 		inviteService: InviteService;

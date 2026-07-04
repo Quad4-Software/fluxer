@@ -15,7 +15,9 @@ import * as ModalCommands from '@app/features/ui/commands/ModalCommands';
 import {modal} from '@app/features/ui/commands/ModalCommands';
 import * as SoundCommands from '@app/features/ui/commands/SoundCommands';
 import FocusRing from '@app/features/ui/focus_ring/FocusRing';
+import {usePopout} from '@app/features/ui/hooks/usePopout';
 import {TooltipWithKeybind} from '@app/features/ui/keybind_hint/KeybindHint';
+import {Popout} from '@app/features/ui/popover/PopoverPopout';
 import MobileLayout from '@app/features/ui/state/MobileLayout';
 import {Tooltip} from '@app/features/ui/tooltip/Tooltip';
 import {isDesktop} from '@app/features/ui/utils/NativeUtils';
@@ -35,6 +37,7 @@ import {
 } from '@app/features/voice/components/modals/ScreenSharePickerModal';
 import {getStreamKey} from '@app/features/voice/components/StreamKeys';
 import {StreamSettingsMenuContent} from '@app/features/voice/components/StreamSettingsMenuContent';
+import {SoundboardPanel} from '@app/features/voice/components/soundboard/SoundboardPanel';
 import styles from '@app/features/voice/components/VoiceControlBar.module.css';
 import {
 	transitionVoiceControlBarState,
@@ -98,6 +101,7 @@ import {
 	PhoneXIcon,
 	SpeakerHighIcon,
 	SpeakerSlashIcon,
+	WaveformIcon,
 } from '@phosphor-icons/react';
 import {clsx} from 'clsx';
 import {type LocalParticipant, type Room, RoomEvent} from 'livekit-client';
@@ -151,6 +155,10 @@ const AUDIO_SETTINGS_DESCRIPTOR = msg({
 const STOP_WATCHING_STREAM_DESCRIPTOR = msg({
 	message: 'Stop watching stream',
 	comment: 'Tooltip / button label in the voice control bar that stops watching a remote screen share.',
+});
+const OPEN_SOUNDBOARD_DESCRIPTOR = msg({
+	message: 'Open soundboard',
+	comment: 'Tooltip / button label in the voice control bar that opens the soundboard sound picker.',
 });
 const logger = new Logger('VoiceControlBar');
 
@@ -241,6 +249,8 @@ const VoiceControlBarInner = observer(function VoiceControlBarInner() {
 	const [audioSettingsOpen, setAudioSettingsOpen] = useState(false);
 	const [cameraSettingsOpen, setCameraSettingsOpen] = useState(false);
 	const [moreOptionsOpen, setMoreOptionsOpen] = useState(false);
+	const {openProps: soundboardOpenProps} = usePopout('voice-control-soundboard');
+	const showSoundboard = Boolean(guildId);
 	const isMuted = localSelfMute;
 	const isDeafened = localSelfDeaf;
 	const isGuildMuted = voiceState?.mute ?? false;
@@ -921,6 +931,39 @@ const VoiceControlBarInner = observer(function VoiceControlBarInner() {
 					</FocusRing>
 				</Tooltip>
 			</div>
+			{showSoundboard && (
+				<Popout
+					data-flx="voice.voice-control-bar.voice-control-bar-inner.popout.soundboard"
+					{...soundboardOpenProps}
+					render={() => <SoundboardPanel data-flx="voice.voice-control-bar.voice-control-bar-inner.soundboard-panel" />}
+					position="top"
+					offsetMainAxis={12}
+					subscribeTo="SOUNDBOARD_TOGGLE"
+					tooltip={() => (
+						<TooltipWithKeybind
+							label={i18n._(OPEN_SOUNDBOARD_DESCRIPTOR)}
+							action="voice_toggle_soundboard"
+							data-flx="voice.voice-control-bar.voice-control-bar-inner.tooltip-with-keybind.soundboard"
+						/>
+					)}
+				>
+					<FocusRing offset={-2} data-flx="voice.voice-control-bar.voice-control-bar-inner.focus-ring.soundboard">
+						<button
+							type="button"
+							className={clsx(styles.button, styles.buttonSoundboard)}
+							aria-label={i18n._(OPEN_SOUNDBOARD_DESCRIPTOR)}
+							aria-haspopup={true}
+							data-flx="voice.voice-control-bar.voice-control-bar-inner.button.soundboard"
+						>
+							<WaveformIcon
+								weight="bold"
+								className={styles.icon}
+								data-flx="voice.voice-control-bar.voice-control-bar-inner.icon.soundboard"
+							/>
+						</button>
+					</FocusRing>
+				</Popout>
+			)}
 			<Tooltip
 				text={i18n._(MORE_OPTIONS_DESCRIPTOR)}
 				data-flx="voice.voice-control-bar.voice-control-bar-inner.tooltip--7"

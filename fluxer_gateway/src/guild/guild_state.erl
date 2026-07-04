@@ -81,6 +81,8 @@ update_channel_event(guild_emojis_update, ED, D) ->
     guild_state_channels:handle_emojis_update(ED, D);
 update_channel_event(guild_stickers_update, ED, D) ->
     guild_state_channels:handle_stickers_update(ED, D);
+update_channel_event(guild_soundboard_sounds_update, ED, D) ->
+    guild_state_channels:handle_soundboard_sounds_update(ED, D);
 update_channel_event(_Event, _EventData, Data) ->
     Data.
 

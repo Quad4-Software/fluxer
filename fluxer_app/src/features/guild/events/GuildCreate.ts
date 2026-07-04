@@ -24,6 +24,7 @@ import QuickSwitcher from '@app/features/search/state/QuickSwitcher';
 import Nagbar from '@app/features/ui/state/Nagbar';
 import UserGuildSettings from '@app/features/user/state/UserGuildSettings';
 import MediaEngine from '@app/features/voice/engine/MediaEngineFacade';
+import Soundboard from '@app/features/voice/state/Soundboard';
 import {FAVORITES_GUILD_ID} from '@fluxer/constants/src/AppConstants';
 
 function shouldTreatGuildCreateAsUnavailable(data: GuildReadyData): boolean {
@@ -65,6 +66,7 @@ export function handleGuildCreate(data: GuildReadyData, _context: GatewayHandler
 	if (data.stickers && data.stickers.length > 0) {
 		Sticker.handleGuildStickersUpdate(data.id, data.stickers);
 	}
+	Soundboard.handleGuildCreate(data);
 	GuildList.handleGuild(data);
 	Sticker.handleGuildUpdate(data);
 	Nagbar.handleGuildUpdate({guild: data});

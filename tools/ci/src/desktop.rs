@@ -32,6 +32,7 @@ use walkdir::WalkDir;
 use zip::write::SimpleFileOptions;
 
 const PUBLIC_DL_BASE: &str = "https://api.fluxer.app/dl";
+const GITHUB_RELEASES_BASE: &str = "https://github.com";
 const PNPM_VERSION: &str = "11.9.0";
 const RUST_TOOLCHAIN: &str = "1.93.0";
 const DEFAULT_DESKTOP_VARIANT: &str = "default";
@@ -2218,10 +2219,34 @@ fn package_version_from_tar_gz(tar_gz: &Path, package_json_path: &str) -> Result
     bail!("{package_json_path} not found in {}", tar_gz.display())
 }
 
-async fn upload_handoff_step(signed_windows_artifacts: bool) -> Result<()> {
-    let client = s3_client(None).await?;
-    let bucket = require_env("S3_BUCKET")?;
-    let prefix = require_env("DESKTOP_HANDOFF_PREFIX")?;
+fn handoff_uses_github_actions() -> bool {
+    matches!(
+        env::var("DESKTOP_HANDOFF_BACKEND")
+            .ok()
+            .as_deref()
+            .map(str::trim)
+            .filter(|value| !value.is_empty()),
+        Some("github") | Some("github-actions") | Some("gha")
+    )
+}
+
+fn publish_uses_github() -> bool {
+    match env::var("DESKTOP_PUBLISH_BACKEND")
+        .ok()
+        .as_deref()
+        .map(str::trim)
+        .filter(|value| !value.is_empty())
+    {
+        Some("github") | Some("github-releases") => true,
+        Some("s3") => false,
+        _ => env::var("S3_BUCKET")
+            .ok()
+            .filter(|value| !value.trim().is_empty())
+            .is_none(),
+    }
+}
+
+fn stage_handoff_step(signed_windows_artifacts: bool) -> Result<()> {
     let build_channel = require_env("BUILD_CHANNEL")?;
     let platform = require_any_env(&["DESKTOP_PLATFORM", "PLATFORM"])?;
     let arch = require_any_env(&["DESKTOP_ARCH", "ARCH"])?;
@@ -2239,18 +2264,68 @@ async fn upload_handoff_step(signed_windows_artifacts: bool) -> Result<()> {
         &desktop_variant,
         signed_windows_artifacts,
     );
-    let artifact_prefix = join_s3_key(&prefix, &artifact_name);
-    println!("Uploading {artifact_count} desktop artifact file(s) to {artifact_prefix}");
-    upload_directory_to_s3(&client, &bucket, &artifact_prefix, staging, |_| true).await?;
+    let dest = Path::new("artifacts").join(&artifact_name);
+    remove_dir_if_exists(&dest)?;
+    fs::create_dir_all(&dest)?;
+    copy_dir_contents(staging, &dest)?;
+    println!(
+        "Staged {artifact_count} desktop artifact file(s) at {}",
+        dest.display()
+    );
 
     let source_staging = Path::new("source_staging");
     if !signed_windows_artifacts && source_staging.exists() {
         let source_count = count_files(source_staging)?;
         if source_count > 0 {
             let source_name = format!("fluxer-desktop-{build_channel}-source-linux-x64");
+            let source_dest = Path::new("artifacts").join(&source_name);
+            remove_dir_if_exists(&source_dest)?;
+            fs::create_dir_all(&source_dest)?;
+            copy_dir_contents(source_staging, &source_dest)?;
+            println!(
+                "Staged {source_count} desktop source file(s) at {}",
+                source_dest.display()
+            );
+        }
+    }
+    Ok(())
+}
+
+async fn upload_handoff_step(signed_windows_artifacts: bool) -> Result<()> {
+    stage_handoff_step(signed_windows_artifacts)?;
+    if handoff_uses_github_actions() {
+        println!("Desktop handoff staged locally for GitHub Actions artifact upload.");
+        return Ok(());
+    }
+
+    let client = s3_client(None).await?;
+    let bucket = require_env("S3_BUCKET")?;
+    let prefix = require_env("DESKTOP_HANDOFF_PREFIX")?;
+    let build_channel = require_env("BUILD_CHANNEL")?;
+    let platform = require_any_env(&["DESKTOP_PLATFORM", "PLATFORM"])?;
+    let arch = require_any_env(&["DESKTOP_ARCH", "ARCH"])?;
+    let desktop_variant = desktop_variant_from_env()?;
+    let artifact_name = handoff_artifact_name(
+        &build_channel,
+        &platform,
+        &arch,
+        &desktop_variant,
+        signed_windows_artifacts,
+    );
+    let staging = Path::new("artifacts").join(&artifact_name);
+    let artifact_count = count_files(&staging)?;
+    let artifact_prefix = join_s3_key(&prefix, &artifact_name);
+    println!("Uploading {artifact_count} desktop artifact file(s) to {artifact_prefix}");
+    upload_directory_to_s3(&client, &bucket, &artifact_prefix, &staging, |_| true).await?;
+
+    let source_name = format!("fluxer-desktop-{build_channel}-source-linux-x64");
+    let source_staging = Path::new("artifacts").join(&source_name);
+    if !signed_windows_artifacts && source_staging.exists() {
+        let source_count = count_files(&source_staging)?;
+        if source_count > 0 {
             let source_prefix = join_s3_key(&prefix, &source_name);
             println!("Uploading {source_count} desktop source file(s) to {source_prefix}");
-            upload_directory_to_s3(&client, &bucket, &source_prefix, source_staging, |_| true)
+            upload_directory_to_s3(&client, &bucket, &source_prefix, &source_staging, |_| true)
                 .await?;
         }
     }
@@ -2284,7 +2359,29 @@ fn check_signing_secrets_step() -> Result<()> {
     }
 }
 
+fn copy_windows_handoff_for_signing() -> Result<()> {
+    let build_channel = require_env("BUILD_CHANNEL")?;
+    let arch = require_any_env(&["DESKTOP_ARCH", "ARCH"])?;
+    let desktop_variant = desktop_variant_from_env()?;
+    let artifact_name =
+        handoff_artifact_name(&build_channel, "windows", &arch, &desktop_variant, false);
+    let source = Path::new("artifacts").join(&artifact_name);
+    let target = windows_artifact_dir(&arch, &desktop_variant);
+    ensure!(
+        source.exists(),
+        "Expected Windows handoff directory {} is missing.",
+        source.display()
+    );
+    remove_dir_if_exists(&target)?;
+    fs::create_dir_all(&target)?;
+    copy_dir_contents(&source, &target)
+}
+
 async fn download_windows_handoff_step() -> Result<()> {
+    if handoff_uses_github_actions() {
+        return copy_windows_handoff_for_signing();
+    }
+
     let client = s3_client(None).await?;
     let bucket = require_env("S3_BUCKET")?;
     let prefix = require_env("DESKTOP_HANDOFF_PREFIX")?;
@@ -2371,10 +2468,20 @@ async fn stage_signed_windows_artifacts_step() -> Result<()> {
 }
 
 async fn download_handoff_step() -> Result<()> {
+    let artifacts = Path::new("artifacts");
+    if handoff_uses_github_actions() {
+        ensure!(
+            artifacts.exists() && count_files_min_depth(artifacts, 2)? > 0,
+            "No desktop handoff artifacts were downloaded from GitHub Actions."
+        );
+        println!("Using GitHub Actions handoff artifacts:");
+        print_tree(artifacts, 3);
+        return Ok(());
+    }
+
     let client = s3_client(None).await?;
     let bucket = require_env("S3_BUCKET")?;
     let prefix = require_env("DESKTOP_HANDOFF_PREFIX")?;
-    let artifacts = Path::new("artifacts");
     remove_dir_if_exists(artifacts)?;
     fs::create_dir_all(artifacts)?;
     println!("Downloading desktop handoff artifacts from {prefix}");
@@ -2714,6 +2821,13 @@ fn write_macos_releases(
 }
 
 async fn upload_payload_step() -> Result<()> {
+    if publish_uses_github() {
+        println!(
+            "Skipping S3 payload upload; desktop binaries will be published to GitHub Releases."
+        );
+        return Ok(());
+    }
+
     let client = s3_client(None).await?;
     let s3_prefix = require_env("S3_DESKTOP_PREFIX")?;
     let bucket = require_env("S3_BUCKET")?;
@@ -2781,6 +2895,11 @@ fn is_payload_metadata_key(relative: &Path) -> bool {
 }
 
 async fn verify_source_tarball_step() -> Result<()> {
+    if publish_uses_github() {
+        println!("Skipping remote source tarball verification for GitHub Releases publishing.");
+        return Ok(());
+    }
+
     let client = s3_client(None).await?;
     let s3_prefix = require_env("S3_DESKTOP_PREFIX")?;
     let manifest_path = Path::new("s3_payload")
@@ -2894,7 +3013,6 @@ fn build_summary_step() -> Result<()> {
     let test_build = env_bool("TEST_BUILD");
     let display_channel = env::var("DISPLAY_CHANNEL").unwrap_or_default();
     let version = require_env("VERSION")?;
-    let s3_prefix = require_env("S3_DESKTOP_PREFIX")?;
     let channel = require_env("CHANNEL")?;
     let mut file = OpenOptions::new()
         .create(true)
@@ -2904,24 +3022,34 @@ fn build_summary_step() -> Result<()> {
     if test_build {
         writeln!(
             file,
-            "## Desktop {} Test Upload Complete",
+            "## Desktop {} Test Build Complete",
             title_case(&display_channel)
         )?;
         writeln!(
             file,
-            "\n_This is a **test build**. Artifacts were stashed under `{s3_prefix}/` so the API will not promote them as a release._"
+            "\n_This is a **test build**. Installers were attached to a draft GitHub pre-release and will not be promoted automatically._"
         )?;
     } else {
         writeln!(
             file,
-            "## Desktop {} Upload Complete",
+            "## Desktop {} Release Complete",
             title_case(&display_channel)
         )?;
     }
-    writeln!(
-        file,
-        "\n**Version:** {version}\n\n**S3 prefix:** {s3_prefix}/{channel}/\n\n**Redirect endpoint shape:** /dl/{s3_prefix}/{channel}/{{plat}}/{{arch}}[/{{variant}}]/{{format}}"
-    )?;
+    writeln!(file, "\n**Version:** {version}")?;
+    if publish_uses_github() {
+        let repository = env::var("GITHUB_REPOSITORY").unwrap_or_else(|_| "owner/repo".to_string());
+        writeln!(
+            file,
+            "\n**GitHub Release:** {GITHUB_RELEASES_BASE}/{repository}/releases/tag/v{version}\n\n**Channel:** {channel}"
+        )?;
+    } else {
+        let s3_prefix = require_env("S3_DESKTOP_PREFIX")?;
+        writeln!(
+            file,
+            "\n**S3 prefix:** {s3_prefix}/{channel}/\n\n**Redirect endpoint shape:** /dl/{s3_prefix}/{channel}/{{plat}}/{{arch}}[/{{variant}}]/{{format}}"
+        )?;
+    }
     Ok(())
 }
 

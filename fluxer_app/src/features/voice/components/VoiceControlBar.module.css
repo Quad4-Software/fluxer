@@ -187,6 +187,20 @@
 	background-color: var(--vc-neutral-bg-hover);
 }
 
+.buttonSoundboard {
+	background-color: var(--vc-neutral-bg);
+	color: var(--vc-neutral-color);
+}
+
+.buttonSoundboard[aria-expanded='true'] {
+	background-color: var(--vc-neutral-bg-hover);
+}
+
+:global(:where(html.window-focused, html.unfocused-fully-interactive):not(.window-focus-activation-guard))
+	.buttonSoundboard:hover {
+	background-color: var(--vc-neutral-bg-hover);
+}
+
 .buttonMoreOptions {
 	background-color: var(--vc-neutral-bg);
 	color: var(--vc-neutral-color);

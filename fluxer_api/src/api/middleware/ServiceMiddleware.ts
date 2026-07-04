@@ -29,6 +29,7 @@ import {DonationMagicLinkService} from '../donation/services/DonationMagicLinkSe
 import {FavoriteMemeRequestService} from '../favorite_meme/FavoriteMemeRequestService';
 import {FavoriteMemeService} from '../favorite_meme/FavoriteMemeService';
 import {GatewayRequestService} from '../gateway/GatewayRequestService';
+import {SoundboardPlayService} from '../guild/services/content/SoundboardPlayService';
 import {GuildDiscoveryService} from '../guild/services/GuildDiscoveryService';
 import {DisabledLiveKitService} from '../infrastructure/DisabledLiveKitService';
 import type {ILiveKitService} from '../infrastructure/ILiveKitService';
@@ -636,6 +637,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 	ctx.set('gatewayService', gatewayService);
 	ctx.set('gatewayRequestService', new GatewayRequestService(botAuthService));
 	ctx.set('guildService', guildService);
+	ctx.set('soundboardPlayService', new SoundboardPlayService(guildRepository, gatewayService, channelRepository));
 	ctx.set('singleCommunityService', singleCommunityService);
 	ctx.set(
 		'discoveryService',

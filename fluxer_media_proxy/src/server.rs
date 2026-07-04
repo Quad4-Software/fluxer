@@ -758,6 +758,9 @@ async fn catch_all(
     if let Some(key) = parse_entrance_sound_path(&path) {
         return serve_stored_raw(&app, method, &app.cfg.bucket_cdn, &key, request.headers()).await;
     }
+    if let Some(key) = parse_soundboard_sound_path(&path) {
+        return serve_stored_raw(&app, method, &app.cfg.bucket_cdn, &key, request.headers()).await;
+    }
     if let Some(asset) = parse_guild_member_asset_path(&path) {
         return serve_asset_image(&app, method, asset, &params, request.headers()).await;
     }
@@ -893,6 +896,29 @@ fn parse_entrance_sound_path(path: &str) -> Option<String> {
         return None;
     }
     Some(format!("entrance-sounds/{user_id}/{filename}"))
+}
+
+fn parse_soundboard_sound_path(path: &str) -> Option<String> {
+    let mut parts = path.trim_start_matches('/').split('/');
+    if parts.next()? != "soundboard-sounds" {
+        return None;
+    }
+    let guild_id = parts.next()?;
+    let filename = parts.next()?;
+    if parts.next().is_some() {
+        return None;
+    }
+    if guild_id.is_empty() || !guild_id.bytes().all(|b| b.is_ascii_digit()) {
+        return None;
+    }
+    let (hash, ext) = filename.split_once('.')?;
+    if hash.is_empty() || !hash.bytes().all(|b| b.is_ascii_alphanumeric()) {
+        return None;
+    }
+    if !matches!(ext, "mp3" | "ogg" | "m4a" | "wav") {
+        return None;
+    }
+    Some(format!("soundboard-sounds/{guild_id}/{filename}"))
 }
 
 struct ParsedAssetFilename<'a> {
@@ -3000,6 +3026,43 @@ mod tests {
         assert_eq!(parse_entrance_sound_path("/entrance-sounds/42"), None);
         assert_eq!(parse_entrance_sound_path("/entrance-sounds//abc.wav"), None);
         assert_eq!(parse_entrance_sound_path("/avatars/42/abc.wav"), None);
+    }
+
+    #[test]
+    fn soundboard_sound_path_parses_valid_keys() {
+        assert_eq!(
+            parse_soundboard_sound_path("/soundboard-sounds/1130650140672000000/eb417d05ad2e14c4.ogg"),
+            Some("soundboard-sounds/1130650140672000000/eb417d05ad2e14c4.ogg".to_owned())
+        );
+        for ext in ["mp3", "ogg", "m4a", "wav"] {
+            assert_eq!(
+                parse_soundboard_sound_path(&format!("/soundboard-sounds/42/abc123.{ext}")),
+                Some(format!("soundboard-sounds/42/abc123.{ext}"))
+            );
+        }
+    }
+
+    #[test]
+    fn soundboard_sound_path_rejects_invalid_keys() {
+        assert_eq!(
+            parse_soundboard_sound_path("/soundboard-sounds/42/abc.flac"),
+            None
+        );
+        assert_eq!(
+            parse_soundboard_sound_path("/soundboard-sounds/abc/abc.wav"),
+            None
+        );
+        assert_eq!(
+            parse_soundboard_sound_path("/soundboard-sounds/42/abc.wav/x"),
+            None
+        );
+        assert_eq!(
+            parse_soundboard_sound_path("/soundboard-sounds/42/../secret.wav"),
+            None
+        );
+        assert_eq!(parse_soundboard_sound_path("/soundboard-sounds/42"), None);
+        assert_eq!(parse_soundboard_sound_path("/soundboard-sounds//abc.wav"), None);
+        assert_eq!(parse_soundboard_sound_path("/avatars/42/abc.wav"), None);
     }
 
     #[test]

@@ -9,6 +9,7 @@ import {GuildEmojiResponse, GuildStickerResponse} from '@fluxer/schema/src/domai
 import {GuildMemberResponse} from '@fluxer/schema/src/domains/guild/GuildMemberSchemas';
 import {GuildResponse} from '@fluxer/schema/src/domains/guild/GuildResponseSchemas';
 import {GuildRoleResponse} from '@fluxer/schema/src/domains/guild/GuildRoleSchemas';
+import {GuildSoundboardSoundResponse} from '@fluxer/schema/src/domains/guild/GuildSoundboardSchemas';
 import {FavoriteMemeResponse} from '@fluxer/schema/src/domains/meme/MemeSchemas';
 import {CustomStatusPayload} from '@fluxer/schema/src/domains/user/UserRequestSchemas';
 import {
@@ -32,6 +33,7 @@ export const RpcGuildCollectionType = z.enum([
 	'channels',
 	'emojis',
 	'stickers',
+	'soundboard_sounds',
 	'members',
 	'voice_states',
 ]);
@@ -307,6 +309,10 @@ export const RpcResponseGuildCollectionData = z.object({
 	channels: z.array(ChannelResponse).nullish().describe('List of channels in the guild'),
 	emojis: z.array(GuildEmojiResponse).nullish().describe('List of custom emojis in the guild'),
 	stickers: z.array(GuildStickerResponse).nullish().describe('List of custom stickers in the guild'),
+	soundboard_sounds: z
+		.array(GuildSoundboardSoundResponse)
+		.nullish()
+		.describe('List of custom soundboard sounds in the guild'),
 	members: z.array(GuildMemberResponse).nullish().describe('List of guild members in this chunk'),
 	voice_states: z.array(VoiceStateResponse).nullish().describe('List of guild voice states in this chunk'),
 	has_more: z.boolean().describe('Whether more data is available for this collection'),

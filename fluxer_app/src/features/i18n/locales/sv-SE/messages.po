@@ -648,12 +648,12 @@ msgid "{displayName} sent you a friend request"
 msgstr "{displayName} skickade en vänförfrågan till dig"
 
 #. Profile timezone difference text. duration is a localized hours/minutes phrase for how far ahead the target user's local time is.
-#: src/features/user/components/popouts/UserProfileShared.tsx:65
+#: src/features/user/components/popouts/UserProfileShared.tsx:63
 msgid "{duration} ahead of you"
 msgstr "{duration} före dig"
 
 #. Profile timezone difference text. duration is a localized hours/minutes phrase for how far behind the target user's local time is.
-#: src/features/user/components/popouts/UserProfileShared.tsx:70
+#: src/features/user/components/popouts/UserProfileShared.tsx:68
 msgid "{duration} behind you"
 msgstr "{duration} efter dig"
 
@@ -773,6 +773,11 @@ msgstr "{fps} FPS"
 msgid "{guildName} channels"
 msgstr "Kanaler i {guildName}"
 
+#. Section heading in the in-call soundboard panel for a server-uploaded sound catalog.
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:46
+msgid "{guildName} sounds"
+msgstr ""
+
 #: src/features/ui/action_menu/items/VoiceParticipantMenuData.tsx:675
 msgid "{hiddenConnectionCount, plural, one {Expand # other device} other {Expand # other devices}}"
 msgstr "{hiddenConnectionCount, plural, one {Visa # annan enhet} other {Visa # andra enheter}}"
@@ -784,12 +789,12 @@ msgstr "{hours, plural, one {# timme sedan} other {# timmar sedan}}"
 #. Duration phrase in the profile timezone section. hours is a positive integer.
 #. Generic duration label for a whole number of hours.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:53
-#: src/features/user/components/popouts/UserProfileShared.tsx:79
+#: src/features/user/components/popouts/UserProfileShared.tsx:77
 msgid "{hours, plural, one {# hour} other {# hours}}"
 msgstr "{hours, plural, one {# timme} other {# timmar}}"
 
 #. Duration phrase in the profile timezone section. hours and minutes are positive integers.
-#: src/features/user/components/popouts/UserProfileShared.tsx:75
+#: src/features/user/components/popouts/UserProfileShared.tsx:73
 msgid "{hours, plural, one {# hour} other {# hours}} {minutes, plural, one {# minute} other {# minutes}}"
 msgstr "{hours, plural, one {# timme} other {# timmar}} {minutes, plural, one {# minut} other {# minuter}}"
 
@@ -917,7 +922,7 @@ msgstr "{minutes, plural, one {# minut sedan} other {# minuter sedan}}"
 #. Duration phrase in the profile timezone section. minutes is a positive integer.
 #. Generic duration label for a whole number of minutes.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:49
-#: src/features/user/components/popouts/UserProfileShared.tsx:83
+#: src/features/user/components/popouts/UserProfileShared.tsx:81
 msgid "{minutes, plural, one {# minute} other {# minutes}}"
 msgstr "{minutes, plural, one {# minut} other {# minuter}}"
 
@@ -1011,7 +1016,7 @@ msgstr "{premiumProductName}-prenumeration"
 msgid "{presenceCount} online"
 msgstr "{presenceCount} online"
 
-#: src/features/app/components/BootstrapErrorScreen.tsx:39
+#: src/features/app/components/BootstrapErrorScreen.tsx:34
 msgid "{PRODUCT_NAME} failed to start properly. This could be due to corrupted data or a temporary issue."
 msgstr "{PRODUCT_NAME} kunde inte starta ordentligt. Detta kan bero på skadad data eller ett tillfälligt problem."
 
@@ -1119,7 +1124,7 @@ msgid "{productName} detected a potential raid, so new users can't join right no
 msgstr "{productName} upptäckte en potentiell räd, så nya användare kan inte gå med just nu."
 
 #. Profile membership label showing when the user account was created.
-#: src/features/user/components/popouts/UserProfileShared.tsx:53
+#: src/features/user/components/popouts/UserProfileShared.tsx:51
 msgid "{productName} member since"
 msgstr "Medlem i {productName} sedan"
 
@@ -1578,6 +1583,11 @@ msgstr "<0>Upphävde tystning</0> för medlemmen."
 msgid "<0>URL-only favorites (default)</0>: synced across your devices, no upload, doesn't count against saved media. The original media may disappear if its host removes it."
 msgstr "<0>Endast URL-favoriter (standard)</0>: synkroniseras mellan dina enheter, ingen uppladdning, räknas inte mot sparad media. Originalmediet kan försvinna om dess värd tar bort det."
 
+#. Placeholder example emoji in the soundboard sound emoji field.
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:75
+msgid "📯"
+msgstr ""
+
 #. Summary chip text in the mobile channel search sheet when exactly one channel is selected as a filter.
 #: src/features/channel/components/bottomsheets/ChannelSearchBottomSheet.tsx:160
 msgid "1 channel"
@@ -1748,7 +1758,7 @@ msgid "15 minutes"
 msgstr "15 minuter"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:410
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:414
 msgid "2 clicks"
 msgstr "2 klick"
 
@@ -2048,7 +2058,7 @@ msgstr "Om {appName}"
 #: src/features/app/components/pages/YouPage.tsx:160
 #: src/features/user/components/modals/tabs/my_profile_tab/BioEditor.tsx:26
 #: src/features/user/components/modals/UserProfileMobileSheet.tsx:783
-#: src/features/user/components/popouts/UserProfileShared.tsx:41
+#: src/features/user/components/popouts/UserProfileShared.tsx:39
 #: src/features/user/components/settings_utils/search_index/MyProfileIndex.ts:133
 msgid "About me"
 msgstr "Om mig"
@@ -2318,7 +2328,7 @@ msgstr "Aktiv månadsprenumerant (avbokning schemalagd)"
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:743
 #: src/features/user/components/modals/tabs/appearance_tab/AppearanceTabInline.tsx:43
 #: src/features/user/components/modals/tabs/AppearanceTab.tsx:51
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:430
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:434
 #: src/features/user/components/settings_utils/section_registry/PrivacySafetySections.ts:289
 msgid "Active now"
 msgstr "Aktiva nu"
@@ -2339,7 +2349,7 @@ msgid "Activities"
 msgstr "Aktiviteter"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:438
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:442
 msgid "Activity"
 msgstr "Aktivitet"
 
@@ -2349,7 +2359,7 @@ msgid "Activity log"
 msgstr "Aktivitetslogg"
 
 #. Community settings tab showing activity log entries and moderation history.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:61
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:68
 msgctxt "community-settings-tab"
 msgid "Activity log"
 msgstr "Aktivitetslogg"
@@ -2391,11 +2401,6 @@ msgstr "Adaptiv kvalitet"
 msgid "Add"
 msgstr "Lägg till"
 
-#. Button or menu action label in the linked accounts tab. Keep it concise. Preserve {blueskyProviderName}; it is inserted by code.
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:65
-msgid "Add {blueskyProviderName} connection"
-msgstr "Lägg till {blueskyProviderName}-anslutning"
-
 #. OAuth scope description shown on the consent screen for the bot scope.
 #: src/features/app/constants/AppConstants.ts:29
 msgid "Add a bot to a community with requested permissions"
@@ -2421,7 +2426,7 @@ msgid "Add a friend to get started."
 msgstr "Lägg till en vän för att komma igång."
 
 #. Setup wizard body for GIF integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:890
+#: src/features/app/components/setup/SetupWizardSteps.tsx:873
 msgid "Add a KLIPY API key to enable GIF search at runtime."
 msgstr "Lägg till en KLIPY API-nyckel för att aktivera GIF-sökning vid körning."
 
@@ -2458,7 +2463,7 @@ msgid "Add a working email"
 msgstr "Lägg till en fungerande e-postadress"
 
 #. Setup wizard body for YouTube integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:898
+#: src/features/app/components/setup/SetupWizardSteps.tsx:881
 msgid "Add a YouTube Data API key to enrich YouTube links."
 msgstr "Lägg till en YouTube Data API-nyckel för att berika YouTube-länkar."
 
@@ -2503,11 +2508,6 @@ msgstr "Lägg till en egen genväg"
 msgid "Add another reaction"
 msgstr "Lägg till en till reaktion"
 
-#. Setup wizard body for Bluesky integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:922
-msgid "Add Bluesky OAuth client metadata and a signing key."
-msgstr "Lägg till Bluesky OAuth-klientmetadata och en signeringsnyckel."
-
 #. OAuth authorization destination step title. The user chooses where a bot will be added.
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthCommunityStep.tsx:17
 msgid "Add bot to a destination"
@@ -2519,12 +2519,12 @@ msgid "Add channel"
 msgstr "Lägg till kanal"
 
 #. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:48
+#: src/features/connection/components/modals/AddConnectionModal.tsx:45
 msgid "Add connection"
 msgstr "Lägg till anslutning"
 
 #. Accessible form label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:44
+#: src/features/connection/components/modals/AddConnectionModal.tsx:41
 msgid "Add connection form"
 msgstr "Lägg till anslutningsformulär"
 
@@ -2534,7 +2534,7 @@ msgid "Add custom shortcuts, disable built-in shortcuts, and sync shortcut prefe
 msgstr "Lägg till anpassade genvägar, inaktivera inbyggda genvägar och synkronisera genvägsinställningar"
 
 #. Button or menu action label in the linked accounts tab. Keep it concise.
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:70
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:62
 msgid "Add domain connection"
 msgstr "Lägg till domänanslutning"
 
@@ -2647,7 +2647,7 @@ msgid "Add shortcut"
 msgstr "Lägg till genväg"
 
 #. Setup wizard body for SMTP integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:914
+#: src/features/app/components/setup/SetupWizardSteps.tsx:897
 msgid "Add SMTP credentials so the instance can send verification and notification email."
 msgstr "Lägg till SMTP-uppgifter så att instansen kan skicka e-post för verifiering och aviseringar."
 
@@ -2655,6 +2655,11 @@ msgstr "Lägg till SMTP-uppgifter så att instansen kan skicka e-post för verif
 #: src/features/theme_studio/sections/QuickCssSection.tsx:52
 msgid "Add some CSS before sharing."
 msgstr "Lägg till lite CSS innan du delar."
+
+#. Title of the modal that lets the user crop a long audio file down to the soundboard clip length cap.
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:27
+msgid "Add soundboard sound"
+msgstr ""
 
 #. Action that opens the add-sticker modal.
 #: src/features/expressions/components/modals/AddGuildStickerModal.tsx:72
@@ -2674,7 +2679,7 @@ msgid "Add stream"
 msgstr "Lägg till stream"
 
 #. Description for configuring an optional setup wizard integration now.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:882
+#: src/features/app/components/setup/SetupWizardSteps.tsx:865
 msgid "Add the credentials during setup."
 msgstr "Lägg till uppgifterna under installationen."
 
@@ -2809,12 +2814,12 @@ msgid "Adjust playback speed in <0>Accessibility</0>."
 msgstr "Justera uppspelningshastigheten under <0>Tillgänglighet</0>."
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:194
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:198
 msgid "Adjust the application's zoom level."
 msgstr "Justera appens zoomnivå."
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:166
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:170
 msgid "Adjust the font size in the chat area."
 msgstr "Justera textstorleken i chattområdet."
 
@@ -2897,6 +2902,11 @@ msgstr "Efter att du har ändrat {macosScreenRecordingPermissionName} måste du 
 #: src/features/guild/components/modals/guild_tabs/GuildMembersDateRangeModal.tsx:15
 msgid "After date"
 msgstr "Efter datum"
+
+#. Placeholder example name in the soundboard sound name field.
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:67
+msgid "Airhorn"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/NotificationsSections.ts:143
@@ -3283,6 +3293,11 @@ msgstr "Alternativ text får vara max 500 tecken"
 #: src/features/messaging/components/modals/EditAltTextModal.tsx:24
 msgid "Alt text updated"
 msgstr "Alternativ text uppdaterad"
+
+#. ALTCHA provider option in the self-hosted setup wizard.
+#: src/features/app/components/setup/SetupWizardSteps.tsx:906
+msgid "ALTCHA (recommended)"
+msgstr ""
 
 #. Short label in the markdown tab. Keep it concise.
 #: src/features/user/components/modals/tabs/component_gallery_tab/MarkdownTab.tsx:61
@@ -3703,17 +3718,17 @@ msgid "Anyone can call you, including strangers"
 msgstr "Vem som helst kan ringa dig, inklusive främlingar"
 
 #. Description for the open registration mode.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:158
+#: src/features/app/components/setup/SetupWizardSteps.tsx:159
 msgid "Anyone can create an account."
 msgstr "Alla kan skapa ett konto."
 
 #. Description for the approval registration mode.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:166
+#: src/features/app/components/setup/SetupWizardSteps.tsx:167
 msgid "Anyone can request an account, but an administrator must approve it."
 msgstr "Vem som helst kan begära ett konto, men en administratör måste godkänna det."
 
 #. Label for an integration API key input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:935
+#: src/features/app/components/setup/SetupWizardSteps.tsx:918
 msgid "API key"
 msgstr "API-nyckel"
 
@@ -3747,7 +3762,7 @@ msgid "App window"
 msgstr "Appfönster"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:198
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:202
 msgid "App zoom"
 msgstr "Appzoom"
 
@@ -3866,7 +3881,7 @@ msgid "Apply to all communities"
 msgstr "Tillämpa på alla grupper"
 
 #. Registration mode option requiring admin approval.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:162
+#: src/features/app/components/setup/SetupWizardSteps.tsx:163
 msgid "Approval required"
 msgstr "Godkännande krävs"
 
@@ -4071,8 +4086,8 @@ msgstr "Bifogad fil har utgått"
 
 #. Setup wizard media expiry step title.
 #. Summary row label for the attachment expiry choice in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:216
-#: src/features/app/components/setup/SetupWizardSteps.tsx:351
+#: src/features/app/components/setup/SetupWizardSteps.tsx:217
+#: src/features/app/components/setup/SetupWizardSteps.tsx:344
 msgid "Attachment expiry"
 msgstr "Bifogade filers utgångsdatum"
 
@@ -4254,7 +4269,7 @@ msgid "Audio settings"
 msgstr "Ljudinställningar"
 
 #. Voice control button label for microphone and speaker settings.
-#: src/features/voice/components/VoiceControlBar.tsx:146
+#: src/features/voice/components/VoiceControlBar.tsx:150
 msgctxt "voice-control-button"
 msgid "Audio settings"
 msgstr "Ljudinställningar"
@@ -4717,7 +4732,7 @@ msgid "Avatar, tag, and rich profile details for your bot."
 msgstr "Avatar, tagg och utförlig profilinformation för din bot."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:294
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:298
 msgid "Avatars"
 msgstr "Avatarer"
 
@@ -4740,11 +4755,10 @@ msgstr "Borta just nu"
 #. Button that moves to the previous setup wizard step.
 #. Footer button in the IAR modal that returns to the previous step.
 #. OAuth authorization secondary button. Returns to the previous carousel step.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:75
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:80
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthAuthorizeActions.tsx:14
 #: src/features/auth/flow/IpAuthorizationScreen.tsx:145
 #: src/features/channel/components/channel_header/shared.ts:27
-#: src/features/connection/components/modals/AddConnectionModal.tsx:396
 #: src/features/guild/components/modals/add_guild_modal/GuildCreateForm.tsx:163
 #: src/features/guild/components/modals/add_guild_modal/GuildJoinForm.tsx:59
 #: src/features/guild/components/modals/add_guild_modal/TemplateImportForm.tsx:353
@@ -5015,7 +5029,7 @@ msgid "Banner preview"
 msgstr "Förhandsgranska banderoll"
 
 #. Community settings tab for banned users.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:91
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:98
 msgctxt "community-settings-tab"
 msgid "Bans"
 msgstr "Avstängningar"
@@ -5215,21 +5229,6 @@ msgid "Blockquotes"
 msgstr "Citat"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:24
-msgid "Bluesky"
-msgstr "Bluesky"
-
-#. Label for the Bluesky connections service toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:293
-msgid "Bluesky connections"
-msgstr "Bluesky-anslutningar"
-
-#. Setup wizard title for Bluesky integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:918
-msgid "Bluesky OAuth"
-msgstr "Bluesky OAuth"
-
-#. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the background image gallery modal. Keep it concise.
 #. Short label in the sensitive content tab. Keep it concise.
 #: src/features/theme/components/modals/BackgroundImageGalleryModal.tsx:68
@@ -5399,7 +5398,7 @@ msgid "Bot profile"
 msgstr "Botprofil"
 
 #. Setup wizard title for CAPTCHA integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:902
+#: src/features/app/components/setup/SetupWizardSteps.tsx:885
 msgid "Bot protection"
 msgstr "Botsskydd"
 
@@ -5460,12 +5459,12 @@ msgid "Branding"
 msgstr "Varumärke"
 
 #. Accessible label for a branding image preview in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:141
+#: src/features/app/components/setup/SetupWizardSteps.tsx:142
 msgid "Branding asset preview"
 msgstr "Förhandsgranskning av varumärkesresurs"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:150
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:154
 msgid "Brightness"
 msgstr "Ljusstyrka"
 
@@ -5514,6 +5513,11 @@ msgstr "Webbläsare låter inte {productName} lista skärmar i förväg. Tryck p
 msgid "Browsers do not list cameras in the screen-share picker. Choose them from this devices tab instead. If nothing appears here, allow camera access or connect a device."
 msgstr "Webbläsare visar inte kameror i skärmdelningsväljaren. Välj dem från den här enhetsfliken istället. Om inget visas här, tillåt kameraåtkomst eller anslut en enhet."
 
+#. Git commit short hash for the running web build. Example: "Build a1b2c3d". Preserve placeholder.
+#: src/features/app/components/dialogs/components/ClientInfo.tsx:54
+msgid "Build {commit}"
+msgstr ""
+
 #. Description shown on the settings page above the Export my data button.
 #: src/features/user/components/modals/tabs/privacy_safety_tab/data_request_modal/DataRequestModal.tsx:267
 msgid "Build a downloadable archive of your account data, including messages and attachment URLs. Most people want everything, but you can narrow the scope below."
@@ -5523,6 +5527,11 @@ msgstr "Skapa ett nedladdningsbart arkiv med dina kontodata, inklusive meddeland
 #: src/features/user/components/settings_utils/search_index/ApplicationsIndex.ts:112
 msgid "Build an authorization URL with scopes, redirects, and bot permissions"
 msgstr "Bygg en auktoriserings-URL med scope, omdirigeringar och bot-behörigheter"
+
+#. Setup wizard body for ALTCHA integration credentials.
+#: src/features/app/components/setup/SetupWizardSteps.tsx:910
+msgid "Built-in proof-of-work captcha. No third-party API keys required."
+msgstr ""
 
 #. Label in the search engines tab.
 #: src/features/user/components/modals/tabs/chat_settings_tab/SearchEnginesTab.tsx:117
@@ -5795,7 +5804,7 @@ msgid "Cameras and virtual capture devices are selected here in {productName}, n
 msgstr "Kameror och virtuella inspelningsenheter väljs här i {productName}, inte i Waylands systemväljare. Om inget visas här, kontrollera behörigheter eller anslut en enhet."
 
 #. Tooltip in the voice control bar when cameras are disabled because the participant count exceeds the limit. {voiceChannelCameraUserLimit} is the configured threshold.
-#: src/features/voice/components/VoiceControlBar.tsx:136
+#: src/features/voice/components/VoiceControlBar.tsx:140
 msgid "Cameras are off above {voiceChannelCameraUserLimit} participants"
 msgstr "Kameror är avstängda vid fler än {voiceChannelCameraUserLimit} deltagare"
 
@@ -5826,6 +5835,7 @@ msgstr "Kanarie-testare CTA nagbar"
 #. Button that closes the device logout confirmation without changes.
 #. Button that closes the regenerate backup codes confirmation without changes.
 #. Cancel button label in the entrance sound trimmer modal.
+#. Cancel button label in the soundboard sound trimmer modal.
 #. Cancel button label in the voice message composer modal.
 #. Generic secondary-button label that dismisses a modal/sheet/form without saving.
 #. Keyboard shortcut action label shown in the shortcuts list and keybind editor. Keep short, sentence case.
@@ -5844,7 +5854,6 @@ msgstr "Kanarie-testare CTA nagbar"
 #: src/features/channel/components/MentionEveryonePopout.tsx:172
 #: src/features/channel/components/modals/ChannelDeleteModal.tsx:53
 #: src/features/channel/components/modals/CreateDMModal.tsx:92
-#: src/features/connection/components/modals/AddConnectionModal.tsx:373
 #: src/features/connection/components/modals/EditConnectionModal.tsx:105
 #: src/features/emoji/components/emojis/EmojiListItem.tsx:317
 #: src/features/expressions/components/modals/AddFavoriteMemeModal.tsx:111
@@ -5853,6 +5862,7 @@ msgstr "Kanarie-testare CTA nagbar"
 #: src/features/expressions/components/modals/EditFavoriteMemeModal.tsx:87
 #: src/features/expressions/components/modals/EditGuildStickerModal.tsx:115
 #: src/features/expressions/components/modals/EditPackModal.tsx:124
+#: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:160
 #: src/features/guild/components/modals/TransferOwnershipModal.tsx:91
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:98
 #: src/features/input/state/input_keybind/shared.ts:137
@@ -5880,6 +5890,7 @@ msgstr "Kanarie-testare CTA nagbar"
 #: src/features/user/components/modals/tabs/AuthorizedAppsTab.tsx:173
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:31
 #: src/features/voice/components/modals/CameraPreviewModal.tsx:965
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:35
 #: src/features/voice/components/VoiceMessageComposerModal.tsx:79
 msgid "Cancel"
 msgstr "Avbryt"
@@ -6268,7 +6279,7 @@ msgstr "Ändring schemalagd"
 #. Tooltip / button label in the screen-share status pill. Opens the picker to change what is being shared.
 #. Voice control menu action to choose a different screen-share source.
 #: src/features/voice/components/voice_connection_status/LocalParticipantControls.tsx:48
-#: src/features/voice/components/VoiceControlBar.tsx:108
+#: src/features/voice/components/VoiceControlBar.tsx:112
 msgid "Change source"
 msgstr "Ändra källa"
 
@@ -6626,12 +6637,12 @@ msgid "Chat embed background"
 msgstr "Chattbakgrund"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:190
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:194
 msgid "Chat font"
 msgstr "Chatt-typsnitt"
 
 #. Settings section label. Also used as a search synonym in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:162
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:166
 msgid "Chat font scaling"
 msgstr "Skalning av chatt-typsnitt"
 
@@ -6654,10 +6665,6 @@ msgstr "Chattgenvägar"
 #: src/features/platform/utils/DesktopLocaleBridge.ts:160
 msgid "Check for updates"
 msgstr "Sök efter uppdateringar"
-
-#: src/features/app/components/BootstrapErrorScreen.tsx:56
-msgid "Check our <0>{BLUESKY_PROVIDER_NAME} ({FLUXER_BLUESKY_HANDLE})</0> for status updates."
-msgstr "Kolla vår <0>{BLUESKY_PROVIDER_NAME} ({FLUXER_BLUESKY_HANDLE})</0> för statusuppdateringar."
 
 #. Description text in the share theme modal.
 #: src/features/theme/components/modals/ShareThemeModal.tsx:34
@@ -6798,7 +6805,7 @@ msgid "Choose a supported audio file and try again."
 msgstr "Välj en ljudfil som stöds och försök igen."
 
 #. Setup wizard title for choosing the initial account theme.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:60
+#: src/features/app/components/setup/SetupWizardSteps.tsx:61
 msgid "Choose a theme"
 msgstr "Välj ett tema"
 
@@ -6846,7 +6853,7 @@ msgid "Choose friends to message."
 msgstr "Välj vänner att skicka meddelanden till."
 
 #. Setup wizard body for CAPTCHA integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:906
+#: src/features/app/components/setup/SetupWizardSteps.tsx:889
 msgid "Choose hCaptcha or Cloudflare Turnstile for signup challenges."
 msgstr "Välj hCaptcha eller Cloudflare Turnstile för registreringsutmaningar."
 
@@ -6856,12 +6863,12 @@ msgid "Choose how chat moves after you send a message"
 msgstr "Välj hur du vill att konversationen ska fortsätta efter att du har skickat ett meddelande"
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:238
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:242
 msgid "Choose how messages are displayed in chat channels."
 msgstr "Välj hur meddelanden visas i chattkanaler."
 
 #. Setup wizard registration step body.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:150
+#: src/features/app/components/setup/SetupWizardSteps.tsx:151
 msgid "Choose how new accounts are created on this instance."
 msgstr "Välj hur nya konton skapas på den här instansen."
 
@@ -6881,11 +6888,11 @@ msgid "Choose how you'd like to pay for this subscription."
 msgstr "Välj hur du vill betala för prenumerationen."
 
 #. Setup wizard community model step title.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:179
+#: src/features/app/components/setup/SetupWizardSteps.tsx:180
 msgid "Choose how your instance works"
 msgstr "Välj hur din instans fungerar"
 
-#: src/features/connection/components/modals/AddConnectionModal.tsx:270
+#: src/features/connection/components/modals/AddConnectionModal.tsx:207
 msgid "Choose one of the methods below to prove domain ownership. You only need to complete one."
 msgstr "Välj en av metoderna nedan för att bevisa domänägarskap. Du behöver bara slutföra en."
 
@@ -6909,7 +6916,7 @@ msgid "Choose the category that best describes your community. You can change th
 msgstr "Välj den kategori som bäst beskriver din community. Du kan ändra detta när som helst."
 
 #. Setup wizard premium model step title.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:302
+#: src/features/app/components/setup/SetupWizardSteps.tsx:295
 msgid "Choose the premium model"
 msgstr "Välj premiummodell"
 
@@ -6964,7 +6971,7 @@ msgid "Choose where {PRODUCT_NAME} should send images for reverse image search. 
 msgstr "Välj vart {PRODUCT_NAME} ska skicka bilder för omvänd bildsökning. Vi kommer att komma ihåg ditt val. Du kan ändra det eller lägga till en egen leverantör senare i {searchEnginesSettingsPath}."
 
 #. Setup wizard media expiry step body.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:220
+#: src/features/app/components/setup/SetupWizardSteps.tsx:221
 msgid "Choose whether uploaded attachments should expire automatically based on size."
 msgstr "Välj om bifogade filer automatiskt ska gå ut baserat på storlek."
 
@@ -7151,7 +7158,7 @@ msgstr "Rensar upp din mikrofon för tydligt tal."
 #. Button or menu action label in the theme studio quick css section. Keep it concise.
 #. Button that removes an uploaded branding image.
 #. Inline button in the Recent searches section that wipes the search history list.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:117
+#: src/features/app/components/setup/SetupWizardSteps.tsx:118
 #: src/features/channel/components/message_search_bar/HistorySection.tsx:24
 #: src/features/guild/components/modals/guild_tabs/GuildMembersDateRangeModal.tsx:74
 #: src/features/input/components/KeybindRecorder.tsx:439
@@ -7392,11 +7399,6 @@ msgstr "Klicka för att se alla reaktioner"
 msgid "Client"
 msgstr "Klient"
 
-#. Label for Bluesky OAuth client name input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:970
-msgid "Client name"
-msgstr "Klientnamn"
-
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the secrets section. Keep it concise.
 #: src/features/user/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:19
@@ -7408,11 +7410,6 @@ msgstr "Klienthemlighet"
 #: src/features/user/components/modals/tabs/applications_tab/ApplicationDetail.tsx:57
 msgid "Client secret regenerated. Update any code that uses the old secret."
 msgstr "Klienthemligheten har återskapats. Uppdatera all kod som använder den gamla hemligheten."
-
-#. Label for Bluesky OAuth client URL input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:974
-msgid "Client URL"
-msgstr "Klient-URL"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/LanguageIndex.ts:50
@@ -7533,7 +7530,7 @@ msgid "Close your DM with {username}? You can reopen it anytime."
 msgstr "Stäng din DM med {username}? Du kan öppna den igen när som helst."
 
 #. Registration mode option that disables public registration.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:170
+#: src/features/app/components/setup/SetupWizardSteps.tsx:171
 msgid "Closed"
 msgstr "Stängd"
 
@@ -7553,22 +7550,22 @@ msgid "Cloud upload"
 msgstr "Molnuppladdning"
 
 #. Cloudflare Turnstile provider option.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:931
+#: src/features/app/components/setup/SetupWizardSteps.tsx:914
 msgid "Cloudflare Turnstile"
 msgstr "Cloudflare Turnstile"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:58
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:62
 msgid "Coal"
 msgstr "Kol"
 
 #. Short label in the theme studio. Keep it concise.
-#: src/features/theme_studio/ThemeStudio.tsx:77
+#: src/features/theme_studio/ThemeStudio.tsx:81
 msgid "Coal base"
 msgstr "Kolbas"
 
 #. Short label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:37
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:45
 msgid "Coal theme"
 msgstr "Kol-tema"
 
@@ -7714,7 +7711,7 @@ msgid "Color pickers"
 msgstr "Färgväljare"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:62
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:66
 msgid "Color scheme"
 msgstr "Färgschema"
 
@@ -7740,7 +7737,7 @@ msgstr "Bekväm (550x400)"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the messages tab. Keep it concise.
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx:55
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:254
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:258
 msgid "Comfy"
 msgstr "Bekväm"
 
@@ -7823,7 +7820,7 @@ msgstr "community"
 #: src/features/app/config/AuditLogConstants.ts:152
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthCommunityStep.tsx:48
 #: src/features/moderation/components/report_modal/IARModalPreview.tsx:16
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:253
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:269
 #: src/features/user/components/settings_utils/section_registry/PrivacySafetySections.ts:140
 msgid "Community"
 msgstr "Community"
@@ -7891,6 +7888,11 @@ msgstr "Gemenskapen underlättar påhopp eller riktade trakasserier."
 msgid "Community filter"
 msgstr "Communityfilter"
 
+#. Label in settings client info indicating this build is from a community fork repository.
+#: src/features/app/components/dialogs/components/ClientInfo.tsx:50
+msgid "Community fork"
+msgstr ""
+
 #: src/features/guild/components/modals/add_guild_modal/GuildCreateForm.tsx:270
 #: src/features/guild/components/modals/add_guild_modal/TemplateImportForm.tsx:587
 msgid "Community icon"
@@ -7944,7 +7946,7 @@ msgstr "Stäng av i community"
 
 #. Label for the single community name input in the setup wizard.
 #. Label of the community name input in the create-community form.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:195
+#: src/features/app/components/setup/SetupWizardSteps.tsx:196
 #: src/features/guild/components/modals/add_guild_modal/shared.ts:123
 msgid "Community name"
 msgstr "Namn på community"
@@ -8009,7 +8011,7 @@ msgid "Community record"
 msgstr "Community-post"
 
 #. Root label for community settings modal and settings search paths.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:244
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:260
 msgid "Community settings"
 msgstr "Communityinställningar"
 
@@ -8043,7 +8045,7 @@ msgstr "Community-wide"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:271
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:242
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:246
 msgid "Compact"
 msgstr "Kompakt"
 
@@ -8057,7 +8059,7 @@ msgid "Compact buttons with just an icon, perfect for toolbars and action bars."
 msgstr "Kompakta knappar med bara en ikon, perfekt för verktygsfält och åtgärdsfält."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:302
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:306
 msgid "Compact mode"
 msgstr "Kompakt läge"
 
@@ -8157,7 +8159,7 @@ msgid "Configure keyboard shortcuts"
 msgstr "Konfigurera kortkommandon"
 
 #. Option for configuring an optional setup wizard integration.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:878
+#: src/features/app/components/setup/SetupWizardSteps.tsx:861
 msgid "Configure now"
 msgstr "Konfigurera nu"
 
@@ -8259,7 +8261,7 @@ msgstr "Bekräfta lösenord"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/AppearanceIndex.ts:27
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:398
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:402
 msgid "Confirm voice join"
 msgstr "Bekräfta röstanslutning"
 
@@ -8292,11 +8294,6 @@ msgstr "Anslut en kamera eller virtuell inspelningsenhet och försök igen."
 #: src/features/voice/components/bottomsheets/VoiceLobbyBottomSheet.tsx:56
 msgid "Connect to voice"
 msgstr "Anslut till röstkanal"
-
-#. Button label for starting an external account connection. providerName is the provider display name.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:60
-msgid "Connect with {providerName}"
-msgstr "Anslut med {providerName}"
 
 #. Lowercase state label used inside channel-list accessible text for the current voice channel.
 #: src/features/app/components/layout/ChannelItem.tsx:111
@@ -8352,7 +8349,7 @@ msgstr "Anslutningen misslyckades"
 msgid "Connection ID"
 msgstr "Anslutnings-ID"
 
-#: src/features/app/components/ConnectionIssuesLinks.tsx:21
+#: src/features/app/components/ConnectionIssuesLinks.tsx:23
 msgid "Connection issues?"
 msgstr "Anslutningsproblem?"
 
@@ -8361,13 +8358,13 @@ msgstr "Anslutningsproblem?"
 msgid "Connection limit"
 msgstr "Anslutningsgräns"
 
-#: src/features/app/components/layout/SplashScreen.tsx:163
+#: src/features/app/components/layout/SplashScreen.tsx:164
 #: src/features/auth/flow/IpAuthorizationScreen.tsx:114
 msgid "Connection lost"
 msgstr "Anslutningen bröts"
 
 #. Short label in the connection connection commands.
-#: src/features/connection/commands/ConnectionCommands.ts:47
+#: src/features/connection/commands/ConnectionCommands.ts:41
 msgid "Connection removed"
 msgstr "Anslutning borttagen"
 
@@ -8376,18 +8373,13 @@ msgstr "Anslutning borttagen"
 msgid "Connection stats"
 msgstr "Anslutningsstatistik"
 
-#. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:52
-msgid "Connection type"
-msgstr "Anslutningstyp"
-
 #. Short label in the connection connection commands.
-#: src/features/connection/commands/ConnectionCommands.ts:43
+#: src/features/connection/commands/ConnectionCommands.ts:37
 msgid "Connection updated"
 msgstr "Anslutningen uppdaterad"
 
 #. Success toast after an account connection is verified.
-#: src/features/connection/commands/ConnectionCommands.ts:35
+#: src/features/connection/commands/ConnectionCommands.ts:29
 msgid "Connection verified"
 msgstr "Anslutning verifierad"
 
@@ -8410,7 +8402,7 @@ msgstr "Anslutning: {connectionId}"
 #. Settings search entry label. Also used as a search synonym in the settings search bar.
 #. Settings section label for external accounts and verified domains.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:410
-#: src/features/user/components/popouts/UserProfileShared.tsx:674
+#: src/features/user/components/popouts/UserProfileShared.tsx:661
 #: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:8
 #: src/features/user/components/settings_utils/section_registry/GeneralSettingsSections.ts:38
 msgid "Connections"
@@ -8423,7 +8415,7 @@ msgid "Connections"
 msgstr "Anslutningar"
 
 #. Short label in the connection connection commands.
-#: src/features/connection/commands/ConnectionCommands.ts:51
+#: src/features/connection/commands/ConnectionCommands.ts:45
 msgid "Connections reordered"
 msgstr "Anslutningar omordnade"
 
@@ -8513,7 +8505,6 @@ msgstr "Snabbmenyer kan öppnas med vänsterklick (på knappar) eller högerklic
 #: src/features/auth/components/modals/required_action/RequiredActionDescriptors.ts:162
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthAccountStep.tsx:33
 #: src/features/auth/flow/HandoffApprovalFlow.tsx:118
-#: src/features/connection/components/modals/AddConnectionModal.tsx:383
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:711
 #: src/features/user/components/modals/FluxerTagChangeModal.tsx:397
 #: src/features/user/components/modals/tabs/AuthorizedAppsTab.tsx:181
@@ -8555,12 +8546,12 @@ msgid "Control Chromium middle-click autoscrolling in the desktop app"
 msgstr "Styr Chromium-autoscroll med mittenklick i datorappen"
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:434
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:438
 msgid "Control how active now surfaces across the app."
 msgstr "Styr hur \"aktiv nu\" visas i appen."
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:142
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:146
 msgid "Control how HDR images are displayed on HDR-capable monitors."
 msgstr "Kontrollera hur HDR-bilder visas på HDR-kompatibla skärmar."
 
@@ -8585,7 +8576,7 @@ msgid "Control speech commands and narration for incoming content."
 msgstr "Styr röstkommandon och uppläsning för inkommande innehåll."
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:414
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:418
 msgid "Control unread indicator behavior for muted channels in channel lists."
 msgstr "Styr hur oläst-indikatorn beter sig för tystade kanaler i kanallistor."
 
@@ -8724,6 +8715,16 @@ msgstr "Kopiera kanallänk"
 msgid "Copy code"
 msgstr "Kopiera kod"
 
+#. Accessible label for copying the openssl command that generates an ALTCHA HMAC secret.
+#: src/features/app/components/setup/SetupWizardSteps.tsx:929
+msgid "Copy command to generate a secure HMAC secret"
+msgstr ""
+
+#. Link text that copies the openssl command for generating an ALTCHA HMAC secret.
+#: src/features/app/components/setup/SetupWizardSteps.tsx:933
+msgid "Copy command: openssl rand -hex 32"
+msgstr ""
+
 #. Developer-mode action that copies a community snowflake/ID to the clipboard.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:727
 msgid "Copy community ID"
@@ -8772,7 +8773,7 @@ msgid "Copy gift link"
 msgstr "Kopiera presentlänk"
 
 #. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:36
+#: src/features/connection/components/modals/AddConnectionModal.tsx:33
 msgid "Copy host"
 msgstr "Kopiera värd"
 
@@ -8937,7 +8938,7 @@ msgid "Copy username"
 msgstr "Kopiera användarnamn"
 
 #. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:40
+#: src/features/connection/components/modals/AddConnectionModal.tsx:37
 msgid "Copy value"
 msgstr "Kopiera värde"
 
@@ -8976,7 +8977,9 @@ msgid "Corrupted installation nagbar"
 msgstr "Nagbar för skadad installation"
 
 #. Error displayed when the browser fails to decode an audio file selected for entrance-sound upload.
+#. Error displayed when the browser fails to decode an audio file selected for soundboard upload.
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:55
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:59
 msgid "Could not decode this audio file."
 msgstr "Kunde inte avkoda den här ljudfilen."
 
@@ -8991,7 +8994,7 @@ msgid "Could not join {testersCommunityName}. Try again later."
 msgstr "Kunde inte gå med i {testersCommunityName}. Försök igen senare."
 
 #. Error shown when the setup wizard fails to load the instance configuration.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:91
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:96
 msgid "Could not load the instance configuration. Try reloading the page."
 msgstr "Kunde inte ladda instanskonfigurationen. Försök att ladda om sidan."
 
@@ -9410,18 +9413,13 @@ msgstr "Kunde inte skicka vänförfrågan. Försök igen."
 msgid "Couldn't send the verification email"
 msgstr "Kunde inte skicka verifieringsmeddelandet"
 
-#. Toast error shown when starting the OAuth flow for a connection provider fails. Preserve {blueskyProviderName}; it is inserted by code and must appear verbatim in the translation.
-#: src/features/connection/commands/ConnectionCommands.ts:30
-msgid "Couldn't start {blueskyProviderName} authorisation"
-msgstr "Kunde inte starta auktoriseringen för {blueskyProviderName}"
-
 #. Title of the generic fallback error modal shown when creating a checkout session fails unexpectedly.
 #: src/features/app/components/dialogs/components/plutonium/hooks/useCheckoutActions.tsx:152
 msgid "Couldn't start checkout"
 msgstr "Kunde inte starta betalning"
 
 #. Toast error shown when creating a new account connection fails.
-#: src/features/connection/commands/ConnectionCommands.ts:26
+#: src/features/connection/commands/ConnectionCommands.ts:25
 msgid "Couldn't start the connection"
 msgstr "Kunde inte starta anslutningen"
 
@@ -9521,7 +9519,7 @@ msgid "Couldn't verify that code. Try again."
 msgstr "Kunde inte verifiera koden. Försök igen."
 
 #. Toast error shown when verifying an account connection fails.
-#: src/features/connection/commands/ConnectionCommands.ts:39
+#: src/features/connection/commands/ConnectionCommands.ts:33
 msgid "Couldn't verify the connection"
 msgstr "Kunde inte verifiera anslutningen"
 
@@ -9559,7 +9557,7 @@ msgstr "Omslag"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:262
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:246
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:250
 msgid "Cozy"
 msgstr "Mysigt"
 
@@ -9609,7 +9607,7 @@ msgid "Create account to claim gift"
 msgstr "Skapa konto för att hämta present"
 
 #. Button that opens the registration flow to create the first administrator account.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:68
+#: src/features/app/components/setup/SetupWizardSteps.tsx:69
 msgid "Create administrator account"
 msgstr "Skapa administratörskonto"
 
@@ -9741,7 +9739,7 @@ msgid "Create sticker pack"
 msgstr "Skapa stickerpaket"
 
 #. Setup wizard title prompting the operator to create the first account.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:48
+#: src/features/app/components/setup/SetupWizardSteps.tsx:49
 msgid "Create the administrator account"
 msgstr "Skapa administratörskontot"
 
@@ -9937,7 +9935,7 @@ msgid "Cropping animated files isn't supported yet. The original upload will be 
 msgstr "Det går inte att beskära animerade filer än. Den ursprungliga filen kommer att användas."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:86
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:90
 msgid "CSS"
 msgstr "CSS"
 
@@ -10008,7 +10006,7 @@ msgstr "Nuvarande: {mutedText}"
 #. Voice processing profile option label (mobile voice settings). User configures processing manually.
 #: src/features/user/components/modals/tabs/notifications_tab/NotificationsTabSounds.tsx:179
 #: src/features/user/components/modals/tabs/UserVoiceTab.tsx:78
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:94
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:98
 #: src/features/voice/components/AudioSourcePickerLinux.tsx:30
 #: src/features/voice/components/bottomsheets/VoiceSettingsBottomSheets.tsx:47
 #: src/features/voice/components/StreamSettingsMenuContent.tsx:89
@@ -10222,7 +10220,7 @@ msgid "Customize"
 msgstr "Anpassa"
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:334
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:338
 msgid "Customize interface elements and behaviors."
 msgstr "Anpassa gränssnittets element och beteenden."
 
@@ -10326,17 +10324,17 @@ msgid "Dark"
 msgstr "Mörk"
 
 #. Short label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:29
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:37
 msgid "Dark (legacy) theme"
 msgstr "Mörkt (äldre) tema"
 
 #. Short label in the theme studio. Keep it concise.
-#: src/features/theme_studio/ThemeStudio.tsx:65
+#: src/features/theme_studio/ThemeStudio.tsx:69
 msgid "Dark base"
 msgstr "Mörk bas"
 
 #. Short label in the theme studio. Keep it concise.
-#: src/features/theme_studio/ThemeStudio.tsx:73
+#: src/features/theme_studio/ThemeStudio.tsx:77
 msgid "Dark legacy base"
 msgstr "Mörk, äldre bas"
 
@@ -10348,7 +10346,7 @@ msgid "Dark mode"
 msgstr "Mörkt läge"
 
 #. Short label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:21
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:29
 msgid "Dark theme"
 msgstr "Mörkt tema"
 
@@ -10382,7 +10380,7 @@ msgstr "Dataexport"
 #. Column header for invoice payment or creation date.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/app/components/dialogs/components/plutonium/InvoiceList.tsx:120
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:286
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:290
 msgid "Date"
 msgstr "Datum"
 
@@ -10518,7 +10516,7 @@ msgid "Debug user"
 msgstr "Felsök användare"
 
 #. Setup wizard premium model step body.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:306
+#: src/features/app/components/setup/SetupWizardSteps.tsx:299
 msgid "Decide how premium limits apply to people on this instance."
 msgstr "Bestäm hur premiumgränserna ska gälla för personer på den här instansen."
 
@@ -10619,6 +10617,11 @@ msgstr "Standardsökmotor"
 msgid "Default shortcuts"
 msgstr "Standardgenvägar"
 
+#. Section heading in the in-call soundboard panel for the bundled default sound catalog.
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:42
+msgid "Default sounds"
+msgstr ""
+
 #. Developer tools debug menu label. Internal-only surface for developers; translators may keep this terse.
 #: src/features/channel/components/channel_header_components/developer_tools/MockingMenu.tsx:71
 msgid "Default tab"
@@ -10651,6 +10654,7 @@ msgstr "Standardinställningen är av på mobila enheter för att spara batteri 
 #. Button or menu action label in the messaging commands. Keep it concise. Keep the tone plain and specific.
 #. Confirm button label on the destructive delete-saved-media alert.
 #. Danger button label that confirms deleting a custom emoji.
+#. Destructive action label.
 #. Destructive action label. Surface varies, see surrounding code for the specific object being deleted.
 #. IAR modal: quick-action card button label for deleting the reported message.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -10663,6 +10667,7 @@ msgstr "Standardinställningen är av på mobila enheter för att spara batteri 
 #: src/features/emoji/components/emojis/EmojiListItem.tsx:203
 #: src/features/emoji/components/emojis/EmojiListItem.tsx:215
 #: src/features/emoji/components/stickers/StickerGridItem.tsx:34
+#: src/features/guild/components/modals/guild_tabs/soundboard/SoundboardSoundRow.tsx:35
 #: src/features/messaging/commands/MessageCommands.tsx:72
 #: src/features/moderation/components/report_modal/IARModalCopy.ts:135
 #: src/features/theme_studio/sections/LibrarySection.tsx:514
@@ -10687,6 +10692,11 @@ msgstr "Ta bort :{emojiName}:? Detta kan inte ångras."
 #: src/features/channel/components/pickers/memes/MemeGridItem.tsx:34
 msgid "Delete \"{memeName}\"? Can't be undone."
 msgstr "Ta bort \"{memeName}\"? Detta kan inte ångras."
+
+#. Confirm dialog body before deleting a soundboard sound.
+#: src/features/guild/components/modals/guild_tabs/soundboard/SoundboardSoundRow.tsx:31
+msgid "Delete \"{soundName}\"? Can't be undone."
+msgstr ""
 
 #. Confirm dialog body before deleting a sticker.
 #: src/features/emoji/components/stickers/StickerGridItem.tsx:30
@@ -10862,6 +10872,11 @@ msgstr "Ta bort sparad media"
 msgid "Delete shortcut"
 msgstr "Ta bort genväg"
 
+#. Destructive action that deletes the selected soundboard sound.
+#: src/features/guild/components/modals/guild_tabs/soundboard/SoundboardSoundRow.tsx:27
+msgid "Delete sound"
+msgstr ""
+
 #. Destructive action that deletes the selected sticker.
 #: src/features/emoji/components/stickers/StickerGridItem.tsx:26
 msgid "Delete sticker"
@@ -10993,7 +11008,7 @@ msgstr "Danmark"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the messages tab. Keep it concise.
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx:63
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:258
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:262
 msgid "Dense"
 msgstr "Kompakt"
 
@@ -11304,7 +11319,7 @@ msgstr "Enhet:"
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx:65
 #: src/features/user/components/modals/tabs/DevicesTab.tsx:528
 #: src/features/user/components/settings_utils/search_index/DevicesIndex.ts:11
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:82
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:86
 #: src/features/user/components/settings_utils/SettingsConstants.tsx:62
 #: src/features/voice/components/modals/ScreenSharePickerModal.tsx:133
 msgid "Devices"
@@ -11383,7 +11398,7 @@ msgstr "Förhandsvisningar av direktmeddelanden"
 
 #. Generic section heading / label for the direct messages area.
 #. Summary row label for the direct messages choice in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:347
+#: src/features/app/components/setup/SetupWizardSteps.tsx:340
 #: src/features/channel/components/direct_message/DirectMessageList.tsx:598
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:218
 #: src/features/user/components/modals/tabs/privacy_safety_tab/ConnectionsTab.tsx:255
@@ -11463,7 +11478,7 @@ msgid "Disable desktop notifications?"
 msgstr "Inaktivera skrivbordsaviseringar?"
 
 #. Label for the toggle that disables direct messages and friend requests.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:207
+#: src/features/app/components/setup/SetupWizardSteps.tsx:208
 msgid "Disable direct messages and friend requests"
 msgstr "Inaktivera direktmeddelanden och vänförfrågningar"
 
@@ -11535,7 +11550,7 @@ msgstr "Inaktivera video lokalt"
 
 #. Button or menu action label in the guild audit log tab.renderers. Keep it concise.
 #. Summary value when a setup option is disabled.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:363
+#: src/features/app/components/setup/SetupWizardSteps.tsx:356
 #: src/features/guild/components/modals/guild_tabs/GuildAuditLogTabRenderers.tsx:50
 msgid "Disabled"
 msgstr "Inaktiverad"
@@ -11563,7 +11578,7 @@ msgid "Disabled {0}."
 msgstr "Inaktiverade {0}."
 
 #. Description for the attachment expiry setup switch.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:228
+#: src/features/app/components/setup/SetupWizardSteps.tsx:229
 msgid "Disabled attachments remain available until manually removed."
 msgstr "Inaktiverade bilagor finns kvar tills de tas bort manuellt."
 
@@ -11686,7 +11701,7 @@ msgid "Discovery"
 msgstr "Upptäck"
 
 #. Community settings tab for public community discovery/listing.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:76
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:83
 msgctxt "community-settings-tab"
 msgid "Discovery"
 msgstr "Upptäck"
@@ -11758,7 +11773,7 @@ msgstr "Avfärda omnämnande"
 #: src/features/user/components/modals/tabs/chat_settings_tab/ChatSettingsTabInline.tsx:14
 #: src/features/user/components/modals/tabs/ChatSettingsTab.tsx:14
 #: src/features/user/components/modals/tabs/component_gallery_tab/TypographyTab.tsx:102
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:154
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:158
 #: src/features/voice/components/modals/ScreenSharePickerModal.tsx:116
 msgid "Display"
 msgstr "Visa"
@@ -11785,7 +11800,7 @@ msgid "Display keyboard shortcut indicators next to context menu items"
 msgstr "Visa indikatorer för kortkommandon bredvid objekt i snabbmenyn"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:266
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:270
 msgid "Display mode"
 msgstr "Visningsläge"
 
@@ -11816,7 +11831,7 @@ msgid "Display role members separately."
 msgstr "Visa rollmedlemmar separat."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:206
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:210
 msgid "Display scaling"
 msgstr "Skärmskalning"
 
@@ -11894,11 +11909,11 @@ msgid "DM settings"
 msgstr "DM-inställningar"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:450
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:454
 msgid "DM sidebar"
 msgstr "DM-sidofält"
 
-#: src/features/connection/components/modals/AddConnectionModal.tsx:275
+#: src/features/connection/components/modals/AddConnectionModal.tsx:212
 msgid "DNS TXT record"
 msgstr "DNS TXT-post"
 
@@ -11969,7 +11984,7 @@ msgstr "Blockerar inte. Du kan öppna igen senare."
 #. Generic form-field / table-column label for an internet domain.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:771
-#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:28
+#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:24
 msgid "Domain"
 msgstr "Domän"
 
@@ -12042,12 +12057,12 @@ msgid "Done"
 msgstr "Klar"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:382
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:386
 msgid "Double click"
 msgstr "Dubbelklicka"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:386
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:390
 msgid "Double-click"
 msgstr "Double-click"
 
@@ -12072,10 +12087,6 @@ msgstr "Ladda ner"
 #: src/features/app/components/layout/sidebar_nav/DownloadButton.tsx:26
 msgid "Download {productName}"
 msgstr "Ladda ner {productName}"
-
-#: src/features/connection/components/modals/AddConnectionModal.tsx:329
-msgid "Download <0>fluxer-verification</0> and place it in your <1>.well-known</1> folder so we can validate the domain."
-msgstr "Ladda ner <0>fluxer-verification</0> och placera den i din <1>.well-known</1>-mapp så att vi kan validera domänen."
 
 #. Media context menu action that downloads an audio attachment.
 #: src/features/ui/action_menu/items/MediaMenuData.tsx:120
@@ -12117,10 +12128,6 @@ msgstr "Ladda ner skrivbordsuppdatering {version} ({formatBytes})"
 msgid "Download file"
 msgstr "Ladda ner fil"
 
-#: src/features/connection/components/modals/AddConnectionModal.tsx:351
-msgid "Download fluxer-verification"
-msgstr "Ladda ner fluxer-verifiering"
-
 #. Media context menu action that downloads a GIF attachment.
 #: src/features/ui/action_menu/items/MediaMenuData.tsx:112
 msgid "Download GIF"
@@ -12149,6 +12156,10 @@ msgstr "Ladda ner media"
 #: src/features/updater/commands/UpdaterModalCommands.tsx:33
 msgid "Download package"
 msgstr "Ladda ner paket"
+
+#: src/features/connection/components/modals/AddConnectionModal.tsx:280
+msgid "Download token file"
+msgstr ""
 
 #. Media context menu action that downloads a video attachment.
 #: src/features/ui/action_menu/items/MediaMenuData.tsx:116
@@ -12201,6 +12212,10 @@ msgstr "Dra och släpp"
 msgid "Drag and drop a sticker file here (one at a time)"
 msgstr "Dra och släpp en sticker-fil här (en i taget)"
 
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:235
+msgid "Drag and drop an audio file here (one at a time)"
+msgstr ""
+
 #. Label in the community upload drop zone.
 #: src/features/guild/components/UploadDropZone.tsx:11
 msgid "Drag and drop area for file upload"
@@ -12220,7 +12235,9 @@ msgid "Drag roles to customize the order they appear in the member list."
 msgstr "Dra roller för att anpassa ordningen de visas i medlemslistan."
 
 #. Help text in the entrance sound trimmer modal explaining how the selection works.
+#. Help text in the soundboard sound trimmer modal explaining how the selection works.
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:27
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:31
 msgid "Drag the handles to choose up to 5.2 seconds of audio. The selected region is what gets uploaded."
 msgstr "Dra i handtagen för att välja upp till 5,2 sekunder ljud. Det valda området är det som laddas upp."
 
@@ -12361,14 +12378,16 @@ msgid "Echo cancellation"
 msgstr "Ekoeliminering"
 
 #. Action label for opening the edit flow for the selected item.
+#. Action label for opening the edit flow for the selected item.
 #. Button or menu action label in the linked accounts tab. Keep it concise.
 #. Button or menu action label in the search engines tab. Keep it concise.
 #. Top-level native menu bar title (Edit menu, holds cut/copy/paste).
 #: src/features/emoji/components/stickers/StickerGridItem.tsx:42
+#: src/features/guild/components/modals/guild_tabs/soundboard/SoundboardSoundRow.tsx:23
 #: src/features/platform/utils/DesktopLocaleBridge.ts:42
 #: src/features/user/components/modals/tabs/chat_settings_tab/SearchEnginesTab.tsx:34
 #: src/features/user/components/modals/tabs/ExpressionPacksTab.tsx:123
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:49
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:46
 msgid "Edit"
 msgstr "Redigera"
 
@@ -12554,6 +12573,11 @@ msgstr "Redigera sökmotor"
 msgid "Edit shortcut"
 msgstr "Redigera genväg"
 
+#. Title of the modal for editing a guild soundboard sound.
+#: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:22
+msgid "Edit soundboard sound"
+msgstr ""
+
 #. Action that opens the edit-sticker modal.
 #: src/features/expressions/components/modals/EditGuildStickerModal.tsx:28
 msgid "Edit sticker"
@@ -12658,7 +12682,7 @@ msgid "Email changed"
 msgstr "E-postadress ändrad"
 
 #. Setup wizard title for SMTP integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:910
+#: src/features/app/components/setup/SetupWizardSteps.tsx:893
 msgid "Email delivery"
 msgstr "E-postleverans"
 
@@ -12780,6 +12804,21 @@ msgstr "Inbäddningar dolda"
 msgid "Embeds unsuppressed"
 msgstr "Inbäddningar visas"
 
+#. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:58
+msgid "Ember"
+msgstr ""
+
+#. Short label in the theme studio. Keep it concise.
+#: src/features/theme_studio/ThemeStudio.tsx:65
+msgid "Ember base"
+msgstr ""
+
+#. Short label in the theme tab content. Keep it concise.
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:21
+msgid "Ember theme"
+msgstr ""
+
 #. Audit log target-type filter label. Filters entries that target a custom emoji.
 #. Column header for the custom emoji image or glyph.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -12792,10 +12831,17 @@ msgid "Emoji"
 msgstr "Emoji"
 
 #. Community settings tab for managing custom emoji uploaded to the community.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:36
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:38
 msgctxt "community-settings-tab"
 msgid "Emoji"
 msgstr "Emojis"
+
+#. Label for the optional emoji field shown next to the soundboard sound tile.
+#. Label for the optional emoji field shown next to the soundboard sound tile.
+#: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:30
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:71
+msgid "Emoji (optional)"
+msgstr ""
 
 #. TTS substitution token spoken in place of a custom emoji. {emojiName} is the emoji shortcode without colons. Lowercase, mid-sentence.
 #: src/features/voice/utils/TtsTextFormatter.ts:37
@@ -12992,7 +13038,7 @@ msgid "Enable at least one translator below."
 msgstr "Aktivera minst en översättare nedan."
 
 #. Label for enabling attachment expiry during setup.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:224
+#: src/features/app/components/setup/SetupWizardSteps.tsx:225
 msgid "Enable attachment expiry"
 msgstr "Aktivera borttagning av bilagor"
 
@@ -13004,11 +13050,6 @@ msgstr "Aktivera ljud"
 #: src/features/user/components/modals/tabs/component_gallery_tab/index.tsx:172
 msgid "Enable beta feature"
 msgstr "Aktivera beta-funktion"
-
-#. Label for enabling Bluesky OAuth in setup.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:966
-msgid "Enable Bluesky OAuth"
-msgstr "Aktivera Bluesky OAuth"
 
 #. Button or menu action label in the notifications. Keep it concise.
 #: src/features/user/components/modals/tabs/notifications_tab/Notifications.tsx:34
@@ -13034,7 +13075,7 @@ msgid "Enable developer mode"
 msgstr "Aktivera utvecklarläge"
 
 #. Label for enabling SMTP email delivery in setup.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:938
+#: src/features/app/components/setup/SetupWizardSteps.tsx:944
 msgid "Enable email delivery"
 msgstr "Aktivera e-postleverans"
 
@@ -13166,7 +13207,7 @@ msgid "Enable text selection"
 msgstr "Aktivera textmarkering"
 
 #. Setup wizard optional services step body.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:269
+#: src/features/app/components/setup/SetupWizardSteps.tsx:270
 msgid "Enable the integrations whose credentials you have configured. Only available services are shown."
 msgstr "Aktivera de integrationer vars autentiseringsuppgifter du har konfigurerat. Endast tillgängliga tjänster visas."
 
@@ -13207,7 +13248,7 @@ msgstr "Aktivera videominiatyrbilder för snabbspolning"
 #. Developer tools debug menu label. Internal-only surface for developers; translators may keep this terse.
 #. Summary value when a setup option is enabled.
 #. Toggle item in the textarea spellcheck submenu. Master enable for spellcheck.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:359
+#: src/features/app/components/setup/SetupWizardSteps.tsx:352
 #: src/features/channel/components/channel_header_components/developer_tools/DeveloperToolsShared.ts:21
 #: src/features/channel/components/textarea/TextareaContextMenu.tsx:64
 msgid "Enabled"
@@ -13280,7 +13321,7 @@ msgstr "Avsluta respitperioden nu?"
 #. Button label that stops the current screen share.
 #. Voice control menu action to stop sharing the screen.
 #: src/features/voice/components/voice_connection_status/LocalParticipantControls.tsx:52
-#: src/features/voice/components/VoiceControlBar.tsx:112
+#: src/features/voice/components/VoiceControlBar.tsx:116
 msgid "End screen share"
 msgstr "Avsluta skärmdelning"
 
@@ -13356,7 +13397,7 @@ msgid "Enter a code in the format ABCD-1234."
 msgstr "Ange en kod i formatet ABCD-1234."
 
 #. Validation error for the single community name input in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:203
+#: src/features/app/components/setup/SetupWizardSteps.tsx:204
 msgid "Enter a community name between 1 and 100 characters."
 msgstr "Ange ett community-namn mellan 1 och 100 tecken."
 
@@ -13370,7 +13411,7 @@ msgid "Enter a numeric value and choose a unit."
 msgstr "Ange ett numeriskt värde och välj en enhet."
 
 #. Validation error for the product name input in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:97
+#: src/features/app/components/setup/SetupWizardSteps.tsx:98
 msgid "Enter a product name between 1 and 80 characters."
 msgstr "Ange ett produktnamn mellan 1 och 80 tecken."
 
@@ -13743,7 +13784,7 @@ msgid "Everyone"
 msgstr "Alla"
 
 #. Premium model option that gives everyone the highest limits.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:318
+#: src/features/app/components/setup/SetupWizardSteps.tsx:311
 msgid "Everyone is premium"
 msgstr "Alla är premium"
 
@@ -13957,7 +13998,7 @@ msgid "Expires:"
 msgstr "Upphör:"
 
 #. Label for attachment decay curve.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:252
+#: src/features/app/components/setup/SetupWizardSteps.tsx:253
 msgid "Expiry curve"
 msgstr "Borttagningskurva"
 
@@ -14008,7 +14049,7 @@ msgid "Export my data"
 msgstr "Exportera mina data"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:110
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:114
 msgid "Export themes"
 msgstr "Exportera teman"
 
@@ -14059,7 +14100,7 @@ msgstr "Rensa uttryck"
 #. Community settings sidebar category grouping the emoji and stickers tabs.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:249
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:265
 #: src/features/user/components/settings_utils/search_index/ExpressionPacksIndex.ts:19
 #: src/features/user/components/settings_utils/section_registry/ChatSettingsSections.ts:134
 msgid "Expressions"
@@ -14071,7 +14112,7 @@ msgid "Extended network"
 msgstr "Utökat nätverk"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:36
+#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:32
 msgid "External"
 msgstr "Externa"
 
@@ -14111,7 +14152,7 @@ msgid "Face recognition"
 msgstr "Ansiktsigenkänning"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:422
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:426
 msgid "Faded unread"
 msgstr "Tonade olästa"
 
@@ -14247,6 +14288,11 @@ msgstr "Det gick inte att läsa in inbjudningar. Försök igen."
 msgid "Failed to load shareable sources."
 msgstr "Det gick inte att läsa in delbara källor."
 
+#. Error message in the guild soundboard tab.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:58
+msgid "Failed to load soundboard sounds"
+msgstr ""
+
 #. Error message in the guild stickers tab.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:71
 msgid "Failed to load stickers"
@@ -14366,7 +14412,7 @@ msgstr "Det gick inte att skicka rapporten. Försök igen."
 msgid "Failed to send verification email. Try again later."
 msgstr "Det gick inte att skicka verifieringsmeddelandet. Försök igen senare."
 
-#: src/features/app/components/BootstrapErrorScreen.tsx:36
+#: src/features/app/components/BootstrapErrorScreen.tsx:31
 msgid "Failed to start"
 msgstr "Kunde inte starta"
 
@@ -14424,6 +14470,11 @@ msgstr "Kunde inte ta bort fäst meddelande"
 msgid "Failed to update premium perk state."
 msgstr "Det gick inte att uppdatera premiumförmånsstatus."
 
+#. Error message shown when updating a soundboard sound fails.
+#: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:38
+msgid "Failed to update soundboard sound"
+msgstr ""
+
 #. Error toast shown when updating a sticker fails.
 #: src/features/expressions/components/modals/EditGuildStickerModal.tsx:24
 msgid "Failed to update sticker"
@@ -14453,13 +14504,18 @@ msgstr "Kunde inte ladda upp emojier från {startLabel}: {errorMsg}"
 msgid "Failed to upload emojis. Try again."
 msgstr "Det gick inte att ladda upp emojier. Försök igen."
 
+#. Error message shown when uploading a soundboard sound fails.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:78
+msgid "Failed to upload soundboard sound"
+msgstr ""
+
 #. IAR modal: rule description.
 #: src/features/moderation/components/report_modal/IARModalCopy.ts:263
 msgid "False claims likely to cause real-world harm."
 msgstr "Falska påståenden som sannolikt orsakar verklig skada."
 
 #. Label for the favicon branding asset.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:137
+#: src/features/app/components/setup/SetupWizardSteps.tsx:138
 msgid "Favicon"
 msgstr "Favicon"
 
@@ -14534,7 +14590,7 @@ msgstr "Favoriter"
 #. Generic section heading / category label for favorites.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:258
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:426
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:430
 msgid "Favorites"
 msgstr "Favoriter"
 
@@ -14747,8 +14803,8 @@ msgstr "Slutför kontoinställningen först"
 
 #. Button that saves the configuration and completes the setup wizard.
 #. Setup wizard finish step title.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:83
-#: src/features/app/components/setup/SetupWizardSteps.tsx:327
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:88
+#: src/features/app/components/setup/SetupWizardSteps.tsx:320
 msgid "Finish setup"
 msgstr "Slutför installationen"
 
@@ -14816,7 +14872,7 @@ msgid "Fluid motion at 720p 30 FPS"
 msgstr "Flytande rörelse vid 720p 30 FPS"
 
 #. Placeholder for the product name input in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:93
+#: src/features/app/components/setup/SetupWizardSteps.tsx:94
 msgid "Fluxer"
 msgstr "Fluxer"
 
@@ -14898,11 +14954,6 @@ msgstr "Mappnamn"
 msgid "Folder settings"
 msgstr "Mappinställningar"
 
-#. Short label in the whats new modal. Preserve {blueskyProviderName}; it is inserted by code.
-#: src/features/app/components/whats_new/WhatsNewModal.tsx:32
-msgid "Follow us on {blueskyProviderName}"
-msgstr "Följ oss på {blueskyProviderName}"
-
 #: src/features/voice/components/StreamSettingsMenuContent.tsx:680
 msgid "Follow voice input"
 msgstr "Följ röstinmatning"
@@ -14913,7 +14964,7 @@ msgid "Following master • {effectiveValue}%"
 msgstr "Följer huvudinställning • {effectiveValue}%"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:170
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:174
 msgid "Font"
 msgstr "Teckensnitt"
 
@@ -15373,12 +15424,12 @@ msgid "From another community"
 msgstr "Från en annan community"
 
 #. Label for SMTP from email input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:942
+#: src/features/app/components/setup/SetupWizardSteps.tsx:948
 msgid "From email"
 msgstr "Från e-post"
 
 #. Label for SMTP from name input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:946
+#: src/features/app/components/setup/SetupWizardSteps.tsx:952
 msgid "From name"
 msgstr "Från namn"
 
@@ -15441,7 +15492,7 @@ msgid "Gaming"
 msgstr "Spel"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:322
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:326
 msgid "Gap"
 msgstr "Mellanrum"
 
@@ -15463,6 +15514,11 @@ msgstr "Allmänt"
 #: src/features/theme_studio/sections/ThemeStudioSettingsSection.tsx:325
 msgid "Generate a shareable link or copy your combined custom CSS."
 msgstr "Generera en delbar länk eller kopiera din kombinerade anpassade CSS."
+
+#. Accessible label for a button that generates a random ALTCHA HMAC secret.
+#: src/features/app/components/setup/SetupWizardSteps.tsx:925
+msgid "Generate HMAC secret"
+msgstr ""
 
 #: src/features/expressions/components/modals/PackInviteModal.tsx:213
 msgid "Generate invite"
@@ -15585,7 +15641,7 @@ msgid "GIF preview"
 msgstr "GIF-förhandsvisning"
 
 #. Setup wizard title for GIF integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:886
+#: src/features/app/components/setup/SetupWizardSteps.tsx:869
 msgid "GIF search"
 msgstr "GIF-sökning"
 
@@ -15758,7 +15814,7 @@ msgid "Gifts"
 msgstr "Gåvor"
 
 #. Description for the everyone-is-premium model.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:322
+#: src/features/app/components/setup/SetupWizardSteps.tsx:315
 msgid "Give everyone on this instance the highest premium limits."
 msgstr "Ge alla på den här instansen de högsta premiumgränserna."
 
@@ -15899,7 +15955,7 @@ msgid "Google lens"
 msgstr "Google Lens"
 
 #. Short label in the whats new modal.
-#: src/features/app/components/whats_new/WhatsNewModal.tsx:36
+#: src/features/app/components/whats_new/WhatsNewModal.tsx:29
 msgid "Got it"
 msgstr "Jag förstår"
 
@@ -16113,7 +16169,7 @@ msgid "Group updated"
 msgstr "Gruppen uppdaterad"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:270
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:274
 msgid "Grouping"
 msgstr "Gruppering"
 
@@ -16133,8 +16189,6 @@ msgid "H.264 simulcast backup"
 msgstr "H.264 simulcast-säkerhetskopia"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:56
 #: src/features/user/components/settings_utils/search_index/MyProfileIndex.ts:69
 msgid "Handle"
 msgstr "Användarnamn"
@@ -16238,12 +16292,12 @@ msgstr "Hatret"
 msgid "Having fun?"
 msgstr "Har du roligt?"
 
-#: src/features/auth/components/modals/CaptchaModal.tsx:157
+#: src/features/auth/components/modals/CaptchaModal.tsx:180
 msgid "Having issues? Try hCaptcha instead"
 msgstr "Har du problem? Prova hCaptcha istället"
 
 #. hCaptcha provider option.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:930
+#: src/features/app/components/setup/SetupWizardSteps.tsx:905
 msgid "hCaptcha"
 msgstr "hCaptcha"
 
@@ -16253,7 +16307,7 @@ msgid "HD"
 msgstr "HD"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:146
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:150
 msgid "HDR"
 msgstr "HDR"
 
@@ -16400,7 +16454,7 @@ msgid "Hide {premiumProductName} purchase date ({dateUtilsGetFormattedShortDateP
 msgstr "Dölj inköpsdatum för {premiumProductName} ({dateUtilsGetFormattedShortDatePremiumSince})"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:298
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:302
 msgid "Hide avatars"
 msgstr "Dölj avatarer"
 
@@ -16550,7 +16604,7 @@ msgstr "Hög kontrast"
 #. Short label in the inline. Keep it concise.
 #: src/features/user/components/modals/tabs/appearance_tab/AppearanceTabInline.tsx:27
 #: src/features/user/components/modals/tabs/AppearanceTab.tsx:35
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:138
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:142
 msgid "High dynamic range"
 msgstr "Högt dynamiskt omfång"
 
@@ -16575,9 +16629,14 @@ msgid "Hindi"
 msgstr "Hindi"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:362
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:366
 msgid "Hints"
 msgstr "Tips"
+
+#. Label for an ALTCHA HMAC secret input.
+#: src/features/app/components/setup/SetupWizardSteps.tsx:921
+msgid "HMAC secret"
+msgstr ""
 
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleSidebar.tsx:79
 msgid "Hoist order"
@@ -16622,14 +16681,18 @@ msgid "Home"
 msgstr "Hem"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:458
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:462
 msgid "Home screen"
 msgstr "Startskärm"
 
 #. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:68
+#: src/features/connection/components/modals/AddConnectionModal.tsx:53
 msgid "Host"
 msgstr "Värd"
+
+#: src/features/connection/components/modals/AddConnectionModal.tsx:266
+msgid "Host the verification token at <0>{dnsUrl}</0>."
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/KeybindsIndex.ts:34
@@ -16788,7 +16851,7 @@ msgstr "Jag förstår"
 
 #. Label for the icon branding asset.
 #. Short label in the guild icon upload field. Keep it concise.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:121
+#: src/features/app/components/setup/SetupWizardSteps.tsx:122
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/fields/GuildIconUploadField.tsx:26
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/fields/GuildIconUploadField.tsx:88
 msgid "Icon"
@@ -17026,7 +17089,7 @@ msgid "Image"
 msgstr "Bild"
 
 #. Label for the branding image asset uploaders in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:105
+#: src/features/app/components/setup/SetupWizardSteps.tsx:106
 msgid "Image assets"
 msgstr "Bildresurser"
 
@@ -17179,7 +17242,7 @@ msgid "Import theme"
 msgstr "Importera tema"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:106
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:110
 msgid "Import themes"
 msgstr "Importera teman"
 
@@ -17321,7 +17384,7 @@ msgstr "Förhandsvisning av inkorg"
 msgid "Inbox tabs"
 msgstr "Inkorgsflikar"
 
-#: src/features/app/components/ConnectionIssuesLinks.tsx:43
+#: src/features/app/components/ConnectionIssuesLinks.tsx:47
 msgid "Incident history"
 msgstr "Incidenthistorik"
 
@@ -17636,7 +17699,7 @@ msgstr "Direktinbjudningar"
 
 #. Community settings sidebar category grouping webhooks.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:257
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:273
 #: src/features/user/components/settings_utils/search_index/AuthorizedAppsIndex.ts:26
 msgid "Integrations"
 msgstr "Integrationer"
@@ -17655,7 +17718,7 @@ msgid "Interface"
 msgstr "Gränssnitt"
 
 #. Appearance settings section for general app interface controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:472
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:476
 msgctxt "appearance-settings-section"
 msgid "Interface"
 msgstr "Gränssnitt"
@@ -17668,7 +17731,7 @@ msgid "Interface language"
 msgstr "Gränssnittspråk"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:202
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:206
 msgid "Interface size"
 msgstr "Gränssnittsstorlek"
 
@@ -17850,7 +17913,7 @@ msgid "Invite masked"
 msgstr "Inbjudan maskerad"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:226
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:230
 msgid "Invite masking"
 msgstr "Maskering av inbjudningar"
 
@@ -17979,7 +18042,7 @@ msgid "Invites"
 msgstr "Inbjudningar"
 
 #. Community settings tab for invite link management.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:86
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:93
 msgctxt "community-settings-tab"
 msgid "Invites"
 msgstr "Inbjudningar"
@@ -18126,7 +18189,7 @@ msgid "Jitter:"
 msgstr "Jitter:"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:378
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:382
 msgid "Join"
 msgstr "Gå med"
 
@@ -18224,7 +18287,7 @@ msgstr "Gå med i videosamtal"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/profile/VoiceActivityCard.tsx:63
 #: src/features/user/components/settings_utils/search_index/AppearanceIndex.ts:31
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:454
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:458
 msgid "Join voice"
 msgstr "Gå med i röstchatt"
 
@@ -18387,7 +18450,7 @@ msgid "Keep animations, GIFs, hover, and tooltips running unfocused"
 msgstr "Låt animationer, GIF:ar, hovereffekter och verktygstips fortsätta även när fönstret inte är i fokus."
 
 #. Description for the mirror premium model.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:314
+#: src/features/app/components/setup/SetupWizardSteps.tsx:307
 msgid "Keep Free and Premium tiers. You can customize the tiers later."
 msgstr "Behåll gratis- och premiumnivåerna. Du kan anpassa nivåerna senare."
 
@@ -18470,7 +18533,7 @@ msgstr "Tangentbordsgenvägs-tips i verktygstips"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/input/components/modals/KeyboardShortcutsCheatsheetModal.tsx:20
 #: src/features/user/components/settings_utils/search_index/KeybindsIndex.ts:14
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:374
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:378
 msgid "Keyboard shortcuts"
 msgstr "Kortkommandon"
 
@@ -18509,7 +18572,7 @@ msgid "Kicked {0} from the community"
 msgstr "Sparkade {0} från communityn"
 
 #. Label for the KLIPY GIF service toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:277
+#: src/features/app/components/setup/SetupWizardSteps.tsx:278
 msgid "KLIPY GIFs"
 msgstr "KLIPY-GIF:ar"
 
@@ -18521,7 +18584,7 @@ msgstr "koreanska"
 #. Label for the setup wizard language selector.
 #. Settings search entry label. Also used as a search synonym in the settings search bar.
 #. User settings tab for language, locale, and time display preferences.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:56
+#: src/features/app/components/setup/SetupWizardSteps.tsx:57
 #: src/features/user/components/settings_utils/search_index/LanguageIndex.ts:6
 #: src/features/user/components/settings_utils/SettingsConstants.tsx:137
 msgid "Language"
@@ -18551,7 +18614,7 @@ msgid "Large"
 msgstr "Stor"
 
 #. Label for attachment decay maximum size threshold.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:236
+#: src/features/app/components/setup/SetupWizardSteps.tsx:237
 msgid "Large file threshold (MB)"
 msgstr "Tröskel för stora filer (MB)"
 
@@ -18761,13 +18824,8 @@ msgstr "Låt klick aktivera kontroller när fönstret har fokus."
 msgid "Let members of this community DM you"
 msgstr "Låt medlemmar i den här communityn skicka direktmeddelanden till dig"
 
-#. Description for the Bluesky connections service toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:297
-msgid "Let people link their Bluesky account to their profile."
-msgstr "Låt folk koppla sitt Bluesky-konto till sin profil."
-
 #. Description for the KLIPY GIF service toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:281
+#: src/features/app/components/setup/SetupWizardSteps.tsx:282
 msgid "Let people search and send GIFs powered by KLIPY."
 msgstr "Låt folk söka och skicka GIF-ar med KLIPY."
 
@@ -18830,7 +18888,7 @@ msgid "Light"
 msgstr "Ljus"
 
 #. Short label in the theme studio. Keep it concise.
-#: src/features/theme_studio/ThemeStudio.tsx:69
+#: src/features/theme_studio/ThemeStudio.tsx:73
 msgid "Light base"
 msgstr "Ljus bas"
 
@@ -18840,7 +18898,7 @@ msgid "Light mode"
 msgstr "Ljust tema"
 
 #. Short label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:45
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:53
 msgid "Light theme"
 msgstr "Ljust tema"
 
@@ -18906,12 +18964,12 @@ msgstr "Länken har gått ut. Din e-postadress har förmodligen redan verifierat
 msgid "Link expired. Your IP address was likely already authorized."
 msgstr "Länken har gått ut. Din IP-adress har troligen redan godkänts."
 
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:362
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:345
 msgid "Link external accounts and domains to your {PRODUCT_NAME} profile. Verified connections will be displayed on your profile for others to see."
 msgstr "Länka externa konton och domäner till din {PRODUCT_NAME}-profil. Verifierade anslutningar visas på din profil så att andra kan se dem."
 
 #. Settings search entry description. One-line summary of what the settings search entry controls.
-#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:44
+#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:40
 msgid "Link external accounts and domains to your profile"
 msgstr "Länka externa konton och domäner till din profil"
 
@@ -18967,10 +19025,6 @@ msgstr "Länkunderstrykning"
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts:219
 msgid "Link warnings"
 msgstr "Länkvarningar"
-
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:405
-msgid "Link your {BLUESKY_PROVIDER_NAME} account or verify domain ownership to display them on your profile."
-msgstr "Länka ditt {BLUESKY_PROVIDER_NAME}-konto eller verifiera domänägarskap för att visa dem på din profil."
 
 #. Hint shown beside has:. Lists all supported content categories in lowercase.
 #: src/features/search/utils/SearchUtils.ts:105
@@ -19081,7 +19135,7 @@ msgid "Loading image"
 msgstr "Laddar bild"
 
 #. Accessible status while the setup wizard loads the instance configuration.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:87
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:92
 msgid "Loading instance configuration"
 msgstr "Laddar inställningskonfiguration"
 
@@ -19116,7 +19170,7 @@ msgid "Loading states"
 msgstr "Laddar statusar"
 
 #. Setup wizard body while the instance configuration loads.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:76
+#: src/features/app/components/setup/SetupWizardSteps.tsx:77
 msgid "Loading the current instance configuration."
 msgstr "Läser in den aktuella instanskonfigurationen."
 
@@ -19150,12 +19204,12 @@ msgid "Local file references"
 msgstr "Lokala filreferenser"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:118
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:122
 msgid "Local files"
 msgstr "Lokala filer"
 
 #. Profile section title for a user's local time.
-#: src/features/user/components/popouts/UserProfileShared.tsx:57
+#: src/features/user/components/popouts/UserProfileShared.tsx:55
 msgid "Local time"
 msgstr "Lokal tid"
 
@@ -19237,14 +19291,9 @@ msgid "Login"
 msgstr "Logga in"
 
 #. Label for the logo branding asset.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:129
+#: src/features/app/components/setup/SetupWizardSteps.tsx:130
 msgid "Logo"
 msgstr "Logotyp"
-
-#. Label for Bluesky OAuth logo URL input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:978
-msgid "Logo URL"
-msgstr "Logotyp-URL"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/DevicesIndex.ts:51
@@ -19267,7 +19316,7 @@ msgid "Long-form content"
 msgstr "Långt innehåll"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:134
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:138
 msgid "Look and feel"
 msgstr "Utseende och känsla"
 
@@ -19370,7 +19419,7 @@ msgid "Make group owner"
 msgstr "Gör till gruppägare"
 
 #. Setup wizard branding step title.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:81
+#: src/features/app/components/setup/SetupWizardSteps.tsx:82
 msgid "Make the instance yours"
 msgstr "Gör instansen till din"
 
@@ -19493,6 +19542,11 @@ msgstr "Hantera köpta presentkoder och presentlänkar"
 #: src/features/permissions/utils/PermissionLabelDescriptors.ts:169
 msgid "Manage roles"
 msgstr "Hantera roller"
+
+#. Tooltip on the settings shortcut in the in-call soundboard panel.
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:58
+msgid "Manage server sounds"
+msgstr ""
 
 #. Billing action that opens subscription management or the customer billing portal.
 #: src/features/premium/utils/PremiumMessageDescriptors.ts:13
@@ -19654,7 +19708,7 @@ msgid "Mask community invite links"
 msgstr "Maskera inbjudningslänkar till communityn"
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:214
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:218
 msgid "Mask names, private details, invites, sounds, and alerts while sharing."
 msgstr "Maskera namn, privata detaljer, inbjudningar, ljud och aviseringar när du delar."
 
@@ -19827,12 +19881,12 @@ msgid "Maximum 256 characters"
 msgstr "Max 256 tecken"
 
 #. Label for attachment decay maximum eligible size.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:240
+#: src/features/app/components/setup/SetupWizardSteps.tsx:241
 msgid "Maximum eligible size (MB)"
 msgstr "Maximalt berättigad storlek (MB)"
 
 #. Label for attachment decay maximum lifetime.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:248
+#: src/features/app/components/setup/SetupWizardSteps.tsx:249
 msgid "Maximum lifetime (days)"
 msgstr "Maximal livslängd (dagar)"
 
@@ -19982,7 +20036,7 @@ msgid "Member kicked"
 msgstr "Medlem borttagen"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:338
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:342
 msgid "Member list"
 msgstr "Medlemslista"
 
@@ -20017,7 +20071,7 @@ msgid "Member roles updated"
 msgstr "Medlemsroller uppdaterade"
 
 #: src/features/channel/components/guild_members_page/MembersTableHeaderRow.tsx:82
-#: src/features/user/components/popouts/UserProfileShared.tsx:342
+#: src/features/user/components/popouts/UserProfileShared.tsx:340
 msgid "Member since"
 msgstr "Medlem sedan"
 
@@ -20050,12 +20104,12 @@ msgstr "medlemmar"
 #: src/features/app/components/dialogs/shared/AddOverridePopout.tsx:285
 #: src/features/channel/components/bottomsheets/ChannelDetailsBottomSheet.tsx:591
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:490
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:346
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:350
 msgid "Members"
 msgstr "Medlemmar"
 
 #. Community settings tab for managing community members.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:81
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:88
 msgctxt "community-settings-tab"
 msgid "Members"
 msgstr "Medlemmar"
@@ -20310,7 +20364,7 @@ msgid "Message group"
 msgstr "Meddelandegrupp"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:314
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:318
 msgid "Message groups"
 msgstr "Meddelandegrupper"
 
@@ -20355,7 +20409,7 @@ msgid "Message is too long"
 msgstr "Meddelandet är för långt"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:262
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:266
 msgid "Message layout"
 msgstr "Meddelandelayout"
 
@@ -20424,17 +20478,17 @@ msgid "Message sound"
 msgstr "Meddelandeljud"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:330
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:334
 msgid "Message spacing"
 msgstr "Meddelandeavstånd"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:250
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:254
 msgid "Message style"
 msgstr "Meddelandestil"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:290
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:294
 msgid "Message time"
 msgstr "Meddelandetid"
 
@@ -20465,7 +20519,7 @@ msgid "Messages"
 msgstr "Meddelanden"
 
 #. Appearance settings section for message layout and display.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:467
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:471
 msgctxt "appearance-settings-section"
 msgid "Messages"
 msgstr "Meddelanden"
@@ -20604,7 +20658,7 @@ msgid "Minimize window"
 msgstr "Minimera fönster"
 
 #. Label for attachment decay minimum lifetime.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:244
+#: src/features/app/components/setup/SetupWizardSteps.tsx:245
 msgid "Minimum lifetime (days)"
 msgstr "Minimal livslängd (dagar)"
 
@@ -20634,7 +20688,7 @@ msgid "Mirror of the Appearance tab toggle for light/dark/coal preference. Disab
 msgstr "En spegling av växlingsknappen för ljust/mörkt/kol-läge under fliken Utseende. Inaktivera för ett grundtema per enhet."
 
 #. Premium model option that mirrors free and premium tiers.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:310
+#: src/features/app/components/setup/SetupWizardSteps.tsx:303
 msgid "Mirror tiers"
 msgstr "Spegelnivåer"
 
@@ -20754,7 +20808,7 @@ msgid "Moderation"
 msgstr "Moderering"
 
 #. Community settings tab for moderation and safety controls.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:56
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:63
 msgctxt "community-settings-tab"
 msgid "Moderation"
 msgstr "Moderering"
@@ -21037,7 +21091,7 @@ msgid "Mute"
 msgstr "Ljud av"
 
 #. Voice control button label to turn the user's microphone off.
-#: src/features/voice/components/VoiceControlBar.tsx:126
+#: src/features/voice/components/VoiceControlBar.tsx:130
 msgctxt "voice-control-action"
 msgid "Mute"
 msgstr "Stäng av mikrofon"
@@ -21149,8 +21203,13 @@ msgstr "Stäng av notiser"
 msgid "Mute shortcut"
 msgstr "Genväg för att stänga av notiser"
 
+#. Tooltip on the mute-all toggle in the in-call soundboard panel.
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:34
+msgid "Mute soundboard sounds for me"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:230
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:234
 msgid "Mute sounds"
 msgstr "Stäng av ljud"
 
@@ -21290,7 +21349,7 @@ msgid "My category"
 msgstr "Min kategori"
 
 #. Placeholder for the single community name input in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:199
+#: src/features/app/components/setup/SetupWizardSteps.tsx:200
 msgid "My community"
 msgstr "Min community"
 
@@ -21345,6 +21404,8 @@ msgstr "Åsidosättanden av meddelandefält"
 #. Form field label for the name of the item being edited.
 #. Form field label for the name of the item being edited.
 #. Form label for the editable webhook display name.
+#. Label for the soundboard sound name field in the trimmer modal.
+#. Label for the soundboard sound name field.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the add custom search engine modal. Keep it concise.
 #. Short label in the branding section. Keep it concise.
@@ -21358,9 +21419,11 @@ msgstr "Åsidosättanden av meddelandefält"
 #: src/features/expressions/components/modals/meme_form/MemeFormFields.tsx:24
 #: src/features/expressions/components/modals/sticker_form/StickerFormFields.tsx:28
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/sections/BrandingSection.tsx:27
+#: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:26
 #: src/features/theme_studio/sections/LibrarySection.tsx:105
 #: src/features/user/components/modals/tabs/chat_settings_tab/AddCustomSearchEngineModal.tsx:76
 #: src/features/user/components/settings_utils/search_index/MyProfileIndex.ts:57
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:63
 #: src/features/webhook/components/WebhookListItem.tsx:47
 msgid "Name"
 msgstr "Namn"
@@ -21386,6 +21449,11 @@ msgstr "Namnet får vara max 100 tecken långt"
 #: src/features/expressions/components/modals/sticker_form/StickerFormFields.tsx:24
 msgid "Name must be 30 characters or less"
 msgstr "Namnet får vara max 30 tecken"
+
+#. Validation error when the soundboard sound name is too short.
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:83
+msgid "Name must be at least {min} characters."
+msgstr ""
 
 #. Form validation error for a name that is too short.
 #: src/features/expressions/components/modals/sticker_form/StickerFormFields.tsx:20
@@ -21673,7 +21741,7 @@ msgstr "Nyast först"
 #. Button that moves to the next setup wizard step.
 #. Generic primary or pagination action label that advances to the next step, page, or item.
 #. Primary button in the required-action modal. Moves to the next carousel step.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:79
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:84
 #: src/features/auth/components/modals/required_action/RequiredActionDescriptors.ts:154
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:715
 msgid "Next"
@@ -21876,7 +21944,7 @@ msgstr "Inga gemenskaper där du kan bevilja de begärda behörigheterna eller g
 msgid "No community banner"
 msgstr "Ingen gemenskapsbanner"
 
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:403
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:373
 msgid "No connections yet"
 msgstr "Inga anslutningar än"
 
@@ -22041,7 +22109,7 @@ msgid "No one can add you to group chats without asking"
 msgstr "Ingen kan lägga till dig i gruppchattar utan att fråga först"
 
 #. Message shown when no optional services are available in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:273
+#: src/features/app/components/setup/SetupWizardSteps.tsx:274
 msgid "No optional services are available on this instance. You can skip this step."
 msgstr "Inga valfria tjänster är tillgängliga på den här instansen. Du kan hoppa över det här steget."
 
@@ -22189,6 +22257,23 @@ msgstr "Ingen genväg inställd"
 #: src/features/user/components/modals/tabs/keybinds_tab/DefaultKeybindsList.tsx:94
 msgid "No shortcuts match that search."
 msgstr "Inga genvägar matchar sökningen."
+
+#. Empty-state title shown when the soundboard limit is reached.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:46
+msgid "No soundboard slots available"
+msgstr ""
+
+#. Empty-state text in the in-call soundboard panel.
+#. Empty-state title in the guild soundboard tab.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:42
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:50
+msgid "No sounds found"
+msgstr ""
+
+#. Empty-state text in the guild soundboard tab.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:54
+msgid "No sounds found matching your search."
+msgstr ""
 
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthScopesStep.tsx:115
 msgid "No specific scopes requested."
@@ -22803,7 +22888,7 @@ msgstr "Opacitet"
 #. Short button that opens a billing invoice or receipt.
 #: src/features/app/components/dialogs/components/plutonium/InvoiceList.tsx:21
 #: src/features/app/components/dialogs/components/plutonium/InvoiceList.tsx:159
-#: src/features/app/components/setup/SetupWizardSteps.tsx:154
+#: src/features/app/components/setup/SetupWizardSteps.tsx:155
 #: src/features/moderation/components/report_modal/IARModalCopy.ts:455
 #: src/features/user/components/modals/tabs/advanced_settings_tab/AdvancedSettingRow.tsx:21
 msgid "Open"
@@ -23165,6 +23250,11 @@ msgstr "Öppna snabbväxlaren"
 msgid "Open settings"
 msgstr "Öppna inställningar"
 
+#. Tooltip / button label in the voice control bar that opens the soundboard sound picker.
+#: src/features/voice/components/VoiceControlBar.tsx:159
+msgid "Open soundboard"
+msgstr ""
+
 #. Action that opens the sticker URL in an external browser.
 #: src/features/ui/action_menu/items/StickerContextMenuItems.tsx:40
 msgid "Open sticker in browser"
@@ -23226,7 +23316,7 @@ msgid "Open theme studio popout"
 msgstr "Öppna temastudion i eget fönster"
 
 #. Button or menu action label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:77
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:85
 msgid "Open theme studio…"
 msgstr "Öppna temastudion…"
 
@@ -23341,7 +23431,7 @@ msgid "Option two"
 msgstr "Alternativ två"
 
 #. Setup wizard optional services step title.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:265
+#: src/features/app/components/setup/SetupWizardSteps.tsx:266
 msgid "Optional services"
 msgstr "Valfria tjänster"
 
@@ -23352,7 +23442,7 @@ msgstr "Alternativ"
 
 #. Small separator between alternative shortcut keycaps in the keyboard mode intro modal.
 #: src/features/auth/flow/auth_login_core/AuthLoginPasskeyActions.tsx:15
-#: src/features/connection/components/modals/AddConnectionModal.tsx:317
+#: src/features/connection/components/modals/AddConnectionModal.tsx:254
 #: src/features/input/components/modals/KeyboardModeIntroModal.tsx:30
 msgid "or"
 msgstr "eller"
@@ -23502,7 +23592,7 @@ msgid "Override mention preference?"
 msgstr "Åsidosätta omnämningsinställning?"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:126
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:130
 msgid "Overrides"
 msgstr "Åsidosättningar"
 
@@ -23518,7 +23608,7 @@ msgid "Overview"
 msgstr "Översikt"
 
 #. Community settings tab for basic server/community details.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:46
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:53
 msgctxt "community-settings-tab"
 msgid "Overview"
 msgstr "Översikt"
@@ -23647,7 +23737,7 @@ msgstr "Lösenordsfria nycklar kräver ett signerat macOS-paket med en giltigt a
 
 #. Generic form-field label for a password.
 #. Label for SMTP password input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:953
+#: src/features/app/components/setup/SetupWizardSteps.tsx:959
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:210
 #: src/features/user/components/modals/tabs/account_security_tab/AccountTab.tsx:146
 #: src/features/user/components/modals/tabs/account_security_tab/AccountTab.tsx:183
@@ -23737,16 +23827,18 @@ msgid "Paste the message link."
 msgstr "Klistra in meddelandelänken."
 
 #. Button label in the trimmer modal that pauses preview playback.
+#. Button label in the trimmer modal that pauses preview playback.
 #. Generic media-player control: pause playback.
 #. Pause-preview button label in the voice message composer modal.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:369
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:43
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:47
 #: src/features/voice/components/VoiceMessageComposerModal.tsx:87
 msgid "Pause"
 msgstr "Pausa"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:234
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:238
 msgid "Pause alerts"
 msgstr "Pausa aviseringar"
 
@@ -23837,7 +23929,7 @@ msgstr "Väntande vänförfrågningar visas här."
 #: src/features/expressions/utils/UnicodeEmojis.ts:21
 #: src/features/search/state/QuickSwitcherResultConverters.ts:22
 #: src/features/search/utils/QuickSwitcherModalUtils.tsx:51
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:261
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:277
 msgid "People"
 msgstr "Personer"
 
@@ -24078,7 +24170,7 @@ msgid "Pick one or more dictionaries. Words from any selected dictionary are acc
 msgstr "Välj en eller flera ordlistor. Ord från valda ordlistor accepteras, vilket är användbart för flerspråkiga chattar."
 
 #. Setup wizard body for choosing the initial account theme.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:64
+#: src/features/app/components/setup/SetupWizardSteps.tsx:65
 msgid "Pick the appearance this administrator account should start with."
 msgstr "Välj utseendet som detta administratörskonto ska börja med."
 
@@ -24261,8 +24353,10 @@ msgstr "Plattform"
 msgid "Platform admin"
 msgstr "Plattformsadministratör"
 
+#. Button label that previews a soundboard sound.
 #. Generic media-player control: start playback.
 #. Play-preview button label in the voice message composer modal.
+#: src/features/guild/components/modals/guild_tabs/soundboard/SoundboardSoundRow.tsx:19
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:365
 #: src/features/voice/components/VoiceMessageComposerModal.tsx:83
 msgid "Play"
@@ -24279,7 +24373,9 @@ msgid "Play sample"
 msgstr "Spela upp exempel"
 
 #. Button label in the trimmer modal. Plays the currently selected portion.
+#. Button label in the trimmer modal. Plays the currently selected portion.
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:39
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:43
 msgid "Play selection"
 msgstr "Spela upp markering"
 
@@ -24393,7 +24489,7 @@ msgid "Popup"
 msgstr "Popup"
 
 #. Label for SMTP port input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:951
+#: src/features/app/components/setup/SetupWizardSteps.tsx:957
 msgid "Port"
 msgstr "Port"
 
@@ -24494,7 +24590,7 @@ msgid "Premium grace period nagbar"
 msgstr "Plutonium-nådeperiodens meddelandefält"
 
 #. Summary row label for the premium model in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:355
+#: src/features/app/components/setup/SetupWizardSteps.tsx:348
 msgid "Premium model"
 msgstr "Premiummodell"
 
@@ -24529,12 +24625,12 @@ msgid "Premium until date"
 msgstr "Premium till och med"
 
 #. Setup wizard title while the instance configuration loads.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:72
+#: src/features/app/components/setup/SetupWizardSteps.tsx:73
 msgid "Preparing setup"
 msgstr "Förbereder installation"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:442
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:446
 msgid "Presence"
 msgstr "Närvaro"
 
@@ -24743,11 +24839,6 @@ msgstr "Integritetspolicy"
 msgid "Privacy settings"
 msgstr "Sekretessinställningar"
 
-#. Label for Bluesky OAuth privacy URL input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:986
-msgid "Privacy URL"
-msgstr "Sekretess-URL"
-
 #. IAR modal: rule label.
 #: src/features/moderation/components/report_modal/IARModalCopy.ts:307
 msgid "Privacy violation"
@@ -24764,14 +24855,9 @@ msgid "Privacy violation or stalking"
 msgstr "Integritetskränkning eller förföljelse"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:222
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:226
 msgid "Private details"
 msgstr "Privata detaljer"
-
-#. Label for Bluesky OAuth private key input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:994
-msgid "Private key"
-msgstr "Privat nyckel"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/NotificationsSections.ts:54
@@ -24794,8 +24880,8 @@ msgstr "Bearbetar"
 
 #. Label for the product name input in the setup wizard.
 #. Summary row label for the product name in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:89
-#: src/features/app/components/setup/SetupWizardSteps.tsx:335
+#: src/features/app/components/setup/SetupWizardSteps.tsx:90
+#: src/features/app/components/setup/SetupWizardSteps.tsx:328
 msgid "Product name"
 msgstr "Produktnamn"
 
@@ -24876,7 +24962,7 @@ msgid "Profile picture"
 msgstr "Profilbild"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:310
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:314
 msgid "Profile pictures"
 msgstr "Profilbilder"
 
@@ -24979,7 +25065,7 @@ msgid "Provide your full legal name for the declaration."
 msgstr "Ange ditt fullständiga juridiska namn för deklarationen."
 
 #. Label for an integration provider choice.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:926
+#: src/features/app/components/setup/SetupWizardSteps.tsx:901
 msgid "Provider"
 msgstr "Leverantör"
 
@@ -25000,7 +25086,7 @@ msgid "Public bot"
 msgstr "Offentlig bot"
 
 #. Description for the closed registration mode.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:174
+#: src/features/app/components/setup/SetupWizardSteps.tsx:175
 msgid "Public registration is closed."
 msgstr "Offentlig registrering är stängd."
 
@@ -25159,7 +25245,7 @@ msgid "Push-to-talk is ignored in direct input. Switch to focused voice or custo
 msgstr "Push-to-talk ignoreras vid direktinmatning. Växla till fokuserad röst eller anpassad för att använda det."
 
 #. Tooltip on the mic button in the voice control bar when push-to-talk is enabled. {pushToTalkHint} is the formatted shortcut key combo.
-#: src/features/voice/components/VoiceControlBar.tsx:116
+#: src/features/voice/components/VoiceControlBar.tsx:120
 msgid "Push-to-talk is on. Hold {pushToTalkHint} to speak."
 msgstr "Push-to-talk är på. Håll ned {pushToTalkHint} för att prata."
 
@@ -25192,7 +25278,7 @@ msgstr "kvaliteten är begränsad"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the theme studio. Keep it concise.
 #: src/features/theme_studio/ThemeStudio.tsx:49
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:90
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:94
 msgid "Quick CSS"
 msgstr "Snabb-CSS"
 
@@ -25353,7 +25439,7 @@ msgstr "Återaktivera prenumeration"
 msgid "Read aloud"
 msgstr "Läs upp"
 
-#: src/features/app/components/ConnectionIssuesLinks.tsx:43
+#: src/features/app/components/ConnectionIssuesLinks.tsx:47
 msgid "Read incident"
 msgstr "Läs om incidenten"
 
@@ -25715,7 +25801,7 @@ msgid "Registered passkeys"
 msgstr "Registrerade lösennycklar"
 
 #. Summary row label for the registration mode in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:339
+#: src/features/app/components/setup/SetupWizardSteps.tsx:332
 msgid "Registration"
 msgstr "Registrering"
 
@@ -25859,7 +25945,7 @@ msgstr "Kom ihåg fönsterstorlek och position"
 #: src/features/user/components/modals/tabs/chat_settings_tab/SearchEnginesTab.tsx:25
 #: src/features/user/components/modals/tabs/ExpressionPacksTab.tsx:75
 #: src/features/user/components/modals/tabs/ExpressionPacksTab.tsx:133
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:53
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:50
 #: src/features/user/components/settings_utils/search_index/AccountSecurityIndex.ts:158
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts:194
 #: src/features/webhook/components/WebhookListItem.tsx:276
@@ -25954,7 +26040,7 @@ msgid "Remove bookmark"
 msgstr "Ta bort bokmärke"
 
 #. Button or menu action label in the linked accounts tab. Keep it concise. Keep the tone plain and specific.
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:57
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:54
 msgid "Remove connection"
 msgstr "Ta bort anslutning"
 
@@ -26088,7 +26174,7 @@ msgid "Remove tag {tag}"
 msgstr "Ta bort taggen {tag}"
 
 #. Error message in the linked accounts tab. Keep the tone plain and specific.
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:61
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:58
 msgid "Remove this connection? Can't be undone."
 msgstr "Ta bort den här anslutningen? Kan inte ångras."
 
@@ -26286,12 +26372,12 @@ msgid "Render placeholders"
 msgstr "Rendera platshållare"
 
 #. Label for attachment decay renewal threshold.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:256
+#: src/features/app/components/setup/SetupWizardSteps.tsx:257
 msgid "Renew threshold (days)"
 msgstr "Förnyelsetröskel (dagar)"
 
 #. Label for attachment decay renewal window.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:260
+#: src/features/app/components/setup/SetupWizardSteps.tsx:261
 msgid "Renew window (days)"
 msgstr "Förnyelsefönster (dagar)"
 
@@ -26301,7 +26387,7 @@ msgstr "Förnyas den <0>{renewalDate}.</0>"
 
 #. Button or menu action label in the background image gallery modal. Keep it concise.
 #. Button that replaces an already uploaded branding image.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:113
+#: src/features/app/components/setup/SetupWizardSteps.tsx:114
 #: src/features/theme/components/modals/BackgroundImageGalleryModal.tsx:72
 msgid "Replace"
 msgstr "Ersätt"
@@ -26692,7 +26778,7 @@ msgstr "Återställ och starta om"
 #. Confirm dialog title for the destructive reset action.
 #. Destructive button on the crash screen. Clears local app data except preserved drafts.
 #. Destructive button on the startup failure screen. Clears local app data except preserved drafts.
-#: src/features/app/components/BootstrapErrorScreen.tsx:75
+#: src/features/app/components/BootstrapErrorScreen.tsx:53
 #: src/features/app/components/ErrorFallback.tsx:164
 #: src/features/platform/utils/DesktopLocaleBridge.ts:110
 msgid "Reset app data"
@@ -27044,7 +27130,7 @@ msgid "Review what this app is asking for before you continue."
 msgstr "Granska vad den här appen begär innan du fortsätter."
 
 #. Setup wizard finish step body.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:331
+#: src/features/app/components/setup/SetupWizardSteps.tsx:324
 msgid "Review your choices below, then finish. This saves the configuration and opens the instance."
 msgstr "Granska dina val nedan och slutför sedan. Detta sparar konfigurationen och öppnar instansen."
 
@@ -27226,7 +27312,7 @@ msgid "Roles"
 msgstr "Roller"
 
 #. Community settings tab for role hierarchy and permission rules.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:51
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:58
 msgctxt "community-settings-tab"
 msgid "Roles"
 msgstr "Roller"
@@ -27285,7 +27371,7 @@ msgid "Run at login"
 msgstr "Kör vid inloggning"
 
 #. Description for the single community toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:191
+#: src/features/app/components/setup/SetupWizardSteps.tsx:192
 msgid "Run the instance as one community instead of many. This can only be enabled now, during setup."
 msgstr "Kör instansen som en enda community istället för många. Detta kan bara aktiveras nu, under installationen."
 
@@ -27310,7 +27396,7 @@ msgid "Safety"
 msgstr "Säkerhet"
 
 #. Profile timezone difference text. The target user's timezone currently matches the viewer's timezone.
-#: src/features/user/components/popouts/UserProfileShared.tsx:61
+#: src/features/user/components/popouts/UserProfileShared.tsx:59
 msgid "Same time as you"
 msgstr "Samma tid som du"
 
@@ -27347,6 +27433,7 @@ msgstr "spara"
 #: src/features/expressions/components/modals/EditPackModal.tsx:127
 #: src/features/guild/components/modals/guild_tabs/GuildDiscoveryTab.tsx:611
 #: src/features/guild/components/modals/guild_tabs/GuildVanityURLTab.tsx:272
+#: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:168
 #: src/features/guild/components/modals/GuildFolderSettingsModal.tsx:89
 #: src/features/messaging/components/modals/AttachmentEditModal.tsx:136
 #: src/features/messaging/components/modals/EditAltTextModal.tsx:193
@@ -27455,7 +27542,7 @@ msgid "Say hi to <0>{displayName}</0>. Your DM starts here."
 msgstr "Säg hej till <0>{displayName}</0>. Ditt direktmeddelande börjar här."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:186
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:190
 msgid "Scale"
 msgstr "Skala"
 
@@ -27652,7 +27739,7 @@ msgstr "Videocodec för skärmdelning"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Status badge label shown on a live tile when the participant is sharing their screen.
 #: src/features/ui/components/LiveBadge.tsx:13
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:218
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:222
 #: src/features/user/components/settings_utils/section_registry/VoiceVideoSections.ts:213
 msgid "Screen sharing"
 msgstr "Skärmdelning"
@@ -27712,7 +27799,7 @@ msgstr "Skrolla ned för att se alla förmåner som ingår i {premiumProductName
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the whats new modal.
-#: src/features/app/components/whats_new/WhatsNewModal.tsx:28
+#: src/features/app/components/whats_new/WhatsNewModal.tsx:25
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts:419
 #: src/features/user/components/settings_utils/section_registry/ChatSettingsSections.ts:178
 msgid "Scroll to bottom"
@@ -27974,6 +28061,13 @@ msgstr "Sök genvägar"
 msgid "Search shortcuts…"
 msgstr "Sök genvägar…"
 
+#. Search input placeholder in the guild soundboard settings tab.
+#. Search input placeholder in the in-call soundboard panel.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:38
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:30
+msgid "Search sounds"
+msgstr ""
+
 #. Button or menu action label in the guild stickers tab. Keep it concise.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:46
 msgid "Search stickers"
@@ -28067,7 +28161,7 @@ msgid "Secret"
 msgstr "Hemligt"
 
 #. Label for a CAPTCHA secret key input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:937
+#: src/features/app/components/setup/SetupWizardSteps.tsx:920
 msgid "Secret key"
 msgstr "Hemlig nyckel"
 
@@ -28314,7 +28408,9 @@ msgid "Selection end"
 msgstr "Slut på markering"
 
 #. Error displayed when the trimmed entrance sound selection is below the minimum duration.
+#. Error displayed when the trimmed soundboard sound selection is below the minimum duration.
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:47
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:51
 msgid "Selection must be at least {seconds} seconds."
 msgstr "Valet måste vara minst {seconds} sekunder."
 
@@ -28336,6 +28432,7 @@ msgstr "Val: {0}"
 #. placeholder {0}: formatSeconds(selectionDuration)
 #. placeholder {1}: formatSeconds(MAX_DURATION_SECONDS)
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:323
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:372
 msgid "Selection: {0} (max {1})"
 msgstr "Val: {0} (max {1})"
 
@@ -28351,7 +28448,7 @@ msgid "Self-harm or suicide"
 msgstr "Självskadebeteende eller självmord"
 
 #. Accessible label for the self-host setup wizard carousel.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:67
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:72
 msgid "Self-host setup"
 msgstr "Självhostningsinstallation"
 
@@ -28668,7 +28765,7 @@ msgstr "Sekventiell sändning"
 msgid "Serial send"
 msgstr "Skicka seriellt"
 
-#: src/features/connection/components/modals/AddConnectionModal.tsx:326
+#: src/features/connection/components/modals/AddConnectionModal.tsx:263
 msgid "Serve the token file"
 msgstr "Tillhandahåll tokenfilen"
 
@@ -28854,7 +28951,7 @@ msgid "Set the invite splash alignment to {0}."
 msgstr "Ställ in inbjudningsskvättens justering till {0}."
 
 #. Setup wizard branding step body.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:85
+#: src/features/app/components/setup/SetupWizardSteps.tsx:86
 msgid "Set the public product name, theme color, and image assets that clients display."
 msgstr "Ange det offentliga produktnamnet, temafärgen och bildresurserna som klienter visar."
 
@@ -28889,12 +28986,12 @@ msgid "Set the vanity URL to {0}."
 msgstr "Angav den anpassade webbadressen till {0}."
 
 #. Title for the self-host setup wizard modal.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:71
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:76
 msgid "Set up {productName}"
 msgstr "Konfigurera {productName}"
 
 #. Option for deferring an optional setup wizard integration.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:870
+#: src/features/app/components/setup/SetupWizardSteps.tsx:853
 msgid "Set up later"
 msgstr "Konfigurera senare"
 
@@ -29166,7 +29263,7 @@ msgstr "Genväg"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/AppearanceIndex.ts:55
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:370
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:374
 msgid "Shortcut badges"
 msgstr "Genvägsbrickor"
 
@@ -29563,7 +29660,7 @@ msgid "Show recent instances"
 msgstr "Visa senaste instanser"
 
 #. Description for the YouTube enrichment service toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:289
+#: src/features/app/components/setup/SetupWizardSteps.tsx:290
 msgid "Show rich previews for YouTube links."
 msgstr "Visa rika förhandsvisningar för YouTube-länkar."
 
@@ -29787,11 +29884,6 @@ msgstr "Inloggad"
 msgid "Signed-in devices"
 msgstr "Inloggade enheter"
 
-#. Label for Bluesky OAuth signing key ID input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:990
-msgid "Signing key ID"
-msgstr "Signeringsnyckel-ID"
-
 #. Toast error shown when signing out from the account switcher fails.
 #: src/features/auth/utils/AccountSwitcherModalUtils.tsx:33
 msgid "Signing out failed. Try again in a moment."
@@ -29839,7 +29931,7 @@ msgid "Silent calls from everyone"
 msgstr "Tysta samtal från alla"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:390
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:394
 msgid "Single click"
 msgstr "Enkeltryck"
 
@@ -29851,12 +29943,12 @@ msgid "Single column"
 msgstr "En kolumn"
 
 #. Summary row label for the single community choice in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:343
+#: src/features/app/components/setup/SetupWizardSteps.tsx:336
 msgid "Single community"
 msgstr "Enskild community"
 
 #. Label for the single community toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:187
+#: src/features/app/components/setup/SetupWizardSteps.tsx:188
 msgid "Single community mode"
 msgstr "Läge för enskild community"
 
@@ -29875,14 +29967,14 @@ msgid "Single user (all statuses)"
 msgstr "En användare (alla statusar)"
 
 #. Label for a CAPTCHA site key input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:936
+#: src/features/app/components/setup/SetupWizardSteps.tsx:919
 msgid "Site key"
 msgstr "Webbplatsnyckel"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/DesktopSettingsIndex.ts:158
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:174
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:178
 msgid "Size"
 msgstr "Storlek"
 
@@ -29928,7 +30020,7 @@ msgid "Skip the system leave notice — nobody gets pinged."
 msgstr "Hoppa över systemmeddelandet om att du lämnar – ingen får en avisering."
 
 #. Description for deferring an optional setup wizard integration.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:874
+#: src/features/app/components/setup/SetupWizardSteps.tsx:857
 msgid "Skip this now and configure it from the admin panel."
 msgstr "Hoppa över detta nu och konfigurera det från administrationspanelen."
 
@@ -30092,7 +30184,7 @@ msgid "Small button clicked."
 msgstr "Liten knapp klickad."
 
 #. Label for attachment decay minimum size threshold.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:232
+#: src/features/app/components/setup/SetupWizardSteps.tsx:233
 msgid "Small file threshold (MB)"
 msgstr "Tröskel för små filer (MB)"
 
@@ -30143,21 +30235,26 @@ msgid "SMS verification is unavailable right now. Try again later or contact sup
 msgstr "Sms-verifiering är inte tillgänglig just nu. Försök igen senare eller kontakta supporten."
 
 #. Success message after validating SMTP credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:962
+#: src/features/app/components/setup/SetupWizardSteps.tsx:968
 msgid "SMTP connection verified."
 msgstr "SMTP-anslutning verifierad."
 
 #. Label for SMTP host input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:950
+#: src/features/app/components/setup/SetupWizardSteps.tsx:956
 msgid "SMTP host"
 msgstr "SMTP-värd"
+
+#. Fallback message when SMTP credential validation fails without a specific error.
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:65
+msgid "SMTP validation failed."
+msgstr ""
 
 #: src/features/user/components/modals/tabs/component_gallery_tab/SelectionsTab.tsx:390
 msgid "Snaps to increments of 5."
 msgstr "Fäster vid steg om 5."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:40
+#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:36
 msgid "Social"
 msgstr "Socialt"
 
@@ -30395,6 +30492,21 @@ msgstr "Ljud för det här omfånget"
 msgid "Sound volume"
 msgstr "Ljudvolym"
 
+#. Title of the in-call soundboard panel.
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:26
+msgid "Soundboard"
+msgstr ""
+
+#. Community settings tab for managing custom soundboard sounds uploaded to the community.
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:48
+msgctxt "community-settings-tab"
+msgid "Soundboard"
+msgstr ""
+
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:225
+msgid "Soundboard slots"
+msgstr ""
+
 #. Section heading / tab label for the notification-sounds area.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:807
@@ -30407,6 +30519,11 @@ msgstr "Ljud"
 msgctxt "notifications-settings-section"
 msgid "Sounds"
 msgstr "Ljud"
+
+#. Description in the community soundboard upload section. {maxSize} is the formatted size limit.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:66
+msgid "Sounds must be under {maxSize} and 5.2 seconds. Files longer than that get trimmed before upload."
+msgstr ""
 
 #. Resolution option in the stream settings menu meaning the original source resolution (no downscale).
 #. Short label in the video tab for the native source resolution option. Keep it concise.
@@ -30432,19 +30549,19 @@ msgid "Space"
 msgstr "Mellanslag"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:326
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:330
 msgid "Space between"
 msgstr "Mellanrum"
 
 #. Label in the messages tab.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx:79
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:318
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:322
 msgid "Space between message groups"
 msgstr "Mellanrum mellan meddelandegrupper"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:274
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:278
 msgid "Spacing"
 msgstr "Avstånd"
 
@@ -30873,7 +30990,7 @@ msgstr "Statusikon"
 msgid "Status indicators"
 msgstr "Statusindikatorer"
 
-#: src/features/app/components/ConnectionIssuesLinks.tsx:31
+#: src/features/app/components/ConnectionIssuesLinks.tsx:33
 msgid "Status page"
 msgstr "Statussida"
 
@@ -31058,7 +31175,7 @@ msgid "Stickers"
 msgstr "Klistermärken"
 
 #. Community settings tab for managing custom stickers uploaded to the community.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:41
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:43
 msgctxt "community-settings-tab"
 msgid "Stickers"
 msgstr "Klistermärken"
@@ -31156,7 +31273,7 @@ msgid "Stop watching"
 msgstr "Sluta titta"
 
 #. Tooltip / button label in the voice control bar that stops watching a remote screen share.
-#: src/features/voice/components/VoiceControlBar.tsx:151
+#: src/features/voice/components/VoiceControlBar.tsx:155
 msgid "Stop watching stream"
 msgstr "Sluta titta på sändning"
 
@@ -31235,7 +31352,7 @@ msgstr "Streamingsläge"
 #. Short label in the inline. Keep it concise.
 #: src/features/user/components/modals/tabs/appearance_tab/AppearanceTabInline.tsx:47
 #: src/features/user/components/modals/tabs/AppearanceTab.tsx:55
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:210
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:214
 msgid "Streaming privacy"
 msgstr "Streamingsintegritet"
 
@@ -31301,7 +31418,7 @@ msgid "Style variations"
 msgstr "Stilvariationer"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:130
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:134
 msgid "Styling"
 msgstr "Stil"
 
@@ -31597,7 +31714,7 @@ msgid "Switches"
 msgstr "Växlar"
 
 #. Label for the symbol branding asset.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:125
+#: src/features/app/components/setup/SetupWizardSteps.tsx:126
 msgid "Symbol"
 msgstr "Symbol"
 
@@ -31608,7 +31725,7 @@ msgstr "Symboler"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/theme_studio/sections/ThemeStudioSettingsSection.tsx:198
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:70
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:74
 msgid "Sync"
 msgstr "Synka"
 
@@ -31663,12 +31780,12 @@ msgid "Sync shortcuts"
 msgstr "Synka genvägar"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:74
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:78
 msgid "Sync theme"
 msgstr "Synka tema"
 
 #. Label in the theme tab content.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:69
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:77
 msgid "Sync theme across devices"
 msgstr "Synka tema mellan enheter"
 
@@ -31740,8 +31857,8 @@ msgstr "Systemets minskade rörelse"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:53
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:66
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:61
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:70
 msgid "System theme"
 msgstr "Systemtema"
 
@@ -31766,12 +31883,12 @@ msgid "System-wide shortcuts"
 msgstr "Systemövergripande genvägar"
 
 #. Description text in the theme tab content.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:57
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:65
 msgid "System: dark theme (automatically sync with your system's dark/light preference)"
 msgstr "System: mörkt tema (synkroniseras automatiskt med systemets mörka/ljusa inställning)"
 
 #. Description text in the theme tab content.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:61
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:69
 msgid "System: light theme (automatically sync with your system's dark/light preference)"
 msgstr "System: ljust tema (synkroniseras automatiskt med systemets mörka/ljusa inställning)"
 
@@ -31913,18 +32030,13 @@ msgstr "Meddelandefält för godkännande av villkor"
 msgid "Terms of service"
 msgstr "Användarvillkor"
 
-#. Label for Bluesky OAuth terms URL input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:982
-msgid "Terms URL"
-msgstr "URL för villkor"
-
 #. IAR modal: rule label.
 #: src/features/moderation/components/report_modal/IARModalCopy.ts:215
 msgid "Terrorism or violent extremism"
 msgstr "Terrorism eller våldsbejakande extremism"
 
 #. Button that validates SMTP credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:958
+#: src/features/app/components/setup/SetupWizardSteps.tsx:964
 msgid "Test SMTP"
 msgstr "Testa SMTP"
 
@@ -31988,7 +32100,7 @@ msgid "Text selection"
 msgstr "Textmarkering"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:178
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:182
 msgid "Text size"
 msgstr "Textstorlek"
 
@@ -32090,7 +32202,7 @@ msgid "That friend request is no longer available. Refresh and try again."
 msgstr "Den vänförfrågan är inte längre tillgänglig. Uppdatera och försök igen."
 
 #. Error shown when a branding image fails to upload in the setup wizard.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:95
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:100
 msgid "That image could not be used. Try a different file."
 msgstr "Bilden kunde inte användas. Prova en annan fil."
 
@@ -32174,10 +32286,6 @@ msgstr "Desktopuppdateringen har laddats ned. Starta om {productName} för att s
 #: src/features/updater/commands/UpdaterModalCommands.tsx:152
 msgid "The downloaded file is saved to your computer. Install it with your normal package manager."
 msgstr "Den nedladdade filen sparas på din dator. Installera den med din vanliga pakethanterare."
-
-#: src/features/connection/components/modals/AddConnectionModal.tsx:355
-msgid "The file contains the verification token we will fetch from <0>{dnsUrl}</0>."
-msgstr "Filen innehåller verifieringstoken som vi hämtar från <0>{dnsUrl}</0>."
 
 #. Body of the file-too-large alert when a single file exceeds the per-file size limit.
 #: src/features/messaging/components/alerts/FileSizeTooLargeModal.tsx:23
@@ -32277,14 +32385,14 @@ msgstr "Fönstret eller skärmen du delade är inte längre tillgänglig, så di
 #. Short label in the inline. Keep it concise.
 #. Short label in the theme tab content. Keep it concise.
 #: src/features/user/components/modals/tabs/appearance_tab/AppearanceTabInline.tsx:23
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:65
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:73
 #: src/features/user/components/modals/tabs/AppearanceTab.tsx:31
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:38
 msgid "Theme"
 msgstr "Tema"
 
 #. Appearance settings section for app themes and quick CSS.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:462
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:466
 msgctxt "settings-section"
 msgid "Theme"
 msgstr "Tema"
@@ -32295,18 +32403,18 @@ msgid "Theme applied successfully."
 msgstr "Temat har tillämpats."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:114
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:118
 msgid "Theme assets"
 msgstr "Tematillgångar"
 
 #. Label in the theme tab content.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:73
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:81
 msgid "Theme changes sync to all your devices. Off keeps this device on its own theme."
 msgstr "Temaförändringar synkroniseras med alla dina enheter. Avstängt behåller enhetens eget tema."
 
 #. Label for the theme color picker in the setup wizard.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:101
+#: src/features/app/components/setup/SetupWizardSteps.tsx:102
 #: src/features/user/components/settings_utils/search_index/MyProfileIndex.ts:165
 msgid "Theme color"
 msgstr "Temafärg"
@@ -32317,12 +32425,12 @@ msgid "Theme CSS"
 msgstr "Temats CSS"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:102
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:106
 msgid "Theme files"
 msgstr "Temafiler"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:98
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:102
 msgid "Theme library"
 msgstr "Temabibliotek"
 
@@ -32347,12 +32455,12 @@ msgid "Theme studio navigation"
 msgstr "Temastudionavigering"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:78
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:82
 msgid "Theme sync"
 msgstr "Temasynkronisering"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:122
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:126
 msgid "Theme tokens"
 msgstr "Tematoken"
 
@@ -32401,6 +32509,11 @@ msgstr "Det gick inte att läsa in inbjudningslänkarna för den här kanalen. F
 msgid "There was an error loading the invites. Try again."
 msgstr "Det gick inte att läsa in inbjudningarna. Försök igen."
 
+#. Error message in the guild soundboard tab.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:62
+msgid "There was an error loading the soundboard sounds. Try again."
+msgstr ""
+
 #. Error message in the guild stickers tab.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:75
 msgid "There was an error loading the stickers. Try again."
@@ -32416,7 +32529,7 @@ msgid "There was an error loading the webhooks. Try again."
 msgstr "Ett fel uppstod vid inläsning av webhooks. Försök igen."
 
 #. Setup wizard community model step body.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:183
+#: src/features/app/components/setup/SetupWizardSteps.tsx:184
 msgid "These options change how people use the instance. Some can only be chosen during setup."
 msgstr "Dessa alternativ ändrar hur folk använder instansen. Vissa kan bara väljas under installationen."
 
@@ -32643,15 +32756,15 @@ msgstr "Den här communityn är inte längre tillgänglig"
 
 #. Description text in the linked accounts tab.
 #. Description text in the user profile shared popout.
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:41
-#: src/features/user/components/popouts/UserProfileShared.tsx:45
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:38
+#: src/features/user/components/popouts/UserProfileShared.tsx:43
 msgid "This connection has been verified."
 msgstr "Den här anslutningen har verifierats."
 
 #. Description text in the linked accounts tab.
 #. Description text in the user profile shared popout.
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:45
-#: src/features/user/components/popouts/UserProfileShared.tsx:49
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:42
+#: src/features/user/components/popouts/UserProfileShared.tsx:47
 msgid "This connection has not been verified."
 msgstr "Den här anslutningen har inte verifierats."
 
@@ -32725,6 +32838,11 @@ msgstr "Filen är {fileSize}, vilket är över gränsen på {maxSize}. Animerade
 msgid "This file is {fileSize}, over the {maxSize} limit. Animated stickers and SVGs must already be small enough to upload. Choose a smaller file or shorten the animation."
 msgstr "Filen är {fileSize}, vilket är över gränsen på {maxSize}. Animerade stickers och SVG-filer måste redan vara tillräckligt små för att laddas upp. Välj en mindre fil eller korta ner animeringen."
 
+#. Description of the error modal shown when an unsupported audio file is selected.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:74
+msgid "This file type is not supported. Try an MP3, OGG, M4A, or WAV file."
+msgstr ""
+
 #. Empty state title in the friends list when the user has no friends. Tone can be friendly and playful.
 #: src/features/channel/components/friends/views/FriendsList.tsx:20
 msgid "This friends list needs more power"
@@ -32781,7 +32899,7 @@ msgid "This instance currently allows screen share up to 720p at 30 FPS."
 msgstr "Den här instansen tillåter för närvarande skärmdelning upp till 720p vid 30 FPS."
 
 #. Setup wizard body prompting the operator to register the first account.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:52
+#: src/features/app/components/setup/SetupWizardSteps.tsx:53
 msgid "This instance has no accounts yet. The first account you create automatically becomes the administrator."
 msgstr "Den här instansen har inga konton ännu. Det första kontot du skapar blir automatiskt administratör."
 
@@ -33131,7 +33249,7 @@ msgstr "den här användaren"
 msgid "This user has limited their profile. Some details are hidden from people who aren't their friends."
 msgstr "Den här användaren har begränsat sin profil. Vissa detaljer är dolda för personer som inte är deras vänner."
 
-#: src/features/user/components/popouts/UserProfileShared.tsx:454
+#: src/features/user/components/popouts/UserProfileShared.tsx:452
 msgid "This user has no roles in this community."
 msgstr "Den här användaren har inga roller i den här gruppen."
 
@@ -33313,7 +33431,7 @@ msgstr "Förhandsvisning av miniatyrbild"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/ui/components/form/DateTimePickerField.tsx:33
 #: src/features/user/components/settings_utils/search_index/LanguageIndex.ts:30
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:282
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:286
 msgid "Time"
 msgstr "Tid"
 
@@ -33399,7 +33517,7 @@ msgid "timestamp or relevance"
 msgstr "tidsstämpel eller relevans"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:278
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:282
 msgid "Timestamps"
 msgstr "Tidsstämplar"
 
@@ -33587,7 +33705,7 @@ msgid "Tokens"
 msgstr "Token"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:158
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:162
 msgid "Tone"
 msgstr "Ton"
 
@@ -33625,7 +33743,7 @@ msgstr "Verktygsfältets genvägar"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/modals/tabs/component_gallery_tab/OverlaysTab.tsx:61
 #: src/features/user/components/settings_utils/search_index/DesktopSettingsIndex.ts:58
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:366
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:370
 msgid "Tooltips"
 msgstr "Verktygstips"
 
@@ -33761,7 +33879,9 @@ msgid "Trim entrance sound"
 msgstr "Trimma ingångsljud"
 
 #. Error displayed when the encoded trimmed audio exceeds the entrance sound size cap.
+#. Error displayed when the encoded trimmed audio exceeds the soundboard sound size cap.
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:51
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:55
 msgid "Trimmed clip is over the {limit} size limit. Try a shorter selection."
 msgstr "Den trimmade klippningen överskrider storleksgränsen på {limit}. Försök med ett kortare urval."
 
@@ -33933,7 +34053,7 @@ msgstr "Prova säkerhetsnyckel/lösenordsfri inloggning i stället"
 msgid "Try sending your message again."
 msgstr "Försök skicka meddelandet igen."
 
-#: src/features/auth/components/modals/CaptchaModal.tsx:159
+#: src/features/auth/components/modals/CaptchaModal.tsx:182
 msgid "Try Turnstile instead"
 msgstr "Prova Turnstile istället"
 
@@ -33998,7 +34118,7 @@ msgid "Turn off device stream"
 msgstr "Stäng av enhetsströmmen"
 
 #. Description for the toggle that disables direct messages and friend requests.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:211
+#: src/features/app/components/setup/SetupWizardSteps.tsx:212
 msgid "Turn off private messaging and friends across the instance. This can be reversed only once later."
 msgstr "Stäng av privata meddelanden och vänförfrågningar i hela instansen. Detta kan bara ångras en gång senare."
 
@@ -34065,7 +34185,7 @@ msgstr "Tjugofyra timmar"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/AppearanceIndex.ts:39
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:406
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:410
 msgid "Two clicks"
 msgstr "Två klick"
 
@@ -34136,7 +34256,7 @@ msgid "Typing"
 msgstr "Skriver"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:354
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:358
 msgid "Typing avatars"
 msgstr "Skrivande avatarer"
 
@@ -34150,7 +34270,7 @@ msgstr "Skrivhändelser"
 #. Short label in the channel and chat typing. Keep it concise.
 #: src/features/channel/components/ChannelTyping.tsx:10
 #: src/features/ui/components/BaseAvatar.tsx:21
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:350
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:354
 msgid "Typing indicator"
 msgstr "Skrivindikator"
 
@@ -34707,7 +34827,7 @@ msgid "Unmute"
 msgstr "Slå på ljud"
 
 #. Voice control button label to turn the user's microphone back on.
-#: src/features/voice/components/VoiceControlBar.tsx:121
+#: src/features/voice/components/VoiceControlBar.tsx:125
 msgctxt "voice-control-action"
 msgid "Unmute"
 msgstr "Slå på ljud"
@@ -34773,6 +34893,11 @@ msgstr "Slå på ljud för favoriter"
 #: src/features/platform/utils/DesktopLocaleBridge.ts:148
 msgid "Unmute microphone"
 msgstr "Slå på mikrofonljudet"
+
+#. Tooltip on the mute-all toggle in the in-call soundboard panel when currently muted.
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:38
+msgid "Unmute soundboard sounds for me"
+msgstr ""
 
 #. Tooltip / button label on a voice participant tile that unmutes the remote screen-share or camera audio.
 #: src/features/voice/components/voice_participant_tile/shared.ts:15
@@ -34921,7 +35046,7 @@ msgid "Unread gift inventory override"
 msgstr "Åsidosätt oläst presentlager"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:418
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:422
 msgid "Unread indicator"
 msgstr "Oläst-indikator"
 
@@ -34940,6 +35065,11 @@ msgstr "Olästa"
 #: src/features/theme_studio/sections/LibrarySection.tsx:578
 msgid "Unsaved changes"
 msgstr "Osparade ändringar"
+
+#. Title of the error modal shown when an unsupported audio file is selected.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:70
+msgid "Unsupported audio file"
+msgstr ""
 
 #. Error modal body shown when an entrance sound upload has an unsupported audio format.
 #: src/features/user/components/modals/tabs/hooks/useEntranceSound.ts:38
@@ -35178,8 +35308,10 @@ msgstr "Uppgradera för att lagra upp till 15 anpassade bakgrunder och låsa upp
 
 #. Button or menu action label in the background image gallery modal. Keep it concise.
 #. Button that opens a file picker to upload a branding image.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:109
+#. Primary action button in the trimmer modal: accept the current selection and upload it.
+#: src/features/app/components/setup/SetupWizardSteps.tsx:110
 #: src/features/theme/components/modals/BackgroundImageGalleryModal.tsx:76
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:39
 msgid "Upload"
 msgstr "Ladda upp"
 
@@ -35280,6 +35412,7 @@ msgid "Upload preview frames for screen shares."
 msgstr "Ladda upp förhandsvisningsbilder för skärmdelningar."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:228
 #: src/features/user/components/settings_utils/section_registry/NotificationsSections.ts:199
 msgid "Upload sound"
 msgstr "Ladda upp ljud"
@@ -35514,7 +35647,7 @@ msgid "Use category default"
 msgstr "Använd kategorins standardinställning"
 
 #. Label in the theme tab content.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:41
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:49
 msgid "Use coal theme (pitch-black surfaces)"
 msgstr "Använd koltema (kolsvarta ytor)"
 
@@ -35526,7 +35659,7 @@ msgid "Use custom image"
 msgstr "Använd egen bild"
 
 #. Short label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:25
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:33
 msgid "Use dark theme"
 msgstr "Använd mörkt tema"
 
@@ -35549,6 +35682,11 @@ msgstr "Använd annan e-post"
 #: src/features/auth/components/modals/required_action/RequiredActionDescriptors.ts:170
 msgid "Use email"
 msgstr "Använd e-post"
+
+#. Label in the theme tab content.
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:25
+msgid "Use ember theme (red and black palette)"
+msgstr ""
 
 #. Premium upsell shown when sending external emoji without a subscription.
 #: src/features/expressions/utils/ExpressionPermissionUtils.ts:24
@@ -35587,12 +35725,12 @@ msgid "Use hardware acceleration"
 msgstr "Använd maskinvaruacceleration"
 
 #. Label in the theme tab content.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:33
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:41
 msgid "Use legacy dark theme (original neutral gray palette)"
 msgstr "Använd äldre mörkt tema (ursprunglig neutral grå palett)"
 
 #. Short label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:49
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:57
 msgid "Use light theme"
 msgstr "Använd ljust tema"
 
@@ -35719,7 +35857,7 @@ msgid "Use this when troubleshooting the client or collecting logs. It may add v
 msgstr "Använd detta när du felsöker klienten eller samlar in loggar. Det kan lägga till utförliga meddelanden i webbläsarkonsolen för den aktuella klienten."
 
 #. Label for SMTP TLS toggle.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:954
+#: src/features/app/components/setup/SetupWizardSteps.tsx:960
 msgid "Use TLS"
 msgstr "Använd TLS"
 
@@ -35795,7 +35933,7 @@ msgid "User appears underage, or is involved in grooming or child exploitation."
 msgstr "Användaren verkar vara minderårig eller är inblandad i grooming eller barnexploatering."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:306
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:310
 msgid "User avatars"
 msgstr "Användarprofilbilder"
 
@@ -35887,7 +36025,7 @@ msgstr "användare, bot eller webhook"
 #. Generic form-field label for a username.
 #. Label for SMTP username input.
 #. Settings search entry label. Also used as a search synonym in the settings search bar.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:952
+#: src/features/app/components/setup/SetupWizardSteps.tsx:958
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:567
 #: src/features/user/components/modals/FluxerTagChangeModal.tsx:218
 #: src/features/user/components/modals/tabs/my_profile_tab/MyProfileTabUsernameSection.tsx:55
@@ -35944,7 +36082,7 @@ msgstr "Användarnamn kan bara innehålla bokstäver (a-ö, A-Ö), siffror (0-9)
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/channel/components/message_search_bar/UsersSection.tsx:15
 #: src/features/user/components/settings_utils/search_index/BlockedUsersIndex.ts:18
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:342
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:346
 msgid "Users"
 msgstr "Användare"
 
@@ -36002,7 +36140,7 @@ msgid "value"
 msgstr "värde"
 
 #. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:72
+#: src/features/connection/components/modals/AddConnectionModal.tsx:57
 msgid "Value"
 msgstr "Värde"
 
@@ -36036,7 +36174,7 @@ msgid "Vanity URL"
 msgstr "Anpassad URL"
 
 #. Community settings tab for the community vanity/custom invite link.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:71
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:78
 msgctxt "community-settings-tab"
 msgid "Vanity URL"
 msgstr "Anpassad URL"
@@ -36075,7 +36213,7 @@ msgid "Vanity URLs must be between 2 and 32 characters long and can only contain
 msgstr "Anpassade webbadresser måste vara mellan 2 och 32 tecken långa och får endast innehålla alfanumeriska tecken och interna bindestreck."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:32
+#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:28
 msgid "Verification"
 msgstr "Verifiering"
 
@@ -36157,9 +36295,13 @@ msgid "Verify code"
 msgstr "Verifiera kod"
 
 #. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:64
+#: src/features/connection/components/modals/AddConnectionModal.tsx:49
 msgid "Verify connection"
 msgstr "Verifiera anslutning"
+
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:375
+msgid "Verify domain ownership to display it on your profile."
+msgstr ""
 
 #. Shared action or page-title label for starting or completing email address verification.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:164
@@ -36194,7 +36336,7 @@ msgid "Verify phone number form"
 msgstr "Formulär för att verifiera telefonnummer"
 
 #. Short label in the authentication captcha modal. Keep the tone plain and specific.
-#: src/features/auth/components/modals/CaptchaModal.tsx:15
+#: src/features/auth/components/modals/CaptchaModal.tsx:16
 msgid "Verify you're human"
 msgstr "Verifiera att du är människa"
 
@@ -36568,7 +36710,7 @@ msgstr "Visa detaljer"
 msgid "View devices that are signed in to your account"
 msgstr "Visa enheter som är inloggade på ditt konto"
 
-#: src/features/user/components/popouts/UserProfileShared.tsx:258
+#: src/features/user/components/popouts/UserProfileShared.tsx:256
 msgid "View full profile"
 msgstr "Visa hela profilen"
 
@@ -36603,8 +36745,8 @@ msgstr "Visa inkommande samtal"
 msgid "View member profile for {displayName}"
 msgstr "Visa medlemsprofil för {displayName}"
 
-#: src/features/app/components/layout/SplashScreen.tsx:174
-#: src/features/app/components/layout/SplashScreen.tsx:240
+#: src/features/app/components/layout/SplashScreen.tsx:175
+#: src/features/app/components/layout/SplashScreen.tsx:241
 msgid "View on status page"
 msgstr "Visa på statussidan"
 
@@ -36803,7 +36945,7 @@ msgstr "röstaktivitet"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:446
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:450
 #: src/features/user/components/settings_utils/section_registry/PrivacySafetySections.ts:297
 msgid "Voice activity"
 msgstr "Röstaktivitet"
@@ -36866,7 +37008,7 @@ msgstr "Röstkanal"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/AppearanceIndex.ts:23
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:402
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:406
 msgid "Voice channel confirmation"
 msgstr "Bekräftelse av röstkanal"
 
@@ -36920,7 +37062,7 @@ msgid "Voice entrance sound"
 msgstr "Ljud vid röstinträde"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:394
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:398
 msgid "Voice join"
 msgstr "Gå med i röstsamtal"
 
@@ -37005,13 +37147,17 @@ msgid "Void"
 msgstr "Ogiltig"
 
 #. Generic media-player / voice control: volume slider label.
+#. Label for the volume slider in the soundboard sound trimmer modal.
+#. Label for the volume slider.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Subsection title in the voice tab. Keep it concise.
+#: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:34
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:373
 #: src/features/user/components/modals/tabs/UserVoiceTab.tsx:179
 #: src/features/user/components/settings_utils/search_index/NotificationsIndex.ts:86
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts:174
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:79
 msgid "Volume"
 msgstr "Volym"
 
@@ -37209,7 +37355,7 @@ msgstr "Vi hittade en befintlig {premiumProductFullName}-prenumeration för det 
 msgid "We need one verification step before you continue. This helps protect accounts and keep spam off {productName}."
 msgstr "Vi behöver ett verifieringssteg innan du kan fortsätta. Detta hjälper till att skydda konton och hålla spam borta från {productName}."
 
-#: src/features/auth/components/modals/CaptchaModal.tsx:116
+#: src/features/auth/components/modals/CaptchaModal.tsx:131
 msgid "We need to make sure you're not a bot. Complete the verification below."
 msgstr "Vi behöver säkerställa att du inte är en robot. Slutför verifieringen nedan."
 
@@ -37416,7 +37562,7 @@ msgid "Webhooks"
 msgstr "Webhooks"
 
 #. Community settings tab for configuring webhooks.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:66
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:73
 msgctxt "community-settings-tab"
 msgid "Webhooks"
 msgstr "Webhooks"
@@ -37480,7 +37626,7 @@ msgid "Welcome to {premiumProductFullName}. Your yearly subscription renews on {
 msgstr "Välkommen till {premiumProductFullName}. Din årliga prenumeration förnyas den {formattedDate}. Utforska dina {premiumProductName}-fördelar och hantera din prenumeration."
 
 #. Setup wizard title shown once the operator is signed in as the instance admin.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:39
+#: src/features/app/components/setup/SetupWizardSteps.tsx:40
 msgid "Welcome to {productName}"
 msgstr "Välkommen till {productName}"
 
@@ -37563,7 +37709,7 @@ msgstr "Vad innehåller det här paketet?"
 #. Sidebar item in settings that opens the app update notes modal.
 #: src/features/app/components/dialogs/components/DesktopSettingsView.tsx:101
 #: src/features/app/components/dialogs/components/MobileSettingsView.tsx:60
-#: src/features/app/components/whats_new/WhatsNewModal.tsx:24
+#: src/features/app/components/whats_new/WhatsNewModal.tsx:21
 msgid "What's new"
 msgstr "Nyheter"
 
@@ -37668,7 +37814,7 @@ msgid "Who can friend"
 msgstr "Vem som kan lägga till dig som vän"
 
 #. Setup wizard registration step title.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:146
+#: src/features/app/components/setup/SetupWizardSteps.tsx:147
 msgid "Who can join"
 msgstr "Vem kan gå med"
 
@@ -37678,7 +37824,7 @@ msgid "Who can see your full profile"
 msgstr "Vem kan se hela din profil"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:358
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:362
 msgid "Who is typing"
 msgstr "Vem skriver"
 
@@ -37797,7 +37943,7 @@ msgid "Without this permission, push-to-talk is required."
 msgstr "Utan den här behörigheten krävs push-to-talk."
 
 #. Label for the wordmark branding asset.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:133
+#: src/features/app/components/setup/SetupWizardSteps.tsx:134
 msgid "Wordmark"
 msgstr "Wordmark"
 
@@ -37884,7 +38030,7 @@ msgid "You already have lifetime {premiumProductName}"
 msgstr "Du har redan livstidsabonnemang på {premiumProductName}"
 
 #. Body text in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:32
+#: src/features/connection/components/modals/AddConnectionModal.tsx:29
 msgid "You already have this connection."
 msgstr "Du har redan den här anslutningen."
 
@@ -37927,7 +38073,7 @@ msgid "You are now navigating to {paymentProviderName} to complete the payment. 
 msgstr "Du navigeras nu till {paymentProviderName} för att slutföra betalningen. Återgå till {productName} när du har slutfört den."
 
 #. Setup wizard body shown to the signed-in instance administrator.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:43
+#: src/features/app/components/setup/SetupWizardSteps.tsx:44
 msgid "You are signed in as the instance administrator. The next steps configure branding, registration, and core policy for everyone on this instance."
 msgstr "Du är inloggad som instansadministratör. Nästa steg konfigurerar varumärke, registrering och kärnpolicy för alla på den här instansen."
 
@@ -38135,7 +38281,7 @@ msgstr "Du kan inte skicka meddelanden i den här communityn."
 #. Tooltip in the voice control bar when the user lacks the Screen Share permission in this channel. Tone stays plain.
 #. Tooltip shown when the user lacks the Screen Share permission in the voice channel. Tone stays plain.
 #: src/features/voice/components/voice_connection_status/LocalParticipantControls.tsx:65
-#: src/features/voice/components/VoiceControlBar.tsx:141
+#: src/features/voice/components/VoiceControlBar.tsx:145
 msgid "You can't share your screen in this channel"
 msgstr "Du kan inte dela din skärm i den här kanalen"
 
@@ -38149,7 +38295,7 @@ msgstr "Du kan inte prata i den här kanalen"
 #. Tooltip shown when the user lacks the Video permission in the voice channel. Tone stays plain.
 #: src/features/voice/components/modals/CameraPreviewModal.tsx:79
 #: src/features/voice/components/voice_connection_status/LocalParticipantControls.tsx:61
-#: src/features/voice/components/VoiceControlBar.tsx:131
+#: src/features/voice/components/VoiceControlBar.tsx:135
 msgid "You can't turn on your camera in this channel"
 msgstr "Du kan inte slå på din kamera i den här kanalen"
 
@@ -38271,6 +38417,11 @@ msgstr "Du har inte behörighet att gå med i den här röstkanalen"
 #: src/features/emoji/components/emojis/EmojiListItem.tsx:72
 msgid "You don't have permission to rename this emoji. The name was reverted to what it was before."
 msgstr "Du har inte behörighet att byta namn på den här emojin. Namnet återställdes till det tidigare."
+
+#. Empty-state text in the in-call soundboard panel when the user lacks the Use Soundboard permission.
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:54
+msgid "You don't have permission to use the soundboard here"
+msgstr ""
 
 #. Body of the error modal shown when the user is banned from a discovery community.
 #: src/features/discovery/discovery/DiscoveryGuildCard.tsx:60
@@ -38761,6 +38912,11 @@ msgstr "Du har nått gränsen för grupp-DM"
 msgid "You've reached the maximum number of emojis. Delete some existing emojis to make room."
 msgstr "Du har nått det maximala antalet emojier. Ta bort några befintliga emojier för att göra plats."
 
+#. Soundboard upload limit message in community soundboard settings.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:50
+msgid "You've reached the maximum number of soundboard sounds. Delete one to make room."
+msgstr ""
+
 #. Sticker upload limit message in community sticker settings. Do not suggest that communities can be upgraded.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:62
 msgid "You've reached the maximum number of stickers. Delete some existing stickers to make room."
@@ -39155,12 +39311,12 @@ msgid "Your vanity URL has been set to {inviteEndpoint}/{vanitySlug}"
 msgstr "Din anpassade URL har ställts in till {inviteEndpoint}/{vanitySlug}"
 
 #. Label for the YouTube enrichment service toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:285
+#: src/features/app/components/setup/SetupWizardSteps.tsx:286
 msgid "YouTube enrichment"
 msgstr "YouTube-berikning"
 
 #. Setup wizard title for YouTube integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:894
+#: src/features/app/components/setup/SetupWizardSteps.tsx:877
 msgid "YouTube previews"
 msgstr "YouTube-förhandsvisningar"
 
@@ -39171,7 +39327,7 @@ msgstr "YubiKey"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/messaging/components/modals/ImageCropModal.tsx:812
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:182
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:186
 msgid "Zoom"
 msgstr "Zooma"
 

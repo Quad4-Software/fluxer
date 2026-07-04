@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import type {AuditLogActionType} from '@fluxer/constants/src/AuditLogActionType';
-import type {EmojiID, GuildID, RoleID, StickerID, UserID} from '../../BrandedTypes';
+import type {EmojiID, GuildID, RoleID, SoundboardSoundID, StickerID, UserID} from '../../BrandedTypes';
 import type {
 	GuildAuditLogRow,
 	GuildBanRow,
@@ -10,6 +10,7 @@ import type {
 	GuildMembershipMetadataRow,
 	GuildRoleRow,
 	GuildRow,
+	GuildSoundboardSoundRow,
 	GuildStickerRow,
 } from '../../database/types/GuildTypes';
 import type {Guild} from '../../models/Guild';
@@ -18,6 +19,7 @@ import type {GuildBan} from '../../models/GuildBan';
 import type {GuildEmoji} from '../../models/GuildEmoji';
 import type {GuildMember} from '../../models/GuildMember';
 import type {GuildRole} from '../../models/GuildRole';
+import type {GuildSoundboardSound} from '../../models/GuildSoundboardSound';
 import type {GuildSticker} from '../../models/GuildSticker';
 import {GuildContentRepository} from './GuildContentRepository';
 import {GuildDataRepository} from './GuildDataRepository';
@@ -270,5 +272,29 @@ export class GuildRepository implements IGuildRepositoryAggregate {
 
 	async deleteSticker(guildId: GuildID, stickerId: StickerID): Promise<void> {
 		return await this.contentRepo.deleteSticker(guildId, stickerId);
+	}
+
+	async getSoundboardSound(soundId: SoundboardSoundID, guildId: GuildID): Promise<GuildSoundboardSound | null> {
+		return await this.contentRepo.getSoundboardSound(soundId, guildId);
+	}
+
+	async getSoundboardSoundById(soundId: SoundboardSoundID): Promise<GuildSoundboardSound | null> {
+		return await this.contentRepo.getSoundboardSoundById(soundId);
+	}
+
+	async listSoundboardSounds(guildId: GuildID): Promise<Array<GuildSoundboardSound>> {
+		return await this.contentRepo.listSoundboardSounds(guildId);
+	}
+
+	async countSoundboardSounds(guildId: GuildID): Promise<number> {
+		return await this.contentRepo.countSoundboardSounds(guildId);
+	}
+
+	async upsertSoundboardSound(data: GuildSoundboardSoundRow): Promise<GuildSoundboardSound> {
+		return await this.contentRepo.upsertSoundboardSound(data);
+	}
+
+	async deleteSoundboardSound(guildId: GuildID, soundId: SoundboardSoundID): Promise<void> {
+		return await this.contentRepo.deleteSoundboardSound(guildId, soundId);
 	}
 }

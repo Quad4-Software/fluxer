@@ -7,6 +7,7 @@ import GuildEmojiTab from '@app/features/guild/components/modals/guild_tabs/Guil
 import GuildInvitesTab from '@app/features/guild/components/modals/guild_tabs/GuildInvitesTab';
 import GuildModerationTab from '@app/features/guild/components/modals/guild_tabs/GuildModerationTab';
 import GuildRolesTab from '@app/features/guild/components/modals/guild_tabs/GuildRolesTab';
+import GuildSoundboardTab from '@app/features/guild/components/modals/guild_tabs/GuildSoundboardTab';
 import GuildStickersTab from '@app/features/guild/components/modals/guild_tabs/GuildStickersTab';
 import GuildVanityURLTab from '@app/features/guild/components/modals/guild_tabs/GuildVanityURLTab';
 import GuildWebhooksTab from '@app/features/guild/components/modals/guild_tabs/GuildWebhooksTab';
@@ -29,6 +30,7 @@ import {
 	StickerIcon,
 	TicketIcon,
 	UserIcon,
+	WaveformIcon,
 	WebhooksLogoIcon,
 } from '@phosphor-icons/react';
 import type React from 'react';
@@ -42,6 +44,11 @@ const STICKERS_DESCRIPTOR = msg({
 	message: 'Stickers',
 	context: 'community-settings-tab',
 	comment: 'Community settings tab for managing custom stickers uploaded to the community.',
+});
+const SOUNDBOARD_DESCRIPTOR = msg({
+	message: 'Soundboard',
+	context: 'community-settings-tab',
+	comment: 'Community settings tab for managing custom soundboard sounds uploaded to the community.',
 });
 const OVERVIEW_DESCRIPTOR = msg({
 	message: 'Overview',
@@ -99,6 +106,7 @@ export type GuildSettingsTabType =
 	| 'roles'
 	| 'emoji'
 	| 'stickers'
+	| 'soundboard'
 	| 'moderation'
 	| 'audit_log'
 	| 'webhooks'
@@ -187,6 +195,14 @@ const GUILD_SETTINGS_TABS_DESCRIPTORS: Array<GuildSettingsTabDescriptor> = [
 		label: STICKERS_DESCRIPTOR,
 		icon: StickerIcon,
 		component: GuildStickersTab,
+		permission: [Permissions.CREATE_EXPRESSIONS, Permissions.MANAGE_EXPRESSIONS],
+	},
+	{
+		type: 'soundboard',
+		category: 'expressions',
+		label: SOUNDBOARD_DESCRIPTOR,
+		icon: WaveformIcon,
+		component: GuildSoundboardTab,
 		permission: [Permissions.CREATE_EXPRESSIONS, Permissions.MANAGE_EXPRESSIONS],
 	},
 	{

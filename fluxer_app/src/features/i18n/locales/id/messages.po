@@ -648,12 +648,12 @@ msgid "{displayName} sent you a friend request"
 msgstr "{displayName} mengirimi Anda permintaan pertemanan"
 
 #. Profile timezone difference text. duration is a localized hours/minutes phrase for how far ahead the target user's local time is.
-#: src/features/user/components/popouts/UserProfileShared.tsx:65
+#: src/features/user/components/popouts/UserProfileShared.tsx:63
 msgid "{duration} ahead of you"
 msgstr "{duration} lebih cepat dari Anda"
 
 #. Profile timezone difference text. duration is a localized hours/minutes phrase for how far behind the target user's local time is.
-#: src/features/user/components/popouts/UserProfileShared.tsx:70
+#: src/features/user/components/popouts/UserProfileShared.tsx:68
 msgid "{duration} behind you"
 msgstr "{duration} di belakang Anda"
 
@@ -773,6 +773,11 @@ msgstr "{fps} FPS"
 msgid "{guildName} channels"
 msgstr "Channel {guildName}"
 
+#. Section heading in the in-call soundboard panel for a server-uploaded sound catalog.
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:46
+msgid "{guildName} sounds"
+msgstr ""
+
 #: src/features/ui/action_menu/items/VoiceParticipantMenuData.tsx:675
 msgid "{hiddenConnectionCount, plural, one {Expand # other device} other {Expand # other devices}}"
 msgstr "{hiddenConnectionCount, plural, one {Perluas # perangkat lain} other {Perluas # perangkat lain}}"
@@ -784,12 +789,12 @@ msgstr "{hours, plural, one {# jam lalu} other {# jam lalu}}"
 #. Duration phrase in the profile timezone section. hours is a positive integer.
 #. Generic duration label for a whole number of hours.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:53
-#: src/features/user/components/popouts/UserProfileShared.tsx:79
+#: src/features/user/components/popouts/UserProfileShared.tsx:77
 msgid "{hours, plural, one {# hour} other {# hours}}"
 msgstr "{hours, plural, one {# jam} other {# jam}}"
 
 #. Duration phrase in the profile timezone section. hours and minutes are positive integers.
-#: src/features/user/components/popouts/UserProfileShared.tsx:75
+#: src/features/user/components/popouts/UserProfileShared.tsx:73
 msgid "{hours, plural, one {# hour} other {# hours}} {minutes, plural, one {# minute} other {# minutes}}"
 msgstr "{hours, plural, one {# jam} other {# jam}} {minutes, plural, one {# menit} other {# menit}}"
 
@@ -917,7 +922,7 @@ msgstr "{minutes, plural, one {# menit yang lalu} other {# menit yang lalu}}"
 #. Duration phrase in the profile timezone section. minutes is a positive integer.
 #. Generic duration label for a whole number of minutes.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:49
-#: src/features/user/components/popouts/UserProfileShared.tsx:83
+#: src/features/user/components/popouts/UserProfileShared.tsx:81
 msgid "{minutes, plural, one {# minute} other {# minutes}}"
 msgstr "{minutes, plural, one {# menit} other {# menit}}"
 
@@ -1011,7 +1016,7 @@ msgstr "Langganan {premiumProductName}"
 msgid "{presenceCount} online"
 msgstr "{presenceCount} online"
 
-#: src/features/app/components/BootstrapErrorScreen.tsx:39
+#: src/features/app/components/BootstrapErrorScreen.tsx:34
 msgid "{PRODUCT_NAME} failed to start properly. This could be due to corrupted data or a temporary issue."
 msgstr "{PRODUCT_NAME} gagal memulai dengan benar. Ini mungkin karena data yang rusak atau masalah sementara."
 
@@ -1119,7 +1124,7 @@ msgid "{productName} detected a potential raid, so new users can't join right no
 msgstr "{productName} mendeteksi potensi serangan, jadi pengguna baru tidak bisa bergabung sekarang."
 
 #. Profile membership label showing when the user account was created.
-#: src/features/user/components/popouts/UserProfileShared.tsx:53
+#: src/features/user/components/popouts/UserProfileShared.tsx:51
 msgid "{productName} member since"
 msgstr "Anggota {productName} sejak"
 
@@ -1578,6 +1583,11 @@ msgstr "<0>Membuka bisu</0> anggota."
 msgid "<0>URL-only favorites (default)</0>: synced across your devices, no upload, doesn't count against saved media. The original media may disappear if its host removes it."
 msgstr "<0>Favorit hanya URL (default)</0>: disinkronkan di seluruh perangkat Anda, tanpa unggahan, tidak dihitung sebagai media tersimpan. Media asli mungkin hilang jika host-nya menghapus."
 
+#. Placeholder example emoji in the soundboard sound emoji field.
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:75
+msgid "📯"
+msgstr ""
+
 #. Summary chip text in the mobile channel search sheet when exactly one channel is selected as a filter.
 #: src/features/channel/components/bottomsheets/ChannelSearchBottomSheet.tsx:160
 msgid "1 channel"
@@ -1748,7 +1758,7 @@ msgid "15 minutes"
 msgstr "15 menit"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:410
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:414
 msgid "2 clicks"
 msgstr "2 ketuk"
 
@@ -2048,7 +2058,7 @@ msgstr "Tentang {appName}"
 #: src/features/app/components/pages/YouPage.tsx:160
 #: src/features/user/components/modals/tabs/my_profile_tab/BioEditor.tsx:26
 #: src/features/user/components/modals/UserProfileMobileSheet.tsx:783
-#: src/features/user/components/popouts/UserProfileShared.tsx:41
+#: src/features/user/components/popouts/UserProfileShared.tsx:39
 #: src/features/user/components/settings_utils/search_index/MyProfileIndex.ts:133
 msgid "About me"
 msgstr "Tentang saya"
@@ -2318,7 +2328,7 @@ msgstr "Pelanggan bulanan aktif (pembatalan terjadwal)"
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:743
 #: src/features/user/components/modals/tabs/appearance_tab/AppearanceTabInline.tsx:43
 #: src/features/user/components/modals/tabs/AppearanceTab.tsx:51
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:430
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:434
 #: src/features/user/components/settings_utils/section_registry/PrivacySafetySections.ts:289
 msgid "Active now"
 msgstr "Aktif sekarang"
@@ -2339,7 +2349,7 @@ msgid "Activities"
 msgstr "Aktivitas"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:438
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:442
 msgid "Activity"
 msgstr "Aktivitas"
 
@@ -2349,7 +2359,7 @@ msgid "Activity log"
 msgstr "Log aktivitas"
 
 #. Community settings tab showing activity log entries and moderation history.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:61
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:68
 msgctxt "community-settings-tab"
 msgid "Activity log"
 msgstr "Log aktivitas"
@@ -2391,11 +2401,6 @@ msgstr "Kualitas adaptif"
 msgid "Add"
 msgstr "Tambah"
 
-#. Button or menu action label in the linked accounts tab. Keep it concise. Preserve {blueskyProviderName}; it is inserted by code.
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:65
-msgid "Add {blueskyProviderName} connection"
-msgstr "Tambahkan koneksi {blueskyProviderName}"
-
 #. OAuth scope description shown on the consent screen for the bot scope.
 #: src/features/app/constants/AppConstants.ts:29
 msgid "Add a bot to a community with requested permissions"
@@ -2421,7 +2426,7 @@ msgid "Add a friend to get started."
 msgstr "Tambahkan teman untuk memulai."
 
 #. Setup wizard body for GIF integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:890
+#: src/features/app/components/setup/SetupWizardSteps.tsx:873
 msgid "Add a KLIPY API key to enable GIF search at runtime."
 msgstr "Tambahkan kunci API KLIPY untuk mengaktifkan pencarian GIF saat runtime."
 
@@ -2458,7 +2463,7 @@ msgid "Add a working email"
 msgstr "Tambahkan email yang berfungsi"
 
 #. Setup wizard body for YouTube integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:898
+#: src/features/app/components/setup/SetupWizardSteps.tsx:881
 msgid "Add a YouTube Data API key to enrich YouTube links."
 msgstr "Tambahkan kunci API Data YouTube untuk memperkaya tautan YouTube."
 
@@ -2503,11 +2508,6 @@ msgstr "Tambahkan pintasan khusus lainnya"
 msgid "Add another reaction"
 msgstr "Tambahkan reaksi lain"
 
-#. Setup wizard body for Bluesky integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:922
-msgid "Add Bluesky OAuth client metadata and a signing key."
-msgstr "Tambahkan metadata klien OAuth Bluesky dan kunci penandatanganan."
-
 #. OAuth authorization destination step title. The user chooses where a bot will be added.
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthCommunityStep.tsx:17
 msgid "Add bot to a destination"
@@ -2519,12 +2519,12 @@ msgid "Add channel"
 msgstr "Tambah saluran"
 
 #. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:48
+#: src/features/connection/components/modals/AddConnectionModal.tsx:45
 msgid "Add connection"
 msgstr "Tambah koneksi"
 
 #. Accessible form label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:44
+#: src/features/connection/components/modals/AddConnectionModal.tsx:41
 msgid "Add connection form"
 msgstr "Formulir tambah koneksi"
 
@@ -2534,7 +2534,7 @@ msgid "Add custom shortcuts, disable built-in shortcuts, and sync shortcut prefe
 msgstr "Tambahkan pintasan khusus, nonaktifkan pintasan bawaan, dan sinkronkan preferensi pintasan"
 
 #. Button or menu action label in the linked accounts tab. Keep it concise.
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:70
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:62
 msgid "Add domain connection"
 msgstr "Tambahkan koneksi domain"
 
@@ -2647,7 +2647,7 @@ msgid "Add shortcut"
 msgstr "Tambahkan pintasan"
 
 #. Setup wizard body for SMTP integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:914
+#: src/features/app/components/setup/SetupWizardSteps.tsx:897
 msgid "Add SMTP credentials so the instance can send verification and notification email."
 msgstr "Tambahkan kredensial SMTP agar instance dapat mengirim email verifikasi dan notifikasi."
 
@@ -2655,6 +2655,11 @@ msgstr "Tambahkan kredensial SMTP agar instance dapat mengirim email verifikasi 
 #: src/features/theme_studio/sections/QuickCssSection.tsx:52
 msgid "Add some CSS before sharing."
 msgstr "Tambahkan CSS sebelum berbagi."
+
+#. Title of the modal that lets the user crop a long audio file down to the soundboard clip length cap.
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:27
+msgid "Add soundboard sound"
+msgstr ""
 
 #. Action that opens the add-sticker modal.
 #: src/features/expressions/components/modals/AddGuildStickerModal.tsx:72
@@ -2674,7 +2679,7 @@ msgid "Add stream"
 msgstr "Tambahkan streaming"
 
 #. Description for configuring an optional setup wizard integration now.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:882
+#: src/features/app/components/setup/SetupWizardSteps.tsx:865
 msgid "Add the credentials during setup."
 msgstr "Tambahkan kredensial selama penyiapan."
 
@@ -2809,12 +2814,12 @@ msgid "Adjust playback speed in <0>Accessibility</0>."
 msgstr "Sesuaikan kecepatan pemutaran di <0>Aksesibilitas</0>."
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:194
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:198
 msgid "Adjust the application's zoom level."
 msgstr "Sesuaikan tingkat zoom aplikasi."
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:166
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:170
 msgid "Adjust the font size in the chat area."
 msgstr "Sesuaikan ukuran font di area chat."
 
@@ -2897,6 +2902,11 @@ msgstr "Setelah mengubah {macosScreenRecordingPermissionName}, tutup sepenuhnya 
 #: src/features/guild/components/modals/guild_tabs/GuildMembersDateRangeModal.tsx:15
 msgid "After date"
 msgstr "Setelah tanggal"
+
+#. Placeholder example name in the soundboard sound name field.
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:67
+msgid "Airhorn"
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/NotificationsSections.ts:143
@@ -3283,6 +3293,11 @@ msgstr "Teks alternatif harus 500 karakter atau kurang"
 #: src/features/messaging/components/modals/EditAltTextModal.tsx:24
 msgid "Alt text updated"
 msgstr "Teks alternatif diperbarui"
+
+#. ALTCHA provider option in the self-hosted setup wizard.
+#: src/features/app/components/setup/SetupWizardSteps.tsx:906
+msgid "ALTCHA (recommended)"
+msgstr ""
 
 #. Short label in the markdown tab. Keep it concise.
 #: src/features/user/components/modals/tabs/component_gallery_tab/MarkdownTab.tsx:61
@@ -3703,17 +3718,17 @@ msgid "Anyone can call you, including strangers"
 msgstr "Siapa pun dapat menelepon Anda, termasuk orang asing"
 
 #. Description for the open registration mode.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:158
+#: src/features/app/components/setup/SetupWizardSteps.tsx:159
 msgid "Anyone can create an account."
 msgstr "Siapa saja bisa membuat akun."
 
 #. Description for the approval registration mode.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:166
+#: src/features/app/components/setup/SetupWizardSteps.tsx:167
 msgid "Anyone can request an account, but an administrator must approve it."
 msgstr "Siapa pun dapat meminta akun, tetapi administrator harus menyetujuinya."
 
 #. Label for an integration API key input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:935
+#: src/features/app/components/setup/SetupWizardSteps.tsx:918
 msgid "API key"
 msgstr "Kunci API"
 
@@ -3747,7 +3762,7 @@ msgid "App window"
 msgstr "Jendela aplikasi"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:198
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:202
 msgid "App zoom"
 msgstr "Zoom aplikasi"
 
@@ -3866,7 +3881,7 @@ msgid "Apply to all communities"
 msgstr "Terapkan ke semua komunitas"
 
 #. Registration mode option requiring admin approval.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:162
+#: src/features/app/components/setup/SetupWizardSteps.tsx:163
 msgid "Approval required"
 msgstr "Persetujuan diperlukan"
 
@@ -4071,8 +4086,8 @@ msgstr "Lampiran kedaluwarsa"
 
 #. Setup wizard media expiry step title.
 #. Summary row label for the attachment expiry choice in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:216
-#: src/features/app/components/setup/SetupWizardSteps.tsx:351
+#: src/features/app/components/setup/SetupWizardSteps.tsx:217
+#: src/features/app/components/setup/SetupWizardSteps.tsx:344
 msgid "Attachment expiry"
 msgstr "Kedaluwarsa lampiran"
 
@@ -4254,7 +4269,7 @@ msgid "Audio settings"
 msgstr "Setelan audio"
 
 #. Voice control button label for microphone and speaker settings.
-#: src/features/voice/components/VoiceControlBar.tsx:146
+#: src/features/voice/components/VoiceControlBar.tsx:150
 msgctxt "voice-control-button"
 msgid "Audio settings"
 msgstr "Setelan audio"
@@ -4717,7 +4732,7 @@ msgid "Avatar, tag, and rich profile details for your bot."
 msgstr "Avatar, tag, dan detail profil kaya untuk bot Anda."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:294
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:298
 msgid "Avatars"
 msgstr "Avatar"
 
@@ -4740,11 +4755,10 @@ msgstr "Sedang tidak di tempat"
 #. Button that moves to the previous setup wizard step.
 #. Footer button in the IAR modal that returns to the previous step.
 #. OAuth authorization secondary button. Returns to the previous carousel step.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:75
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:80
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthAuthorizeActions.tsx:14
 #: src/features/auth/flow/IpAuthorizationScreen.tsx:145
 #: src/features/channel/components/channel_header/shared.ts:27
-#: src/features/connection/components/modals/AddConnectionModal.tsx:396
 #: src/features/guild/components/modals/add_guild_modal/GuildCreateForm.tsx:163
 #: src/features/guild/components/modals/add_guild_modal/GuildJoinForm.tsx:59
 #: src/features/guild/components/modals/add_guild_modal/TemplateImportForm.tsx:353
@@ -5015,7 +5029,7 @@ msgid "Banner preview"
 msgstr "Pratinjau banner"
 
 #. Community settings tab for banned users.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:91
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:98
 msgctxt "community-settings-tab"
 msgid "Bans"
 msgstr "Larangan"
@@ -5215,21 +5229,6 @@ msgid "Blockquotes"
 msgstr "Kutipan"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:24
-msgid "Bluesky"
-msgstr "Bluesky"
-
-#. Label for the Bluesky connections service toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:293
-msgid "Bluesky connections"
-msgstr "Koneksi Bluesky"
-
-#. Setup wizard title for Bluesky integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:918
-msgid "Bluesky OAuth"
-msgstr "OAuth Bluesky"
-
-#. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the background image gallery modal. Keep it concise.
 #. Short label in the sensitive content tab. Keep it concise.
 #: src/features/theme/components/modals/BackgroundImageGalleryModal.tsx:68
@@ -5399,7 +5398,7 @@ msgid "Bot profile"
 msgstr "Profil bot"
 
 #. Setup wizard title for CAPTCHA integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:902
+#: src/features/app/components/setup/SetupWizardSteps.tsx:885
 msgid "Bot protection"
 msgstr "Perlindungan bot"
 
@@ -5460,12 +5459,12 @@ msgid "Branding"
 msgstr "Merek"
 
 #. Accessible label for a branding image preview in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:141
+#: src/features/app/components/setup/SetupWizardSteps.tsx:142
 msgid "Branding asset preview"
 msgstr "Pratinjau aset merek"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:150
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:154
 msgid "Brightness"
 msgstr "Kecerahan"
 
@@ -5514,6 +5513,11 @@ msgstr "Browser tidak mengizinkan {productName} menampilkan daftar layar sebelum
 msgid "Browsers do not list cameras in the screen-share picker. Choose them from this devices tab instead. If nothing appears here, allow camera access or connect a device."
 msgstr "Browser tidak mencantumkan kamera di pemilih berbagi layar. Pilih dari tab perangkat ini. Jika tidak ada yang muncul di sini, izinkan akses kamera atau sambungkan perangkat."
 
+#. Git commit short hash for the running web build. Example: "Build a1b2c3d". Preserve placeholder.
+#: src/features/app/components/dialogs/components/ClientInfo.tsx:54
+msgid "Build {commit}"
+msgstr ""
+
 #. Description shown on the settings page above the Export my data button.
 #: src/features/user/components/modals/tabs/privacy_safety_tab/data_request_modal/DataRequestModal.tsx:267
 msgid "Build a downloadable archive of your account data, including messages and attachment URLs. Most people want everything, but you can narrow the scope below."
@@ -5523,6 +5527,11 @@ msgstr "Buat arsip data akun Anda yang dapat diunduh, termasuk pesan dan URL lam
 #: src/features/user/components/settings_utils/search_index/ApplicationsIndex.ts:112
 msgid "Build an authorization URL with scopes, redirects, and bot permissions"
 msgstr "Buat URL otorisasi dengan cakupan, pengalihan, dan izin bot"
+
+#. Setup wizard body for ALTCHA integration credentials.
+#: src/features/app/components/setup/SetupWizardSteps.tsx:910
+msgid "Built-in proof-of-work captcha. No third-party API keys required."
+msgstr ""
 
 #. Label in the search engines tab.
 #: src/features/user/components/modals/tabs/chat_settings_tab/SearchEnginesTab.tsx:117
@@ -5795,7 +5804,7 @@ msgid "Cameras and virtual capture devices are selected here in {productName}, n
 msgstr "Kamera dan perangkat tangkapan virtual dipilih di sini di {productName}, bukan di pemilih sistem Wayland. Jika tidak ada yang muncul di sini, periksa izin atau sambungkan perangkat."
 
 #. Tooltip in the voice control bar when cameras are disabled because the participant count exceeds the limit. {voiceChannelCameraUserLimit} is the configured threshold.
-#: src/features/voice/components/VoiceControlBar.tsx:136
+#: src/features/voice/components/VoiceControlBar.tsx:140
 msgid "Cameras are off above {voiceChannelCameraUserLimit} participants"
 msgstr "Kamera mati jika peserta lebih dari {voiceChannelCameraUserLimit}"
 
@@ -5826,6 +5835,7 @@ msgstr "Bilah notifikasi CTA penguji Canary"
 #. Button that closes the device logout confirmation without changes.
 #. Button that closes the regenerate backup codes confirmation without changes.
 #. Cancel button label in the entrance sound trimmer modal.
+#. Cancel button label in the soundboard sound trimmer modal.
 #. Cancel button label in the voice message composer modal.
 #. Generic secondary-button label that dismisses a modal/sheet/form without saving.
 #. Keyboard shortcut action label shown in the shortcuts list and keybind editor. Keep short, sentence case.
@@ -5844,7 +5854,6 @@ msgstr "Bilah notifikasi CTA penguji Canary"
 #: src/features/channel/components/MentionEveryonePopout.tsx:172
 #: src/features/channel/components/modals/ChannelDeleteModal.tsx:53
 #: src/features/channel/components/modals/CreateDMModal.tsx:92
-#: src/features/connection/components/modals/AddConnectionModal.tsx:373
 #: src/features/connection/components/modals/EditConnectionModal.tsx:105
 #: src/features/emoji/components/emojis/EmojiListItem.tsx:317
 #: src/features/expressions/components/modals/AddFavoriteMemeModal.tsx:111
@@ -5853,6 +5862,7 @@ msgstr "Bilah notifikasi CTA penguji Canary"
 #: src/features/expressions/components/modals/EditFavoriteMemeModal.tsx:87
 #: src/features/expressions/components/modals/EditGuildStickerModal.tsx:115
 #: src/features/expressions/components/modals/EditPackModal.tsx:124
+#: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:160
 #: src/features/guild/components/modals/TransferOwnershipModal.tsx:91
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:98
 #: src/features/input/state/input_keybind/shared.ts:137
@@ -5880,6 +5890,7 @@ msgstr "Bilah notifikasi CTA penguji Canary"
 #: src/features/user/components/modals/tabs/AuthorizedAppsTab.tsx:173
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:31
 #: src/features/voice/components/modals/CameraPreviewModal.tsx:965
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:35
 #: src/features/voice/components/VoiceMessageComposerModal.tsx:79
 msgid "Cancel"
 msgstr "Batal"
@@ -6268,7 +6279,7 @@ msgstr "Perubahan terjadwal"
 #. Tooltip / button label in the screen-share status pill. Opens the picker to change what is being shared.
 #. Voice control menu action to choose a different screen-share source.
 #: src/features/voice/components/voice_connection_status/LocalParticipantControls.tsx:48
-#: src/features/voice/components/VoiceControlBar.tsx:108
+#: src/features/voice/components/VoiceControlBar.tsx:112
 msgid "Change source"
 msgstr "Ganti sumber"
 
@@ -6626,12 +6637,12 @@ msgid "Chat embed background"
 msgstr "Latar belakang sematan chat"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:190
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:194
 msgid "Chat font"
 msgstr "Font chat"
 
 #. Settings section label. Also used as a search synonym in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:162
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:166
 msgid "Chat font scaling"
 msgstr "Skala font chat"
 
@@ -6654,10 +6665,6 @@ msgstr "Pintasan chat"
 #: src/features/platform/utils/DesktopLocaleBridge.ts:160
 msgid "Check for updates"
 msgstr "Cek pembaruan"
-
-#: src/features/app/components/BootstrapErrorScreen.tsx:56
-msgid "Check our <0>{BLUESKY_PROVIDER_NAME} ({FLUXER_BLUESKY_HANDLE})</0> for status updates."
-msgstr "Cek <0>{BLUESKY_PROVIDER_NAME} ({FLUXER_BLUESKY_HANDLE})</0> kami untuk info status terbaru."
 
 #. Description text in the share theme modal.
 #: src/features/theme/components/modals/ShareThemeModal.tsx:34
@@ -6798,7 +6805,7 @@ msgid "Choose a supported audio file and try again."
 msgstr "Pilih file audio yang didukung dan coba lagi."
 
 #. Setup wizard title for choosing the initial account theme.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:60
+#: src/features/app/components/setup/SetupWizardSteps.tsx:61
 msgid "Choose a theme"
 msgstr "Pilih tema"
 
@@ -6846,7 +6853,7 @@ msgid "Choose friends to message."
 msgstr "Pilih teman untuk dikirimi pesan."
 
 #. Setup wizard body for CAPTCHA integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:906
+#: src/features/app/components/setup/SetupWizardSteps.tsx:889
 msgid "Choose hCaptcha or Cloudflare Turnstile for signup challenges."
 msgstr "Pilih hCaptcha atau Cloudflare Turnstile untuk tantangan pendaftaran."
 
@@ -6856,12 +6863,12 @@ msgid "Choose how chat moves after you send a message"
 msgstr "Pilih cara percakapan berlanjut setelah Anda mengirim pesan"
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:238
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:242
 msgid "Choose how messages are displayed in chat channels."
 msgstr "Pilih cara pesan ditampilkan di saluran chat."
 
 #. Setup wizard registration step body.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:150
+#: src/features/app/components/setup/SetupWizardSteps.tsx:151
 msgid "Choose how new accounts are created on this instance."
 msgstr "Pilih cara akun baru dibuat di instance ini."
 
@@ -6881,11 +6888,11 @@ msgid "Choose how you'd like to pay for this subscription."
 msgstr "Pilih cara Anda ingin membayar langganan ini."
 
 #. Setup wizard community model step title.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:179
+#: src/features/app/components/setup/SetupWizardSteps.tsx:180
 msgid "Choose how your instance works"
 msgstr "Pilih cara kerja instance Anda"
 
-#: src/features/connection/components/modals/AddConnectionModal.tsx:270
+#: src/features/connection/components/modals/AddConnectionModal.tsx:207
 msgid "Choose one of the methods below to prove domain ownership. You only need to complete one."
 msgstr "Pilih salah satu metode di bawah untuk membuktikan kepemilikan domain. Anda hanya perlu menyelesaikan satu."
 
@@ -6909,7 +6916,7 @@ msgid "Choose the category that best describes your community. You can change th
 msgstr "Pilih kategori yang paling sesuai dengan komunitas Anda. Anda bisa mengubahnya kapan saja."
 
 #. Setup wizard premium model step title.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:302
+#: src/features/app/components/setup/SetupWizardSteps.tsx:295
 msgid "Choose the premium model"
 msgstr "Pilih model premium"
 
@@ -6964,7 +6971,7 @@ msgid "Choose where {PRODUCT_NAME} should send images for reverse image search. 
 msgstr "Pilih tempat {PRODUCT_NAME} harus mengirim gambar untuk pencarian gambar terbalik. Kami akan mengingat pilihan Anda. Anda dapat mengubahnya atau menambahkan penyedia Anda sendiri nanti di {searchEnginesSettingsPath}."
 
 #. Setup wizard media expiry step body.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:220
+#: src/features/app/components/setup/SetupWizardSteps.tsx:221
 msgid "Choose whether uploaded attachments should expire automatically based on size."
 msgstr "Pilih apakah lampiran yang diunggah akan kedaluwarsa secara otomatis berdasarkan ukurannya."
 
@@ -7151,7 +7158,7 @@ msgstr "Membersihkan mikrofon Anda agar suara lebih jernih."
 #. Button or menu action label in the theme studio quick css section. Keep it concise.
 #. Button that removes an uploaded branding image.
 #. Inline button in the Recent searches section that wipes the search history list.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:117
+#: src/features/app/components/setup/SetupWizardSteps.tsx:118
 #: src/features/channel/components/message_search_bar/HistorySection.tsx:24
 #: src/features/guild/components/modals/guild_tabs/GuildMembersDateRangeModal.tsx:74
 #: src/features/input/components/KeybindRecorder.tsx:439
@@ -7392,11 +7399,6 @@ msgstr "Ketuk untuk melihat semua reaksi"
 msgid "Client"
 msgstr "Klien"
 
-#. Label for Bluesky OAuth client name input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:970
-msgid "Client name"
-msgstr "Nama klien"
-
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the secrets section. Keep it concise.
 #: src/features/user/components/modals/tabs/applications_tab/application_detail/SecretsSection.tsx:19
@@ -7408,11 +7410,6 @@ msgstr "Rahasia klien"
 #: src/features/user/components/modals/tabs/applications_tab/ApplicationDetail.tsx:57
 msgid "Client secret regenerated. Update any code that uses the old secret."
 msgstr "Rahasia klien dibuat ulang. Perbarui kode apa pun yang menggunakan rahasia lama."
-
-#. Label for Bluesky OAuth client URL input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:974
-msgid "Client URL"
-msgstr "URL klien"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/LanguageIndex.ts:50
@@ -7533,7 +7530,7 @@ msgid "Close your DM with {username}? You can reopen it anytime."
 msgstr "Tutup DM Anda dengan {username}? Anda bisa membukanya lagi kapan saja."
 
 #. Registration mode option that disables public registration.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:170
+#: src/features/app/components/setup/SetupWizardSteps.tsx:171
 msgid "Closed"
 msgstr "Ditutup"
 
@@ -7553,22 +7550,22 @@ msgid "Cloud upload"
 msgstr "Unggah ke cloud"
 
 #. Cloudflare Turnstile provider option.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:931
+#: src/features/app/components/setup/SetupWizardSteps.tsx:914
 msgid "Cloudflare Turnstile"
 msgstr "Cloudflare Turnstile"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:58
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:62
 msgid "Coal"
 msgstr "Batu bara"
 
 #. Short label in the theme studio. Keep it concise.
-#: src/features/theme_studio/ThemeStudio.tsx:77
+#: src/features/theme_studio/ThemeStudio.tsx:81
 msgid "Coal base"
 msgstr "Basis Arang"
 
 #. Short label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:37
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:45
 msgid "Coal theme"
 msgstr "Tema batu bara"
 
@@ -7714,7 +7711,7 @@ msgid "Color pickers"
 msgstr "Pemilih warna"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:62
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:66
 msgid "Color scheme"
 msgstr "Skema warna"
 
@@ -7740,7 +7737,7 @@ msgstr "Nyaman (550x400)"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the messages tab. Keep it concise.
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx:55
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:254
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:258
 msgid "Comfy"
 msgstr "Nyaman"
 
@@ -7823,7 +7820,7 @@ msgstr "komunitas"
 #: src/features/app/config/AuditLogConstants.ts:152
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthCommunityStep.tsx:48
 #: src/features/moderation/components/report_modal/IARModalPreview.tsx:16
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:253
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:269
 #: src/features/user/components/settings_utils/section_registry/PrivacySafetySections.ts:140
 msgid "Community"
 msgstr "Komunitas"
@@ -7891,6 +7888,11 @@ msgstr "Komunitas memfasilitasi \"pile-on\" atau pelecehan yang ditargetkan."
 msgid "Community filter"
 msgstr "Filter komunitas"
 
+#. Label in settings client info indicating this build is from a community fork repository.
+#: src/features/app/components/dialogs/components/ClientInfo.tsx:50
+msgid "Community fork"
+msgstr ""
+
 #: src/features/guild/components/modals/add_guild_modal/GuildCreateForm.tsx:270
 #: src/features/guild/components/modals/add_guild_modal/TemplateImportForm.tsx:587
 msgid "Community icon"
@@ -7944,7 +7946,7 @@ msgstr "Bisukan di komunitas"
 
 #. Label for the single community name input in the setup wizard.
 #. Label of the community name input in the create-community form.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:195
+#: src/features/app/components/setup/SetupWizardSteps.tsx:196
 #: src/features/guild/components/modals/add_guild_modal/shared.ts:123
 msgid "Community name"
 msgstr "Nama komunitas"
@@ -8009,7 +8011,7 @@ msgid "Community record"
 msgstr "Catatan komunitas"
 
 #. Root label for community settings modal and settings search paths.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:244
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:260
 msgid "Community settings"
 msgstr "Setelan komunitas"
 
@@ -8043,7 +8045,7 @@ msgstr "Community-wide"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:271
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:242
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:246
 msgid "Compact"
 msgstr "Ringkas"
 
@@ -8057,7 +8059,7 @@ msgid "Compact buttons with just an icon, perfect for toolbars and action bars."
 msgstr "Tombol ringkas dengan ikon saja, cocok untuk bilah alat dan bilah tindakan."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:302
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:306
 msgid "Compact mode"
 msgstr "Mode ringkas"
 
@@ -8157,7 +8159,7 @@ msgid "Configure keyboard shortcuts"
 msgstr "Konfigurasi pintasan keyboard"
 
 #. Option for configuring an optional setup wizard integration.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:878
+#: src/features/app/components/setup/SetupWizardSteps.tsx:861
 msgid "Configure now"
 msgstr "Konfigurasi sekarang"
 
@@ -8259,7 +8261,7 @@ msgstr "Konfirmasi sandi"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/AppearanceIndex.ts:27
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:398
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:402
 msgid "Confirm voice join"
 msgstr "Konfirmasi gabung suara"
 
@@ -8292,11 +8294,6 @@ msgstr "Hubungkan kamera atau perangkat perekam virtual, lalu coba lagi."
 #: src/features/voice/components/bottomsheets/VoiceLobbyBottomSheet.tsx:56
 msgid "Connect to voice"
 msgstr "Sambungkan ke suara"
-
-#. Button label for starting an external account connection. providerName is the provider display name.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:60
-msgid "Connect with {providerName}"
-msgstr "Hubungkan dengan {providerName}"
 
 #. Lowercase state label used inside channel-list accessible text for the current voice channel.
 #: src/features/app/components/layout/ChannelItem.tsx:111
@@ -8352,7 +8349,7 @@ msgstr "Koneksi gagal"
 msgid "Connection ID"
 msgstr "ID koneksi"
 
-#: src/features/app/components/ConnectionIssuesLinks.tsx:21
+#: src/features/app/components/ConnectionIssuesLinks.tsx:23
 msgid "Connection issues?"
 msgstr "Ada masalah koneksi?"
 
@@ -8361,13 +8358,13 @@ msgstr "Ada masalah koneksi?"
 msgid "Connection limit"
 msgstr "Batas koneksi"
 
-#: src/features/app/components/layout/SplashScreen.tsx:163
+#: src/features/app/components/layout/SplashScreen.tsx:164
 #: src/features/auth/flow/IpAuthorizationScreen.tsx:114
 msgid "Connection lost"
 msgstr "Koneksi terputus"
 
 #. Short label in the connection connection commands.
-#: src/features/connection/commands/ConnectionCommands.ts:47
+#: src/features/connection/commands/ConnectionCommands.ts:41
 msgid "Connection removed"
 msgstr "Koneksi dihapus"
 
@@ -8376,18 +8373,13 @@ msgstr "Koneksi dihapus"
 msgid "Connection stats"
 msgstr "Statistik koneksi"
 
-#. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:52
-msgid "Connection type"
-msgstr "Jenis koneksi"
-
 #. Short label in the connection connection commands.
-#: src/features/connection/commands/ConnectionCommands.ts:43
+#: src/features/connection/commands/ConnectionCommands.ts:37
 msgid "Connection updated"
 msgstr "Koneksi diperbarui"
 
 #. Success toast after an account connection is verified.
-#: src/features/connection/commands/ConnectionCommands.ts:35
+#: src/features/connection/commands/ConnectionCommands.ts:29
 msgid "Connection verified"
 msgstr "Koneksi terverifikasi"
 
@@ -8410,7 +8402,7 @@ msgstr "Koneksi: {connectionId}"
 #. Settings search entry label. Also used as a search synonym in the settings search bar.
 #. Settings section label for external accounts and verified domains.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:410
-#: src/features/user/components/popouts/UserProfileShared.tsx:674
+#: src/features/user/components/popouts/UserProfileShared.tsx:661
 #: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:8
 #: src/features/user/components/settings_utils/section_registry/GeneralSettingsSections.ts:38
 msgid "Connections"
@@ -8423,7 +8415,7 @@ msgid "Connections"
 msgstr "Koneksi"
 
 #. Short label in the connection connection commands.
-#: src/features/connection/commands/ConnectionCommands.ts:51
+#: src/features/connection/commands/ConnectionCommands.ts:45
 msgid "Connections reordered"
 msgstr "Koneksi diurutkan ulang"
 
@@ -8513,7 +8505,6 @@ msgstr "Menu konteks dapat dibuka dengan klik kiri (pada tombol) atau klik kanan
 #: src/features/auth/components/modals/required_action/RequiredActionDescriptors.ts:162
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthAccountStep.tsx:33
 #: src/features/auth/flow/HandoffApprovalFlow.tsx:118
-#: src/features/connection/components/modals/AddConnectionModal.tsx:383
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:711
 #: src/features/user/components/modals/FluxerTagChangeModal.tsx:397
 #: src/features/user/components/modals/tabs/AuthorizedAppsTab.tsx:181
@@ -8555,12 +8546,12 @@ msgid "Control Chromium middle-click autoscrolling in the desktop app"
 msgstr "Kontrol pengguliran otomatis klik tengah Chromium di aplikasi desktop"
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:434
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:438
 msgid "Control how active now surfaces across the app."
 msgstr "Kontrol bagaimana status aktif sekarang muncul di seluruh aplikasi."
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:142
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:146
 msgid "Control how HDR images are displayed on HDR-capable monitors."
 msgstr "Kontrol cara gambar HDR ditampilkan di monitor yang mendukung HDR."
 
@@ -8585,7 +8576,7 @@ msgid "Control speech commands and narration for incoming content."
 msgstr "Kontrol perintah suara dan narasi untuk konten masuk."
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:414
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:418
 msgid "Control unread indicator behavior for muted channels in channel lists."
 msgstr "Kontrol perilaku indikator belum dibaca untuk channel yang dibisukan di daftar channel."
 
@@ -8724,6 +8715,16 @@ msgstr "Salin tautan saluran"
 msgid "Copy code"
 msgstr "Salin kode"
 
+#. Accessible label for copying the openssl command that generates an ALTCHA HMAC secret.
+#: src/features/app/components/setup/SetupWizardSteps.tsx:929
+msgid "Copy command to generate a secure HMAC secret"
+msgstr ""
+
+#. Link text that copies the openssl command for generating an ALTCHA HMAC secret.
+#: src/features/app/components/setup/SetupWizardSteps.tsx:933
+msgid "Copy command: openssl rand -hex 32"
+msgstr ""
+
 #. Developer-mode action that copies a community snowflake/ID to the clipboard.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:727
 msgid "Copy community ID"
@@ -8772,7 +8773,7 @@ msgid "Copy gift link"
 msgstr "Salin tautan hadiah"
 
 #. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:36
+#: src/features/connection/components/modals/AddConnectionModal.tsx:33
 msgid "Copy host"
 msgstr "Salin host"
 
@@ -8937,7 +8938,7 @@ msgid "Copy username"
 msgstr "Salin nama pengguna"
 
 #. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:40
+#: src/features/connection/components/modals/AddConnectionModal.tsx:37
 msgid "Copy value"
 msgstr "Salin nilai"
 
@@ -8976,7 +8977,9 @@ msgid "Corrupted installation nagbar"
 msgstr "Nagbar instalasi rusak"
 
 #. Error displayed when the browser fails to decode an audio file selected for entrance-sound upload.
+#. Error displayed when the browser fails to decode an audio file selected for soundboard upload.
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:55
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:59
 msgid "Could not decode this audio file."
 msgstr "Tidak dapat mendekode file audio ini."
 
@@ -8991,7 +8994,7 @@ msgid "Could not join {testersCommunityName}. Try again later."
 msgstr "Tidak dapat bergabung ke {testersCommunityName}. Coba lagi nanti."
 
 #. Error shown when the setup wizard fails to load the instance configuration.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:91
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:96
 msgid "Could not load the instance configuration. Try reloading the page."
 msgstr "Konfigurasi instance tidak dapat dimuat. Coba muat ulang halaman."
 
@@ -9410,18 +9413,13 @@ msgstr "Tidak dapat mengirim permintaan pertemanan. Coba lagi."
 msgid "Couldn't send the verification email"
 msgstr "Tidak dapat mengirim email verifikasi"
 
-#. Toast error shown when starting the OAuth flow for a connection provider fails. Preserve {blueskyProviderName}; it is inserted by code and must appear verbatim in the translation.
-#: src/features/connection/commands/ConnectionCommands.ts:30
-msgid "Couldn't start {blueskyProviderName} authorisation"
-msgstr "Tidak dapat memulai otorisasi {blueskyProviderName}"
-
 #. Title of the generic fallback error modal shown when creating a checkout session fails unexpectedly.
 #: src/features/app/components/dialogs/components/plutonium/hooks/useCheckoutActions.tsx:152
 msgid "Couldn't start checkout"
 msgstr "Tidak dapat memulai pembayaran"
 
 #. Toast error shown when creating a new account connection fails.
-#: src/features/connection/commands/ConnectionCommands.ts:26
+#: src/features/connection/commands/ConnectionCommands.ts:25
 msgid "Couldn't start the connection"
 msgstr "Tidak dapat memulai koneksi"
 
@@ -9521,7 +9519,7 @@ msgid "Couldn't verify that code. Try again."
 msgstr "Tidak dapat memverifikasi kode tersebut. Coba lagi."
 
 #. Toast error shown when verifying an account connection fails.
-#: src/features/connection/commands/ConnectionCommands.ts:39
+#: src/features/connection/commands/ConnectionCommands.ts:33
 msgid "Couldn't verify the connection"
 msgstr "Tidak dapat memverifikasi koneksi"
 
@@ -9559,7 +9557,7 @@ msgstr "Sampul"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:262
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:246
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:250
 msgid "Cozy"
 msgstr "Nyaman"
 
@@ -9609,7 +9607,7 @@ msgid "Create account to claim gift"
 msgstr "Buat akun untuk klaim hadiah"
 
 #. Button that opens the registration flow to create the first administrator account.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:68
+#: src/features/app/components/setup/SetupWizardSteps.tsx:69
 msgid "Create administrator account"
 msgstr "Buat akun administrator"
 
@@ -9741,7 +9739,7 @@ msgid "Create sticker pack"
 msgstr "Buat paket stiker"
 
 #. Setup wizard title prompting the operator to create the first account.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:48
+#: src/features/app/components/setup/SetupWizardSteps.tsx:49
 msgid "Create the administrator account"
 msgstr "Buat akun administrator"
 
@@ -9937,7 +9935,7 @@ msgid "Cropping animated files isn't supported yet. The original upload will be 
 msgstr "Pemotongan file animasi belum didukung. Unggahan asli akan digunakan."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:86
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:90
 msgid "CSS"
 msgstr "CSS"
 
@@ -10008,7 +10006,7 @@ msgstr "Saat ini: {mutedText}"
 #. Voice processing profile option label (mobile voice settings). User configures processing manually.
 #: src/features/user/components/modals/tabs/notifications_tab/NotificationsTabSounds.tsx:179
 #: src/features/user/components/modals/tabs/UserVoiceTab.tsx:78
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:94
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:98
 #: src/features/voice/components/AudioSourcePickerLinux.tsx:30
 #: src/features/voice/components/bottomsheets/VoiceSettingsBottomSheets.tsx:47
 #: src/features/voice/components/StreamSettingsMenuContent.tsx:89
@@ -10222,7 +10220,7 @@ msgid "Customize"
 msgstr "Sesuaikan"
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:334
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:338
 msgid "Customize interface elements and behaviors."
 msgstr "Sesuaikan elemen dan perilaku antarmuka."
 
@@ -10326,17 +10324,17 @@ msgid "Dark"
 msgstr "Gelap"
 
 #. Short label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:29
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:37
 msgid "Dark (legacy) theme"
 msgstr "Tema gelap (lama)"
 
 #. Short label in the theme studio. Keep it concise.
-#: src/features/theme_studio/ThemeStudio.tsx:65
+#: src/features/theme_studio/ThemeStudio.tsx:69
 msgid "Dark base"
 msgstr "Dasar gelap"
 
 #. Short label in the theme studio. Keep it concise.
-#: src/features/theme_studio/ThemeStudio.tsx:73
+#: src/features/theme_studio/ThemeStudio.tsx:77
 msgid "Dark legacy base"
 msgstr "Dasar warisan gelap"
 
@@ -10348,7 +10346,7 @@ msgid "Dark mode"
 msgstr "Mode gelap"
 
 #. Short label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:21
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:29
 msgid "Dark theme"
 msgstr "Tema gelap"
 
@@ -10382,7 +10380,7 @@ msgstr "Ekspor data"
 #. Column header for invoice payment or creation date.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/app/components/dialogs/components/plutonium/InvoiceList.tsx:120
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:286
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:290
 msgid "Date"
 msgstr "Tanggal"
 
@@ -10518,7 +10516,7 @@ msgid "Debug user"
 msgstr "Debug pengguna"
 
 #. Setup wizard premium model step body.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:306
+#: src/features/app/components/setup/SetupWizardSteps.tsx:299
 msgid "Decide how premium limits apply to people on this instance."
 msgstr "Tentukan cara penerapan batasan premium untuk orang-orang di instance ini."
 
@@ -10619,6 +10617,11 @@ msgstr "Mesin pencari default"
 msgid "Default shortcuts"
 msgstr "Pintasan default"
 
+#. Section heading in the in-call soundboard panel for the bundled default sound catalog.
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:42
+msgid "Default sounds"
+msgstr ""
+
 #. Developer tools debug menu label. Internal-only surface for developers; translators may keep this terse.
 #: src/features/channel/components/channel_header_components/developer_tools/MockingMenu.tsx:71
 msgid "Default tab"
@@ -10651,6 +10654,7 @@ msgstr "Nonaktif secara default di perangkat seluler untuk menghemat baterai dan
 #. Button or menu action label in the messaging commands. Keep it concise. Keep the tone plain and specific.
 #. Confirm button label on the destructive delete-saved-media alert.
 #. Danger button label that confirms deleting a custom emoji.
+#. Destructive action label.
 #. Destructive action label. Surface varies, see surrounding code for the specific object being deleted.
 #. IAR modal: quick-action card button label for deleting the reported message.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -10663,6 +10667,7 @@ msgstr "Nonaktif secara default di perangkat seluler untuk menghemat baterai dan
 #: src/features/emoji/components/emojis/EmojiListItem.tsx:203
 #: src/features/emoji/components/emojis/EmojiListItem.tsx:215
 #: src/features/emoji/components/stickers/StickerGridItem.tsx:34
+#: src/features/guild/components/modals/guild_tabs/soundboard/SoundboardSoundRow.tsx:35
 #: src/features/messaging/commands/MessageCommands.tsx:72
 #: src/features/moderation/components/report_modal/IARModalCopy.ts:135
 #: src/features/theme_studio/sections/LibrarySection.tsx:514
@@ -10687,6 +10692,11 @@ msgstr "Hapus :{emojiName}:? Tidak dapat dibatalkan."
 #: src/features/channel/components/pickers/memes/MemeGridItem.tsx:34
 msgid "Delete \"{memeName}\"? Can't be undone."
 msgstr "Hapus \"{memeName}\"? Tidak dapat dibatalkan."
+
+#. Confirm dialog body before deleting a soundboard sound.
+#: src/features/guild/components/modals/guild_tabs/soundboard/SoundboardSoundRow.tsx:31
+msgid "Delete \"{soundName}\"? Can't be undone."
+msgstr ""
 
 #. Confirm dialog body before deleting a sticker.
 #: src/features/emoji/components/stickers/StickerGridItem.tsx:30
@@ -10862,6 +10872,11 @@ msgstr "Hapus media tersimpan"
 msgid "Delete shortcut"
 msgstr "Hapus pintasan"
 
+#. Destructive action that deletes the selected soundboard sound.
+#: src/features/guild/components/modals/guild_tabs/soundboard/SoundboardSoundRow.tsx:27
+msgid "Delete sound"
+msgstr ""
+
 #. Destructive action that deletes the selected sticker.
 #: src/features/emoji/components/stickers/StickerGridItem.tsx:26
 msgid "Delete sticker"
@@ -10993,7 +11008,7 @@ msgstr "Edit {FLUXER_TOKEN_0}"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the messages tab. Keep it concise.
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx:63
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:258
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:262
 msgid "Dense"
 msgstr "Rapat"
 
@@ -11304,7 +11319,7 @@ msgstr "Perangkat:"
 #: src/features/user/components/modals/tabs/account_security_tab/SecurityTab.tsx:65
 #: src/features/user/components/modals/tabs/DevicesTab.tsx:528
 #: src/features/user/components/settings_utils/search_index/DevicesIndex.ts:11
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:82
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:86
 #: src/features/user/components/settings_utils/SettingsConstants.tsx:62
 #: src/features/voice/components/modals/ScreenSharePickerModal.tsx:133
 msgid "Devices"
@@ -11383,7 +11398,7 @@ msgstr "Pratinjau pesan langsung"
 
 #. Generic section heading / label for the direct messages area.
 #. Summary row label for the direct messages choice in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:347
+#: src/features/app/components/setup/SetupWizardSteps.tsx:340
 #: src/features/channel/components/direct_message/DirectMessageList.tsx:598
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:218
 #: src/features/user/components/modals/tabs/privacy_safety_tab/ConnectionsTab.tsx:255
@@ -11463,7 +11478,7 @@ msgid "Disable desktop notifications?"
 msgstr "Nonaktifkan notifikasi desktop?"
 
 #. Label for the toggle that disables direct messages and friend requests.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:207
+#: src/features/app/components/setup/SetupWizardSteps.tsx:208
 msgid "Disable direct messages and friend requests"
 msgstr "Nonaktifkan pesan langsung dan permintaan pertemanan"
 
@@ -11535,7 +11550,7 @@ msgstr "Nonaktifkan video secara lokal"
 
 #. Button or menu action label in the guild audit log tab.renderers. Keep it concise.
 #. Summary value when a setup option is disabled.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:363
+#: src/features/app/components/setup/SetupWizardSteps.tsx:356
 #: src/features/guild/components/modals/guild_tabs/GuildAuditLogTabRenderers.tsx:50
 msgid "Disabled"
 msgstr "Dinonaktifkan"
@@ -11563,7 +11578,7 @@ msgid "Disabled {0}."
 msgstr "{0} dinonaktifkan."
 
 #. Description for the attachment expiry setup switch.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:228
+#: src/features/app/components/setup/SetupWizardSteps.tsx:229
 msgid "Disabled attachments remain available until manually removed."
 msgstr "Lampiran yang dinonaktifkan tetap tersedia hingga dihapus secara manual."
 
@@ -11686,7 +11701,7 @@ msgid "Discovery"
 msgstr "Temukan"
 
 #. Community settings tab for public community discovery/listing.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:76
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:83
 msgctxt "community-settings-tab"
 msgid "Discovery"
 msgstr "Penemuan"
@@ -11758,7 +11773,7 @@ msgstr "Tutup sebutan"
 #: src/features/user/components/modals/tabs/chat_settings_tab/ChatSettingsTabInline.tsx:14
 #: src/features/user/components/modals/tabs/ChatSettingsTab.tsx:14
 #: src/features/user/components/modals/tabs/component_gallery_tab/TypographyTab.tsx:102
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:154
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:158
 #: src/features/voice/components/modals/ScreenSharePickerModal.tsx:116
 msgid "Display"
 msgstr "Tampilan"
@@ -11785,7 +11800,7 @@ msgid "Display keyboard shortcut indicators next to context menu items"
 msgstr "Tampilkan indikator pintasan keyboard di samping item menu konteks"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:266
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:270
 msgid "Display mode"
 msgstr "Mode tampilan"
 
@@ -11816,7 +11831,7 @@ msgid "Display role members separately."
 msgstr "Tampilkan anggota peran secara terpisah."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:206
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:210
 msgid "Display scaling"
 msgstr "Skala tampilan"
 
@@ -11894,11 +11909,11 @@ msgid "DM settings"
 msgstr "Setelan DM"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:450
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:454
 msgid "DM sidebar"
 msgstr "Bilah sisi DM"
 
-#: src/features/connection/components/modals/AddConnectionModal.tsx:275
+#: src/features/connection/components/modals/AddConnectionModal.tsx:212
 msgid "DNS TXT record"
 msgstr "Catatan DNS TXT"
 
@@ -11969,7 +11984,7 @@ msgstr "Tidak memblokir. Anda bisa membukanya lagi nanti."
 #. Generic form-field / table-column label for an internet domain.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:771
-#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:28
+#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:24
 msgid "Domain"
 msgstr "Emoji"
 
@@ -12042,12 +12057,12 @@ msgid "Done"
 msgstr "Selesai"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:382
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:386
 msgid "Double click"
 msgstr "Klik dua kali"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:386
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:390
 msgid "Double-click"
 msgstr "Double-click"
 
@@ -12072,10 +12087,6 @@ msgstr "Unduh"
 #: src/features/app/components/layout/sidebar_nav/DownloadButton.tsx:26
 msgid "Download {productName}"
 msgstr "Unduh {productName}"
-
-#: src/features/connection/components/modals/AddConnectionModal.tsx:329
-msgid "Download <0>fluxer-verification</0> and place it in your <1>.well-known</1> folder so we can validate the domain."
-msgstr "Unduh <0>fluxer-verification</0> dan letakkan di folder <1>.well-known</1> Anda agar kami dapat memvalidasi domainnya."
 
 #. Media context menu action that downloads an audio attachment.
 #: src/features/ui/action_menu/items/MediaMenuData.tsx:120
@@ -12117,10 +12128,6 @@ msgstr "Unduh pembaruan desktop {version} ({formatBytes})"
 msgid "Download file"
 msgstr "Unduh file"
 
-#: src/features/connection/components/modals/AddConnectionModal.tsx:351
-msgid "Download fluxer-verification"
-msgstr "Unduh fluxer-verification"
-
 #. Media context menu action that downloads a GIF attachment.
 #: src/features/ui/action_menu/items/MediaMenuData.tsx:112
 msgid "Download GIF"
@@ -12149,6 +12156,10 @@ msgstr "Unduh media"
 #: src/features/updater/commands/UpdaterModalCommands.tsx:33
 msgid "Download package"
 msgstr "Unduh paket"
+
+#: src/features/connection/components/modals/AddConnectionModal.tsx:280
+msgid "Download token file"
+msgstr ""
 
 #. Media context menu action that downloads a video attachment.
 #: src/features/ui/action_menu/items/MediaMenuData.tsx:116
@@ -12201,6 +12212,10 @@ msgstr "Seret dan lepas"
 msgid "Drag and drop a sticker file here (one at a time)"
 msgstr "Seret dan lepas satu file stiker di sini"
 
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:235
+msgid "Drag and drop an audio file here (one at a time)"
+msgstr ""
+
 #. Label in the community upload drop zone.
 #: src/features/guild/components/UploadDropZone.tsx:11
 msgid "Drag and drop area for file upload"
@@ -12220,7 +12235,9 @@ msgid "Drag roles to customize the order they appear in the member list."
 msgstr "Seret peran untuk menyesuaikan urutan kemunculannya di daftar anggota."
 
 #. Help text in the entrance sound trimmer modal explaining how the selection works.
+#. Help text in the soundboard sound trimmer modal explaining how the selection works.
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:27
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:31
 msgid "Drag the handles to choose up to 5.2 seconds of audio. The selected region is what gets uploaded."
 msgstr "Seret gagang untuk memilih audio hingga 5,2 detik. Bagian yang dipilih adalah yang akan diunggah."
 
@@ -12361,14 +12378,16 @@ msgid "Echo cancellation"
 msgstr "Pembatalan gema"
 
 #. Action label for opening the edit flow for the selected item.
+#. Action label for opening the edit flow for the selected item.
 #. Button or menu action label in the linked accounts tab. Keep it concise.
 #. Button or menu action label in the search engines tab. Keep it concise.
 #. Top-level native menu bar title (Edit menu, holds cut/copy/paste).
 #: src/features/emoji/components/stickers/StickerGridItem.tsx:42
+#: src/features/guild/components/modals/guild_tabs/soundboard/SoundboardSoundRow.tsx:23
 #: src/features/platform/utils/DesktopLocaleBridge.ts:42
 #: src/features/user/components/modals/tabs/chat_settings_tab/SearchEnginesTab.tsx:34
 #: src/features/user/components/modals/tabs/ExpressionPacksTab.tsx:123
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:49
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:46
 msgid "Edit"
 msgstr "emoji {FLUXER_TOKEN_0}"
 
@@ -12554,6 +12573,11 @@ msgstr "Edit mesin pencari"
 msgid "Edit shortcut"
 msgstr "Edit pintasan"
 
+#. Title of the modal for editing a guild soundboard sound.
+#: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:22
+msgid "Edit soundboard sound"
+msgstr ""
+
 #. Action that opens the edit-sticker modal.
 #: src/features/expressions/components/modals/EditGuildStickerModal.tsx:28
 msgid "Edit sticker"
@@ -12658,7 +12682,7 @@ msgid "Email changed"
 msgstr "Email berhasil diubah"
 
 #. Setup wizard title for SMTP integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:910
+#: src/features/app/components/setup/SetupWizardSteps.tsx:893
 msgid "Email delivery"
 msgstr "Pengiriman email"
 
@@ -12780,6 +12804,21 @@ msgstr "Sematan disembunyikan"
 msgid "Embeds unsuppressed"
 msgstr "Sematan tidak disembunyikan"
 
+#. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:58
+msgid "Ember"
+msgstr ""
+
+#. Short label in the theme studio. Keep it concise.
+#: src/features/theme_studio/ThemeStudio.tsx:65
+msgid "Ember base"
+msgstr ""
+
+#. Short label in the theme tab content. Keep it concise.
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:21
+msgid "Ember theme"
+msgstr ""
+
 #. Audit log target-type filter label. Filters entries that target a custom emoji.
 #. Column header for the custom emoji image or glyph.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
@@ -12792,10 +12831,17 @@ msgid "Emoji"
 msgstr "file"
 
 #. Community settings tab for managing custom emoji uploaded to the community.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:36
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:38
 msgctxt "community-settings-tab"
 msgid "Emoji"
 msgstr "File"
+
+#. Label for the optional emoji field shown next to the soundboard sound tile.
+#. Label for the optional emoji field shown next to the soundboard sound tile.
+#: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:30
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:71
+msgid "Emoji (optional)"
+msgstr ""
 
 #. TTS substitution token spoken in place of a custom emoji. {emojiName} is the emoji shortcode without colons. Lowercase, mid-sentence.
 #: src/features/voice/utils/TtsTextFormatter.ts:37
@@ -12992,7 +13038,7 @@ msgid "Enable at least one translator below."
 msgstr "Aktifkan setidaknya satu penerjemah di bawah."
 
 #. Label for enabling attachment expiry during setup.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:224
+#: src/features/app/components/setup/SetupWizardSteps.tsx:225
 msgid "Enable attachment expiry"
 msgstr "Aktifkan kedaluwarsa lampiran"
 
@@ -13004,11 +13050,6 @@ msgstr "Aktifkan audio"
 #: src/features/user/components/modals/tabs/component_gallery_tab/index.tsx:172
 msgid "Enable beta feature"
 msgstr "Aktifkan fitur beta"
-
-#. Label for enabling Bluesky OAuth in setup.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:966
-msgid "Enable Bluesky OAuth"
-msgstr "Aktifkan OAuth Bluesky"
 
 #. Button or menu action label in the notifications. Keep it concise.
 #: src/features/user/components/modals/tabs/notifications_tab/Notifications.tsx:34
@@ -13034,7 +13075,7 @@ msgid "Enable developer mode"
 msgstr "Aktifkan mode pengembang"
 
 #. Label for enabling SMTP email delivery in setup.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:938
+#: src/features/app/components/setup/SetupWizardSteps.tsx:944
 msgid "Enable email delivery"
 msgstr "Aktifkan pengiriman email"
 
@@ -13166,7 +13207,7 @@ msgid "Enable text selection"
 msgstr "Aktifkan pilihan teks"
 
 #. Setup wizard optional services step body.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:269
+#: src/features/app/components/setup/SetupWizardSteps.tsx:270
 msgid "Enable the integrations whose credentials you have configured. Only available services are shown."
 msgstr "Aktifkan integrasi yang kredensialnya telah Anda konfigurasikan. Hanya layanan yang tersedia yang ditampilkan."
 
@@ -13207,7 +13248,7 @@ msgstr "Aktifkan thumbnail pencarian video"
 #. Developer tools debug menu label. Internal-only surface for developers; translators may keep this terse.
 #. Summary value when a setup option is enabled.
 #. Toggle item in the textarea spellcheck submenu. Master enable for spellcheck.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:359
+#: src/features/app/components/setup/SetupWizardSteps.tsx:352
 #: src/features/channel/components/channel_header_components/developer_tools/DeveloperToolsShared.ts:21
 #: src/features/channel/components/textarea/TextareaContextMenu.tsx:64
 msgid "Enabled"
@@ -13280,7 +13321,7 @@ msgstr "Akhiri masa tenggang sekarang?"
 #. Button label that stops the current screen share.
 #. Voice control menu action to stop sharing the screen.
 #: src/features/voice/components/voice_connection_status/LocalParticipantControls.tsx:52
-#: src/features/voice/components/VoiceControlBar.tsx:112
+#: src/features/voice/components/VoiceControlBar.tsx:116
 msgid "End screen share"
 msgstr "Berhenti berbagi layar"
 
@@ -13356,7 +13397,7 @@ msgid "Enter a code in the format ABCD-1234."
 msgstr "Masukkan kode dalam format ABCD-1234."
 
 #. Validation error for the single community name input in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:203
+#: src/features/app/components/setup/SetupWizardSteps.tsx:204
 msgid "Enter a community name between 1 and 100 characters."
 msgstr "Masukkan nama komunitas antara 1 dan 100 karakter."
 
@@ -13370,7 +13411,7 @@ msgid "Enter a numeric value and choose a unit."
 msgstr "Masukkan nilai angka dan pilih satuan."
 
 #. Validation error for the product name input in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:97
+#: src/features/app/components/setup/SetupWizardSteps.tsx:98
 msgid "Enter a product name between 1 and 80 characters."
 msgstr "Masukkan nama produk antara 1 dan 80 karakter."
 
@@ -13743,7 +13784,7 @@ msgid "Everyone"
 msgstr "Semua orang"
 
 #. Premium model option that gives everyone the highest limits.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:318
+#: src/features/app/components/setup/SetupWizardSteps.tsx:311
 msgid "Everyone is premium"
 msgstr "Semua orang adalah premium"
 
@@ -13957,7 +13998,7 @@ msgid "Expires:"
 msgstr "Kedaluwarsa:"
 
 #. Label for attachment decay curve.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:252
+#: src/features/app/components/setup/SetupWizardSteps.tsx:253
 msgid "Expiry curve"
 msgstr "Kurva kedaluwarsa"
 
@@ -14008,7 +14049,7 @@ msgid "Export my data"
 msgstr "Ekspor data saya"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:110
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:114
 msgid "Export themes"
 msgstr "Ekspor tema"
 
@@ -14059,7 +14100,7 @@ msgstr "Hapus ekspresi"
 #. Community settings sidebar category grouping the emoji and stickers tabs.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:249
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:265
 #: src/features/user/components/settings_utils/search_index/ExpressionPacksIndex.ts:19
 #: src/features/user/components/settings_utils/section_registry/ChatSettingsSections.ts:134
 msgid "Expressions"
@@ -14071,7 +14112,7 @@ msgid "Extended network"
 msgstr "Jaringan diperluas"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:36
+#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:32
 msgid "External"
 msgstr "Eksternal"
 
@@ -14111,7 +14152,7 @@ msgid "Face recognition"
 msgstr "Pengenalan wajah"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:422
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:426
 msgid "Faded unread"
 msgstr "Pesan belum dibaca yang memudar"
 
@@ -14247,6 +14288,11 @@ msgstr "Gagal memuat undangan. Coba lagi."
 msgid "Failed to load shareable sources."
 msgstr "Gagal memuat sumber yang dapat dibagikan."
 
+#. Error message in the guild soundboard tab.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:58
+msgid "Failed to load soundboard sounds"
+msgstr ""
+
 #. Error message in the guild stickers tab.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:71
 msgid "Failed to load stickers"
@@ -14366,7 +14412,7 @@ msgstr "Gagal mengirim laporan. Coba lagi."
 msgid "Failed to send verification email. Try again later."
 msgstr "Gagal mengirim email verifikasi. Coba lagi nanti."
 
-#: src/features/app/components/BootstrapErrorScreen.tsx:36
+#: src/features/app/components/BootstrapErrorScreen.tsx:31
 msgid "Failed to start"
 msgstr "Gagal memulai"
 
@@ -14424,6 +14470,11 @@ msgstr "Gagal melepas sematan pesan"
 msgid "Failed to update premium perk state."
 msgstr "Gagal memperbarui status keuntungan premium."
 
+#. Error message shown when updating a soundboard sound fails.
+#: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:38
+msgid "Failed to update soundboard sound"
+msgstr ""
+
 #. Error toast shown when updating a sticker fails.
 #: src/features/expressions/components/modals/EditGuildStickerModal.tsx:24
 msgid "Failed to update sticker"
@@ -14453,13 +14504,18 @@ msgstr "Gagal mengunggah emoji mulai dari {startLabel}: {errorMsg}"
 msgid "Failed to upload emojis. Try again."
 msgstr "Gagal mengunggah emoji. Coba lagi."
 
+#. Error message shown when uploading a soundboard sound fails.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:78
+msgid "Failed to upload soundboard sound"
+msgstr ""
+
 #. IAR modal: rule description.
 #: src/features/moderation/components/report_modal/IARModalCopy.ts:263
 msgid "False claims likely to cause real-world harm."
 msgstr "Klaim palsu yang kemungkinan menyebabkan kerugian di dunia nyata."
 
 #. Label for the favicon branding asset.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:137
+#: src/features/app/components/setup/SetupWizardSteps.tsx:138
 msgid "Favicon"
 msgstr "Favicon"
 
@@ -14534,7 +14590,7 @@ msgstr "Favorit"
 #. Generic section heading / category label for favorites.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:258
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:426
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:430
 msgid "Favorites"
 msgstr "Favorit"
 
@@ -14747,8 +14803,8 @@ msgstr "Selesaikan penyiapan akun dulu"
 
 #. Button that saves the configuration and completes the setup wizard.
 #. Setup wizard finish step title.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:83
-#: src/features/app/components/setup/SetupWizardSteps.tsx:327
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:88
+#: src/features/app/components/setup/SetupWizardSteps.tsx:320
 msgid "Finish setup"
 msgstr "Selesaikan penyiapan"
 
@@ -14816,7 +14872,7 @@ msgid "Fluid motion at 720p 30 FPS"
 msgstr "Gerakan lancar pada 720p 30 FPS"
 
 #. Placeholder for the product name input in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:93
+#: src/features/app/components/setup/SetupWizardSteps.tsx:94
 msgid "Fluxer"
 msgstr "Fluxer"
 
@@ -14898,11 +14954,6 @@ msgstr "Nama folder"
 msgid "Folder settings"
 msgstr "Setelan folder"
 
-#. Short label in the whats new modal. Preserve {blueskyProviderName}; it is inserted by code.
-#: src/features/app/components/whats_new/WhatsNewModal.tsx:32
-msgid "Follow us on {blueskyProviderName}"
-msgstr "Ikuti kami di {blueskyProviderName}"
-
 #: src/features/voice/components/StreamSettingsMenuContent.tsx:680
 msgid "Follow voice input"
 msgstr "Ikuti input suara"
@@ -14913,7 +14964,7 @@ msgid "Following master • {effectiveValue}%"
 msgstr "Mengikuti master • {effectiveValue}%"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:170
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:174
 msgid "Font"
 msgstr "Fluxer"
 
@@ -15373,12 +15424,12 @@ msgid "From another community"
 msgstr "Dari komunitas lain"
 
 #. Label for SMTP from email input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:942
+#: src/features/app/components/setup/SetupWizardSteps.tsx:948
 msgid "From email"
 msgstr "Email pengirim"
 
 #. Label for SMTP from name input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:946
+#: src/features/app/components/setup/SetupWizardSteps.tsx:952
 msgid "From name"
 msgstr "Nama pengirim"
 
@@ -15441,7 +15492,7 @@ msgid "Gaming"
 msgstr "Game"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:322
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:326
 msgid "Gap"
 msgstr "Jeda"
 
@@ -15463,6 +15514,11 @@ msgstr "Umum"
 #: src/features/theme_studio/sections/ThemeStudioSettingsSection.tsx:325
 msgid "Generate a shareable link or copy your combined custom CSS."
 msgstr "Buat tautan yang dapat dibagikan atau salin CSS kustom gabungan Anda."
+
+#. Accessible label for a button that generates a random ALTCHA HMAC secret.
+#: src/features/app/components/setup/SetupWizardSteps.tsx:925
+msgid "Generate HMAC secret"
+msgstr ""
 
 #: src/features/expressions/components/modals/PackInviteModal.tsx:213
 msgid "Generate invite"
@@ -15585,7 +15641,7 @@ msgid "GIF preview"
 msgstr "Pratinjau GIF"
 
 #. Setup wizard title for GIF integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:886
+#: src/features/app/components/setup/SetupWizardSteps.tsx:869
 msgid "GIF search"
 msgstr "Pencarian GIF"
 
@@ -15758,7 +15814,7 @@ msgid "Gifts"
 msgstr "Hadiah"
 
 #. Description for the everyone-is-premium model.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:322
+#: src/features/app/components/setup/SetupWizardSteps.tsx:315
 msgid "Give everyone on this instance the highest premium limits."
 msgstr "Berikan semua orang di instance ini batas premium tertinggi."
 
@@ -15899,7 +15955,7 @@ msgid "Google lens"
 msgstr "Google Lens"
 
 #. Short label in the whats new modal.
-#: src/features/app/components/whats_new/WhatsNewModal.tsx:36
+#: src/features/app/components/whats_new/WhatsNewModal.tsx:29
 msgid "Got it"
 msgstr "Oke"
 
@@ -16113,7 +16169,7 @@ msgid "Group updated"
 msgstr "Grup diperbarui"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:270
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:274
 msgid "Grouping"
 msgstr "Pengelompokan"
 
@@ -16133,8 +16189,6 @@ msgid "H.264 simulcast backup"
 msgstr "Cadangan simulcast H.264"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:56
 #: src/features/user/components/settings_utils/search_index/MyProfileIndex.ts:69
 msgid "Handle"
 msgstr "Nama pengguna"
@@ -16238,12 +16292,12 @@ msgstr "Ujaran kebencian"
 msgid "Having fun?"
 msgstr "Seru-seruan?"
 
-#: src/features/auth/components/modals/CaptchaModal.tsx:157
+#: src/features/auth/components/modals/CaptchaModal.tsx:180
 msgid "Having issues? Try hCaptcha instead"
 msgstr "Ada masalah? Coba pakai hCaptcha saja"
 
 #. hCaptcha provider option.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:930
+#: src/features/app/components/setup/SetupWizardSteps.tsx:905
 msgid "hCaptcha"
 msgstr "hCaptcha"
 
@@ -16253,7 +16307,7 @@ msgid "HD"
 msgstr "HD"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:146
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:150
 msgid "HDR"
 msgstr "HDR"
 
@@ -16400,7 +16454,7 @@ msgid "Hide {premiumProductName} purchase date ({dateUtilsGetFormattedShortDateP
 msgstr "Sembunyikan tanggal pembelian {premiumProductName} ({dateUtilsGetFormattedShortDatePremiumSince})"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:298
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:302
 msgid "Hide avatars"
 msgstr "Sembunyikan avatar"
 
@@ -16550,7 +16604,7 @@ msgstr "Kontras tinggi"
 #. Short label in the inline. Keep it concise.
 #: src/features/user/components/modals/tabs/appearance_tab/AppearanceTabInline.tsx:27
 #: src/features/user/components/modals/tabs/AppearanceTab.tsx:35
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:138
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:142
 msgid "High dynamic range"
 msgstr "Rentang dinamis tinggi"
 
@@ -16575,9 +16629,14 @@ msgid "Hindi"
 msgstr "Hindi"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:362
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:366
 msgid "Hints"
 msgstr "Petunjuk"
+
+#. Label for an ALTCHA HMAC secret input.
+#: src/features/app/components/setup/SetupWizardSteps.tsx:921
+msgid "HMAC secret"
+msgstr ""
 
 #: src/features/guild/components/modals/guild_tabs/guild_roles_tab/RoleSidebar.tsx:79
 msgid "Hoist order"
@@ -16622,14 +16681,18 @@ msgid "Home"
 msgstr "Beranda"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:458
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:462
 msgid "Home screen"
 msgstr "Layar utama"
 
 #. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:68
+#: src/features/connection/components/modals/AddConnectionModal.tsx:53
 msgid "Host"
 msgstr "Host"
+
+#: src/features/connection/components/modals/AddConnectionModal.tsx:266
+msgid "Host the verification token at <0>{dnsUrl}</0>."
+msgstr ""
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/KeybindsIndex.ts:34
@@ -16788,7 +16851,7 @@ msgstr "Saya mengerti"
 
 #. Label for the icon branding asset.
 #. Short label in the guild icon upload field. Keep it concise.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:121
+#: src/features/app/components/setup/SetupWizardSteps.tsx:122
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/fields/GuildIconUploadField.tsx:26
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/fields/GuildIconUploadField.tsx:88
 msgid "Icon"
@@ -17026,7 +17089,7 @@ msgid "Image"
 msgstr "Gambar"
 
 #. Label for the branding image asset uploaders in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:105
+#: src/features/app/components/setup/SetupWizardSteps.tsx:106
 msgid "Image assets"
 msgstr "Aset gambar"
 
@@ -17179,7 +17242,7 @@ msgid "Import theme"
 msgstr "Impor tema"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:106
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:110
 msgid "Import themes"
 msgstr "Impor tema"
 
@@ -17321,7 +17384,7 @@ msgstr "Pratinjau kotak masuk"
 msgid "Inbox tabs"
 msgstr "Tab kotak masuk"
 
-#: src/features/app/components/ConnectionIssuesLinks.tsx:43
+#: src/features/app/components/ConnectionIssuesLinks.tsx:47
 msgid "Incident history"
 msgstr "Riwayat insiden"
 
@@ -17636,7 +17699,7 @@ msgstr "Undangan instan"
 
 #. Community settings sidebar category grouping webhooks.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:257
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:273
 #: src/features/user/components/settings_utils/search_index/AuthorizedAppsIndex.ts:26
 msgid "Integrations"
 msgstr "Integrasi"
@@ -17655,7 +17718,7 @@ msgid "Interface"
 msgstr "Antarmuka"
 
 #. Appearance settings section for general app interface controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:472
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:476
 msgctxt "appearance-settings-section"
 msgid "Interface"
 msgstr "Antarmuka"
@@ -17668,7 +17731,7 @@ msgid "Interface language"
 msgstr "Bahasa antarmuka"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:202
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:206
 msgid "Interface size"
 msgstr "Ukuran antarmuka"
 
@@ -17850,7 +17913,7 @@ msgid "Invite masked"
 msgstr "Undangan disamarkan"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:226
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:230
 msgid "Invite masking"
 msgstr "Masking undangan"
 
@@ -17979,7 +18042,7 @@ msgid "Invites"
 msgstr "Undangan"
 
 #. Community settings tab for invite link management.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:86
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:93
 msgctxt "community-settings-tab"
 msgid "Invites"
 msgstr "Undangan"
@@ -18126,7 +18189,7 @@ msgid "Jitter:"
 msgstr "Jitter:"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:378
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:382
 msgid "Join"
 msgstr "Gabung"
 
@@ -18224,7 +18287,7 @@ msgstr "Gabung panggilan video"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/profile/VoiceActivityCard.tsx:63
 #: src/features/user/components/settings_utils/search_index/AppearanceIndex.ts:31
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:454
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:458
 msgid "Join voice"
 msgstr "Gabung obrolan suara"
 
@@ -18387,7 +18450,7 @@ msgid "Keep animations, GIFs, hover, and tooltips running unfocused"
 msgstr "Aktifkan animasi, GIF, efek hover, dan tooltip saat tidak dalam fokus"
 
 #. Description for the mirror premium model.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:314
+#: src/features/app/components/setup/SetupWizardSteps.tsx:307
 msgid "Keep Free and Premium tiers. You can customize the tiers later."
 msgstr "Pertahankan tingkatan Gratis dan Premium. Anda dapat menyesuaikan tingkatan nanti."
 
@@ -18470,7 +18533,7 @@ msgstr "Petunjuk pintasan keyboard di tooltip"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/input/components/modals/KeyboardShortcutsCheatsheetModal.tsx:20
 #: src/features/user/components/settings_utils/search_index/KeybindsIndex.ts:14
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:374
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:378
 msgid "Keyboard shortcuts"
 msgstr "Pintasan keyboard"
 
@@ -18509,7 +18572,7 @@ msgid "Kicked {0} from the community"
 msgstr "Mengeluarkan {0} dari komunitas"
 
 #. Label for the KLIPY GIF service toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:277
+#: src/features/app/components/setup/SetupWizardSteps.tsx:278
 msgid "KLIPY GIFs"
 msgstr "GIF KLIPY"
 
@@ -18521,7 +18584,7 @@ msgstr "Korea"
 #. Label for the setup wizard language selector.
 #. Settings search entry label. Also used as a search synonym in the settings search bar.
 #. User settings tab for language, locale, and time display preferences.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:56
+#: src/features/app/components/setup/SetupWizardSteps.tsx:57
 #: src/features/user/components/settings_utils/search_index/LanguageIndex.ts:6
 #: src/features/user/components/settings_utils/SettingsConstants.tsx:137
 msgid "Language"
@@ -18551,7 +18614,7 @@ msgid "Large"
 msgstr "Besar"
 
 #. Label for attachment decay maximum size threshold.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:236
+#: src/features/app/components/setup/SetupWizardSteps.tsx:237
 msgid "Large file threshold (MB)"
 msgstr "Batas ukuran file besar (MB)"
 
@@ -18761,13 +18824,8 @@ msgstr "Biarkan klik pada elemen yang sedang difokus mengaktifkan kontrol."
 msgid "Let members of this community DM you"
 msgstr "Izinkan anggota komunitas ini mengirimi Anda DM"
 
-#. Description for the Bluesky connections service toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:297
-msgid "Let people link their Bluesky account to their profile."
-msgstr "Izinkan orang menautkan akun Bluesky mereka ke profil mereka."
-
 #. Description for the KLIPY GIF service toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:281
+#: src/features/app/components/setup/SetupWizardSteps.tsx:282
 msgid "Let people search and send GIFs powered by KLIPY."
 msgstr "Izinkan orang mencari dan mengirim GIF yang didukung oleh KLIPY."
 
@@ -18830,7 +18888,7 @@ msgid "Light"
 msgstr "Terang"
 
 #. Short label in the theme studio. Keep it concise.
-#: src/features/theme_studio/ThemeStudio.tsx:69
+#: src/features/theme_studio/ThemeStudio.tsx:73
 msgid "Light base"
 msgstr "Dasar terang"
 
@@ -18840,7 +18898,7 @@ msgid "Light mode"
 msgstr "Mode terang"
 
 #. Short label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:45
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:53
 msgid "Light theme"
 msgstr "Tema terang"
 
@@ -18906,12 +18964,12 @@ msgstr "Tautan kedaluwarsa. Email Anda kemungkinan sudah terverifikasi."
 msgid "Link expired. Your IP address was likely already authorized."
 msgstr "Tautan kedaluwarsa. Alamat IP Anda mungkin sudah diotorisasi."
 
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:362
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:345
 msgid "Link external accounts and domains to your {PRODUCT_NAME} profile. Verified connections will be displayed on your profile for others to see."
 msgstr "Tautkan akun dan domain eksternal ke profil {PRODUCT_NAME} Anda. Koneksi yang terverifikasi akan ditampilkan di profil Anda agar dapat dilihat orang lain."
 
 #. Settings search entry description. One-line summary of what the settings search entry controls.
-#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:44
+#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:40
 msgid "Link external accounts and domains to your profile"
 msgstr "Tautkan akun dan domain eksternal ke profil Anda"
 
@@ -18967,10 +19025,6 @@ msgstr "Garis bawah tautan"
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts:219
 msgid "Link warnings"
 msgstr "Peringatan tautan"
-
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:405
-msgid "Link your {BLUESKY_PROVIDER_NAME} account or verify domain ownership to display them on your profile."
-msgstr "Tautkan akun {BLUESKY_PROVIDER_NAME} Anda atau verifikasi kepemilikan domain untuk menampilkannya di profil Anda."
 
 #. Hint shown beside has:. Lists all supported content categories in lowercase.
 #: src/features/search/utils/SearchUtils.ts:105
@@ -19081,7 +19135,7 @@ msgid "Loading image"
 msgstr "Memuat gambar"
 
 #. Accessible status while the setup wizard loads the instance configuration.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:87
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:92
 msgid "Loading instance configuration"
 msgstr "Memuat konfigurasi instance"
 
@@ -19116,7 +19170,7 @@ msgid "Loading states"
 msgstr "Memuat status"
 
 #. Setup wizard body while the instance configuration loads.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:76
+#: src/features/app/components/setup/SetupWizardSteps.tsx:77
 msgid "Loading the current instance configuration."
 msgstr "Memuat konfigurasi instance saat ini."
 
@@ -19150,12 +19204,12 @@ msgid "Local file references"
 msgstr "Referensi file lokal"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:118
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:122
 msgid "Local files"
 msgstr "File lokal"
 
 #. Profile section title for a user's local time.
-#: src/features/user/components/popouts/UserProfileShared.tsx:57
+#: src/features/user/components/popouts/UserProfileShared.tsx:55
 msgid "Local time"
 msgstr "Waktu setempat"
 
@@ -19237,14 +19291,9 @@ msgid "Login"
 msgstr "Masuk"
 
 #. Label for the logo branding asset.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:129
+#: src/features/app/components/setup/SetupWizardSteps.tsx:130
 msgid "Logo"
 msgstr "Logo"
-
-#. Label for Bluesky OAuth logo URL input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:978
-msgid "Logo URL"
-msgstr "URL logo"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/DevicesIndex.ts:51
@@ -19267,7 +19316,7 @@ msgid "Long-form content"
 msgstr "Konten bentuk panjang"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:134
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:138
 msgid "Look and feel"
 msgstr "Tampilan dan nuansa"
 
@@ -19370,7 +19419,7 @@ msgid "Make group owner"
 msgstr "Jadikan pemilik grup"
 
 #. Setup wizard branding step title.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:81
+#: src/features/app/components/setup/SetupWizardSteps.tsx:82
 msgid "Make the instance yours"
 msgstr "Jadikan instance Anda milik Anda"
 
@@ -19493,6 +19542,11 @@ msgstr "Kelola kode hadiah dan URL hadiah yang dibeli"
 #: src/features/permissions/utils/PermissionLabelDescriptors.ts:169
 msgid "Manage roles"
 msgstr "Kelola peran"
+
+#. Tooltip on the settings shortcut in the in-call soundboard panel.
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:58
+msgid "Manage server sounds"
+msgstr ""
 
 #. Billing action that opens subscription management or the customer billing portal.
 #: src/features/premium/utils/PremiumMessageDescriptors.ts:13
@@ -19654,7 +19708,7 @@ msgid "Mask community invite links"
 msgstr "Maskir tautan undangan komunitas"
 
 #. Settings section description. One-line summary of what the settings section controls.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:214
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:218
 msgid "Mask names, private details, invites, sounds, and alerts while sharing."
 msgstr "Menyembunyikan nama, detail pribadi, undangan, suara, dan peringatan saat berbagi."
 
@@ -19827,12 +19881,12 @@ msgid "Maximum 256 characters"
 msgstr "Maksimal 256 karakter"
 
 #. Label for attachment decay maximum eligible size.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:240
+#: src/features/app/components/setup/SetupWizardSteps.tsx:241
 msgid "Maximum eligible size (MB)"
 msgstr "Ukuran kelayakan maksimum (MB)"
 
 #. Label for attachment decay maximum lifetime.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:248
+#: src/features/app/components/setup/SetupWizardSteps.tsx:249
 msgid "Maximum lifetime (days)"
 msgstr "Masa pakai maksimum (hari)"
 
@@ -19982,7 +20036,7 @@ msgid "Member kicked"
 msgstr "Anggota dikeluarkan"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:338
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:342
 msgid "Member list"
 msgstr "Daftar anggota"
 
@@ -20017,7 +20071,7 @@ msgid "Member roles updated"
 msgstr "Peran anggota diperbarui"
 
 #: src/features/channel/components/guild_members_page/MembersTableHeaderRow.tsx:82
-#: src/features/user/components/popouts/UserProfileShared.tsx:342
+#: src/features/user/components/popouts/UserProfileShared.tsx:340
 msgid "Member since"
 msgstr "Anggota sejak"
 
@@ -20050,12 +20104,12 @@ msgstr "anggota"
 #: src/features/app/components/dialogs/shared/AddOverridePopout.tsx:285
 #: src/features/channel/components/bottomsheets/ChannelDetailsBottomSheet.tsx:591
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:490
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:346
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:350
 msgid "Members"
 msgstr "Anggota"
 
 #. Community settings tab for managing community members.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:81
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:88
 msgctxt "community-settings-tab"
 msgid "Members"
 msgstr "Anggota"
@@ -20310,7 +20364,7 @@ msgid "Message group"
 msgstr "Grup pesan"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:314
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:318
 msgid "Message groups"
 msgstr "Grup pesan"
 
@@ -20355,7 +20409,7 @@ msgid "Message is too long"
 msgstr "Pesan terlalu panjang"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:262
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:266
 msgid "Message layout"
 msgstr "Tata letak pesan"
 
@@ -20424,17 +20478,17 @@ msgid "Message sound"
 msgstr "Suara pesan"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:330
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:334
 msgid "Message spacing"
 msgstr "Spasi pesan"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:250
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:254
 msgid "Message style"
 msgstr "Gaya pesan"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:290
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:294
 msgid "Message time"
 msgstr "Waktu pesan"
 
@@ -20465,7 +20519,7 @@ msgid "Messages"
 msgstr "Pesan"
 
 #. Appearance settings section for message layout and display.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:467
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:471
 msgctxt "appearance-settings-section"
 msgid "Messages"
 msgstr "Pesan"
@@ -20604,7 +20658,7 @@ msgid "Minimize window"
 msgstr "Minimalkan jendela"
 
 #. Label for attachment decay minimum lifetime.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:244
+#: src/features/app/components/setup/SetupWizardSteps.tsx:245
 msgid "Minimum lifetime (days)"
 msgstr "Masa pakai minimum (hari)"
 
@@ -20634,7 +20688,7 @@ msgid "Mirror of the Appearance tab toggle for light/dark/coal preference. Disab
 msgstr "Cerminan tombol tab Tampilan untuk preferensi terang/gelap/batubara. Nonaktifkan untuk tema dasar per perangkat."
 
 #. Premium model option that mirrors free and premium tiers.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:310
+#: src/features/app/components/setup/SetupWizardSteps.tsx:303
 msgid "Mirror tiers"
 msgstr "Cerminkan tingkatan"
 
@@ -20754,7 +20808,7 @@ msgid "Moderation"
 msgstr "Moderasi"
 
 #. Community settings tab for moderation and safety controls.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:56
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:63
 msgctxt "community-settings-tab"
 msgid "Moderation"
 msgstr "Moderasi"
@@ -21037,7 +21091,7 @@ msgid "Mute"
 msgstr "Bisukan"
 
 #. Voice control button label to turn the user's microphone off.
-#: src/features/voice/components/VoiceControlBar.tsx:126
+#: src/features/voice/components/VoiceControlBar.tsx:130
 msgctxt "voice-control-action"
 msgid "Mute"
 msgstr "Bisukan"
@@ -21149,8 +21203,13 @@ msgstr "Bisukan notifikasi"
 msgid "Mute shortcut"
 msgstr "Pintasan bisukan"
 
+#. Tooltip on the mute-all toggle in the in-call soundboard panel.
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:34
+msgid "Mute soundboard sounds for me"
+msgstr ""
+
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:230
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:234
 msgid "Mute sounds"
 msgstr "Bisukan suara"
 
@@ -21290,7 +21349,7 @@ msgid "My category"
 msgstr "Kategori saya"
 
 #. Placeholder for the single community name input in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:199
+#: src/features/app/components/setup/SetupWizardSteps.tsx:200
 msgid "My community"
 msgstr "Komunitas saya"
 
@@ -21345,6 +21404,8 @@ msgstr "Timpa bilah navigasi"
 #. Form field label for the name of the item being edited.
 #. Form field label for the name of the item being edited.
 #. Form label for the editable webhook display name.
+#. Label for the soundboard sound name field in the trimmer modal.
+#. Label for the soundboard sound name field.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the add custom search engine modal. Keep it concise.
 #. Short label in the branding section. Keep it concise.
@@ -21358,9 +21419,11 @@ msgstr "Timpa bilah navigasi"
 #: src/features/expressions/components/modals/meme_form/MemeFormFields.tsx:24
 #: src/features/expressions/components/modals/sticker_form/StickerFormFields.tsx:28
 #: src/features/guild/components/modals/guild_tabs/guild_overview_tab/sections/BrandingSection.tsx:27
+#: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:26
 #: src/features/theme_studio/sections/LibrarySection.tsx:105
 #: src/features/user/components/modals/tabs/chat_settings_tab/AddCustomSearchEngineModal.tsx:76
 #: src/features/user/components/settings_utils/search_index/MyProfileIndex.ts:57
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:63
 #: src/features/webhook/components/WebhookListItem.tsx:47
 msgid "Name"
 msgstr "Nama"
@@ -21386,6 +21449,11 @@ msgstr "Nama harus terdiri dari 100 karakter atau kurang"
 #: src/features/expressions/components/modals/sticker_form/StickerFormFields.tsx:24
 msgid "Name must be 30 characters or less"
 msgstr "Nama harus 30 karakter atau kurang"
+
+#. Validation error when the soundboard sound name is too short.
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:83
+msgid "Name must be at least {min} characters."
+msgstr ""
 
 #. Form validation error for a name that is too short.
 #: src/features/expressions/components/modals/sticker_form/StickerFormFields.tsx:20
@@ -21673,7 +21741,7 @@ msgstr "Terbaru dulu"
 #. Button that moves to the next setup wizard step.
 #. Generic primary or pagination action label that advances to the next step, page, or item.
 #. Primary button in the required-action modal. Moves to the next carousel step.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:79
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:84
 #: src/features/auth/components/modals/required_action/RequiredActionDescriptors.ts:154
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:715
 msgid "Next"
@@ -21876,7 +21944,7 @@ msgstr "Tidak ada komunitas tempat Anda dapat memberikan izin yang diminta atau 
 msgid "No community banner"
 msgstr "Tidak ada banner komunitas"
 
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:403
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:373
 msgid "No connections yet"
 msgstr "Belum ada koneksi"
 
@@ -22041,7 +22109,7 @@ msgid "No one can add you to group chats without asking"
 msgstr "Tidak ada yang dapat menambahkan Anda ke obrolan grup tanpa izin"
 
 #. Message shown when no optional services are available in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:273
+#: src/features/app/components/setup/SetupWizardSteps.tsx:274
 msgid "No optional services are available on this instance. You can skip this step."
 msgstr "Tidak ada layanan opsional yang tersedia di instance ini. Anda dapat melewati langkah ini."
 
@@ -22189,6 +22257,23 @@ msgstr "Tidak ada pintasan yang disetel"
 #: src/features/user/components/modals/tabs/keybinds_tab/DefaultKeybindsList.tsx:94
 msgid "No shortcuts match that search."
 msgstr "Tidak ada pintasan yang cocok dengan pencarian itu."
+
+#. Empty-state title shown when the soundboard limit is reached.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:46
+msgid "No soundboard slots available"
+msgstr ""
+
+#. Empty-state text in the in-call soundboard panel.
+#. Empty-state title in the guild soundboard tab.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:42
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:50
+msgid "No sounds found"
+msgstr ""
+
+#. Empty-state text in the guild soundboard tab.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:54
+msgid "No sounds found matching your search."
+msgstr ""
 
 #: src/features/auth/components/pages/oauth_authorize_page/OAuthScopesStep.tsx:115
 msgid "No specific scopes requested."
@@ -22803,7 +22888,7 @@ msgstr "Opasitas"
 #. Short button that opens a billing invoice or receipt.
 #: src/features/app/components/dialogs/components/plutonium/InvoiceList.tsx:21
 #: src/features/app/components/dialogs/components/plutonium/InvoiceList.tsx:159
-#: src/features/app/components/setup/SetupWizardSteps.tsx:154
+#: src/features/app/components/setup/SetupWizardSteps.tsx:155
 #: src/features/moderation/components/report_modal/IARModalCopy.ts:455
 #: src/features/user/components/modals/tabs/advanced_settings_tab/AdvancedSettingRow.tsx:21
 msgid "Open"
@@ -23165,6 +23250,11 @@ msgstr "Buka pengalih cepat"
 msgid "Open settings"
 msgstr "Buka pengaturan"
 
+#. Tooltip / button label in the voice control bar that opens the soundboard sound picker.
+#: src/features/voice/components/VoiceControlBar.tsx:159
+msgid "Open soundboard"
+msgstr ""
+
 #. Action that opens the sticker URL in an external browser.
 #: src/features/ui/action_menu/items/StickerContextMenuItems.tsx:40
 msgid "Open sticker in browser"
@@ -23226,7 +23316,7 @@ msgid "Open theme studio popout"
 msgstr "Buka pop-out studio tema"
 
 #. Button or menu action label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:77
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:85
 msgid "Open theme studio…"
 msgstr "Buka studio tema…"
 
@@ -23341,7 +23431,7 @@ msgid "Option two"
 msgstr "Pilihan kedua"
 
 #. Setup wizard optional services step title.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:265
+#: src/features/app/components/setup/SetupWizardSteps.tsx:266
 msgid "Optional services"
 msgstr "Layanan opsional"
 
@@ -23352,7 +23442,7 @@ msgstr "Opsi"
 
 #. Small separator between alternative shortcut keycaps in the keyboard mode intro modal.
 #: src/features/auth/flow/auth_login_core/AuthLoginPasskeyActions.tsx:15
-#: src/features/connection/components/modals/AddConnectionModal.tsx:317
+#: src/features/connection/components/modals/AddConnectionModal.tsx:254
 #: src/features/input/components/modals/KeyboardModeIntroModal.tsx:30
 msgid "or"
 msgstr "atau"
@@ -23502,7 +23592,7 @@ msgid "Override mention preference?"
 msgstr "Timpa preferensi sebutan?"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:126
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:130
 msgid "Overrides"
 msgstr "Timpa"
 
@@ -23518,7 +23608,7 @@ msgid "Overview"
 msgstr "Ikhtisar"
 
 #. Community settings tab for basic server/community details.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:46
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:53
 msgctxt "community-settings-tab"
 msgid "Overview"
 msgstr "Ikhtisar"
@@ -23647,7 +23737,7 @@ msgstr "Kunci sandi memerlukan bundel macOS yang ditandatangani dengan ID aplika
 
 #. Generic form-field label for a password.
 #. Label for SMTP password input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:953
+#: src/features/app/components/setup/SetupWizardSteps.tsx:959
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:210
 #: src/features/user/components/modals/tabs/account_security_tab/AccountTab.tsx:146
 #: src/features/user/components/modals/tabs/account_security_tab/AccountTab.tsx:183
@@ -23737,16 +23827,18 @@ msgid "Paste the message link."
 msgstr "Tempel tautan pesan."
 
 #. Button label in the trimmer modal that pauses preview playback.
+#. Button label in the trimmer modal that pauses preview playback.
 #. Generic media-player control: pause playback.
 #. Pause-preview button label in the voice message composer modal.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:369
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:43
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:47
 #: src/features/voice/components/VoiceMessageComposerModal.tsx:87
 msgid "Pause"
 msgstr "Jeda"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:234
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:238
 msgid "Pause alerts"
 msgstr "Jeda notifikasi"
 
@@ -23837,7 +23929,7 @@ msgstr "Permintaan pertemanan tertunda akan muncul di sini."
 #: src/features/expressions/utils/UnicodeEmojis.ts:21
 #: src/features/search/state/QuickSwitcherResultConverters.ts:22
 #: src/features/search/utils/QuickSwitcherModalUtils.tsx:51
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:261
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:277
 msgid "People"
 msgstr "Orang"
 
@@ -24078,7 +24170,7 @@ msgid "Pick one or more dictionaries. Words from any selected dictionary are acc
 msgstr "Pilih satu atau beberapa kamus. Kata-kata dari kamus mana pun yang dipilih akan diterima, yang berguna untuk obrolan multibahasa."
 
 #. Setup wizard body for choosing the initial account theme.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:64
+#: src/features/app/components/setup/SetupWizardSteps.tsx:65
 msgid "Pick the appearance this administrator account should start with."
 msgstr "Pilih tampilan yang seharusnya dimiliki akun administrator ini saat memulai."
 
@@ -24261,8 +24353,10 @@ msgstr "Platform"
 msgid "Platform admin"
 msgstr "Admin platform"
 
+#. Button label that previews a soundboard sound.
 #. Generic media-player control: start playback.
 #. Play-preview button label in the voice message composer modal.
+#: src/features/guild/components/modals/guild_tabs/soundboard/SoundboardSoundRow.tsx:19
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:365
 #: src/features/voice/components/VoiceMessageComposerModal.tsx:83
 msgid "Play"
@@ -24279,7 +24373,9 @@ msgid "Play sample"
 msgstr "Putar contoh"
 
 #. Button label in the trimmer modal. Plays the currently selected portion.
+#. Button label in the trimmer modal. Plays the currently selected portion.
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:39
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:43
 msgid "Play selection"
 msgstr "Putar pilihan"
 
@@ -24393,7 +24489,7 @@ msgid "Popup"
 msgstr "Pop-up"
 
 #. Label for SMTP port input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:951
+#: src/features/app/components/setup/SetupWizardSteps.tsx:957
 msgid "Port"
 msgstr "Port"
 
@@ -24494,7 +24590,7 @@ msgid "Premium grace period nagbar"
 msgstr "Bilah notifikasi masa tenggang premium"
 
 #. Summary row label for the premium model in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:355
+#: src/features/app/components/setup/SetupWizardSteps.tsx:348
 msgid "Premium model"
 msgstr "Model premium"
 
@@ -24529,12 +24625,12 @@ msgid "Premium until date"
 msgstr "Tanggal Premium berakhir"
 
 #. Setup wizard title while the instance configuration loads.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:72
+#: src/features/app/components/setup/SetupWizardSteps.tsx:73
 msgid "Preparing setup"
 msgstr "Menyiapkan pengaturan"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:442
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:446
 msgid "Presence"
 msgstr "Keberadaan"
 
@@ -24743,11 +24839,6 @@ msgstr "Kebijakan privasi"
 msgid "Privacy settings"
 msgstr "Setelan privasi"
 
-#. Label for Bluesky OAuth privacy URL input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:986
-msgid "Privacy URL"
-msgstr "URL privasi"
-
 #. IAR modal: rule label.
 #: src/features/moderation/components/report_modal/IARModalCopy.ts:307
 msgid "Privacy violation"
@@ -24764,14 +24855,9 @@ msgid "Privacy violation or stalking"
 msgstr "Pelanggaran privasi atau penguntitan"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:222
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:226
 msgid "Private details"
 msgstr "Detail pribadi"
-
-#. Label for Bluesky OAuth private key input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:994
-msgid "Private key"
-msgstr "Kunci pribadi"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/section_registry/NotificationsSections.ts:54
@@ -24794,8 +24880,8 @@ msgstr "Memproses"
 
 #. Label for the product name input in the setup wizard.
 #. Summary row label for the product name in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:89
-#: src/features/app/components/setup/SetupWizardSteps.tsx:335
+#: src/features/app/components/setup/SetupWizardSteps.tsx:90
+#: src/features/app/components/setup/SetupWizardSteps.tsx:328
 msgid "Product name"
 msgstr "Nama produk"
 
@@ -24876,7 +24962,7 @@ msgid "Profile picture"
 msgstr "Foto profil"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:310
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:314
 msgid "Profile pictures"
 msgstr "Foto profil"
 
@@ -24979,7 +25065,7 @@ msgid "Provide your full legal name for the declaration."
 msgstr "Berikan nama lengkap sesuai identitas resmi Anda untuk deklarasi ini."
 
 #. Label for an integration provider choice.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:926
+#: src/features/app/components/setup/SetupWizardSteps.tsx:901
 msgid "Provider"
 msgstr "Penyedia"
 
@@ -25000,7 +25086,7 @@ msgid "Public bot"
 msgstr "Bot publik"
 
 #. Description for the closed registration mode.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:174
+#: src/features/app/components/setup/SetupWizardSteps.tsx:175
 msgid "Public registration is closed."
 msgstr "Pendaftaran publik ditutup."
 
@@ -25159,7 +25245,7 @@ msgid "Push-to-talk is ignored in direct input. Switch to focused voice or custo
 msgstr "Push-to-talk diabaikan dalam input langsung. Beralih ke suara terfokus atau kustom untuk menggunakannya."
 
 #. Tooltip on the mic button in the voice control bar when push-to-talk is enabled. {pushToTalkHint} is the formatted shortcut key combo.
-#: src/features/voice/components/VoiceControlBar.tsx:116
+#: src/features/voice/components/VoiceControlBar.tsx:120
 msgid "Push-to-talk is on. Hold {pushToTalkHint} to speak."
 msgstr "Push-to-talk aktif. Tahan {pushToTalkHint} untuk bicara."
 
@@ -25192,7 +25278,7 @@ msgstr "kualitas terbatas"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the theme studio. Keep it concise.
 #: src/features/theme_studio/ThemeStudio.tsx:49
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:90
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:94
 msgid "Quick CSS"
 msgstr "CSS cepat"
 
@@ -25353,7 +25439,7 @@ msgstr "Aktifkan kembali langganan"
 msgid "Read aloud"
 msgstr "Baca dengan lantang"
 
-#: src/features/app/components/ConnectionIssuesLinks.tsx:43
+#: src/features/app/components/ConnectionIssuesLinks.tsx:47
 msgid "Read incident"
 msgstr "Baca insiden"
 
@@ -25715,7 +25801,7 @@ msgid "Registered passkeys"
 msgstr "Kunci sandi terdaftar"
 
 #. Summary row label for the registration mode in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:339
+#: src/features/app/components/setup/SetupWizardSteps.tsx:332
 msgid "Registration"
 msgstr "Registrasi"
 
@@ -25859,7 +25945,7 @@ msgstr "Ingat ukuran dan posisi jendela"
 #: src/features/user/components/modals/tabs/chat_settings_tab/SearchEnginesTab.tsx:25
 #: src/features/user/components/modals/tabs/ExpressionPacksTab.tsx:75
 #: src/features/user/components/modals/tabs/ExpressionPacksTab.tsx:133
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:53
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:50
 #: src/features/user/components/settings_utils/search_index/AccountSecurityIndex.ts:158
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts:194
 #: src/features/webhook/components/WebhookListItem.tsx:276
@@ -25954,7 +26040,7 @@ msgid "Remove bookmark"
 msgstr "Hapus bookmark"
 
 #. Button or menu action label in the linked accounts tab. Keep it concise. Keep the tone plain and specific.
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:57
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:54
 msgid "Remove connection"
 msgstr "Hapus koneksi"
 
@@ -26088,7 +26174,7 @@ msgid "Remove tag {tag}"
 msgstr "Hapus tag {tag}"
 
 #. Error message in the linked accounts tab. Keep the tone plain and specific.
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:61
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:58
 msgid "Remove this connection? Can't be undone."
 msgstr "Hapus koneksi ini? Tidak dapat dibatalkan."
 
@@ -26286,12 +26372,12 @@ msgid "Render placeholders"
 msgstr "Render placeholder"
 
 #. Label for attachment decay renewal threshold.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:256
+#: src/features/app/components/setup/SetupWizardSteps.tsx:257
 msgid "Renew threshold (days)"
 msgstr "Ambang batas pembaruan (hari)"
 
 #. Label for attachment decay renewal window.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:260
+#: src/features/app/components/setup/SetupWizardSteps.tsx:261
 msgid "Renew window (days)"
 msgstr "Jendela pembaruan (hari)"
 
@@ -26301,7 +26387,7 @@ msgstr "Diperbarui pada <0>{renewalDate}.</0>"
 
 #. Button or menu action label in the background image gallery modal. Keep it concise.
 #. Button that replaces an already uploaded branding image.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:113
+#: src/features/app/components/setup/SetupWizardSteps.tsx:114
 #: src/features/theme/components/modals/BackgroundImageGalleryModal.tsx:72
 msgid "Replace"
 msgstr "Ganti"
@@ -26692,7 +26778,7 @@ msgstr "Atur ulang dan mulai ulang"
 #. Confirm dialog title for the destructive reset action.
 #. Destructive button on the crash screen. Clears local app data except preserved drafts.
 #. Destructive button on the startup failure screen. Clears local app data except preserved drafts.
-#: src/features/app/components/BootstrapErrorScreen.tsx:75
+#: src/features/app/components/BootstrapErrorScreen.tsx:53
 #: src/features/app/components/ErrorFallback.tsx:164
 #: src/features/platform/utils/DesktopLocaleBridge.ts:110
 msgid "Reset app data"
@@ -27044,7 +27130,7 @@ msgid "Review what this app is asking for before you continue."
 msgstr "Tinjau apa yang diminta aplikasi ini sebelum Anda melanjutkan."
 
 #. Setup wizard finish step body.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:331
+#: src/features/app/components/setup/SetupWizardSteps.tsx:324
 msgid "Review your choices below, then finish. This saves the configuration and opens the instance."
 msgstr "Tinjau pilihan Anda di bawah ini, lalu selesaikan. Ini akan menyimpan konfigurasi dan membuka instance."
 
@@ -27226,7 +27312,7 @@ msgid "Roles"
 msgstr "Peran"
 
 #. Community settings tab for role hierarchy and permission rules.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:51
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:58
 msgctxt "community-settings-tab"
 msgid "Roles"
 msgstr "Peran"
@@ -27285,7 +27371,7 @@ msgid "Run at login"
 msgstr "Jalankan saat masuk"
 
 #. Description for the single community toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:191
+#: src/features/app/components/setup/SetupWizardSteps.tsx:192
 msgid "Run the instance as one community instead of many. This can only be enabled now, during setup."
 msgstr "Jalankan instance sebagai satu komunitas, bukan banyak. Ini hanya dapat diaktifkan sekarang, selama penyiapan."
 
@@ -27310,7 +27396,7 @@ msgid "Safety"
 msgstr "Keamanan"
 
 #. Profile timezone difference text. The target user's timezone currently matches the viewer's timezone.
-#: src/features/user/components/popouts/UserProfileShared.tsx:61
+#: src/features/user/components/popouts/UserProfileShared.tsx:59
 msgid "Same time as you"
 msgstr "Sama dengan zona waktu Anda"
 
@@ -27347,6 +27433,7 @@ msgstr "Simpan"
 #: src/features/expressions/components/modals/EditPackModal.tsx:127
 #: src/features/guild/components/modals/guild_tabs/GuildDiscoveryTab.tsx:611
 #: src/features/guild/components/modals/guild_tabs/GuildVanityURLTab.tsx:272
+#: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:168
 #: src/features/guild/components/modals/GuildFolderSettingsModal.tsx:89
 #: src/features/messaging/components/modals/AttachmentEditModal.tsx:136
 #: src/features/messaging/components/modals/EditAltTextModal.tsx:193
@@ -27455,7 +27542,7 @@ msgid "Say hi to <0>{displayName}</0>. Your DM starts here."
 msgstr "Sapa <0>{displayName}</0>. DM Anda dimulai di sini."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:186
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:190
 msgid "Scale"
 msgstr "Skala"
 
@@ -27652,7 +27739,7 @@ msgstr "Codec video berbagi layar"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Status badge label shown on a live tile when the participant is sharing their screen.
 #: src/features/ui/components/LiveBadge.tsx:13
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:218
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:222
 #: src/features/user/components/settings_utils/section_registry/VoiceVideoSections.ts:213
 msgid "Screen sharing"
 msgstr "Berbagi layar"
@@ -27712,7 +27799,7 @@ msgstr "Gulir ke bawah untuk melihat semua keuntungan yang termasuk dalam {premi
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the whats new modal.
-#: src/features/app/components/whats_new/WhatsNewModal.tsx:28
+#: src/features/app/components/whats_new/WhatsNewModal.tsx:25
 #: src/features/user/components/settings_utils/search_index/ChatSettingsIndex.ts:419
 #: src/features/user/components/settings_utils/section_registry/ChatSettingsSections.ts:178
 msgid "Scroll to bottom"
@@ -27974,6 +28061,13 @@ msgstr "Cari pintasan"
 msgid "Search shortcuts…"
 msgstr "Cari pintasan…"
 
+#. Search input placeholder in the guild soundboard settings tab.
+#. Search input placeholder in the in-call soundboard panel.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:38
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:30
+msgid "Search sounds"
+msgstr ""
+
 #. Button or menu action label in the guild stickers tab. Keep it concise.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:46
 msgid "Search stickers"
@@ -28067,7 +28161,7 @@ msgid "Secret"
 msgstr "Rahasia"
 
 #. Label for a CAPTCHA secret key input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:937
+#: src/features/app/components/setup/SetupWizardSteps.tsx:920
 msgid "Secret key"
 msgstr "Kunci rahasia"
 
@@ -28314,7 +28408,9 @@ msgid "Selection end"
 msgstr "Akhir pilihan"
 
 #. Error displayed when the trimmed entrance sound selection is below the minimum duration.
+#. Error displayed when the trimmed soundboard sound selection is below the minimum duration.
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:47
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:51
 msgid "Selection must be at least {seconds} seconds."
 msgstr "Pilihan minimal harus {seconds} detik."
 
@@ -28336,6 +28432,7 @@ msgstr "Pilihan: {0}"
 #. placeholder {0}: formatSeconds(selectionDuration)
 #. placeholder {1}: formatSeconds(MAX_DURATION_SECONDS)
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:323
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:372
 msgid "Selection: {0} (max {1})"
 msgstr "Pilihan: {0} (maks. {1})"
 
@@ -28351,7 +28448,7 @@ msgid "Self-harm or suicide"
 msgstr "Melukai diri sendiri atau bunuh diri"
 
 #. Accessible label for the self-host setup wizard carousel.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:67
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:72
 msgid "Self-host setup"
 msgstr "Penyiapan hosting mandiri"
 
@@ -28668,7 +28765,7 @@ msgstr "Kirim berurutan"
 msgid "Serial send"
 msgstr "Kirim serial"
 
-#: src/features/connection/components/modals/AddConnectionModal.tsx:326
+#: src/features/connection/components/modals/AddConnectionModal.tsx:263
 msgid "Serve the token file"
 msgstr "Sajikan file token"
 
@@ -28854,7 +28951,7 @@ msgid "Set the invite splash alignment to {0}."
 msgstr "Atur perataan percikan undangan ke {0}."
 
 #. Setup wizard branding step body.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:85
+#: src/features/app/components/setup/SetupWizardSteps.tsx:86
 msgid "Set the public product name, theme color, and image assets that clients display."
 msgstr "Atur nama produk publik, warna tema, dan aset gambar yang ditampilkan klien."
 
@@ -28889,12 +28986,12 @@ msgid "Set the vanity URL to {0}."
 msgstr "Atur URL kustom ke {0}."
 
 #. Title for the self-host setup wizard modal.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:71
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:76
 msgid "Set up {productName}"
 msgstr "Siapkan {productName}"
 
 #. Option for deferring an optional setup wizard integration.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:870
+#: src/features/app/components/setup/SetupWizardSteps.tsx:853
 msgid "Set up later"
 msgstr "Atur nanti"
 
@@ -29166,7 +29263,7 @@ msgstr "Pintasan"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/AppearanceIndex.ts:55
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:370
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:374
 msgid "Shortcut badges"
 msgstr "Badge pintasan"
 
@@ -29563,7 +29660,7 @@ msgid "Show recent instances"
 msgstr "Tampilkan instans terbaru"
 
 #. Description for the YouTube enrichment service toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:289
+#: src/features/app/components/setup/SetupWizardSteps.tsx:290
 msgid "Show rich previews for YouTube links."
 msgstr "Tampilkan pratinjau kaya untuk tautan YouTube."
 
@@ -29787,11 +29884,6 @@ msgstr "Sudah masuk"
 msgid "Signed-in devices"
 msgstr "Perangkat yang masuk"
 
-#. Label for Bluesky OAuth signing key ID input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:990
-msgid "Signing key ID"
-msgstr "ID kunci penandatanganan"
-
 #. Toast error shown when signing out from the account switcher fails.
 #: src/features/auth/utils/AccountSwitcherModalUtils.tsx:33
 msgid "Signing out failed. Try again in a moment."
@@ -29839,7 +29931,7 @@ msgid "Silent calls from everyone"
 msgstr "Bisukan panggilan dari semua orang"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:390
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:394
 msgid "Single click"
 msgstr "Sekali klik"
 
@@ -29851,12 +29943,12 @@ msgid "Single column"
 msgstr "Satu kolom"
 
 #. Summary row label for the single community choice in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:343
+#: src/features/app/components/setup/SetupWizardSteps.tsx:336
 msgid "Single community"
 msgstr "Satu komunitas"
 
 #. Label for the single community toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:187
+#: src/features/app/components/setup/SetupWizardSteps.tsx:188
 msgid "Single community mode"
 msgstr "Mode komunitas tunggal"
 
@@ -29875,14 +29967,14 @@ msgid "Single user (all statuses)"
 msgstr "Satu pengguna (semua status)"
 
 #. Label for a CAPTCHA site key input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:936
+#: src/features/app/components/setup/SetupWizardSteps.tsx:919
 msgid "Site key"
 msgstr "Kunci situs"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/DesktopSettingsIndex.ts:158
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:174
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:178
 msgid "Size"
 msgstr "Ukuran"
 
@@ -29928,7 +30020,7 @@ msgid "Skip the system leave notice — nobody gets pinged."
 msgstr "Lewati notifikasi keluar dari sistem — tidak ada yang akan diberi tahu."
 
 #. Description for deferring an optional setup wizard integration.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:874
+#: src/features/app/components/setup/SetupWizardSteps.tsx:857
 msgid "Skip this now and configure it from the admin panel."
 msgstr "Lewati ini sekarang dan konfigurasikan dari panel admin."
 
@@ -30092,7 +30184,7 @@ msgid "Small button clicked."
 msgstr "Tombol kecil diklik."
 
 #. Label for attachment decay minimum size threshold.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:232
+#: src/features/app/components/setup/SetupWizardSteps.tsx:233
 msgid "Small file threshold (MB)"
 msgstr "Ambang batas file kecil (MB)"
 
@@ -30143,21 +30235,26 @@ msgid "SMS verification is unavailable right now. Try again later or contact sup
 msgstr "Verifikasi SMS tidak tersedia saat ini. Coba lagi nanti atau hubungi dukungan."
 
 #. Success message after validating SMTP credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:962
+#: src/features/app/components/setup/SetupWizardSteps.tsx:968
 msgid "SMTP connection verified."
 msgstr "Koneksi SMTP terverifikasi."
 
 #. Label for SMTP host input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:950
+#: src/features/app/components/setup/SetupWizardSteps.tsx:956
 msgid "SMTP host"
 msgstr "Host SMTP"
+
+#. Fallback message when SMTP credential validation fails without a specific error.
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:65
+msgid "SMTP validation failed."
+msgstr ""
 
 #: src/features/user/components/modals/tabs/component_gallery_tab/SelectionsTab.tsx:390
 msgid "Snaps to increments of 5."
 msgstr "Jepretan dalam kelipatan 5."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:40
+#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:36
 msgid "Social"
 msgstr "Sosial"
 
@@ -30395,6 +30492,21 @@ msgstr "Suara untuk cakupan ini"
 msgid "Sound volume"
 msgstr "Volume suara"
 
+#. Title of the in-call soundboard panel.
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:26
+msgid "Soundboard"
+msgstr ""
+
+#. Community settings tab for managing custom soundboard sounds uploaded to the community.
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:48
+msgctxt "community-settings-tab"
+msgid "Soundboard"
+msgstr ""
+
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:225
+msgid "Soundboard slots"
+msgstr ""
+
 #. Section heading / tab label for the notification-sounds area.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:807
@@ -30407,6 +30519,11 @@ msgstr "Suara"
 msgctxt "notifications-settings-section"
 msgid "Sounds"
 msgstr "Suara"
+
+#. Description in the community soundboard upload section. {maxSize} is the formatted size limit.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:66
+msgid "Sounds must be under {maxSize} and 5.2 seconds. Files longer than that get trimmed before upload."
+msgstr ""
 
 #. Resolution option in the stream settings menu meaning the original source resolution (no downscale).
 #. Short label in the video tab for the native source resolution option. Keep it concise.
@@ -30432,19 +30549,19 @@ msgid "Space"
 msgstr "Spasi"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:326
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:330
 msgid "Space between"
 msgstr "Jarak antar"
 
 #. Label in the messages tab.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/modals/tabs/appearance_tab/MessagesTab.tsx:79
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:318
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:322
 msgid "Space between message groups"
 msgstr "Spasi antar grup pesan"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:274
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:278
 msgid "Spacing"
 msgstr "Spasi"
 
@@ -30873,7 +30990,7 @@ msgstr "Ikon status"
 msgid "Status indicators"
 msgstr "Indikator status"
 
-#: src/features/app/components/ConnectionIssuesLinks.tsx:31
+#: src/features/app/components/ConnectionIssuesLinks.tsx:33
 msgid "Status page"
 msgstr "Halaman status"
 
@@ -31058,7 +31175,7 @@ msgid "Stickers"
 msgstr "Stiker"
 
 #. Community settings tab for managing custom stickers uploaded to the community.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:41
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:43
 msgctxt "community-settings-tab"
 msgid "Stickers"
 msgstr "Stiker"
@@ -31156,7 +31273,7 @@ msgid "Stop watching"
 msgstr "Berhenti menonton"
 
 #. Tooltip / button label in the voice control bar that stops watching a remote screen share.
-#: src/features/voice/components/VoiceControlBar.tsx:151
+#: src/features/voice/components/VoiceControlBar.tsx:155
 msgid "Stop watching stream"
 msgstr "Berhenti menonton streaming"
 
@@ -31235,7 +31352,7 @@ msgstr "Mode streaming"
 #. Short label in the inline. Keep it concise.
 #: src/features/user/components/modals/tabs/appearance_tab/AppearanceTabInline.tsx:47
 #: src/features/user/components/modals/tabs/AppearanceTab.tsx:55
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:210
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:214
 msgid "Streaming privacy"
 msgstr "Privasi Streaming"
 
@@ -31301,7 +31418,7 @@ msgid "Style variations"
 msgstr "Variasi gaya"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:130
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:134
 msgid "Styling"
 msgstr "Gaya"
 
@@ -31597,7 +31714,7 @@ msgid "Switches"
 msgstr "Sakelar"
 
 #. Label for the symbol branding asset.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:125
+#: src/features/app/components/setup/SetupWizardSteps.tsx:126
 msgid "Symbol"
 msgstr "Simbol"
 
@@ -31608,7 +31725,7 @@ msgstr "Simbol"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/theme_studio/sections/ThemeStudioSettingsSection.tsx:198
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:70
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:74
 msgid "Sync"
 msgstr "Sinkronisasi"
 
@@ -31663,12 +31780,12 @@ msgid "Sync shortcuts"
 msgstr "Sinkronkan pintasan"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:74
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:78
 msgid "Sync theme"
 msgstr "Sinkronkan tema"
 
 #. Label in the theme tab content.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:69
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:77
 msgid "Sync theme across devices"
 msgstr "Sinkronkan tema di semua perangkat"
 
@@ -31740,8 +31857,8 @@ msgstr "Gerakan dikurangi sistem"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Short label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:53
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:66
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:61
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:70
 msgid "System theme"
 msgstr "Tema sistem"
 
@@ -31766,12 +31883,12 @@ msgid "System-wide shortcuts"
 msgstr "Pintasan sistem-lebar"
 
 #. Description text in the theme tab content.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:57
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:65
 msgid "System: dark theme (automatically sync with your system's dark/light preference)"
 msgstr "Sistem: tema gelap (sinkronisasi otomatis dengan preferensi gelap/terang sistem Anda)"
 
 #. Description text in the theme tab content.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:61
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:69
 msgid "System: light theme (automatically sync with your system's dark/light preference)"
 msgstr "Sistem: tema terang (otomatis sinkron dengan preferensi gelap/terang sistem Anda)"
 
@@ -31913,18 +32030,13 @@ msgstr "Bilah pemberitahuan persetujuan ketentuan"
 msgid "Terms of service"
 msgstr "Ketentuan layanan"
 
-#. Label for Bluesky OAuth terms URL input.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:982
-msgid "Terms URL"
-msgstr "URL Syarat"
-
 #. IAR modal: rule label.
 #: src/features/moderation/components/report_modal/IARModalCopy.ts:215
 msgid "Terrorism or violent extremism"
 msgstr "Terorisme atau ekstremisme kekerasan"
 
 #. Button that validates SMTP credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:958
+#: src/features/app/components/setup/SetupWizardSteps.tsx:964
 msgid "Test SMTP"
 msgstr "Uji SMTP"
 
@@ -31988,7 +32100,7 @@ msgid "Text selection"
 msgstr "Pilihan teks"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:178
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:182
 msgid "Text size"
 msgstr "Ukuran teks"
 
@@ -32090,7 +32202,7 @@ msgid "That friend request is no longer available. Refresh and try again."
 msgstr "Permintaan pertemanan itu tidak lagi tersedia. Segarkan dan coba lagi."
 
 #. Error shown when a branding image fails to upload in the setup wizard.
-#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:95
+#: src/features/app/components/setup/SelfHostedSetupWizardGate.tsx:100
 msgid "That image could not be used. Try a different file."
 msgstr "Gambar itu tidak dapat digunakan. Coba file lain."
 
@@ -32174,10 +32286,6 @@ msgstr "Pembaruan untuk desktop telah diunduh. Mulai ulang {productName} untuk m
 #: src/features/updater/commands/UpdaterModalCommands.tsx:152
 msgid "The downloaded file is saved to your computer. Install it with your normal package manager."
 msgstr "Berkas yang diunduh disimpan ke komputer Anda. Instal dengan manajer paket normal Anda."
-
-#: src/features/connection/components/modals/AddConnectionModal.tsx:355
-msgid "The file contains the verification token we will fetch from <0>{dnsUrl}</0>."
-msgstr "File ini berisi token verifikasi yang akan kami ambil dari <0>{dnsUrl}</0>."
 
 #. Body of the file-too-large alert when a single file exceeds the per-file size limit.
 #: src/features/messaging/components/alerts/FileSizeTooLargeModal.tsx:23
@@ -32277,14 +32385,14 @@ msgstr "Jendela atau tampilan yang Anda bagikan tidak lagi tersedia, sehingga be
 #. Short label in the inline. Keep it concise.
 #. Short label in the theme tab content. Keep it concise.
 #: src/features/user/components/modals/tabs/appearance_tab/AppearanceTabInline.tsx:23
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:65
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:73
 #: src/features/user/components/modals/tabs/AppearanceTab.tsx:31
 #: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:38
 msgid "Theme"
 msgstr "Tema"
 
 #. Appearance settings section for app themes and quick CSS.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:462
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:466
 msgctxt "settings-section"
 msgid "Theme"
 msgstr "Tema"
@@ -32295,18 +32403,18 @@ msgid "Theme applied successfully."
 msgstr "Tema berhasil diterapkan."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:114
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:118
 msgid "Theme assets"
 msgstr "Aset tema"
 
 #. Label in the theme tab content.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:73
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:81
 msgid "Theme changes sync to all your devices. Off keeps this device on its own theme."
 msgstr "Perubahan tema disinkronkan ke semua perangkat Anda. Jika nonaktif, perangkat ini akan menggunakan temanya sendiri."
 
 #. Label for the theme color picker in the setup wizard.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:101
+#: src/features/app/components/setup/SetupWizardSteps.tsx:102
 #: src/features/user/components/settings_utils/search_index/MyProfileIndex.ts:165
 msgid "Theme color"
 msgstr "Warna tema"
@@ -32317,12 +32425,12 @@ msgid "Theme CSS"
 msgstr "CSS Tema"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:102
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:106
 msgid "Theme files"
 msgstr "File tema"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:98
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:102
 msgid "Theme library"
 msgstr "Pustaka tema"
 
@@ -32347,12 +32455,12 @@ msgid "Theme studio navigation"
 msgstr "Navigasi studio tema"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:78
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:82
 msgid "Theme sync"
 msgstr "Sinkronisasi tema"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:122
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:126
 msgid "Theme tokens"
 msgstr "Token tema"
 
@@ -32401,6 +32509,11 @@ msgstr "Terjadi error saat memuat tautan undangan untuk saluran ini. Coba lagi."
 msgid "There was an error loading the invites. Try again."
 msgstr "Terjadi error saat memuat undangan. Coba lagi."
 
+#. Error message in the guild soundboard tab.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:62
+msgid "There was an error loading the soundboard sounds. Try again."
+msgstr ""
+
 #. Error message in the guild stickers tab.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:75
 msgid "There was an error loading the stickers. Try again."
@@ -32416,7 +32529,7 @@ msgid "There was an error loading the webhooks. Try again."
 msgstr "Terjadi error saat memuat webhook. Coba lagi."
 
 #. Setup wizard community model step body.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:183
+#: src/features/app/components/setup/SetupWizardSteps.tsx:184
 msgid "These options change how people use the instance. Some can only be chosen during setup."
 msgstr "Opsi-opsi ini mengubah cara orang menggunakan instance. Beberapa hanya dapat dipilih saat penyiapan."
 
@@ -32643,15 +32756,15 @@ msgstr "Komunitas ini tidak lagi tersedia"
 
 #. Description text in the linked accounts tab.
 #. Description text in the user profile shared popout.
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:41
-#: src/features/user/components/popouts/UserProfileShared.tsx:45
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:38
+#: src/features/user/components/popouts/UserProfileShared.tsx:43
 msgid "This connection has been verified."
 msgstr "Koneksi ini sudah diverifikasi."
 
 #. Description text in the linked accounts tab.
 #. Description text in the user profile shared popout.
-#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:45
-#: src/features/user/components/popouts/UserProfileShared.tsx:49
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:42
+#: src/features/user/components/popouts/UserProfileShared.tsx:47
 msgid "This connection has not been verified."
 msgstr "Koneksi ini belum diverifikasi."
 
@@ -32725,6 +32838,11 @@ msgstr "Ukuran file ini {fileSize}, melebihi batas {maxSize}. Emoji animasi dan 
 msgid "This file is {fileSize}, over the {maxSize} limit. Animated stickers and SVGs must already be small enough to upload. Choose a smaller file or shorten the animation."
 msgstr "Ukuran file ini {fileSize}, melebihi batas {maxSize}. Stiker animasi dan SVG harus sudah cukup kecil untuk diunggah. Pilih file yang lebih kecil atau perpendek animasinya."
 
+#. Description of the error modal shown when an unsupported audio file is selected.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:74
+msgid "This file type is not supported. Try an MP3, OGG, M4A, or WAV file."
+msgstr ""
+
 #. Empty state title in the friends list when the user has no friends. Tone can be friendly and playful.
 #: src/features/channel/components/friends/views/FriendsList.tsx:20
 msgid "This friends list needs more power"
@@ -32781,7 +32899,7 @@ msgid "This instance currently allows screen share up to 720p at 30 FPS."
 msgstr "Instans ini saat ini mengizinkan berbagi layar hingga 720p pada 30 FPS."
 
 #. Setup wizard body prompting the operator to register the first account.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:52
+#: src/features/app/components/setup/SetupWizardSteps.tsx:53
 msgid "This instance has no accounts yet. The first account you create automatically becomes the administrator."
 msgstr "Instans ini belum memiliki akun. Akun pertama yang Anda buat akan otomatis menjadi administrator."
 
@@ -33131,7 +33249,7 @@ msgstr "pengguna ini"
 msgid "This user has limited their profile. Some details are hidden from people who aren't their friends."
 msgstr "Pengguna ini telah membatasi profilnya. Beberapa detail disembunyikan dari orang yang bukan temannya."
 
-#: src/features/user/components/popouts/UserProfileShared.tsx:454
+#: src/features/user/components/popouts/UserProfileShared.tsx:452
 msgid "This user has no roles in this community."
 msgstr "Pengguna ini tidak memiliki peran di komunitas ini."
 
@@ -33313,7 +33431,7 @@ msgstr "Pratinjau gambar mini"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/ui/components/form/DateTimePickerField.tsx:33
 #: src/features/user/components/settings_utils/search_index/LanguageIndex.ts:30
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:282
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:286
 msgid "Time"
 msgstr "Waktu"
 
@@ -33399,7 +33517,7 @@ msgid "timestamp or relevance"
 msgstr "stempel waktu atau relevansi"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:278
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:282
 msgid "Timestamps"
 msgstr "Stempel waktu"
 
@@ -33587,7 +33705,7 @@ msgid "Tokens"
 msgstr "Token"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:158
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:162
 msgid "Tone"
 msgstr "Nada"
 
@@ -33625,7 +33743,7 @@ msgstr "Tooltip pintasan"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/modals/tabs/component_gallery_tab/OverlaysTab.tsx:61
 #: src/features/user/components/settings_utils/search_index/DesktopSettingsIndex.ts:58
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:366
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:370
 msgid "Tooltips"
 msgstr "Tooltip"
 
@@ -33761,7 +33879,9 @@ msgid "Trim entrance sound"
 msgstr "Pangkas suara masuk"
 
 #. Error displayed when the encoded trimmed audio exceeds the entrance sound size cap.
+#. Error displayed when the encoded trimmed audio exceeds the soundboard sound size cap.
 #: src/features/voice/components/EntranceSoundTrimmerModal.tsx:51
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:55
 msgid "Trimmed clip is over the {limit} size limit. Try a shorter selection."
 msgstr "Klip yang dipangkas melebihi batas ukuran {limit}. Coba pilih bagian yang lebih pendek."
 
@@ -33933,7 +34053,7 @@ msgstr "Coba kunci keamanan/passkey saja"
 msgid "Try sending your message again."
 msgstr "Coba kirim pesan Anda lagi."
 
-#: src/features/auth/components/modals/CaptchaModal.tsx:159
+#: src/features/auth/components/modals/CaptchaModal.tsx:182
 msgid "Try Turnstile instead"
 msgstr "Coba Turnstile saja"
 
@@ -33998,7 +34118,7 @@ msgid "Turn off device stream"
 msgstr "Matikan streaming perangkat"
 
 #. Description for the toggle that disables direct messages and friend requests.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:211
+#: src/features/app/components/setup/SetupWizardSteps.tsx:212
 msgid "Turn off private messaging and friends across the instance. This can be reversed only once later."
 msgstr "Nonaktifkan pesan pribadi dan permintaan pertemanan di seluruh instance. Ini hanya dapat dibalik sekali saja nanti."
 
@@ -34065,7 +34185,7 @@ msgstr "Dua puluh empat jam"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/AppearanceIndex.ts:39
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:406
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:410
 msgid "Two clicks"
 msgstr "Dua kali klik"
 
@@ -34136,7 +34256,7 @@ msgid "Typing"
 msgstr "Mengetik"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:354
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:358
 msgid "Typing avatars"
 msgstr "Avatar mengetik"
 
@@ -34150,7 +34270,7 @@ msgstr "Acara mengetik"
 #. Short label in the channel and chat typing. Keep it concise.
 #: src/features/channel/components/ChannelTyping.tsx:10
 #: src/features/ui/components/BaseAvatar.tsx:21
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:350
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:354
 msgid "Typing indicator"
 msgstr "Indikator mengetik"
 
@@ -34707,7 +34827,7 @@ msgid "Unmute"
 msgstr "Bunyikan"
 
 #. Voice control button label to turn the user's microphone back on.
-#: src/features/voice/components/VoiceControlBar.tsx:121
+#: src/features/voice/components/VoiceControlBar.tsx:125
 msgctxt "voice-control-action"
 msgid "Unmute"
 msgstr "Aktifkan suara"
@@ -34773,6 +34893,11 @@ msgstr "Aktifkan suara favorit"
 #: src/features/platform/utils/DesktopLocaleBridge.ts:148
 msgid "Unmute microphone"
 msgstr "Aktifkan mikrofon"
+
+#. Tooltip on the mute-all toggle in the in-call soundboard panel when currently muted.
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:38
+msgid "Unmute soundboard sounds for me"
+msgstr ""
 
 #. Tooltip / button label on a voice participant tile that unmutes the remote screen-share or camera audio.
 #: src/features/voice/components/voice_participant_tile/shared.ts:15
@@ -34921,7 +35046,7 @@ msgid "Unread gift inventory override"
 msgstr "Timpa inventaris hadiah yang belum dibaca"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:418
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:422
 msgid "Unread indicator"
 msgstr "Indikator belum dibaca"
 
@@ -34940,6 +35065,11 @@ msgstr "Belum dibaca"
 #: src/features/theme_studio/sections/LibrarySection.tsx:578
 msgid "Unsaved changes"
 msgstr "Perubahan belum disimpan"
+
+#. Title of the error modal shown when an unsupported audio file is selected.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:70
+msgid "Unsupported audio file"
+msgstr ""
 
 #. Error modal body shown when an entrance sound upload has an unsupported audio format.
 #: src/features/user/components/modals/tabs/hooks/useEntranceSound.ts:38
@@ -35178,8 +35308,10 @@ msgstr "Upgrade untuk menyimpan hingga 15 latar belakang kustom dan membuka kual
 
 #. Button or menu action label in the background image gallery modal. Keep it concise.
 #. Button that opens a file picker to upload a branding image.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:109
+#. Primary action button in the trimmer modal: accept the current selection and upload it.
+#: src/features/app/components/setup/SetupWizardSteps.tsx:110
 #: src/features/theme/components/modals/BackgroundImageGalleryModal.tsx:76
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:39
 msgid "Upload"
 msgstr "Unggah"
 
@@ -35280,6 +35412,7 @@ msgid "Upload preview frames for screen shares."
 msgstr "Unggah bingkai pratinjau untuk berbagi layar."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:228
 #: src/features/user/components/settings_utils/section_registry/NotificationsSections.ts:199
 msgid "Upload sound"
 msgstr "Unggah suara"
@@ -35514,7 +35647,7 @@ msgid "Use category default"
 msgstr "Gunakan default kategori"
 
 #. Label in the theme tab content.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:41
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:49
 msgid "Use coal theme (pitch-black surfaces)"
 msgstr "Gunakan tema batu bara (permukaan hitam pekat)"
 
@@ -35526,7 +35659,7 @@ msgid "Use custom image"
 msgstr "Gunakan gambar khusus"
 
 #. Short label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:25
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:33
 msgid "Use dark theme"
 msgstr "Gunakan tema gelap"
 
@@ -35549,6 +35682,11 @@ msgstr "Gunakan email lain"
 #: src/features/auth/components/modals/required_action/RequiredActionDescriptors.ts:170
 msgid "Use email"
 msgstr "Gunakan email"
+
+#. Label in the theme tab content.
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:25
+msgid "Use ember theme (red and black palette)"
+msgstr ""
 
 #. Premium upsell shown when sending external emoji without a subscription.
 #: src/features/expressions/utils/ExpressionPermissionUtils.ts:24
@@ -35587,12 +35725,12 @@ msgid "Use hardware acceleration"
 msgstr "Gunakan akselerasi hardware"
 
 #. Label in the theme tab content.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:33
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:41
 msgid "Use legacy dark theme (original neutral gray palette)"
 msgstr "Gunakan tema gelap lama (palet abu-abu netral asli)"
 
 #. Short label in the theme tab content. Keep it concise.
-#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:49
+#: src/features/user/components/modals/tabs/appearance_tab/theme/ThemeTabContent.tsx:57
 msgid "Use light theme"
 msgstr "Gunakan tema terang"
 
@@ -35719,7 +35857,7 @@ msgid "Use this when troubleshooting the client or collecting logs. It may add v
 msgstr "Gunakan ini saat memecahkan masalah klien atau mengumpulkan log. Ini mungkin menambahkan pesan verbose ke konsol browser untuk klien saat ini."
 
 #. Label for SMTP TLS toggle.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:954
+#: src/features/app/components/setup/SetupWizardSteps.tsx:960
 msgid "Use TLS"
 msgstr "Gunakan TLS"
 
@@ -35795,7 +35933,7 @@ msgid "User appears underage, or is involved in grooming or child exploitation."
 msgstr "Pengguna tampak di bawah umur, atau terlibat dalam pemangsaan atau eksploitasi anak."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:306
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:310
 msgid "User avatars"
 msgstr "Avatar pengguna"
 
@@ -35887,7 +36025,7 @@ msgstr "pengguna, bot, atau webhook"
 #. Generic form-field label for a username.
 #. Label for SMTP username input.
 #. Settings search entry label. Also used as a search synonym in the settings search bar.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:952
+#: src/features/app/components/setup/SetupWizardSteps.tsx:958
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:567
 #: src/features/user/components/modals/FluxerTagChangeModal.tsx:218
 #: src/features/user/components/modals/tabs/my_profile_tab/MyProfileTabUsernameSection.tsx:55
@@ -35944,7 +36082,7 @@ msgstr "Nama pengguna hanya bisa berisi huruf (a-z, A-Z), angka (0-9), dan garis
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/channel/components/message_search_bar/UsersSection.tsx:15
 #: src/features/user/components/settings_utils/search_index/BlockedUsersIndex.ts:18
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:342
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:346
 msgid "Users"
 msgstr "Pengguna"
 
@@ -36002,7 +36140,7 @@ msgid "value"
 msgstr "nilai"
 
 #. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:72
+#: src/features/connection/components/modals/AddConnectionModal.tsx:57
 msgid "Value"
 msgstr "Nilai"
 
@@ -36036,7 +36174,7 @@ msgid "Vanity URL"
 msgstr "URL kustom"
 
 #. Community settings tab for the community vanity/custom invite link.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:71
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:78
 msgctxt "community-settings-tab"
 msgid "Vanity URL"
 msgstr "URL khusus"
@@ -36075,7 +36213,7 @@ msgid "Vanity URLs must be between 2 and 32 characters long and can only contain
 msgstr "URL kustom harus memiliki panjang antara 2 hingga 32 karakter dan hanya boleh berisi karakter alfanumerik serta tanda hubung internal."
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:32
+#: src/features/user/components/settings_utils/search_index/LinkedAccountsIndex.ts:28
 msgid "Verification"
 msgstr "Verifikasi"
 
@@ -36157,9 +36295,13 @@ msgid "Verify code"
 msgstr "Verifikasi kode"
 
 #. Short label in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:64
+#: src/features/connection/components/modals/AddConnectionModal.tsx:49
 msgid "Verify connection"
 msgstr "Verifikasi koneksi"
+
+#: src/features/user/components/modals/tabs/LinkedAccountsTab.tsx:375
+msgid "Verify domain ownership to display it on your profile."
+msgstr ""
 
 #. Shared action or page-title label for starting or completing email address verification.
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:164
@@ -36194,7 +36336,7 @@ msgid "Verify phone number form"
 msgstr "Formulir verifikasi nomor telepon"
 
 #. Short label in the authentication captcha modal. Keep the tone plain and specific.
-#: src/features/auth/components/modals/CaptchaModal.tsx:15
+#: src/features/auth/components/modals/CaptchaModal.tsx:16
 msgid "Verify you're human"
 msgstr "Verifikasi bahwa Anda manusia"
 
@@ -36568,7 +36710,7 @@ msgstr "Lihat detail"
 msgid "View devices that are signed in to your account"
 msgstr "Lihat perangkat yang masuk ke akun Anda"
 
-#: src/features/user/components/popouts/UserProfileShared.tsx:258
+#: src/features/user/components/popouts/UserProfileShared.tsx:256
 msgid "View full profile"
 msgstr "Lihat profil lengkap"
 
@@ -36603,8 +36745,8 @@ msgstr "Lihat panggilan masuk"
 msgid "View member profile for {displayName}"
 msgstr "Lihat profil anggota untuk {displayName}"
 
-#: src/features/app/components/layout/SplashScreen.tsx:174
-#: src/features/app/components/layout/SplashScreen.tsx:240
+#: src/features/app/components/layout/SplashScreen.tsx:175
+#: src/features/app/components/layout/SplashScreen.tsx:241
 msgid "View on status page"
 msgstr "Lihat di halaman status"
 
@@ -36803,7 +36945,7 @@ msgstr "aktivitas suara"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:446
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:450
 #: src/features/user/components/settings_utils/section_registry/PrivacySafetySections.ts:297
 msgid "Voice activity"
 msgstr "Aktivitas suara"
@@ -36866,7 +37008,7 @@ msgstr "Saluran suara"
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/user/components/settings_utils/search_index/AppearanceIndex.ts:23
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:402
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:406
 msgid "Voice channel confirmation"
 msgstr "Konfirmasi saluran suara"
 
@@ -36920,7 +37062,7 @@ msgid "Voice entrance sound"
 msgstr "Suara saat masuk obrolan suara"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:394
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:398
 msgid "Voice join"
 msgstr "Gabung panggilan suara"
 
@@ -37005,13 +37147,17 @@ msgid "Void"
 msgstr "Batal"
 
 #. Generic media-player / voice control: volume slider label.
+#. Label for the volume slider in the soundboard sound trimmer modal.
+#. Label for the volume slider.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #. Subsection title in the voice tab. Keep it concise.
+#: src/features/guild/components/modals/guild_tabs/soundboard/EditGuildSoundboardSoundModal.tsx:34
 #: src/features/i18n/utils/CommonMessageDescriptors.ts:373
 #: src/features/user/components/modals/tabs/UserVoiceTab.tsx:179
 #: src/features/user/components/settings_utils/search_index/NotificationsIndex.ts:86
 #: src/features/user/components/settings_utils/section_registry/SharedDescriptors.ts:174
+#: src/features/voice/components/SoundboardSoundTrimmerModal.tsx:79
 msgid "Volume"
 msgstr "Volume"
 
@@ -37209,7 +37355,7 @@ msgstr "Kami menemukan langganan {premiumProductFullName} yang sudah ada untuk a
 msgid "We need one verification step before you continue. This helps protect accounts and keep spam off {productName}."
 msgstr "Kami memerlukan satu langkah verifikasi sebelum Anda melanjutkan. Ini membantu melindungi akun dan menjaga {productName} bebas dari spam."
 
-#: src/features/auth/components/modals/CaptchaModal.tsx:116
+#: src/features/auth/components/modals/CaptchaModal.tsx:131
 msgid "We need to make sure you're not a bot. Complete the verification below."
 msgstr "Kami perlu memastikan Anda bukan bot. Selesaikan verifikasi di bawah."
 
@@ -37416,7 +37562,7 @@ msgid "Webhooks"
 msgstr "Webhook"
 
 #. Community settings tab for configuring webhooks.
-#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:66
+#: src/features/user/components/settings_utils/GuildSettingsConstants.ts:73
 msgctxt "community-settings-tab"
 msgid "Webhooks"
 msgstr "Webhook"
@@ -37480,7 +37626,7 @@ msgid "Welcome to {premiumProductFullName}. Your yearly subscription renews on {
 msgstr "Selamat datang di {premiumProductFullName}. Langganan tahunan Anda akan diperbarui pada {formattedDate}. Jelajahi berbagai keuntungan {premiumProductName} dan kelola langganan Anda."
 
 #. Setup wizard title shown once the operator is signed in as the instance admin.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:39
+#: src/features/app/components/setup/SetupWizardSteps.tsx:40
 msgid "Welcome to {productName}"
 msgstr "Selamat datang di {productName}"
 
@@ -37563,7 +37709,7 @@ msgstr "Apa saja isi paket ini?"
 #. Sidebar item in settings that opens the app update notes modal.
 #: src/features/app/components/dialogs/components/DesktopSettingsView.tsx:101
 #: src/features/app/components/dialogs/components/MobileSettingsView.tsx:60
-#: src/features/app/components/whats_new/WhatsNewModal.tsx:24
+#: src/features/app/components/whats_new/WhatsNewModal.tsx:21
 msgid "What's new"
 msgstr "Yang baru"
 
@@ -37668,7 +37814,7 @@ msgid "Who can friend"
 msgstr "Siapa yang bisa berteman"
 
 #. Setup wizard registration step title.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:146
+#: src/features/app/components/setup/SetupWizardSteps.tsx:147
 msgid "Who can join"
 msgstr "Siapa yang bisa bergabung"
 
@@ -37678,7 +37824,7 @@ msgid "Who can see your full profile"
 msgstr "Siapa yang dapat melihat profil lengkap Anda"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:358
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:362
 msgid "Who is typing"
 msgstr "Siapa yang mengetik"
 
@@ -37797,7 +37943,7 @@ msgid "Without this permission, push-to-talk is required."
 msgstr "Tanpa izin ini, push-to-talk wajib digunakan."
 
 #. Label for the wordmark branding asset.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:133
+#: src/features/app/components/setup/SetupWizardSteps.tsx:134
 msgid "Wordmark"
 msgstr "Wordmark"
 
@@ -37884,7 +38030,7 @@ msgid "You already have lifetime {premiumProductName}"
 msgstr "Anda sudah memiliki {premiumProductName} seumur hidup"
 
 #. Body text in the connection add connection modal.
-#: src/features/connection/components/modals/AddConnectionModal.tsx:32
+#: src/features/connection/components/modals/AddConnectionModal.tsx:29
 msgid "You already have this connection."
 msgstr "Anda sudah memiliki koneksi ini."
 
@@ -37927,7 +38073,7 @@ msgid "You are now navigating to {paymentProviderName} to complete the payment. 
 msgstr "Anda akan diarahkan ke {paymentProviderName} untuk menyelesaikan pembayaran. Kembali ke {productName} setelah Anda menyelesaikannya."
 
 #. Setup wizard body shown to the signed-in instance administrator.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:43
+#: src/features/app/components/setup/SetupWizardSteps.tsx:44
 msgid "You are signed in as the instance administrator. The next steps configure branding, registration, and core policy for everyone on this instance."
 msgstr "Anda masuk sebagai administrator instance. Langkah selanjutnya adalah mengonfigurasi branding, pendaftaran, dan kebijakan inti untuk semua orang di instance ini."
 
@@ -38135,7 +38281,7 @@ msgstr "Anda tidak dapat mengirim pesan di komunitas ini."
 #. Tooltip in the voice control bar when the user lacks the Screen Share permission in this channel. Tone stays plain.
 #. Tooltip shown when the user lacks the Screen Share permission in the voice channel. Tone stays plain.
 #: src/features/voice/components/voice_connection_status/LocalParticipantControls.tsx:65
-#: src/features/voice/components/VoiceControlBar.tsx:141
+#: src/features/voice/components/VoiceControlBar.tsx:145
 msgid "You can't share your screen in this channel"
 msgstr "Anda tidak dapat berbagi layar di saluran ini"
 
@@ -38149,7 +38295,7 @@ msgstr "Anda tidak dapat berbicara di saluran ini"
 #. Tooltip shown when the user lacks the Video permission in the voice channel. Tone stays plain.
 #: src/features/voice/components/modals/CameraPreviewModal.tsx:79
 #: src/features/voice/components/voice_connection_status/LocalParticipantControls.tsx:61
-#: src/features/voice/components/VoiceControlBar.tsx:131
+#: src/features/voice/components/VoiceControlBar.tsx:135
 msgid "You can't turn on your camera in this channel"
 msgstr "Anda tidak dapat menyalakan kamera di saluran ini"
 
@@ -38271,6 +38417,11 @@ msgstr "Anda tidak memiliki izin untuk bergabung ke saluran suara ini"
 #: src/features/emoji/components/emojis/EmojiListItem.tsx:72
 msgid "You don't have permission to rename this emoji. The name was reverted to what it was before."
 msgstr "Anda tidak memiliki izin untuk mengganti nama emoji ini. Nama dikembalikan ke nama sebelumnya."
+
+#. Empty-state text in the in-call soundboard panel when the user lacks the Use Soundboard permission.
+#: src/features/voice/components/soundboard/SoundboardPanel.tsx:54
+msgid "You don't have permission to use the soundboard here"
+msgstr ""
 
 #. Body of the error modal shown when the user is banned from a discovery community.
 #: src/features/discovery/discovery/DiscoveryGuildCard.tsx:60
@@ -38761,6 +38912,11 @@ msgstr "Anda telah mencapai batas DM grup"
 msgid "You've reached the maximum number of emojis. Delete some existing emojis to make room."
 msgstr "Anda telah mencapai jumlah emoji maksimum. Hapus beberapa emoji yang ada untuk memberi ruang."
 
+#. Soundboard upload limit message in community soundboard settings.
+#: src/features/guild/components/modals/guild_tabs/GuildSoundboardTab.tsx:50
+msgid "You've reached the maximum number of soundboard sounds. Delete one to make room."
+msgstr ""
+
 #. Sticker upload limit message in community sticker settings. Do not suggest that communities can be upgraded.
 #: src/features/guild/components/modals/guild_tabs/GuildStickersTab.tsx:62
 msgid "You've reached the maximum number of stickers. Delete some existing stickers to make room."
@@ -39155,12 +39311,12 @@ msgid "Your vanity URL has been set to {inviteEndpoint}/{vanitySlug}"
 msgstr "URL kustom Anda telah diatur ke {inviteEndpoint}/{vanitySlug}"
 
 #. Label for the YouTube enrichment service toggle in the setup wizard.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:285
+#: src/features/app/components/setup/SetupWizardSteps.tsx:286
 msgid "YouTube enrichment"
 msgstr "Pengayaan YouTube"
 
 #. Setup wizard title for YouTube integration credentials.
-#: src/features/app/components/setup/SetupWizardSteps.tsx:894
+#: src/features/app/components/setup/SetupWizardSteps.tsx:877
 msgid "YouTube previews"
 msgstr "Pratinjau YouTube"
 
@@ -39171,7 +39327,7 @@ msgstr "YubiKey"
 
 #. Settings search synonym. Used to match this term when the user types it in the settings search bar.
 #: src/features/messaging/components/modals/ImageCropModal.tsx:812
-#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:182
+#: src/features/user/components/settings_utils/section_registry/AppearanceSections.ts:186
 msgid "Zoom"
 msgstr "Perbesar"
 

@@ -14,6 +14,8 @@ const WIRE_COMPATIBILITY_LIMIT_KEYS: ReadonlySet<LimitKey> = new Set<LimitKey>([
 	'max_guild_emojis_static',
 	'max_guild_stickers_more',
 	'max_guild_stickers',
+	'max_guild_soundboard_sounds_more',
+	'max_guild_soundboard_sounds',
 ]);
 
 export class LimitConfigCodec implements ILimitConfigCodec {

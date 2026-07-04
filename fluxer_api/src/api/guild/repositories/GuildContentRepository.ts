@@ -1,17 +1,27 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import type {EmojiID, GuildID, StickerID} from '../../BrandedTypes';
+import type {EmojiID, GuildID, SoundboardSoundID, StickerID} from '../../BrandedTypes';
 import {BatchBuilder, fetchMany, fetchOne, upsertOne} from '../../database/CassandraQueryExecution';
 import {buildPatchFromData, executeVersionedUpdate} from '../../database/CassandraVersionedUpdate';
 import {
 	GUILD_EMOJI_COLUMNS,
+	GUILD_SOUNDBOARD_SOUND_COLUMNS,
 	GUILD_STICKER_COLUMNS,
 	type GuildEmojiRow,
+	type GuildSoundboardSoundRow,
 	type GuildStickerRow,
 } from '../../database/types/GuildTypes';
 import {GuildEmoji} from '../../models/GuildEmoji';
+import {GuildSoundboardSound} from '../../models/GuildSoundboardSound';
 import {GuildSticker} from '../../models/GuildSticker';
-import {GuildEmojis, GuildEmojisByEmojiId, GuildStickers, GuildStickersByStickerId} from '../../Tables';
+import {
+	GuildEmojis,
+	GuildEmojisByEmojiId,
+	GuildSoundboardSounds,
+	GuildSoundboardSoundsBySoundId,
+	GuildStickers,
+	GuildStickersByStickerId,
+} from '../../Tables';
 import {IGuildContentRepository} from './IGuildContentRepository';
 
 const FETCH_GUILD_EMOJIS_BY_GUILD_ID_QUERY = GuildEmojis.selectCql({
@@ -34,6 +44,17 @@ const FETCH_GUILD_STICKER_BY_ID_QUERY = GuildStickers.selectCql({
 });
 const FETCH_GUILD_STICKER_BY_STICKER_ID_ONLY_QUERY = GuildStickersByStickerId.selectCql({
 	where: GuildStickersByStickerId.where.eq('sticker_id'),
+	limit: 1,
+});
+const FETCH_GUILD_SOUNDBOARD_SOUNDS_BY_GUILD_ID_QUERY = GuildSoundboardSounds.selectCql({
+	where: GuildSoundboardSounds.where.eq('guild_id'),
+});
+const FETCH_GUILD_SOUNDBOARD_SOUND_BY_ID_QUERY = GuildSoundboardSounds.selectCql({
+	where: [GuildSoundboardSounds.where.eq('guild_id'), GuildSoundboardSounds.where.eq('sound_id')],
+	limit: 1,
+});
+const FETCH_GUILD_SOUNDBOARD_SOUND_BY_SOUND_ID_ONLY_QUERY = GuildSoundboardSoundsBySoundId.selectCql({
+	where: GuildSoundboardSoundsBySoundId.where.eq('sound_id'),
 	limit: 1,
 });
 
@@ -157,6 +178,70 @@ export class GuildContentRepository extends IGuildContentRepository {
 			}),
 		);
 		batch.addPrepared(GuildStickersByStickerId.deleteByPk({sticker_id: stickerId}));
+		await batch.execute();
+	}
+
+	async getSoundboardSound(soundId: SoundboardSoundID, guildId: GuildID): Promise<GuildSoundboardSound | null> {
+		const sound = await fetchOne<GuildSoundboardSoundRow>(FETCH_GUILD_SOUNDBOARD_SOUND_BY_ID_QUERY, {
+			guild_id: guildId,
+			sound_id: soundId,
+		});
+		return sound ? new GuildSoundboardSound(sound) : null;
+	}
+
+	async getSoundboardSoundById(soundId: SoundboardSoundID): Promise<GuildSoundboardSound | null> {
+		const sound = await fetchOne<GuildSoundboardSoundRow>(FETCH_GUILD_SOUNDBOARD_SOUND_BY_SOUND_ID_ONLY_QUERY, {
+			sound_id: soundId,
+		});
+		return sound ? new GuildSoundboardSound(sound) : null;
+	}
+
+	async listSoundboardSounds(guildId: GuildID): Promise<Array<GuildSoundboardSound>> {
+		const sounds = await fetchMany<GuildSoundboardSoundRow>(FETCH_GUILD_SOUNDBOARD_SOUNDS_BY_GUILD_ID_QUERY, {
+			guild_id: guildId,
+		});
+		return sounds.map((sound) => new GuildSoundboardSound(sound));
+	}
+
+	async countSoundboardSounds(guildId: GuildID): Promise<number> {
+		const sounds = await fetchMany<GuildSoundboardSoundRow>(FETCH_GUILD_SOUNDBOARD_SOUNDS_BY_GUILD_ID_QUERY, {
+			guild_id: guildId,
+		});
+		return sounds.length;
+	}
+
+	async upsertSoundboardSound(
+		data: GuildSoundboardSoundRow,
+		oldData?: GuildSoundboardSoundRow | null,
+	): Promise<GuildSoundboardSound> {
+		const guildId = data.guild_id;
+		const soundId = data.sound_id;
+		const result = await executeVersionedUpdate<GuildSoundboardSoundRow, 'guild_id' | 'sound_id'>(
+			async () =>
+				fetchOne<GuildSoundboardSoundRow>(FETCH_GUILD_SOUNDBOARD_SOUND_BY_ID_QUERY, {
+					guild_id: guildId,
+					sound_id: soundId,
+				}),
+			(current) => ({
+				pk: {guild_id: guildId, sound_id: soundId},
+				patch: buildPatchFromData(data, current, GUILD_SOUNDBOARD_SOUND_COLUMNS, ['guild_id', 'sound_id']),
+			}),
+			GuildSoundboardSounds,
+			{initialData: oldData},
+		);
+		await upsertOne(GuildSoundboardSoundsBySoundId.insert(data));
+		return new GuildSoundboardSound({...data, version: result.finalVersion ?? 1});
+	}
+
+	async deleteSoundboardSound(guildId: GuildID, soundId: SoundboardSoundID): Promise<void> {
+		const batch = new BatchBuilder();
+		batch.addPrepared(
+			GuildSoundboardSounds.deleteByPk({
+				guild_id: guildId,
+				sound_id: soundId,
+			}),
+		);
+		batch.addPrepared(GuildSoundboardSoundsBySoundId.deleteByPk({sound_id: soundId}));
 		await batch.execute();
 	}
 }

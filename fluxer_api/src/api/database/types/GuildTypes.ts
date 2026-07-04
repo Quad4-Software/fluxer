@@ -9,6 +9,7 @@ import type {
 	GuildID,
 	InviteCode,
 	RoleID,
+	SoundboardSoundID,
 	StickerID,
 	UserID,
 	VanityURLCode,
@@ -295,6 +296,56 @@ export const GUILD_STICKER_BY_STICKER_ID_COLUMNS = [
 	'tags',
 	'creator_id',
 ] as const satisfies ReadonlyArray<keyof GuildStickerRow>;
+
+export interface GuildSoundboardSoundRow {
+	guild_id: GuildID;
+	sound_id: SoundboardSoundID;
+	name: string;
+	emoji_name: Nullish<string>;
+	hash: string;
+	extension: string;
+	content_type: string;
+	duration_ms: number;
+	size_bytes: number;
+	volume: number;
+	creator_id: UserID;
+	available: boolean;
+	created_at: Date;
+	version: number;
+}
+
+export const GUILD_SOUNDBOARD_SOUND_COLUMNS = [
+	'guild_id',
+	'sound_id',
+	'name',
+	'emoji_name',
+	'hash',
+	'extension',
+	'content_type',
+	'duration_ms',
+	'size_bytes',
+	'volume',
+	'creator_id',
+	'available',
+	'created_at',
+	'version',
+] as const satisfies ReadonlyArray<keyof GuildSoundboardSoundRow>;
+
+export const GUILD_SOUNDBOARD_SOUND_BY_SOUND_ID_COLUMNS = [
+	'guild_id',
+	'sound_id',
+	'name',
+	'emoji_name',
+	'hash',
+	'extension',
+	'content_type',
+	'duration_ms',
+	'size_bytes',
+	'volume',
+	'creator_id',
+	'available',
+	'created_at',
+] as const satisfies ReadonlyArray<keyof GuildSoundboardSoundRow>;
 
 export interface GuildMembershipMetadataRow {
 	guild_id: GuildID;

@@ -2,7 +2,7 @@
 
 import type {AuditLogActionType} from '@fluxer/constants/src/AuditLogActionType';
 import {Permissions} from '@fluxer/constants/src/ChannelConstants';
-import type {EmojiID, GuildID, StickerID, UserID} from '../../../BrandedTypes';
+import type {EmojiID, GuildID, SoundboardSoundID, StickerID, UserID} from '../../../BrandedTypes';
 import type {IGatewayService} from '../../../infrastructure/IGatewayService';
 import {Logger} from '../../../Logger';
 import type {GuildEmoji} from '../../../models/GuildEmoji';
@@ -62,7 +62,7 @@ export class ContentHelpers {
 		guildId: GuildID;
 		userId: UserID;
 		action: AuditLogActionType;
-		targetId?: GuildID | EmojiID | StickerID | string | null;
+		targetId?: GuildID | EmojiID | StickerID | SoundboardSoundID | string | null;
 		auditLogReason?: string | null;
 		metadata?: Map<string, string> | Record<string, string>;
 		changes?: GuildAuditLogChange | null;

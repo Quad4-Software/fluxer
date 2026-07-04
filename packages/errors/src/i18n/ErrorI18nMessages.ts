@@ -640,6 +640,18 @@ export const ERROR_I18N_MESSAGES = {
 	'entrance_sounds.name_length_invalid': 'Entrance sound names must be between 1 and {max, number} characters.',
 	'entrance_sounds.not_found': 'Entrance sound not found.',
 	'entrance_sounds.invalid_scope': 'Invalid entrance sound scope.',
+	'soundboard.invalid_format': 'Soundboard sounds must be MP3, OGG, M4A, or WAV audio.',
+	'soundboard.duration_exceeds_limit': 'Soundboard sounds can be at most {max_ms, number}ms long.',
+	'soundboard.size_exceeds_limit': 'Soundboard sounds can be at most {max_bytes, number} bytes.',
+	'soundboard.name_length_invalid': 'Soundboard sound names must be between 2 and {max, number} characters.',
+	'soundboard.not_found': 'Soundboard sound not found.',
+	'soundboard.not_available': 'This soundboard sound is currently unavailable.',
+	'soundboard.not_in_voice_channel': 'You must be connected to this voice channel to play a soundboard sound.',
+	'soundboard.external_sounds_require_premium': 'Playing sounds from other servers requires Plutonium.',
+	'soundboard.external_sounds_require_membership': "You must be a member of a sound's source server to play it.",
+	'soundboard.max_sounds_reached':
+		"You've reached the maximum of {count, plural, one {# soundboard sound} other {# soundboard sounds}}.",
+	'soundboard.unknown_soundboard_sound': 'Unknown soundboard sound.',
 } as const;
 
 export type ErrorI18nCatalog = typeof ERROR_I18N_MESSAGES;

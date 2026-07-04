@@ -53,6 +53,7 @@ import {
 	mapGuildToGuildResponse,
 } from '../guild/GuildModel';
 import type {IGuildRepositoryAggregate} from '../guild/repositories/IGuildRepositoryAggregate';
+import {mapGuildSoundboardSoundToResponse, soundboardSoundCdnUrl} from '../guild/services/content/SoundboardService';
 import type {AvatarService} from '../infrastructure/AvatarService';
 import type {IDiscriminatorService} from '../infrastructure/DiscriminatorService';
 import type {IGatewayService} from '../infrastructure/IGatewayService';
@@ -1226,6 +1227,8 @@ export class RpcService {
 				return await this.handleGuildCollectionEmojisRequest({guildId});
 			case 'stickers':
 				return await this.handleGuildCollectionStickersRequest({guildId});
+			case 'soundboard_sounds':
+				return await this.handleGuildCollectionSoundboardSoundsRequest({guildId});
 			case 'members':
 				return await this.handleGuildCollectionMembersRequest({guildId, requestCache, afterUserId, limit});
 			case 'voice_states':
@@ -1245,6 +1248,7 @@ export class RpcService {
 			channels: undefined,
 			emojis: undefined,
 			stickers: undefined,
+			soundboard_sounds: undefined,
 			members: undefined,
 			voice_states: undefined,
 			has_more: false,
@@ -1351,6 +1355,19 @@ export class RpcService {
 		return {
 			...this.createGuildCollectionResponse('stickers'),
 			stickers: migratedStickers.map(mapGuildStickerToResponse),
+		};
+	}
+
+	private async handleGuildCollectionSoundboardSoundsRequest({
+		guildId,
+	}: {
+		guildId: GuildID;
+	}): Promise<RpcResponseGuildCollectionData> {
+		await this.getGuildOrThrow(guildId);
+		const sounds = await this.guildRepository.listSoundboardSounds(guildId);
+		return {
+			...this.createGuildCollectionResponse('soundboard_sounds'),
+			soundboard_sounds: sounds.map((sound) => mapGuildSoundboardSoundToResponse(sound, soundboardSoundCdnUrl(sound))),
 		};
 	}
 

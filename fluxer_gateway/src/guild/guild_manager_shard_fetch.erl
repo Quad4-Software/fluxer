@@ -18,6 +18,7 @@
     <<"channels">>,
     <<"emojis">>,
     <<"stickers">>,
+    <<"soundboard_sounds">>,
     <<"members">>,
     <<"voice_states">>
 ]).

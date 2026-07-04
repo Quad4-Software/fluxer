@@ -7,6 +7,7 @@ import type {GuildEmoji, GuildSticker} from '@fluxer/schema/src/domains/guild/Gu
 import type {GuildMemberData} from '@fluxer/schema/src/domains/guild/GuildMemberSchemas';
 import type {Guild} from '@fluxer/schema/src/domains/guild/GuildResponseSchemas';
 import type {GuildRole} from '@fluxer/schema/src/domains/guild/GuildRoleSchemas';
+import type {GuildSoundboardSoundResponse} from '@fluxer/schema/src/domains/guild/GuildSoundboardSchemas';
 
 export type GuildReadyData = Readonly<{
 	id: string;
@@ -14,6 +15,7 @@ export type GuildReadyData = Readonly<{
 	channels: ReadonlyArray<Channel>;
 	emojis: ReadonlyArray<GuildEmoji>;
 	stickers?: ReadonlyArray<GuildSticker>;
+	soundboard_sounds?: ReadonlyArray<GuildSoundboardSoundResponse>;
 	members: ReadonlyArray<GuildMemberData>;
 	member_count: number;
 	online_count?: number;

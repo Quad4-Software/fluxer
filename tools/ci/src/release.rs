@@ -231,6 +231,8 @@ async fn publish_desktop(args: PublishDesktopArgs) -> Result<()> {
         &format!("fluxer-desktop-{version}"),
     )?;
     let manifests = collect_payload_manifests(&payload_dir)?;
+    let mut release_assets = vec![bundle_path.clone()];
+    release_assets.extend(collect_desktop_installer_assets(&payload_dir)?);
     let fragment = json!({
         "schemaVersion": RELEASE_SCHEMA_VERSION,
         "kind": "desktop",
@@ -256,10 +258,52 @@ async fn publish_desktop(args: PublishDesktopArgs) -> Result<()> {
         &source_sha,
         args.channel == "canary" || args.test_build,
         true,
-        &[bundle_path],
+        &release_assets,
     )?;
     println!("Wrote release fragment: {}", fragment_path.display());
     Ok(())
+}
+
+fn collect_desktop_installer_assets(payload_dir: &Path) -> Result<Vec<PathBuf>> {
+    let mut assets = Vec::new();
+    for entry in WalkDir::new(payload_dir).into_iter().filter_map(Result::ok) {
+        let path = entry.path();
+        if !path.is_file() {
+            continue;
+        }
+        let name = path
+            .file_name()
+            .and_then(|value| value.to_str())
+            .unwrap_or_default();
+        if !is_desktop_installer_asset(name) {
+            continue;
+        }
+        assets.push(path.to_path_buf());
+    }
+    assets.sort();
+    Ok(assets)
+}
+
+fn is_desktop_installer_asset(name: &str) -> bool {
+    if name.ends_with(".sha256")
+        || name == "manifest.json"
+        || name.ends_with(".yml")
+        || name.ends_with(".blockmap")
+        || name.starts_with("RELEASES")
+        || (name.starts_with("releases") && name.ends_with(".json"))
+        || (name.starts_with("assets") && name.ends_with(".json"))
+    {
+        return false;
+    }
+    name.ends_with(".AppImage")
+        || name.ends_with(".deb")
+        || name.ends_with(".rpm")
+        || name.ends_with(".exe")
+        || name.ends_with(".dmg")
+        || name.ends_with(".nupkg")
+        || name.ends_with(".tar.gz")
+        || (name.ends_with(".zip") && name.contains("portable"))
+        || (name.ends_with(".zip") && !name.contains("blockmap"))
 }
 
 async fn publish_helm(args: PublishHelmArgs) -> Result<()> {

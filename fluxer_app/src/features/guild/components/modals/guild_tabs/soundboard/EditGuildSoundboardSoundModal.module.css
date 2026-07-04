@@ -1,0 +1,47 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.fieldsRow {
+	display: flex;
+	gap: 0.75rem;
+	align-items: flex-start;
+}
+
+.nameInput {
+	flex: 1;
+}
+
+.emojiInput {
+	width: 6rem;
+}
+
+.volumeRow {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+}
+
+.volumeLabel {
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: var(--text-secondary);
+	min-width: 3.5rem;
+}
+
+.volumeValue {
+	font-size: 0.75rem;
+	color: var(--text-tertiary);
+	min-width: 2.5rem;
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+.errorText {
+	font-size: 0.75rem;
+	color: var(--status-danger);
+}

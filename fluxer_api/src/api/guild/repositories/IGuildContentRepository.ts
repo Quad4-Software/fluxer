@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import type {EmojiID, GuildID, StickerID} from '../../BrandedTypes';
-import type {GuildEmojiRow, GuildStickerRow} from '../../database/types/GuildTypes';
+import type {EmojiID, GuildID, SoundboardSoundID, StickerID} from '../../BrandedTypes';
+import type {GuildEmojiRow, GuildSoundboardSoundRow, GuildStickerRow} from '../../database/types/GuildTypes';
 import type {GuildEmoji} from '../../models/GuildEmoji';
+import type {GuildSoundboardSound} from '../../models/GuildSoundboardSound';
 import type {GuildSticker} from '../../models/GuildSticker';
 
 export abstract class IGuildContentRepository {
@@ -29,4 +30,16 @@ export abstract class IGuildContentRepository {
 	abstract upsertSticker(data: GuildStickerRow): Promise<GuildSticker>;
 
 	abstract deleteSticker(guildId: GuildID, stickerId: StickerID): Promise<void>;
+
+	abstract getSoundboardSound(soundId: SoundboardSoundID, guildId: GuildID): Promise<GuildSoundboardSound | null>;
+
+	abstract getSoundboardSoundById(soundId: SoundboardSoundID): Promise<GuildSoundboardSound | null>;
+
+	abstract listSoundboardSounds(guildId: GuildID): Promise<Array<GuildSoundboardSound>>;
+
+	abstract countSoundboardSounds(guildId: GuildID): Promise<number>;
+
+	abstract upsertSoundboardSound(data: GuildSoundboardSoundRow): Promise<GuildSoundboardSound>;
+
+	abstract deleteSoundboardSound(guildId: GuildID, soundId: SoundboardSoundID): Promise<void>;
 }

@@ -173,6 +173,19 @@ export const GuildIdStickerIdParam = z.object({
 
 export type GuildIdStickerIdParam = z.infer<typeof GuildIdStickerIdParam>;
 
+export const SoundboardSoundIdParam = z.object({
+	sound_id: SnowflakeType.describe('The ID of the soundboard sound'),
+});
+
+export type SoundboardSoundIdParam = z.infer<typeof SoundboardSoundIdParam>;
+
+export const GuildIdSoundIdParam = z.object({
+	guild_id: SnowflakeType.describe('The ID of the guild'),
+	sound_id: SnowflakeType.describe('The ID of the soundboard sound'),
+});
+
+export type GuildIdSoundIdParam = z.infer<typeof GuildIdSoundIdParam>;
+
 export const PackIdEmojiIdParam = z.object({
 	pack_id: SnowflakeType.describe('The ID of the pack'),
 	emoji_id: SnowflakeType.describe('The ID of the emoji'),

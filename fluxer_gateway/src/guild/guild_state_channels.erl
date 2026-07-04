@@ -12,6 +12,7 @@
     handle_channel_pins_update/2,
     handle_emojis_update/2,
     handle_stickers_update/2,
+    handle_soundboard_sounds_update/2,
     handle_guild_update/2,
     extract_channel_ids_from_channel_update/1,
     extract_channel_ids_from_channel_update_bulk/1
@@ -94,6 +95,10 @@ handle_emojis_update(EventData, Data) ->
 -spec handle_stickers_update(event_data(), guild_data()) -> guild_data().
 handle_stickers_update(EventData, Data) ->
     Data#{<<"stickers">> => maps:get(<<"stickers">>, EventData, [])}.
+
+-spec handle_soundboard_sounds_update(event_data(), guild_data()) -> guild_data().
+handle_soundboard_sounds_update(EventData, Data) ->
+    Data#{<<"soundboard_sounds">> => maps:get(<<"sounds">>, EventData, [])}.
 
 -spec extract_channel_ids_from_channel_update(event_data()) -> [integer()].
 extract_channel_ids_from_channel_update(EventData) ->
@@ -206,6 +211,12 @@ handle_stickers_update_test() ->
     EventData = #{<<"stickers">> => [#{<<"id">> => <<"1">>}]},
     Result = handle_stickers_update(EventData, Data),
     ?assertEqual([#{<<"id">> => <<"1">>}], maps:get(<<"stickers">>, Result)).
+
+handle_soundboard_sounds_update_test() ->
+    Data = #{<<"soundboard_sounds">> => []},
+    EventData = #{<<"sounds">> => [#{<<"id">> => <<"1">>}]},
+    Result = handle_soundboard_sounds_update(EventData, Data),
+    ?assertEqual([#{<<"id">> => <<"1">>}], maps:get(<<"soundboard_sounds">>, Result)).
 
 handle_guild_update_merges_fields_test() ->
     Data = #{

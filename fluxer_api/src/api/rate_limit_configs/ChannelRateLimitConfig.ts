@@ -136,4 +136,8 @@ export const ChannelRateLimitConfigs = {
 		bucket: 'voice:entrance_sound:play::user_id::channel_id',
 		config: {limit: 3, windowMs: ms('30 seconds')},
 	} as RouteRateLimitConfig,
+	VOICE_SOUNDBOARD_SOUND_PLAY: {
+		bucket: 'voice:soundboard:play::user_id::channel_id',
+		config: {limit: 10, windowMs: ms('10 seconds')},
+	} as RouteRateLimitConfig,
 } as const;
