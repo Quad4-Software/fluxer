@@ -127,7 +127,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_MAJOR}.x | bash - \
 	&& apt-get install -y --no-install-recommends nodejs \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& corepack enable \
-	&& corepack prepare pnpm@10.29.3 --activate
+	&& corepack prepare pnpm@11.9.0 --activate
 
 RUN ARCH="$(dpkg --print-architecture)" \
 	&& case "$ARCH" in \

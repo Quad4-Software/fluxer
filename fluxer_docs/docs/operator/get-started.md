@@ -49,18 +49,44 @@ Use Docker Engine 24 or newer and the Compose v2 plugin.
 
 ## Step 2: Download the stack
 
-Create a working directory and download the stack files:
+=== "Quick setup (recommended)"
 
-```bash
-mkdir fluxer
-cd fluxer
+    Create a working directory and run the bootstrap script. It downloads the stack files, creates `.env`, sets your hostname, and generates every required secret:
 
-base=https://raw.githubusercontent.com/fluxerapp/fluxer/main/deploy/self-hosting
-curl -fsSLO "$base/docker-compose.yml"
-curl -fsSLO "$base/Caddyfile"
-curl -fsSLO "$base/livekit.yaml"
-curl -fsSL "$base/.env.example" -o .env
-```
+    ```bash
+    mkdir fluxer
+    cd fluxer
+
+    curl -fsSL https://raw.githubusercontent.com/Quad4-Software/fluxer/master/deploy/self-hosting/install.sh | bash -s -- --domain chat.example.com
+    ```
+
+    To download from upstream instead, set `FLUXER_SELF_HOSTING_REPO=fluxerapp/fluxer` and `FLUXER_SELF_HOSTING_REF=main`.
+
+    If you already cloned the repository:
+
+    ```bash
+    cd deploy/self-hosting
+    ./setup.sh --domain chat.example.com
+    ```
+
+    Add `--start` to launch the stack immediately, or `--cloudflare-tunnel` when Cloudflare terminates HTTPS in front of Caddy.
+
+=== "Manual download"
+
+    Create a working directory and download the stack files:
+
+    ```bash
+    mkdir fluxer
+    cd fluxer
+
+    base=https://raw.githubusercontent.com/Quad4-Software/fluxer/master/deploy/self-hosting
+    curl -fsSLO "$base/docker-compose.yml"
+    curl -fsSLO "$base/Caddyfile"
+    curl -fsSLO "$base/livekit.yaml"
+    curl -fsSL "$base/.env.example" -o .env
+    curl -fsSLO "$base/setup.sh"
+    chmod +x setup.sh
+    ```
 
 You should now have:
 
@@ -69,11 +95,14 @@ Caddyfile
 docker-compose.yml
 livekit.yaml
 .env
+setup.sh
 ```
 
 ## Step 3: Configure `.env`
 
-Set the public hostname at the top of `.env`.
+If you used `install.sh` or `setup.sh` in Step 2, your hostname and secrets are already configured. Review `.env`, then continue at Step 4.
+
+For a manual setup, set the public hostname at the top of `.env`.
 
 For a normal public server where Caddy obtains certificates directly:
 

@@ -12,7 +12,7 @@ ARG PUBLIC_ASSET_BASE_URL
 
 WORKDIR /usr/src/app
 
-RUN corepack enable && corepack prepare pnpm@10.29.3 --activate
+RUN corepack enable && corepack prepare pnpm@11.9.0 --activate
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	curl ca-certificates build-essential clang \

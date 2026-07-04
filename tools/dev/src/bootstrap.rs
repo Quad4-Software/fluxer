@@ -12,7 +12,7 @@ pub async fn bootstrap(skip_install: bool, skip_desktop_install: bool) -> Result
     ensure_writable_dev_paths()?;
     if !skip_install {
         crate::proc::run(&["corepack", "enable"])?;
-        crate::proc::run(&["corepack", "prepare", "pnpm@10.29.3", "--activate"])?;
+        crate::proc::run(&["corepack", "prepare", "pnpm@11.9.0", "--activate"])?;
         run_command(
             &["pnpm", "install", "--frozen-lockfile"],
             RunOptions {

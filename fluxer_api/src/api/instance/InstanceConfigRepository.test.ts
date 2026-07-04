@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {afterEach, describe, expect, it, vi} from 'vitest';
+import {getConfig} from '../Config';
 import {setCassandraQueryExecutorForTesting} from '../database/CassandraQueryExecution';
 import type {PreparedQuery} from '../database/CassandraTypes';
 import {InMemoryCassandraQueryExecutor} from '../test/InMemoryCassandraQueryExecutor';
@@ -100,5 +101,86 @@ describe('InstanceConfigRepository', () => {
 		await expect(repository.resolveRegistrationUrlCode(created.registrationUrl.id)).resolves.toMatchObject({
 			id: created.registrationUrl.id,
 		});
+	});
+
+	it('prefers environment email settings over stored instance config on self-hosted deployments', async () => {
+		const executor = new CountingInMemoryCassandraQueryExecutor();
+		setCassandraQueryExecutorForTesting(executor);
+		const kvProvider = new MockKVProvider();
+		const repository = createRepository(kvProvider);
+		const config = getConfig();
+		const originalSelfHosted = config.instance.selfHosted;
+		const originalEmail = structuredClone(config.email);
+		try {
+			config.instance.selfHosted = true;
+			config.email = {
+				...originalEmail,
+				enabled: true,
+				provider: 'smtp',
+				fromEmail: 'noreply@env.example',
+				fromName: 'Env Mailer',
+				smtp: {
+					host: 'smtp.env.example',
+					port: 465,
+					username: 'env-user',
+					password: 'env-password',
+					secure: true,
+				},
+			};
+			await repository.setInstanceIntegrationsConfig({
+				email: {
+					enabled: false,
+					provider: 'none',
+					from_email: 'noreply@kv.example',
+					from_name: 'KV Mailer',
+					smtp: {
+						host: 'smtp.kv.example',
+						port: 587,
+						username: 'kv-user',
+						password: 'kv-password',
+						secure: false,
+					},
+				},
+			});
+			await expect(repository.getEffectiveEmailConfig()).resolves.toMatchObject({
+				enabled: true,
+				provider: 'smtp',
+				fromEmail: 'noreply@env.example',
+				fromName: 'Env Mailer',
+				smtp: {
+					host: 'smtp.env.example',
+					port: 465,
+					username: 'env-user',
+					password: 'env-password',
+					secure: true,
+				},
+			});
+		} finally {
+			config.instance.selfHosted = originalSelfHosted;
+			config.email = originalEmail;
+		}
+	});
+
+	it('does not persist integration secrets to instance config on self-hosted deployments', async () => {
+		const executor = new CountingInMemoryCassandraQueryExecutor();
+		setCassandraQueryExecutorForTesting(executor);
+		const kvProvider = new MockKVProvider();
+		const repository = createRepository(kvProvider);
+		const config = getConfig();
+		const originalSelfHosted = config.instance.selfHosted;
+		try {
+			config.instance.selfHosted = true;
+			await repository.setInstanceIntegrationsConfig({
+				email: {
+					smtp: {
+						password: 'stored-password',
+					},
+				},
+			});
+			const stored = await repository.getInstanceIntegrationsConfig();
+			expect(stored.email.smtp.password).toBeNull();
+		} finally {
+			config.instance.selfHosted = originalSelfHosted;
+		}
 	});
 });

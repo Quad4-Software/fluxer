@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Ideas and feature requests
-    url: https://github.com/orgs/fluxerapp/discussions
-    about: Suggest an improvement or new capability.
+  - name: GitHub Discussions
+    url: https://github.com/Quad4-Software/fluxer/discussions
+    about: Ask questions or suggest improvements.
   - name: Security reports
-    url: https://fluxer.app/security
-    about: Report vulnerabilities privately.
+    url: https://github.com/Quad4-Software/fluxer/security/advisories/new
+    about: Report vulnerabilities privately through GitHub.

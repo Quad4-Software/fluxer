@@ -1,5 +1,5 @@
 # Security
 
-Please report security issues through the Fluxer security page:
+Report security issues privately through GitHub Security Advisories:
 
-https://fluxer.app/security
+https://github.com/Quad4-Software/fluxer/security/advisories/new

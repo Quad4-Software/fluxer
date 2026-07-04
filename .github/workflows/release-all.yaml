@@ -27,7 +27,6 @@ jobs:
   approve:
     name: approve release build
     runs-on: ubuntu-24.04
-    environment: builds
     timeout-minutes: 5
     steps:
       - name: approved

@@ -32,7 +32,7 @@ use walkdir::WalkDir;
 use zip::write::SimpleFileOptions;
 
 const PUBLIC_DL_BASE: &str = "https://api.fluxer.app/dl";
-const PNPM_VERSION: &str = "10.29.3";
+const PNPM_VERSION: &str = "11.9.0";
 const RUST_TOOLCHAIN: &str = "1.93.0";
 const DEFAULT_DESKTOP_VARIANT: &str = "default";
 const WINDOWS_GAME_CAPTURE_DESKTOP_VARIANT: &str = "windows-game-capture";

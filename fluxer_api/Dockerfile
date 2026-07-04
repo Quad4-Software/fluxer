@@ -5,7 +5,7 @@ FROM node:24-bookworm-slim AS base
 
 WORKDIR /usr/src/app
 
-RUN corepack enable && corepack prepare pnpm@10.29.3 --activate
+RUN corepack enable && corepack prepare pnpm@11.9.0 --activate
 
 FROM base AS deploy
 
@@ -45,7 +45,7 @@ RUN echo 'deb http://deb.debian.org/debian bookworm-backports main' > /etc/apt/s
 		libheif-plugin-dav1d && \
 	rm -rf /var/lib/apt/lists/*
 
-RUN corepack enable && corepack prepare pnpm@10.29.3 --activate
+RUN corepack enable && corepack prepare pnpm@11.9.0 --activate
 
 COPY --from=deploy /out ./
 COPY --from=deploy /usr/src/app/tsconfigs /usr/src/app/tsconfigs

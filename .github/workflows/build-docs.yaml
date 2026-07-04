@@ -27,10 +27,10 @@ on:
         required: false
         default: true
       approval-required:
-        description: "Require the protected builds environment approval before this build runs."
+        description: "Run an approval step before this build runs."
         type: boolean
         required: false
-        default: true
+        default: false
 
 permissions:
   actions: read
@@ -42,7 +42,6 @@ jobs:
     name: approve build release
     if: ${{ format('{0}', inputs['approval-required']) != 'false' }}
     runs-on: ubuntu-24.04
-    environment: builds
     timeout-minutes: 5
     steps:
       - name: approved

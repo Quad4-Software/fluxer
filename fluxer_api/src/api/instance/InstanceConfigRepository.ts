@@ -502,6 +502,73 @@ function secretIsSet(value: unknown): boolean {
 	return typeof value === 'string' && value.trim().length > 0;
 }
 
+function resolveSelfHostedString(kv: string | null, env: string): string {
+	if (!Config.instance.selfHosted || env.trim().length === 0) {
+		return kv ?? env;
+	}
+	return env;
+}
+
+function resolveSelfHostedBoolean(kv: boolean | null, env: boolean): boolean {
+	if (!Config.instance.selfHosted) {
+		return kv ?? env;
+	}
+	return env;
+}
+
+function resolveSelfHostedEmailProvider(
+	kv: InstanceEmailProvider | null,
+	env: InstanceEmailProvider,
+): InstanceEmailProvider {
+	if (!Config.instance.selfHosted || env === 'none') {
+		return kv ?? env;
+	}
+	return env;
+}
+
+function resolveSelfHostedPort(kv: number | null, env: number): number {
+	if (!Config.instance.selfHosted) {
+		return kv ?? env;
+	}
+	return env;
+}
+
+function stripSelfHostedIntegrationSecrets(config: InstanceIntegrationsConfig): InstanceIntegrationsConfig {
+	if (!Config.instance.selfHosted) {
+		return config;
+	}
+	return {
+		...config,
+		gif: {
+			...config.gif,
+			klipy_api_key: null,
+		},
+		youtube: {
+			...config.youtube,
+			api_key: null,
+		},
+		captcha: {
+			...config.captcha,
+			hcaptcha_secret_key: null,
+			turnstile_secret_key: null,
+		},
+		email: {
+			...config.email,
+			smtp: {
+				...config.email.smtp,
+				password: null,
+			},
+		},
+		bluesky: {
+			...config.bluesky,
+			keys: config.bluesky.keys.map((key) => ({
+				...key,
+				private_key: null,
+			})),
+		},
+	};
+}
+
 function normalizeNullablePort(value: unknown): number | null {
 	if (typeof value !== 'number' || !Number.isInteger(value) || value < 1 || value > 65535) return null;
 	return value;
@@ -1132,8 +1199,9 @@ export class InstanceConfigRepository {
 				keys: config.bluesky?.keys ?? current.bluesky.keys,
 			},
 		});
-		await this.setConfig(INSTANCE_INTEGRATIONS_CONFIG_KEY, JSON.stringify(next));
-		return next;
+		const persisted = stripSelfHostedIntegrationSecrets(next);
+		await this.setConfig(INSTANCE_INTEGRATIONS_CONFIG_KEY, JSON.stringify(persisted));
+		return persisted;
 	}
 
 	async getInstanceMediaConfig(): Promise<InstanceMediaConfig> {
@@ -1203,7 +1271,9 @@ export class InstanceConfigRepository {
 
 	async getEffectiveGifConfig(): Promise<InstanceGifEffectiveConfig> {
 		const integrations = await this.getInstanceIntegrationsConfig();
-		const klipyApiKey = integrations.gif.klipy_api_key ?? normalizeSecretString(Config.klipy.apiKey);
+		const klipyApiKey = Config.instance.selfHosted
+			? normalizeSecretString(Config.klipy.apiKey)
+			: (integrations.gif.klipy_api_key ?? normalizeSecretString(Config.klipy.apiKey));
 		return {
 			klipy_api_key: klipyApiKey,
 			active_api_key: klipyApiKey,
@@ -1213,20 +1283,33 @@ export class InstanceConfigRepository {
 
 	async getEffectiveYoutubeApiKey(): Promise<string | null> {
 		const integrations = await this.getInstanceIntegrationsConfig();
+		if (Config.instance.selfHosted) {
+			return normalizeSecretString(Config.youtube.apiKey);
+		}
 		return integrations.youtube.api_key ?? normalizeSecretString(Config.youtube.apiKey);
 	}
 
 	async getEffectiveCaptchaConfig(): Promise<InstanceCaptchaEffectiveConfig> {
 		const integrations = await this.getInstanceIntegrationsConfig();
-		const provider = integrations.captcha.provider ?? (Config.captcha.enabled ? Config.captcha.provider : 'none');
-		const hcaptchaSiteKey =
-			integrations.captcha.hcaptcha_site_key ?? normalizeSecretString(Config.captcha.hcaptcha?.siteKey);
-		const hcaptchaSecretKey =
-			integrations.captcha.hcaptcha_secret_key ?? normalizeSecretString(Config.captcha.hcaptcha?.secretKey);
-		const turnstileSiteKey =
-			integrations.captcha.turnstile_site_key ?? normalizeSecretString(Config.captcha.turnstile?.siteKey);
-		const turnstileSecretKey =
-			integrations.captcha.turnstile_secret_key ?? normalizeSecretString(Config.captcha.turnstile?.secretKey);
+		const provider = Config.instance.selfHosted
+			? Config.captcha.enabled
+				? Config.captcha.provider
+				: 'none'
+			: (integrations.captcha.provider ?? (Config.captcha.enabled ? Config.captcha.provider : 'none'));
+		const hcaptchaSiteKey = resolveSelfHostedString(
+			integrations.captcha.hcaptcha_site_key,
+			normalizeSecretString(Config.captcha.hcaptcha?.siteKey) ?? '',
+		);
+		const hcaptchaSecretKey = Config.instance.selfHosted
+			? normalizeSecretString(Config.captcha.hcaptcha?.secretKey)
+			: (integrations.captcha.hcaptcha_secret_key ?? normalizeSecretString(Config.captcha.hcaptcha?.secretKey));
+		const turnstileSiteKey = resolveSelfHostedString(
+			integrations.captcha.turnstile_site_key,
+			normalizeSecretString(Config.captcha.turnstile?.siteKey) ?? '',
+		);
+		const turnstileSecretKey = Config.instance.selfHosted
+			? normalizeSecretString(Config.captcha.turnstile?.secretKey)
+			: (integrations.captcha.turnstile_secret_key ?? normalizeSecretString(Config.captcha.turnstile?.secretKey));
 		const providerReady =
 			provider === 'hcaptcha'
 				? Boolean(hcaptchaSiteKey && hcaptchaSecretKey)
@@ -1245,22 +1328,24 @@ export class InstanceConfigRepository {
 
 	async getEffectiveEmailConfig(): Promise<APIConfig['email']> {
 		const integrations = await this.getInstanceIntegrationsConfig();
-		const provider = integrations.email.provider ?? Config.email.provider;
-		const fromEmail = integrations.email.from_email ?? Config.email.fromEmail;
-		const fromName = integrations.email.from_name ?? Config.email.fromName;
+		const provider = resolveSelfHostedEmailProvider(integrations.email.provider, Config.email.provider);
+		const fromEmail = resolveSelfHostedString(integrations.email.from_email, Config.email.fromEmail);
+		const fromName = resolveSelfHostedString(integrations.email.from_name, Config.email.fromName);
 		const smtp =
 			provider === 'smtp'
 				? {
-						host: integrations.email.smtp.host ?? Config.email.smtp?.host ?? '',
-						port: integrations.email.smtp.port ?? Config.email.smtp?.port ?? 587,
-						username: integrations.email.smtp.username ?? Config.email.smtp?.username ?? '',
-						password: integrations.email.smtp.password ?? Config.email.smtp?.password ?? '',
-						secure: integrations.email.smtp.secure ?? Config.email.smtp?.secure ?? true,
+						host: resolveSelfHostedString(integrations.email.smtp.host, Config.email.smtp?.host ?? ''),
+						port: resolveSelfHostedPort(integrations.email.smtp.port, Config.email.smtp?.port ?? 587),
+						username: resolveSelfHostedString(integrations.email.smtp.username, Config.email.smtp?.username ?? ''),
+						password: Config.instance.selfHosted
+							? (Config.email.smtp?.password ?? '')
+							: (integrations.email.smtp.password ?? Config.email.smtp?.password ?? ''),
+						secure: resolveSelfHostedBoolean(integrations.email.smtp.secure, Config.email.smtp?.secure ?? true),
 					}
 				: undefined;
 		const next: APIConfig['email'] = {
 			...Config.email,
-			enabled: integrations.email.enabled ?? Config.email.enabled,
+			enabled: resolveSelfHostedBoolean(integrations.email.enabled, Config.email.enabled),
 			provider,
 			fromEmail,
 			fromName,
@@ -1278,10 +1363,12 @@ export class InstanceConfigRepository {
 
 	async getEffectiveBlueskyConfig(): Promise<BlueskyOAuthConfig> {
 		const integrations = await this.getInstanceIntegrationsConfig();
-		const runtimeKeys = integrations.bluesky.keys.flatMap((key): Array<BlueskyOAuthKeyConfig> => {
-			if (!key.private_key) return [];
-			return [{kid: key.kid, private_key: key.private_key}];
-		});
+		const runtimeKeys = Config.instance.selfHosted
+			? Config.auth.bluesky.keys
+			: integrations.bluesky.keys.flatMap((key): Array<BlueskyOAuthKeyConfig> => {
+					if (!key.private_key) return [];
+					return [{kid: key.kid, private_key: key.private_key}];
+				});
 		const keys = runtimeKeys.length > 0 ? runtimeKeys : Config.auth.bluesky.keys;
 		const enabled = (integrations.bluesky.enabled ?? Config.auth.bluesky.enabled) && keys.length > 0;
 		return {

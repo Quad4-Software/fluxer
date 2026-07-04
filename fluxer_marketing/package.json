@@ -13,5 +13,5 @@
 	"optionalDependencies": {
 		"@tailwindcss/oxide-linux-x64-gnu": "4.2.1"
 	},
-	"packageManager": "pnpm@10.29.3"
+	"packageManager": "pnpm@11.9.0"
 }

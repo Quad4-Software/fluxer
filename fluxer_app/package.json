@@ -273,5 +273,5 @@
 		"vite-tsconfig-paths": "catalog:",
 		"vitest": "catalog:"
 	},
-	"packageManager": "pnpm@10.29.3"
+	"packageManager": "pnpm@11.9.0"
 }

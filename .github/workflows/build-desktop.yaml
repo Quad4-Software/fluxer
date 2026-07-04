@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       channel:
-        description: Release channel label (stable or canary). Source is always this repository's main branch.
+        description: Release channel label (stable or canary). Source is always this repository's master branch.
         required: false
         type: choice
         options:
