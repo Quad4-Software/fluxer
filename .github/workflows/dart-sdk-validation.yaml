@@ -3,13 +3,16 @@ name: Dart SDK Validation
 
 on:
   pull_request:
+  push:
+    branches:
+      - master
 
 permissions:
   contents: read
   pull-requests: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -57,6 +60,7 @@ jobs:
 
   validate:
     name: Validate Dart SDK generation
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Check changed files

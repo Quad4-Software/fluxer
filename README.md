@@ -66,7 +66,7 @@ When building container images from this repository, set `FLUXER_REGISTRY_OWNER=
 
 ### CI and releases
 
-Pull requests run tests, typecheck, and validation workflows automatically. To build and publish container images to `ghcr.io/Quad4-Software`, run the **release all builds** workflow from the Actions tab.
+Pull requests and pushes to `master` run tests, typecheck, and validation workflows automatically. To build and publish container images to `ghcr.io/Quad4-Software`, run the **release all builds** workflow from the Actions tab.
 
 <p align="center">
   <img src="./fluxer_static/marketing/screenshots/desktop-1920w.png" alt="Fluxer app showcase" width="900">
