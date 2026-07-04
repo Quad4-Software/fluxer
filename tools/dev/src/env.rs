@@ -215,10 +215,8 @@ mod tests {
         std::fs::write(&development, "FLUXER_SEARCH_URL=http://meilisearch:7700\n").unwrap();
         std::fs::write(&local, "FLUXER_SEARCH_URL=http://127.0.0.1:7700\n").unwrap();
         std::fs::write(&root_local, "").unwrap();
-        let current = BTreeMap::from([(
-            "FLUXER_DEV_IGNORE_LOCAL_ENV".to_owned(),
-            "true".to_owned(),
-        )]);
+        let current =
+            BTreeMap::from([("FLUXER_DEV_IGNORE_LOCAL_ENV".to_owned(), "true".to_owned())]);
         let merged = merge_default_env_with_current_and_baseline(
             &development,
             &local,

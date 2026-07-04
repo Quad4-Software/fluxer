@@ -166,11 +166,9 @@ pub async fn instance_config_post(
     if action == "test_smtp" {
         let (flash, smtp_status, smtp_error) = match build_smtp_test_request(&form) {
             Ok(request) => match client.test_instance_smtp_config(&request).await {
-                Ok(response) if response.ok => (
-                    FlashData::success("SMTP connection verified"),
-                    "ok",
-                    None,
-                ),
+                Ok(response) if response.ok => {
+                    (FlashData::success("SMTP connection verified"), "ok", None)
+                }
                 Ok(response) => {
                     let error = response
                         .error

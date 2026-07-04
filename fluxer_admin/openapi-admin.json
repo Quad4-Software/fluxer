@@ -9968,11 +9968,6 @@
 					"ACCOUNT_DISABLED",
 					"BAD_GATEWAY",
 					"BAD_REQUEST",
-					"BLUESKY_OAUTH_AUTHORIZATION_FAILED",
-					"BLUESKY_OAUTH_CALLBACK_FAILED",
-					"BLUESKY_OAUTH_NOT_ENABLED",
-					"BLUESKY_OAUTH_SESSION_EXPIRED",
-					"BLUESKY_OAUTH_STATE_INVALID",
 					"ACCOUNT_SCHEDULED_FOR_DELETION",
 					"ACCOUNT_SUSPENDED_PERMANENTLY",
 					"ACCOUNT_SUSPENDED_TEMPORARILY",
@@ -10199,6 +10194,7 @@
 					"INSTANCE_POLICY_TRANSITION_NOT_ALLOWED",
 					"SLOWMODE_RATE_LIMITED",
 					"SMS_VERIFICATION_UNAVAILABLE",
+					"SSO_MANAGED_ACCOUNT_ACTION_FORBIDDEN",
 					"SSO_REQUIRED",
 					"STREAM_KEY_CHANNEL_MISMATCH",
 					"STREAM_KEY_SCOPE_MISMATCH",
@@ -12781,28 +12777,19 @@
 								"type": "object",
 								"properties": {
 									"gif_enabled": {"nullable": true, "type": "boolean"},
-									"youtube_enabled": {"nullable": true, "type": "boolean"},
-									"bluesky_enabled": {"nullable": true, "type": "boolean"}
+									"youtube_enabled": {"nullable": true, "type": "boolean"}
 								},
-								"required": ["gif_enabled", "youtube_enabled", "bluesky_enabled"]
+								"required": ["gif_enabled", "youtube_enabled"]
 							},
 							"services_resolved": {
 								"type": "object",
-								"properties": {
-									"gif_enabled": {"type": "boolean"},
-									"youtube_enabled": {"type": "boolean"},
-									"bluesky_enabled": {"type": "boolean"}
-								},
-								"required": ["gif_enabled", "youtube_enabled", "bluesky_enabled"]
+								"properties": {"gif_enabled": {"type": "boolean"}, "youtube_enabled": {"type": "boolean"}},
+								"required": ["gif_enabled", "youtube_enabled"]
 							},
 							"services_available": {
 								"type": "object",
-								"properties": {
-									"gif": {"type": "boolean"},
-									"youtube": {"type": "boolean"},
-									"bluesky": {"type": "boolean"}
-								},
-								"required": ["gif", "youtube", "bluesky"]
+								"properties": {"gif": {"type": "boolean"}, "youtube": {"type": "boolean"}},
+								"required": ["gif", "youtube"]
 							}
 						},
 						"required": [
@@ -12890,29 +12877,6 @@
 									"effective_disable_new_ip_authorization"
 								]
 							},
-							"bluesky": {
-								"type": "object",
-								"properties": {
-									"enabled": {"nullable": true, "type": "boolean"},
-									"effective_enabled": {"type": "boolean"},
-									"client_name": {"nullable": true, "type": "string"},
-									"client_uri": {"nullable": true, "type": "string"},
-									"logo_uri": {"nullable": true, "type": "string"},
-									"tos_uri": {"nullable": true, "type": "string"},
-									"policy_uri": {"nullable": true, "type": "string"},
-									"key_count": {"type": "integer", "minimum": 0, "maximum": 9007199254740991, "format": "int53"}
-								},
-								"required": [
-									"enabled",
-									"effective_enabled",
-									"client_name",
-									"client_uri",
-									"logo_uri",
-									"tos_uri",
-									"policy_uri",
-									"key_count"
-								]
-							},
 							"sentry": {
 								"type": "object",
 								"properties": {
@@ -12937,7 +12901,7 @@
 								]
 							}
 						},
-						"required": ["gif", "youtube", "captcha", "email", "bluesky", "sentry"]
+						"required": ["gif", "youtube", "captcha", "email", "sentry"]
 					},
 					"media": {
 						"type": "object",
@@ -13310,30 +13274,6 @@
 									"disable_new_ip_authorization": {"nullable": true, "type": "boolean"}
 								}
 							},
-							"bluesky": {
-								"nullable": true,
-								"type": "object",
-								"properties": {
-									"enabled": {"nullable": true, "type": "boolean"},
-									"client_name": {"nullable": true, "type": "string", "maxLength": 120},
-									"client_uri": {"nullable": true, "type": "string", "maxLength": 2048},
-									"logo_uri": {"nullable": true, "type": "string", "maxLength": 2048},
-									"tos_uri": {"nullable": true, "type": "string", "maxLength": 2048},
-									"policy_uri": {"nullable": true, "type": "string", "maxLength": 2048},
-									"keys": {
-										"type": "array",
-										"items": {
-											"type": "object",
-											"properties": {
-												"kid": {"type": "string", "minLength": 1, "maxLength": 255},
-												"private_key": {"nullable": true, "type": "string", "maxLength": 10000}
-											},
-											"required": ["kid"]
-										},
-										"maxItems": 8
-									}
-								}
-							},
 							"sentry": {
 								"nullable": true,
 								"type": "object",
@@ -13408,8 +13348,7 @@
 								"type": "object",
 								"properties": {
 									"gif_enabled": {"nullable": true, "type": "boolean"},
-									"youtube_enabled": {"nullable": true, "type": "boolean"},
-									"bluesky_enabled": {"nullable": true, "type": "boolean"}
+									"youtube_enabled": {"nullable": true, "type": "boolean"}
 								}
 							}
 						}
