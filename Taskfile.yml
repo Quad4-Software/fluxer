@@ -1,0 +1,536 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+version: '3'
+
+output: prefixed
+
+vars:
+  DEV: cargo run -p fluxer-dev --
+  CI: cargo run --locked --quiet --manifest-path tools/ci/Cargo.toml --
+  COMPOSE: docker compose -f .devcontainer/docker-compose.yml
+
+tasks:
+  default:
+    desc: List available tasks
+    cmds:
+      - task --list-all
+    silent: true
+
+  install:
+    desc: Install workspace Node.js dependencies
+    cmds:
+      - pnpm install
+
+  install:frozen:
+    desc: Install dependencies from the lockfile (CI parity)
+    cmds:
+      - '{{.CI}} ci --step install_dependencies'
+
+  setup:wasm-target:
+    desc: Install the wasm32-unknown-unknown Rust target
+    cmds:
+      - rustup target add wasm32-unknown-unknown
+
+  bootstrap:
+    desc: First-time local development bootstrap
+    cmds:
+      - '{{.DEV}} bootstrap'
+
+  build:
+    desc: Build the web app and desktop client
+    cmds:
+      - '{{.DEV}} build'
+
+  typecheck:
+    desc: Run workspace TypeScript typecheck
+    cmds:
+      - '{{.DEV}} typecheck'
+
+  test:
+    desc: Run workspace unit tests (excluding API integration)
+    cmds:
+      - '{{.DEV}} test'
+
+  test:api:
+    desc: Run fluxer_api unit tests
+    cmds:
+      - pnpm --filter fluxer_api test
+
+  test:integration:
+    desc: Run integration test package
+    cmds:
+      - pnpm --filter @fluxer/integration test
+
+  test:postgres:
+    desc: Run Postgres KV integration tests (requires Postgres on localhost:5432)
+    cmds:
+      - pnpm --filter fluxer_api test:postgres-integration
+
+  test:integration:all:
+    desc: Run API, integration package, and Postgres integration tests
+    deps:
+      - test:api
+      - test:integration
+      - test:postgres
+
+  knip:
+    desc: Find unused files, dependencies, and exports
+    cmds:
+      - '{{.DEV}} knip'
+
+  check:
+    desc: Run typecheck, workspace tests, and knip
+    deps:
+      - typecheck
+      - test
+      - knip
+
+  dev:
+    desc: Start the full local dev stack (pass task names after -- to run a subset)
+    cmds:
+      - '{{.DEV}} dev {{.CLI_ARGS}}'
+
+  dev:proxy:
+    desc: Start only the dev reverse proxy
+    cmds:
+      - '{{.DEV}} dev proxy'
+
+  dev:services:
+    desc: Start only Rust microservices
+    cmds:
+      - '{{.DEV}} rust-services'
+
+  dev:api:
+    desc: Start only the API server
+    cmds:
+      - '{{.DEV}} dev api'
+
+  dev:worker:
+    desc: Start only the background worker
+    cmds:
+      - '{{.DEV}} dev worker'
+
+  dev:app:
+    desc: Start only the web app dev server
+    cmds:
+      - '{{.DEV}} dev app'
+
+  dev:gateway:
+    desc: Start only the Erlang gateway (cluster mode)
+    cmds:
+      - '{{.DEV}} gateway cluster'
+
+  dev:gateway:single:
+    desc: Start the Erlang gateway in single-node mode
+    cmds:
+      - '{{.DEV}} gateway single'
+
+  dev:admin:
+    desc: Start only the admin panel dev server
+    cmds:
+      - '{{.DEV}} dev admin'
+
+  dev:marketing:
+    desc: Start only the marketing site dev server
+    cmds:
+      - '{{.DEV}} dev marketing'
+
+  dev:media:
+    desc: Start only the media proxy dev server
+    cmds:
+      - '{{.DEV}} dev media'
+
+  dev:app-proxy:
+    desc: Start only the app proxy dev server
+    cmds:
+      - '{{.DEV}} dev app-proxy'
+
+  dev:tunnel:
+    desc: Start dev stack with Cloudflare tunnel routing
+    cmds:
+      - '{{.DEV}} dev --cloudflare-tunnel'
+
+  smoke:
+    desc: Run local smoke checks against the dev stack
+    cmds:
+      - '{{.DEV}} smoke'
+
+  smoke:quick:
+    desc: Run a shortened smoke check
+    cmds:
+      - '{{.DEV}} smoke --quick'
+
+  smoke:public:
+    desc: Run smoke checks against the public URL
+    cmds:
+      - '{{.DEV}} smoke --public'
+
+  infra:up:
+    desc: Start lite dev infrastructure (Postgres, Valkey, NATS, LiveKit, Meilisearch, Mailpit)
+    cmds:
+      - '{{.COMPOSE}} up -d postgres valkey nats livekit meilisearch mailpit'
+
+  infra:up:full:
+    desc: Start full dev infrastructure (includes Cassandra and Elasticsearch)
+    cmds:
+      - '{{.COMPOSE}} up -d postgres cassandra valkey nats livekit elasticsearch meilisearch mailpit'
+
+  infra:down:
+    desc: Stop dev infrastructure containers
+    cmds:
+      - '{{.COMPOSE}} down'
+
+  infra:restart:
+    desc: Restart dev infrastructure containers
+    deps:
+      - infra:down
+      - infra:up
+
+  cassandra:diff:
+    desc: Show Cassandra schema drift
+    cmds:
+      - '{{.DEV}} cassandra diff'
+
+  cassandra:apply:
+    desc: Apply Cassandra schema changes
+    cmds:
+      - '{{.DEV}} cassandra apply'
+
+  cassandra:verify:
+    desc: Verify Cassandra schema matches the target
+    cmds:
+      - '{{.DEV}} cassandra verify'
+
+  tunnel:configure:
+    desc: Write Cloudflare tunnel config (requires --public-url and optional --token)
+    cmds:
+      - '{{.DEV}} tunnel configure {{.CLI_ARGS}}'
+
+  tunnel:env:
+    desc: Print env vars for a public URL (requires --public-url)
+    cmds:
+      - '{{.DEV}} tunnel print-env {{.CLI_ARGS}}'
+
+  tunnel:run:
+    desc: Run the Cloudflare tunnel process
+    cmds:
+      - '{{.DEV}} tunnel run {{.CLI_ARGS}}'
+
+  app:build:
+    desc: Production-build the web app
+    dir: fluxer_app
+    cmds:
+      - pnpm build
+
+  app:dev:
+    desc: Start the web app rspack dev server only
+    dir: fluxer_app
+    cmds:
+      - pnpm dev
+
+  app:test:
+    desc: Run web app unit tests
+    dir: fluxer_app
+    cmds:
+      - pnpm test
+
+  app:wasm:
+    desc: Regenerate app WASM artifacts
+    dir: fluxer_app
+    cmds:
+      - pnpm wasm:codegen
+
+  desktop:install:
+    desc: Install desktop native dependencies
+    cmds:
+      - '{{.DEV}} desktop install'
+
+  desktop:build:
+    desc: Build the desktop client
+    cmds:
+      - '{{.DEV}} desktop build'
+
+  desktop:build:skip-native:
+    desc: Build the desktop client without native addons
+    cmds:
+      - '{{.DEV}} desktop build --skip-native'
+
+  desktop:run:
+    desc: Run the desktop client (pass extra electron-builder args after --)
+    cmds:
+      - '{{.DEV}} desktop run {{.CLI_ARGS}}'
+
+  desktop:package:
+    desc: Package the desktop client for distribution
+    cmds:
+      - '{{.DEV}} desktop package {{.CLI_ARGS}}'
+
+  desktop:canary:
+    desc: Run a canary desktop build
+    cmds:
+      - '{{.DEV}} desktop canary {{.CLI_ARGS}}'
+
+  desktop:smoke:
+    desc: Smoke-build the desktop client
+    cmds:
+      - '{{.DEV}} desktop smoke-build'
+
+  i18n:compile:
+    desc: Compile all message catalogs
+    cmds:
+      - pnpm i18n:compile
+
+  i18n:extract:
+    desc: Extract translatable strings from the web app
+    cmds:
+      - pnpm --filter fluxer_app i18n:extract
+
+  i18n:refresh:
+    desc: Extract, auto-translate, and compile i18n catalogs
+    cmds:
+      - pnpm i18n:refresh
+
+  i18n:source-sync:
+    desc: Full i18n source sync across app, marketing, and static catalogs
+    cmds:
+      - pnpm i18n:source-sync
+
+  i18n:typecheck:
+    desc: Typecheck i18n-related packages
+    cmds:
+      - pnpm i18n:typecheck
+
+  docs:dev:
+    desc: Start the documentation dev server
+    cmds:
+      - pnpm docs:dev
+
+  docs:build:
+    desc: Build documentation for production
+    cmds:
+      - pnpm docs:build
+
+  openapi:generate:
+    desc: Regenerate OpenAPI artifacts
+    cmds:
+      - pnpm openapi:generate
+
+  openapi:validate:
+    desc: Validate OpenAPI specs
+    cmds:
+      - pnpm openapi:validate
+
+  rust:fmt:
+    desc: Check Rust formatting
+    cmds:
+      - cargo fmt --all -- --check
+
+  rust:fmt:write:
+    desc: Apply Rust formatting
+    cmds:
+      - cargo fmt --all
+
+  rust:clippy:
+    desc: Run Clippy with warnings denied
+    cmds:
+      - cargo clippy --workspace -- -D warnings
+
+  rust:test:
+    desc: Run all Rust workspace tests
+    cmds:
+      - cargo test --workspace
+
+  rust:check:
+    desc: Run Rust fmt, clippy, and tests
+    deps:
+      - rust:fmt
+      - rust:clippy
+      - rust:test
+
+  gateway:fmt:
+    desc: Check Erlang gateway formatting
+    cmds:
+      - '{{.CI}} ci --step gateway_fmt'
+
+  gateway:compile:
+    desc: Compile the Erlang gateway
+    cmds:
+      - '{{.CI}} ci --step gateway_compile'
+
+  gateway:dialyzer:
+    desc: Run Dialyzer on the Erlang gateway
+    cmds:
+      - '{{.CI}} ci --step gateway_dialyzer'
+
+  gateway:eunit:
+    desc: Run Erlang gateway eunit tests
+    cmds:
+      - '{{.CI}} ci --step gateway_eunit'
+
+  gateway:check:
+    desc: Run all gateway CI checks
+    deps:
+      - gateway:fmt
+      - gateway:compile
+      - gateway:dialyzer
+      - gateway:eunit
+
+  ci:typecheck:
+    desc: CI typecheck step
+    cmds:
+      - '{{.CI}} ci --step typecheck'
+
+  ci:test:
+    desc: CI workspace test step
+    cmds:
+      - '{{.CI}} ci --step test'
+
+  ci:knip:
+    desc: CI knip step
+    cmds:
+      - '{{.CI}} ci --step knip'
+
+  ci:scripts:sync:
+    desc: Sync CI helper crate dependencies
+    cmds:
+      - '{{.CI}} ci-scripts --step sync'
+
+  ci:scripts:test:
+    desc: Run CI helper crate unit tests
+    cmds:
+      - '{{.CI}} ci-scripts --step test'
+
+  ci:node:
+    desc: Run Node.js CI checks (install, typecheck, test, knip)
+    deps:
+      - install:frozen
+      - ci:typecheck
+      - ci:test
+      - ci:knip
+
+  ci:all:
+    desc: Run local CI parity checks (Node, Rust, gateway, deploy, CI scripts)
+    deps:
+      - ci:node
+      - rust:check
+      - gateway:check
+      - deploy:validate
+      - ci:scripts:test
+      - helm:lint
+
+  deploy:validate:
+    desc: Validate self-hosting deploy scripts and docker compose config
+    cmds:
+      - '{{.CI}} deploy-validation'
+
+  helm:deps:
+    desc: Update Helm chart dependencies
+    cmds:
+      - |
+        set -euo pipefail
+        for chart_dir in deploy/helm/*/; do
+          if [[ -f "${chart_dir}Chart.yaml" ]]; then
+            helm dependency update "$chart_dir"
+          fi
+        done
+
+  helm:lint:
+    desc: Lint all Helm charts (strict)
+    deps:
+      - helm:deps
+    cmds:
+      - |
+        set -euo pipefail
+        HELM_TEST_BUILD_VERSION="$(cargo run --locked --quiet --manifest-path tools/ci/Cargo.toml -- resolve-calver)"
+        GHCR_REGISTRY="${GHCR_REGISTRY:-ghcr.io/Quad4-Software}"
+        FAILED=0
+        for chart_dir in deploy/helm/*/; do
+          if [[ ! -f "${chart_dir}Chart.yaml" ]]; then
+            continue
+          fi
+          echo "--- Linting ${chart_dir} ---"
+          VALUES_ARGS=()
+          if [[ -f "${chart_dir}values.yaml" ]]; then
+            VALUES_ARGS=(-f "${chart_dir}values.yaml")
+          fi
+          EXTRA_SETS=(--set-string "global.registry=${GHCR_REGISTRY}")
+          case "${chart_dir}" in
+            *gateway*)
+              EXTRA_SETS+=(--set-string "gateway.tag=${HELM_TEST_BUILD_VERSION}" --set-string "gateway.build.version=${HELM_TEST_BUILD_VERSION}")
+              ;;
+            *api*)
+              EXTRA_SETS+=(--set-string app.name=api --set-string "app.tag=${HELM_TEST_BUILD_VERSION}" --set-string app.config=stable --set-string "app.build.version=${HELM_TEST_BUILD_VERSION}")
+              ;;
+            *app-proxy*)
+              EXTRA_SETS+=(--set-string app.name=app-proxy --set-string "app.tag=${HELM_TEST_BUILD_VERSION}" --set-string app.config=stable --set-string "app.build.version=${HELM_TEST_BUILD_VERSION}")
+              ;;
+            *admin*)
+              EXTRA_SETS+=(--set-string app.name=admin --set-string "app.tag=${HELM_TEST_BUILD_VERSION}" --set-string app.config=stable --set-string "app.build.version=${HELM_TEST_BUILD_VERSION}")
+              ;;
+            *marketing*)
+              EXTRA_SETS+=(--set-string app.name=marketing --set-string "app.tag=${HELM_TEST_BUILD_VERSION}" --set-string app.config=stable --set-string "app.build.version=${HELM_TEST_BUILD_VERSION}")
+              ;;
+            *docs*)
+              EXTRA_SETS+=(--set-string app.name=docs --set-string "app.tag=${HELM_TEST_BUILD_VERSION}" --set-string app.config=stable --set-string "app.build.version=${HELM_TEST_BUILD_VERSION}")
+              ;;
+            *media-proxy*)
+              EXTRA_SETS+=(--set-string "mediaProxy.tag=${HELM_TEST_BUILD_VERSION}" --set-string "staticProxy.tag=${HELM_TEST_BUILD_VERSION}" --set-string "mediaProxy.build.version=${HELM_TEST_BUILD_VERSION}" --set-string "staticProxy.build.version=${HELM_TEST_BUILD_VERSION}")
+              ;;
+            *uploads*)
+              EXTRA_SETS+=(--set-string app.name=uploads --set-string "app.tag=${HELM_TEST_BUILD_VERSION}" --set-string app.config=stable --set-string "app.build.version=${HELM_TEST_BUILD_VERSION}")
+              ;;
+            *worker*)
+              EXTRA_SETS+=(--set-string "workerRealtime.tag=${HELM_TEST_BUILD_VERSION}" --set-string "workerUnfurl.tag=${HELM_TEST_BUILD_VERSION}" --set-string "workerLifecycle.tag=${HELM_TEST_BUILD_VERSION}" --set-string "workerBatch.tag=${HELM_TEST_BUILD_VERSION}" --set-string "workerRealtime.build.version=${HELM_TEST_BUILD_VERSION}" --set-string "workerUnfurl.build.version=${HELM_TEST_BUILD_VERSION}" --set-string "workerLifecycle.build.version=${HELM_TEST_BUILD_VERSION}" --set-string "workerBatch.build.version=${HELM_TEST_BUILD_VERSION}")
+              ;;
+            *gifs*|*messages*|*snowflakes*|*unfurl*|*users*)
+              EXTRA_SETS+=(--set-string "svc.tag=${HELM_TEST_BUILD_VERSION}" --set-string "svc.build.version=${HELM_TEST_BUILD_VERSION}" --set-string svc.build.channel=stable)
+              ;;
+          esac
+          if ! helm lint "$chart_dir" "${VALUES_ARGS[@]}" "${EXTRA_SETS[@]}" --strict; then
+            FAILED=1
+          fi
+        done
+        if [[ "$FAILED" -ne 0 ]]; then
+          echo "One or more Helm charts failed linting"
+          exit 1
+        fi
+
+  media:seaweedfs:
+    desc: Run media-proxy SeaweedFS integration test
+    cmds:
+      - '{{.DEV}} media-proxy seaweedfs-integration'
+
+  media:doctor:
+    desc: Diagnose media-proxy static assets (pass --repair to fix)
+    cmds:
+      - '{{.DEV}} media-proxy doctor {{.CLI_ARGS}}'
+
+  local-k8s:cluster:
+    desc: Create a local Kubernetes cluster for development
+    cmds:
+      - '{{.DEV}} local-k8s create-cluster'
+
+  local-k8s:kubectl:
+    desc: Run kubectl against the local dev cluster (pass args after --)
+    cmds:
+      - '{{.DEV}} local-k8s kubectl {{.CLI_ARGS}}'
+
+  local-k8s:helm:
+    desc: Run helm against the local dev cluster (pass args after --)
+    cmds:
+      - '{{.DEV}} local-k8s helm {{.CLI_ARGS}}'
+
+  wasm:app:
+    desc: Build app WASM via the CI helper
+    cmds:
+      - '{{.CI}} build-app-wasm'
+
+  wasm:markdown:
+    desc: Build markdown parser WASM via the CI helper
+    cmds:
+      - '{{.CI}} build-markdown-parser-wasm'
+
+  calver:
+    desc: Print the current calendar version string
+    cmds:
+      - '{{.CI}} resolve-calver'
