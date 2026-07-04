@@ -119,7 +119,7 @@ services:
       - caddy-config:/config
     depends_on:
       api: {condition: service_healthy}
-      gateway: {condition: service_started}
+      gateway: {condition: service_healthy}
       media-proxy: {condition: service_healthy}
       static-proxy: {condition: service_started}
       admin: {condition: service_started}
@@ -191,6 +191,12 @@ services:
       - "8388608"
     volumes:
       - nats-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8222 && printf 'GET /healthz HTTP/1.0\\r\\n\\r\\n' >&3 && grep -q '200' <&3"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
   meilisearch:
     image: getmeili/meilisearch:v1.12
@@ -204,6 +210,12 @@ services:
       MEILI_HTTP_PAYLOAD_SIZE_LIMIT: ${FLUXER_MEILI_HTTP_PAYLOAD_SIZE_LIMIT:-104857600}
     volumes:
       - meilisearch-data:/meili_data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:7700/health | grep -q available"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 20s
 
   seaweedfs:
     image: chrislusf/seaweedfs:4.34
@@ -274,8 +286,8 @@ services:
     depends_on:
       postgres: {condition: service_healthy}
       valkey: {condition: service_healthy}
-      nats: {condition: service_started}
-      meilisearch: {condition: service_started}
+      nats: {condition: service_healthy}
+      meilisearch: {condition: service_healthy}
       seaweedfs-init: {condition: service_completed_successfully}
       gifs: {condition: service_started}
       gifs-shard: {condition: service_started}
@@ -297,9 +309,10 @@ services:
       FLUXER_API_WORKER_ENABLE_CRON_SCHEDULER: "true"
       FLUXER_API_WORKER_ENABLE_VOICE_RECONCILIATION: "true"
     depends_on:
+      api: {condition: service_healthy}
+      nats: {condition: service_healthy}
       postgres: {condition: service_healthy}
       valkey: {condition: service_healthy}
-      nats: {condition: service_started}
       seaweedfs-init: {condition: service_completed_successfully}
       snowflakes-shard: {condition: service_started}
       messages-shard: {condition: service_started}
@@ -314,8 +327,14 @@ services:
       FLUXER_GATEWAY_MEDIA_PROXY_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}/media
       FLUXER_GATEWAY_STATIC_CDN_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}
       FLUXER_GATEWAY_LOGGER_LEVEL: info
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8080/_health >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 45s
     depends_on:
-      nats: {condition: service_started}
+      nats: {condition: service_healthy}
       valkey: {condition: service_healthy}
 
   media-proxy:
@@ -463,11 +482,16 @@ services:
       FLUXER_ADMIN_PORT: "8080"
       FLUXER_ADMIN_BASE_PATH: /admin
       FLUXER_API_ENDPOINT: http://api:8080
+      FLUXER_INTERNAL_GATEWAY_ENDPOINT: http://gateway:8080
+      FLUXER_INTERNAL_MEDIA_PROXY_ENDPOINT: http://media-proxy:8080
+      FLUXER_BACKUP_META_PATH: /backups/data/latest-meta.json
       FLUXER_ADMIN_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}/admin
       FLUXER_APP_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}
       FLUXER_MEDIA_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}/media
       FLUXER_STATIC_CDN_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}
       FLUXER_ADMIN_OAUTH_REDIRECT_URI: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}/admin/oauth2_callback
+    volumes:
+      - ./backups/data:/backups/data:ro
     depends_on:
       api: {condition: service_healthy}
 

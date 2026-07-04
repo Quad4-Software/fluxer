@@ -58,6 +58,19 @@
 	height: calc(var(--message-group-spacing) / 2);
 }
 
+.virtualMessageList {
+	position: relative;
+	width: 100%;
+	flex: 0 0 auto;
+}
+
+.virtualMessageRow {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
 .scrollerInner {
 	display: flex;
 	flex-direction: column;

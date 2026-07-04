@@ -48,6 +48,7 @@ export interface ScrollManagerProps {
 	additionalMessagePadding: number;
 	canAutoAck: boolean;
 	handleJumpHighlight: (messageId: string | null, jumpSequenceId: number) => void;
+	ensureMessageVisible?: (messageId: string, callback: () => void) => void;
 }
 
 export class ScrollManager {
@@ -191,6 +192,27 @@ export class ScrollManager {
 		if (!doc) return null;
 		const elementId = `chat-messages-${channel.id}-${messageId}`;
 		return doc.getElementById(elementId) as HTMLElement | null;
+	}
+
+	private layoutWithMessageElement(
+		messageId: string,
+		handler: (element: HTMLElement) => void,
+		onMissing?: () => void,
+	): void {
+		const run = () => {
+			const element = this.layoutGetElementFromMessageId(messageId);
+			if (element) {
+				handler(element);
+				return;
+			}
+			onMissing?.();
+		};
+		const ensure = this.props.ensureMessageVisible;
+		if (ensure) {
+			ensure(messageId, run);
+			return;
+		}
+		run();
 	}
 
 	private layoutGetContainerLayout(container: HTMLElement): ContainerLayout {
@@ -815,16 +837,19 @@ export class ScrollManager {
 		const jumpToken = this.jumpCallbackToken;
 		const targetId = messages.jumpTargetId ? resolveJumpTargetId(messages) : null;
 		if (targetId) {
-			const element = this.layoutGetElementFromMessageId(targetId);
-			if (element) {
-				const padding = this.jumpGetBreathingRoom();
-				const scrollerNode = this.ref.current?.getScrollerNode();
-				if (!scrollerNode) return;
-				const targetScrollTop = this.layoutGetNodeAlignedScrollTop(element, 'center', padding, scrollerNode);
-				this.scrollMergeTo(targetScrollTop, () => this.jumpComplete(element, jumpToken));
-				return;
-			}
-			this.scrollToNewMessages('top', () => this.jumpComplete(null, jumpToken), false, false, jumpToken);
+			this.layoutWithMessageElement(
+				targetId,
+				(element) => {
+					const padding = this.jumpGetBreathingRoom();
+					const scrollerNode = this.ref.current?.getScrollerNode();
+					if (!scrollerNode) return;
+					const targetScrollTop = this.layoutGetNodeAlignedScrollTop(element, 'center', padding, scrollerNode);
+					this.scrollMergeTo(targetScrollTop, () => this.jumpComplete(element, jumpToken));
+				},
+				() => {
+					this.scrollToNewMessages('top', () => this.jumpComplete(null, jumpToken), false, false, jumpToken);
+				},
+			);
 			return;
 		}
 		if (!messages.hasMoreAfter) {
@@ -1073,39 +1098,39 @@ export class ScrollManager {
 	}
 
 	focusOnMessage(messageId: string): void {
-		const element = this.layoutGetElementFromMessageId(messageId);
-		if (!element) return;
-		const scrollerNode = this.ref.current?.getScrollerNode();
-		if (!scrollerNode) return;
-		const elementOffset = this.layoutGetOffsetTop(element, scrollerNode);
-		const elementHeight = element.offsetHeight;
-		const {scrollTop, offsetHeight} = this.scrollGetState();
-		const topPadding = 80;
-		const bottomPadding = 120;
-		const elementTop = elementOffset;
-		const elementBottom = elementOffset + elementHeight;
-		const viewportTop = scrollTop + topPadding;
-		const viewportBottom = scrollTop + offsetHeight - bottomPadding;
-		let targetScrollTop: number | null = null;
-		if (elementTop < viewportTop) {
-			targetScrollTop = elementOffset + elementHeight - offsetHeight + bottomPadding;
-		} else if (elementBottom > viewportBottom) {
-			targetScrollTop = elementOffset - topPadding;
-		}
-		if (targetScrollTop !== null) {
-			const maxScroll = scrollerNode.scrollHeight - offsetHeight;
-			targetScrollTop = Math.max(0, Math.min(targetScrollTop, maxScroll));
-			scrollerNode.scrollTop = targetScrollTop;
-		}
-		const newScrollTop = targetScrollTop ?? scrollTop;
-		const anchor = this.anchorGetData(messageId, newScrollTop);
-		if (anchor) {
-			this.anchorFocus = anchor;
-		}
-		if (element.tabIndex < 0) {
-			element.tabIndex = -1;
-		}
-		element.focus({preventScroll: true});
+		this.layoutWithMessageElement(messageId, (element) => {
+			const scrollerNode = this.ref.current?.getScrollerNode();
+			if (!scrollerNode) return;
+			const elementOffset = this.layoutGetOffsetTop(element, scrollerNode);
+			const elementHeight = element.offsetHeight;
+			const {scrollTop, offsetHeight} = this.scrollGetState();
+			const topPadding = 80;
+			const bottomPadding = 120;
+			const elementTop = elementOffset;
+			const elementBottom = elementOffset + elementHeight;
+			const viewportTop = scrollTop + topPadding;
+			const viewportBottom = scrollTop + offsetHeight - bottomPadding;
+			let targetScrollTop: number | null = null;
+			if (elementTop < viewportTop) {
+				targetScrollTop = elementOffset + elementHeight - offsetHeight + bottomPadding;
+			} else if (elementBottom > viewportBottom) {
+				targetScrollTop = elementOffset - topPadding;
+			}
+			if (targetScrollTop !== null) {
+				const maxScroll = scrollerNode.scrollHeight - offsetHeight;
+				targetScrollTop = Math.max(0, Math.min(targetScrollTop, maxScroll));
+				scrollerNode.scrollTop = targetScrollTop;
+			}
+			const newScrollTop = targetScrollTop ?? scrollTop;
+			const anchor = this.anchorGetData(messageId, newScrollTop);
+			if (anchor) {
+				this.anchorFocus = anchor;
+			}
+			if (element.tabIndex < 0) {
+				element.tabIndex = -1;
+			}
+			element.focus({preventScroll: true});
+		});
 	}
 
 	scrollPageUp(animate = false): void {
@@ -1126,23 +1151,30 @@ export class ScrollManager {
 			this.scrollTo(0);
 			return;
 		}
-		const element = this.layoutGetElementFromMessageId(messageId);
 		const scrollerNode = scrollerHandle.getScrollerNode();
 		this.pinIsAtBottom = false;
 		const jumpToken = this.jumpBegin(this.props.messages.jumpSequenceId);
 		const shouldContinue = () => this.jumpIsCurrent(jumpToken);
-		const onComplete = () => this.jumpComplete(element, jumpToken);
-		if (!element || !scrollerNode) {
-			this.scrollToNewMessages('middle', onComplete, animate, false, jumpToken);
-			return;
-		}
-		const padding = this.jumpGetBreathingRoom();
-		const target = this.layoutGetNodeAlignedScrollTop(element, 'center', padding, scrollerNode);
-		this.anchorFocus = this.anchorGetData(messageId, target);
-		this.scrollTo(target, animate, () => {
-			if (this.lifecycleIsDisposed || !shouldContinue()) return;
-			onComplete();
-		});
+		const onComplete = () => this.jumpComplete(null, jumpToken);
+		this.layoutWithMessageElement(
+			messageId,
+			(element) => {
+				if (!scrollerNode) {
+					onComplete();
+					return;
+				}
+				const padding = this.jumpGetBreathingRoom();
+				const target = this.layoutGetNodeAlignedScrollTop(element, 'center', padding, scrollerNode);
+				this.anchorFocus = this.anchorGetData(messageId, target);
+				this.scrollTo(target, animate, () => {
+					if (this.lifecycleIsDisposed || !shouldContinue()) return;
+					this.jumpComplete(element, jumpToken);
+				});
+			},
+			() => {
+				this.scrollToNewMessages('middle', onComplete, animate, false, jumpToken);
+			},
+		);
 	}
 
 	lifecycleGetSnapshotBeforeUpdate(focusId: string | null): void {

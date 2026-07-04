@@ -123,6 +123,9 @@ fn admin_config(port: u16, api_endpoint: &str, admin_endpoint: &str) -> AdminCon
         build_version: "parity".to_owned(),
         release_channel: "parity".to_owned(),
         self_hosted: false,
+        internal_gateway_endpoint: String::new(),
+        internal_media_proxy_endpoint: String::new(),
+        backup_meta_path: None,
         proxy: ProxyConfig {
             trust_client_ip_header: false,
             client_ip_header_name: "x-forwarded-for".to_owned(),

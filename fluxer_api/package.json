@@ -4,6 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"test": "vitest run",
+		"test:postgres-integration": "vitest run --config vitest.postgres-integration.config.ts",
 		"typecheck": "tsgo --noEmit",
 		"dev": "tsx watch --clear-screen=false src/AppEntrypoint.ts",
 		"start": "tsx src/AppEntrypoint.ts",

@@ -23,6 +23,9 @@ pub struct AdminConfig {
     pub build_version: String,
     pub release_channel: String,
     pub self_hosted: bool,
+    pub internal_gateway_endpoint: String,
+    pub internal_media_proxy_endpoint: String,
+    pub backup_meta_path: Option<String>,
     pub proxy: ProxyConfig,
 }
 
@@ -90,6 +93,17 @@ impl AdminConfig {
                 "stable",
             ),
             self_hosted: read_bool_env(&["FLUXER_SELF_HOSTED"], false),
+            internal_gateway_endpoint: trim_trailing_slash(&read_env_preferred(
+                &["FLUXER_INTERNAL_GATEWAY_ENDPOINT"],
+                "",
+            )),
+            internal_media_proxy_endpoint: trim_trailing_slash(&read_env_preferred(
+                &["FLUXER_INTERNAL_MEDIA_PROXY_ENDPOINT"],
+                "",
+            )),
+            backup_meta_path: env::var("FLUXER_BACKUP_META_PATH")
+                .ok()
+                .filter(|value| !value.trim().is_empty()),
             proxy: ProxyConfig {
                 trust_client_ip_header: read_bool_env(
                     &["FLUXER_TRUST_CLIENT_IP_HEADER", "TRUST_CLIENT_IP_HEADER"],
@@ -246,6 +260,9 @@ mod tests {
             build_version: String::new(),
             release_channel: String::new(),
             self_hosted: false,
+            internal_gateway_endpoint: String::new(),
+            internal_media_proxy_endpoint: String::new(),
+            backup_meta_path: None,
             proxy: ProxyConfig {
                 trust_client_ip_header: false,
                 client_ip_header_name: String::new(),
@@ -276,6 +293,9 @@ mod tests {
             build_version: String::new(),
             release_channel: String::new(),
             self_hosted: false,
+            internal_gateway_endpoint: String::new(),
+            internal_media_proxy_endpoint: String::new(),
+            backup_meta_path: None,
             proxy: ProxyConfig {
                 trust_client_ip_header: false,
                 client_ip_header_name: String::new(),

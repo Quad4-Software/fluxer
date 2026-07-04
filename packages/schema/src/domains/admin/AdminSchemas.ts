@@ -799,6 +799,40 @@ export const InstanceSentryTestResponse = z.object({
 
 export type InstanceSentryTestResponse = z.infer<typeof InstanceSentryTestResponse>;
 
+export const InstanceServiceHealthStatusSchema = z.object({
+	name: z.string(),
+	ok: z.boolean(),
+	latency_ms: z.number().int().nullable(),
+	detail: z.string().nullable(),
+});
+
+export type InstanceServiceHealthStatus = z.infer<typeof InstanceServiceHealthStatusSchema>;
+
+export const InstanceHealthResponse = z.object({
+	checked_at: z.string(),
+	services: z.array(InstanceServiceHealthStatusSchema),
+	active_jobs: z.object({
+		queued: z.number().int(),
+		running: z.number().int(),
+	}),
+});
+
+export type InstanceHealthResponse = z.infer<typeof InstanceHealthResponse>;
+
+export const InstanceIntegrationTestResponse = z.object({
+	ok: z.boolean(),
+	error: z.string().nullable(),
+	detail: z.string().nullable().optional(),
+});
+
+export type InstanceIntegrationTestResponse = z.infer<typeof InstanceIntegrationTestResponse>;
+
+export const InstanceS3IntegrationTestRequest = z.object({
+	bucket: z.string().trim().min(1).max(120).optional(),
+});
+
+export type InstanceS3IntegrationTestRequest = z.infer<typeof InstanceS3IntegrationTestRequest>;
+
 export const CreateRegistrationUrlRequest = z.object({
 	label: z.string().trim().min(1).max(120).nullish(),
 	expires_at: z.iso.datetime().nullish(),

@@ -556,6 +556,32 @@ struct TabCase {
     tab_text: &'static str,
 }
 
+#[tokio::test]
+async fn self_hosted_instance_ops_page_renders_health_and_backup_sections() {
+    let app = setup_self_hosted().await;
+    let body = get(&app, "/instance-ops", &[]).await;
+    assert_full_layout(&body);
+    assert!(body.contains("Instance Operations"), "{body}");
+    assert!(body.contains("Service health"), "{body}");
+    assert!(body.contains("Data backup"), "{body}");
+    assert!(body.contains("Integration tests"), "{body}");
+    assert!(body.contains("postgres"), "{body}");
+    assert!(body.contains("Test S3 upload"), "{body}");
+}
+
+async fn setup_self_hosted() -> TestApp {
+    let api_endpoint = spawn_mock_api().await;
+    let mut config = test_config(api_endpoint);
+    config.self_hosted = true;
+    config.backup_meta_path = None;
+    let router = build_router(config);
+    let session_value = session::create_session("1500000000000000000", "test-token", SECRET_KEY);
+    TestApp {
+        router,
+        session_cookie: format!("{}={session_value}", session::SESSION_COOKIE_NAME),
+    }
+}
+
 async fn setup() -> TestApp {
     let api_endpoint = spawn_mock_api().await;
     let router = build_router(test_config(api_endpoint));
@@ -719,6 +745,13 @@ async fn mock_api(method: Method, uri: Uri) -> Response {
         }
         (Method::POST, "/admin/jobs/get") => json_response(json!({ "job": searched_job() })),
         (Method::POST, "/admin/instance-config/get") => json_response(instance_config()),
+        (Method::GET, "/admin/instance-health") => json_response(instance_health()),
+        (Method::POST, "/admin/instance-config/integrations/s3/test") => {
+            json_response(json!({ "ok": true, "error": null, "detail": "ok" }))
+        }
+        (Method::POST, "/admin/instance-config/integrations/livekit/test") => {
+            json_response(json!({ "ok": true, "error": null, "detail": "ok" }))
+        }
         (Method::POST, "/admin/instance-config/registration-urls/create") => json_response(json!({
             "registration_url": registration_url_fixture(),
             "code": "11111111-1111-4111-8111-111111111111",
@@ -946,6 +979,17 @@ fn searched_job() -> Value {
     })
 }
 
+fn instance_health() -> Value {
+    json!({
+        "checked_at": "2026-07-04T02:09:10.000Z",
+        "services": [
+            { "name": "postgres", "ok": true, "latency_ms": 2, "detail": null },
+            { "name": "api", "ok": true, "latency_ms": 1, "detail": null }
+        ],
+        "active_jobs": { "queued": 0, "running": 1 }
+    })
+}
+
 fn instance_config() -> Value {
     json!({
         "sso": {
@@ -1081,6 +1125,9 @@ fn test_config(api_endpoint: String) -> AdminConfig {
         build_version: "test".to_owned(),
         release_channel: "test".to_owned(),
         self_hosted: false,
+        internal_gateway_endpoint: String::new(),
+        internal_media_proxy_endpoint: String::new(),
+        backup_meta_path: None,
         proxy: ProxyConfig {
             trust_client_ip_header: false,
             client_ip_header_name: "x-forwarded-for".to_owned(),

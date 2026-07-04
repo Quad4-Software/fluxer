@@ -13,6 +13,7 @@ pub mod jobs;
 mod message_actions;
 pub mod messages;
 pub mod reports;
+pub mod self_hosted;
 pub mod system;
 mod system_actions;
 mod user_actions;
@@ -60,6 +61,7 @@ pub fn build_router(config: AdminConfig) -> Router {
         .merge(jobs::router())
         .merge(messages::router())
         .merge(system::router())
+        .merge(self_hosted::router())
         .merge(voice::router())
         .merge(admin::router())
         .route("/", get(dashboard))

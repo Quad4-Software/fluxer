@@ -44,7 +44,17 @@ cd deploy/self-hosting   # or your install directory
 ./upgrade.sh --verify
 ```
 
-`upgrade.sh` backs up stack files, downloads the latest templates from `Quad4-Software/fluxer`, appends any missing `.env` keys without overwriting your values, generates new secrets such as `FLUXER_CAPTCHA_ALTCHA_HMAC_SECRET`, switches `FLUXER_REGISTRY_OWNER` from `fluxerapp` to `Quad4-Software` when appropriate, then runs `docker compose pull`, `down`, and `up -d` while keeping data volumes. Pass `--no-fork` to keep your current image registry.
+`upgrade.sh` backs up stack files, downloads the latest templates from `Quad4-Software/fluxer`, appends any missing `.env` keys without overwriting your values, generates new secrets such as `FLUXER_CAPTCHA_ALTCHA_HMAC_SECRET`, switches `FLUXER_REGISTRY_OWNER` from `fluxerapp` to `Quad4-Software` when appropriate, then runs `docker compose pull`, `down`, and `up -d` while keeping data volumes. Pass `--no-fork` to keep your current image registry. Pass `--backup-data` to run `./backup-data.sh` before refreshing stack files.
+
+Back up Postgres and S3 object data separately:
+
+```bash
+./backup-data.sh
+./restore-data.sh latest --dry-run
+./restore-data.sh latest --yes
+```
+
+Metadata is written to `backups/data/latest-meta.json`. The admin panel **Instance Operations** page reads this file when `./backups/data` is mounted into the admin container.
 
 If an upgrade goes wrong, roll back stack files from the automatic backup:
 

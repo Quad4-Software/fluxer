@@ -14,6 +14,7 @@ import {DiscoveryAdminController} from './DiscoveryAdminController';
 import {GatewayAdminController} from './GatewayAdminController';
 import {GuildAdminController} from './GuildAdminController';
 import {InstanceConfigAdminController} from './InstanceConfigAdminController';
+import {InstanceOpsAdminController} from './InstanceOpsAdminController';
 import {JobsAdminController} from './JobsAdminController';
 import {LimitConfigAdminController} from './LimitConfigAdminController';
 import {MessageAdminController} from './MessageAdminController';
@@ -34,6 +35,7 @@ export function registerAdminControllers(app: HonoApp) {
 	AssetAdminController(app);
 	BanAdminController(app);
 	InstanceConfigAdminController(app);
+	InstanceOpsAdminController(app);
 	LimitConfigAdminController(app);
 	MessageAdminController(app);
 	BulkAdminController(app);

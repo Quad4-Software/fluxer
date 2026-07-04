@@ -30,6 +30,7 @@ pub fn render_sidebar(
                 @for section in NAV_SECTIONS {
                     @let visible_items: Vec<_> = section.items.iter()
                         .filter(|item| !(item.hosted_only && config.self_hosted))
+                        .filter(|item| !(item.self_hosted_only && !config.self_hosted))
                         .filter(|item| acl::has_any_permission(admin_acls, item.required_acls))
                         .filter(|item| {
                             item.active_key != "voice-servers" || inspected_voice_region_id.is_some()

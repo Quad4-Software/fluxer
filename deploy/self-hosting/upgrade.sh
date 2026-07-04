@@ -17,6 +17,7 @@ SKIP_RESTART=false
 DRY_RUN=false
 VERIFY=false
 NO_BACKUP=false
+BACKUP_DATA=false
 DOWN_TIMEOUT=60
 RESTORE_TARGET=""
 RESTORE_YES=false
@@ -29,6 +30,8 @@ STACK_FILES=(
 	setup.sh
 	install.sh
 	upgrade.sh
+	backup-data.sh
+	restore-data.sh
 )
 
 RESTORE_FILES=(
@@ -74,6 +77,7 @@ Upgrade options:
   --skip-restart           Do not stop or start containers
   --down-timeout SECONDS   Grace period for "docker compose down" (default: 60)
   --no-backup              Skip backing up stack files before updating
+  --backup-data            Run ./backup-data.sh before updating stack files
   --dry-run                Print actions without changing anything
   --verify                 Probe health endpoints after restart
   -h, --help               Show this help
@@ -140,6 +144,10 @@ while [[ $# -gt 0 ]]; do
 			;;
 		--no-backup)
 			NO_BACKUP=true
+			shift
+			;;
+		--backup-data)
+			BACKUP_DATA=true
 			shift
 			;;
 		--dry-run)
@@ -355,7 +363,7 @@ download_stack_files() {
 		fi
 	done
 	if [[ "$DRY_RUN" != true ]]; then
-		chmod +x setup.sh install.sh upgrade.sh 2>/dev/null || true
+		chmod +x setup.sh install.sh upgrade.sh backup-data.sh restore-data.sh 2>/dev/null || true
 	fi
 }
 
@@ -437,7 +445,7 @@ restore_stack_files() {
 		fi
 	done
 	if [[ "$DRY_RUN" != true ]]; then
-		chmod +x setup.sh install.sh upgrade.sh 2>/dev/null || true
+		chmod +x setup.sh install.sh upgrade.sh backup-data.sh restore-data.sh 2>/dev/null || true
 	fi
 }
 
@@ -526,6 +534,18 @@ run_upgrade() {
 			cp .env.example .env
 		else
 			echo "Missing .env and .env.example in ${SCRIPT_DIR}" >&2
+			exit 1
+		fi
+	fi
+
+	if [[ "$BACKUP_DATA" == true ]]; then
+		echo "Running data backup before upgrade..."
+		if [[ "$DRY_RUN" == true ]]; then
+			echo "[dry-run] ./backup-data.sh --yes"
+		elif [[ -x ./backup-data.sh ]]; then
+			./backup-data.sh --yes
+		else
+			echo "backup-data.sh is missing or not executable in ${SCRIPT_DIR}" >&2
 			exit 1
 		fi
 	fi
