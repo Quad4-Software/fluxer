@@ -381,24 +381,22 @@ fn parse_special_sequence(
                 return Ok(Some(result));
             }
         }
-        b'@' => {
-            if ParserFlags::has(parser.flags(), ParserFlags::ALLOW_EVERYONE_MENTIONS) {
-                if text.starts_with("@everyone") {
-                    return Ok(Some(ParserResult {
-                        node: Node::Mention {
-                            kind: crate::ast::MentionKind::Everyone,
-                        },
-                        advance: 9,
-                    }));
-                }
-                if text.starts_with("@here") {
-                    return Ok(Some(ParserResult {
-                        node: Node::Mention {
-                            kind: crate::ast::MentionKind::Here,
-                        },
-                        advance: 5,
-                    }));
-                }
+        b'@' if ParserFlags::has(parser.flags(), ParserFlags::ALLOW_EVERYONE_MENTIONS) => {
+            if text.starts_with("@everyone") {
+                return Ok(Some(ParserResult {
+                    node: Node::Mention {
+                        kind: crate::ast::MentionKind::Everyone,
+                    },
+                    advance: 9,
+                }));
+            }
+            if text.starts_with("@here") {
+                return Ok(Some(ParserResult {
+                    node: Node::Mention {
+                        kind: crate::ast::MentionKind::Here,
+                    },
+                    advance: 5,
+                }));
             }
         }
         b'[' => {

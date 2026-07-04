@@ -4,7 +4,6 @@ import GatewayConnection from '@app/features/gateway/transport/GatewayConnection
 import {
 	createMemberListSubscriptionSnapshot,
 	INITIAL_MEMBER_LIST_SUBSCRIPTION_RANGE,
-	type MemberListRanges,
 	type MemberListSubscriptionMachineEvent,
 	selectMemberListSubscriptionModel,
 	transitionMemberListSubscriptionSnapshot,
