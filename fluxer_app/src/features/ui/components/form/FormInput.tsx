@@ -252,6 +252,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 							{isPasswordType && (
 								<button
 									type="button"
+									tabIndex={-1}
 									className={styles.passwordToggle}
 									onClick={handlePasswordToggle}
 									aria-label={passwordToggleLabel}

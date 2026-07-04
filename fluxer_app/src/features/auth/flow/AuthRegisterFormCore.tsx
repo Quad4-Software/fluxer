@@ -415,7 +415,7 @@ export const AuthRegisterFormCore = observer(function AuthRegisterFormCore({
 					id={confirmPasswordId}
 					name="confirm_password"
 					type="password"
-					autoComplete="new-password"
+					autoComplete="off"
 					required
 					label={i18n._(CONFIRM_PASSWORD_DESCRIPTOR)}
 					value={form.getValue('confirm_password')}
