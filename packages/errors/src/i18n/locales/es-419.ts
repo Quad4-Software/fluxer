@@ -302,13 +302,6 @@ const ERROR_I18N_ES_419_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'El valor del color no puede superar 0xffffff.',
 	'colors.color_value_too_low': 'El valor del color debe ser como mínimo 0x000000.',
 	'connections.already_exists': 'Ya existe una conexión de este tipo con este identificador.',
-	'connections.bluesky_oauth_authorization_failed':
-		'No pudimos resolver ese identificador de Bluesky. Verifícalo e inténtalo de nuevo.',
-	'connections.bluesky_oauth_callback_failed': 'No pudimos completar la conexión de Bluesky. Inténtalo de nuevo.',
-	'connections.bluesky_oauth_not_enabled': 'Las conexiones de Bluesky no están habilitadas en esta instancia.',
-	'connections.bluesky_oauth_session_expired': 'Tu sesión de Bluesky ha expirado. Vuelve a conectar tu cuenta.',
-	'connections.bluesky_oauth_state_invalid':
-		'La solicitud de autorización ha expirado o es inválida. Inténtalo de nuevo.',
 	'connections.initiation_token_invalid': 'El token de inicio de conexión es inválido o ha expirado.',
 	'connections.invalid_identifier': 'El identificador de conexión es inválido.',
 	'connections.invalid_type': 'El tipo de conexión no es compatible.',

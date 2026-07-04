@@ -31,6 +31,10 @@
   --admin-scrollbar: #cbd5e1;
 }
 
+html.dark body {
+  color: var(--admin-text);
+}
+
 html.dark {
   color-scheme: dark;
   --focus-ring-offset: #171717;
@@ -106,15 +110,29 @@ html.dark .text-gray-600 {
 
 html.dark .text-neutral-500,
 html.dark .text-gray-500 {
-  color: var(--admin-text-subtle) !important;
+  color: var(--admin-text-muted) !important;
 }
 
 html.dark .text-neutral-400 {
-  color: #737373 !important;
+  color: var(--admin-text-subtle) !important;
 }
 
 html.dark .text-neutral-300 {
-  color: #525252 !important;
+  color: #d4d4d4 !important;
+}
+
+html.dark .text-red-600 {
+  color: #fca5a5 !important;
+}
+
+html.dark .bg-neutral-900.text-white,
+html.dark button.bg-neutral-900 {
+  background-color: #e5e5e5 !important;
+  color: #171717 !important;
+}
+
+html.dark .hover\:bg-neutral-800:hover {
+  background-color: #d4d4d4 !important;
 }
 
 html.dark .border-neutral-200 {

@@ -36,7 +36,7 @@ import type {
 	TemplateSerializedGuild,
 } from '@fluxer/schema/src/domains/guild/GuildTemplateSchemas';
 import {extractTimestamp} from '@fluxer/snowflake/src/SnowflakeUtils';
-import {requireEmailVerified} from '../../../auth/EmailVerificationUtils';
+import {requireEmailVerifiedIfEnabled} from '../../../auth/EmailVerificationUtils';
 import type {ChannelID, GuildID, RoleID, UserID} from '../../../BrandedTypes';
 import {createChannelID, createGuildID, createRoleID, guildIdToRoleId} from '../../../BrandedTypes';
 import type {IChannelRepository} from '../../../channel/IChannelRepository';
@@ -257,7 +257,7 @@ export class GuildOperationsService {
 		if (user.isUnclaimedAccount()) {
 			throw new UnclaimedAccountCannotCreateGuildsError();
 		}
-		requireEmailVerified(user, 'guild_creation');
+		await requireEmailVerifiedIfEnabled(user, 'guild_creation');
 		const currentGuildCount = await this.guildRepository.countUserGuilds(user.id);
 		const ctx = createLimitMatchContext({user});
 		const maxGuilds = resolveLimitSafe(

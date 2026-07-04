@@ -290,12 +290,6 @@ const ERROR_I18N_HU_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'A színérték legfeljebb 0xffffff lehet.',
 	'colors.color_value_too_low': 'A színértéknek legalább 0x000000 lehet.',
 	'connections.already_exists': 'Ilyen típusú kapcsolat ezzel az azonosítóval már létezik.',
-	'connections.bluesky_oauth_authorization_failed':
-		'Nem sikerült feloldani a Bluesky felhasználónevet. Ellenőrizd, majd próbáld újra.',
-	'connections.bluesky_oauth_callback_failed': 'Nem sikerült létrehozni a Bluesky kapcsolatot. Próbáld újra.',
-	'connections.bluesky_oauth_not_enabled': 'A Bluesky kapcsolatok nincsenek engedélyezve ezen a rendszeren.',
-	'connections.bluesky_oauth_session_expired': 'A Bluesky munkameneted lejárt. Csatlakoztasd újra a fiókodat.',
-	'connections.bluesky_oauth_state_invalid': 'A hitelesítési kérelem lejárt vagy érvénytelen. Próbáld újra.',
 	'connections.initiation_token_invalid': 'A kapcsolatindító token érvénytelen vagy lejárt.',
 	'connections.invalid_identifier': 'A kapcsolat azonosító érvénytelen.',
 	'connections.invalid_type': 'A kapcsolattípus nem támogatott.',

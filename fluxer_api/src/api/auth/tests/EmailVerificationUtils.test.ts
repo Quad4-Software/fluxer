@@ -37,4 +37,8 @@ describe('requireEmailVerified', () => {
 		expect(() => requireEmailVerified({emailVerified: true}, 'mfa')).not.toThrow();
 		expect(() => requireEmailVerified({emailVerified: false, isBot: true}, 'mfa')).not.toThrow();
 	});
+
+	it('skips verification when email delivery is disabled', () => {
+		expect(() => requireEmailVerified({emailVerified: false}, 'mfa', false)).not.toThrow();
+	});
 });

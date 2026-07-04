@@ -61,7 +61,6 @@ impl Default for InstancePolicyResponse {
 pub struct InstanceServicesOverrides {
     pub gif_enabled: Option<bool>,
     pub youtube_enabled: Option<bool>,
-    pub bluesky_enabled: Option<bool>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -70,8 +69,6 @@ pub struct InstanceServicesResolved {
     pub gif_enabled: bool,
     #[serde(default)]
     pub youtube_enabled: bool,
-    #[serde(default)]
-    pub bluesky_enabled: bool,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -80,8 +77,6 @@ pub struct InstanceServicesAvailable {
     pub gif: bool,
     #[serde(default)]
     pub youtube: bool,
-    #[serde(default)]
-    pub bluesky: bool,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -94,8 +89,6 @@ pub struct InstanceIntegrationsResponse {
     pub captcha: InstanceCaptchaIntegrationResponse,
     #[serde(default)]
     pub email: InstanceEmailIntegrationResponse,
-    #[serde(default)]
-    pub bluesky: InstanceBlueskyIntegrationResponse,
     #[serde(default)]
     pub sentry: InstanceSentryIntegrationResponse,
 }
@@ -159,20 +152,6 @@ pub struct InstanceEmailSmtpIntegrationResponse {
     #[serde(default)]
     pub password_set: bool,
     pub secure: Option<bool>,
-}
-
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
-pub struct InstanceBlueskyIntegrationResponse {
-    pub enabled: Option<bool>,
-    #[serde(default)]
-    pub effective_enabled: bool,
-    pub client_name: Option<String>,
-    pub client_uri: Option<String>,
-    pub logo_uri: Option<String>,
-    pub tos_uri: Option<String>,
-    pub policy_uri: Option<String>,
-    #[serde(default)]
-    pub key_count: u16,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -552,8 +531,6 @@ pub struct InstanceServicesUpdateRequest {
     pub gif_enabled: Option<Option<bool>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub youtube_enabled: Option<Option<bool>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub bluesky_enabled: Option<Option<bool>>,
 }
 
 #[derive(Clone, Debug, Default, Serialize)]
@@ -566,8 +543,6 @@ pub struct InstanceIntegrationsUpdateRequest {
     pub captcha: Option<InstanceCaptchaIntegrationUpdateRequest>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub email: Option<InstanceEmailIntegrationUpdateRequest>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub bluesky: Option<InstanceBlueskyIntegrationUpdateRequest>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sentry: Option<InstanceSentryIntegrationUpdateRequest>,
 }
@@ -628,30 +603,6 @@ pub struct InstanceEmailSmtpIntegrationUpdateRequest {
     pub password: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub secure: Option<bool>,
-}
-
-#[derive(Clone, Debug, Default, Serialize)]
-pub struct InstanceBlueskyIntegrationUpdateRequest {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub enabled: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub client_name: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub client_uri: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub logo_uri: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub tos_uri: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub policy_uri: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub keys: Option<Vec<InstanceBlueskyKeyIntegrationUpdateRequest>>,
-}
-
-#[derive(Clone, Debug, Default, Serialize)]
-pub struct InstanceBlueskyKeyIntegrationUpdateRequest {
-    pub kid: String,
-    pub private_key: Option<String>,
 }
 
 #[derive(Clone, Debug, Default, Serialize)]

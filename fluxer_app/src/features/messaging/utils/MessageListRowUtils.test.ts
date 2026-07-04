@@ -26,6 +26,7 @@ function createMessage(id: string, overrides: Record<string, unknown> = {}): Mes
 		content: `message-${id}`,
 		attachments: [],
 		embeds: [],
+		reactions: [],
 		author: {id: 'user-1'},
 		...overrides,
 	} as unknown as Message;
@@ -85,6 +86,62 @@ describe('MessageListRowUtils', () => {
 		const plainHeight = estimateMessageListRowHeight(plainGroup, estimateOptions);
 		const richHeight = estimateMessageListRowHeight(richGroup, estimateOptions);
 		expect(richHeight).toBeGreaterThan(plainHeight);
+	});
+
+	it('estimates taller cozy group starts than grouped follow-up messages', () => {
+		const groupedRow = buildMessageListRows({
+			channelStream: [
+				{type: 'MESSAGE', content: createMessage('first'), groupId: 'g-1'},
+				{type: 'MESSAGE', content: createMessage('second'), groupId: 'g-1'},
+			],
+			revealedMessageId: null,
+			messageGroupSpacing: 16,
+		})[0]!;
+		const singleStartRow = buildMessageListRows({
+			channelStream: [{type: 'MESSAGE', content: createMessage('solo')}],
+			revealedMessageId: null,
+			messageGroupSpacing: 16,
+		})[0]!;
+		const groupedHeight = estimateMessageListRowHeight(groupedRow, estimateOptions);
+		const soloHeight = estimateMessageListRowHeight(singleStartRow, estimateOptions);
+		expect(groupedHeight).toBeGreaterThan(soloHeight);
+		expect(soloHeight).toBeGreaterThanOrEqual(52);
+	});
+
+	it('estimates extra height for reactions and unread dividers', () => {
+		const plainGroup = buildMessageListRows({
+			channelStream: [{type: 'MESSAGE', content: createMessage('plain')}],
+			revealedMessageId: null,
+			messageGroupSpacing: 16,
+		})[0]!;
+		const reactedGroup = buildMessageListRows({
+			channelStream: [
+				{
+					type: 'MESSAGE',
+					content: createMessage('reacted', {
+						reactions: [{emoji: {name: 'thumbsup'}, count: 1}],
+					}),
+				},
+			],
+			revealedMessageId: null,
+			messageGroupSpacing: 16,
+		})[0]!;
+		const unreadGroup = buildMessageListRows({
+			channelStream: [
+				{
+					type: 'MESSAGE',
+					content: createMessage('unread'),
+					showUnreadDividerBefore: true,
+				},
+			],
+			revealedMessageId: null,
+			messageGroupSpacing: 16,
+		})[0]!;
+		const plainHeight = estimateMessageListRowHeight(plainGroup, estimateOptions);
+		const reactedHeight = estimateMessageListRowHeight(reactedGroup, estimateOptions);
+		const unreadHeight = estimateMessageListRowHeight(unreadGroup, estimateOptions);
+		expect(reactedHeight).toBeGreaterThan(plainHeight);
+		expect(unreadHeight).toBeGreaterThan(plainHeight);
 	});
 
 	it('finds row indices and anchor ids for grouped messages', () => {

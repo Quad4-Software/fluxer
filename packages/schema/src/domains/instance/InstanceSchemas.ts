@@ -129,7 +129,6 @@ export const WellKnownFluxerResponse = z.object({
 		.object({
 			gif_enabled: z.boolean().describe('Whether the GIF picker is enabled for this instance'),
 			youtube_enabled: z.boolean().describe('Whether YouTube link enrichment is enabled for this instance'),
-			bluesky_enabled: z.boolean().describe('Whether Bluesky profile connections are enabled for this instance'),
 		})
 		.describe('Optional third-party service integrations enabled for this instance'),
 	limits: LimitConfigResponse.describe('Limit configuration with rules and trait definitions'),

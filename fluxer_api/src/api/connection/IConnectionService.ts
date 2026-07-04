@@ -45,6 +45,4 @@ export abstract class IConnectionService {
 		isValid: boolean;
 		updateParams: UpdateConnectionParams | null;
 	}>;
-
-	abstract createOrUpdateBlueskyConnection(userId: UserID, did: string, handle: string): Promise<UserConnectionRow>;
 }

@@ -274,7 +274,6 @@ export interface APIConfig {
 			privateKey: string;
 			email?: string;
 		};
-		bluesky: BlueskyOAuthConfig;
 	};
 	cookie: {
 		domain: string;
@@ -384,20 +383,4 @@ export interface APIConfig {
 		password?: string;
 		reporterEmail?: string;
 	};
-}
-
-export interface BlueskyOAuthKeyConfig {
-	kid: string;
-	private_key?: string;
-	private_key_path?: string;
-}
-
-export interface BlueskyOAuthConfig {
-	enabled: boolean;
-	client_name: string;
-	client_uri: string;
-	logo_uri: string;
-	tos_uri: string;
-	policy_uri: string;
-	keys: Array<BlueskyOAuthKeyConfig>;
 }

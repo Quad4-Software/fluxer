@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {showGenericErrorModal} from '@app/features/app/components/alerts/GenericErrorModalCommands';
-import {BLUESKY_PROVIDER_NAME} from '@app/features/app/config/I18nDisplayConstants';
 import {Endpoints} from '@app/features/app/constants/Endpoints';
 import UserConnection from '@app/features/connection/state/UserConnection';
 import {SOMETHING_WENT_WRONG_DESCRIPTOR} from '@app/features/i18n/utils/CommonMessageDescriptors';
@@ -27,11 +26,6 @@ const FAILED_TO_INITIATE_CONNECTION_DESCRIPTOR = msg({
 	message: "Couldn't start the connection",
 	comment: 'Toast error shown when creating a new account connection fails.',
 });
-const FAILED_TO_START_AUTHORISATION_DESCRIPTOR = msg({
-	message: "Couldn't start {blueskyProviderName} authorisation",
-	comment:
-		'Toast error shown when starting the OAuth flow for a connection provider fails. Preserve {blueskyProviderName}; it is inserted by code and must appear verbatim in the translation.',
-});
 const CONNECTION_VERIFIED_DESCRIPTOR = msg({
 	message: 'Connection verified',
 	comment: 'Success toast after an account connection is verified.',
@@ -53,10 +47,6 @@ const CONNECTIONS_REORDERED_DESCRIPTOR = msg({
 	comment: 'Short label in the connection connection commands.',
 });
 const logger = new Logger('Connections');
-
-interface BlueskyAuthorizeResponse {
-	authorize_url: string;
-}
 
 function connectionCreateRequest(type: ConnectionType, identifier: string): CreateConnectionRequest {
 	return {
@@ -119,20 +109,6 @@ export async function initiateConnection(
 	} catch (error) {
 		logger.error(`Failed to initiate connection ${type}/${identifier}:`, error);
 		showErrorModal(i18n, error, FAILED_TO_INITIATE_CONNECTION_DESCRIPTOR);
-		throw error;
-	}
-}
-
-export async function authorizeBlueskyConnection(i18n: I18n, handle: string): Promise<void> {
-	try {
-		const response = await http.post<BlueskyAuthorizeResponse>(Endpoints.BLUESKY_AUTHORIZE, {body: {handle}});
-		window.open(response.body.authorize_url, '_blank');
-	} catch (error) {
-		logger.error(`Failed to start Bluesky OAuth flow for ${handle}:`, error);
-		showErrorModal(i18n, error, {
-			...FAILED_TO_START_AUTHORISATION_DESCRIPTOR,
-			values: {blueskyProviderName: BLUESKY_PROVIDER_NAME},
-		});
 		throw error;
 	}
 }

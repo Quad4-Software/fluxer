@@ -247,7 +247,6 @@ export const Endpoints = {
 	GUILD_DISCOVERY: (guildId: string) => `/guilds/${guildId}/discovery`,
 	CONNECTIONS: '/users/@me/connections',
 	CONNECTIONS_VERIFY_AND_CREATE: '/users/@me/connections/verify',
-	BLUESKY_AUTHORIZE: '/users/@me/connections/bluesky/authorize',
 	CONNECTION: (type: string, connectionId: string) => `/users/@me/connections/${type}/${connectionId}`,
 	CONNECTION_VERIFY: (type: string, connectionId: string) => `/users/@me/connections/${type}/${connectionId}/verify`,
 	CONNECTIONS_REORDER: '/users/@me/connections/reorder',

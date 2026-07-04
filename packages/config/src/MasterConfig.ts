@@ -166,19 +166,6 @@ export interface MasterConfig {
 			private_key: string;
 			email: string;
 		};
-		bluesky: {
-			enabled: boolean;
-			client_name: string;
-			client_uri: string;
-			logo_uri: string;
-			tos_uri: string;
-			policy_uri: string;
-			keys: Array<{
-				kid: string;
-				private_key?: string;
-				private_key_path?: string;
-			}>;
-		};
 	};
 	cookie: {
 		domain: string;

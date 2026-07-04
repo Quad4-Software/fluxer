@@ -208,7 +208,7 @@
 
 .mainWrapperDense {
 	display: grid;
-	grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
+	grid-template-columns: auto minmax(0, 1fr) auto;
 	align-items: flex-start;
 	position: relative;
 	min-height: var(--textarea-min-height);
@@ -252,8 +252,7 @@
 	align-items: center;
 	justify-content: center;
 	min-height: var(--user-area-content-height);
-	min-width: 0;
-	flex-shrink: 1;
+	flex-shrink: 0;
 }
 
 .sideButtonPadding {
@@ -301,8 +300,7 @@
 	align-items: flex-start;
 	gap: 0.625rem;
 	min-height: var(--user-area-content-height);
-	min-width: 0;
-	flex-shrink: 1;
+	flex-shrink: 0;
 }
 
 .buttonContainerEditing {

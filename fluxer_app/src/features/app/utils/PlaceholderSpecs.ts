@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {useMemo} from 'react';
+import {MESSAGE_LIST_ROW_HEIGHT_ESTIMATES} from '@app/features/messaging/utils/MessageListRowUtils';
 
 function hashSeed(input: string): number {
 	let hash = 2166136261;
@@ -52,18 +53,21 @@ function generatePlaceholderSpecs(options: {
 	}
 	const DEFAULT_FONT_SIZE = 16;
 	const scale = fontSize / DEFAULT_FONT_SIZE;
-	const MESSAGE_HEIGHT_COZY = 22;
-	const MESSAGE_HEIGHT_COMPACT = 16;
+	const groupedMessageHeight = compact
+		? MESSAGE_LIST_ROW_HEIGHT_ESTIMATES.compactGroupedPx
+		: MESSAGE_LIST_ROW_HEIGHT_ESTIMATES.cozyGroupedPx;
+	const groupStartMessageHeight = compact
+		? MESSAGE_LIST_ROW_HEIGHT_ESTIMATES.compactGroupStartPx
+		: MESSAGE_LIST_ROW_HEIGHT_ESTIMATES.cozyGroupStartPx;
 	const ATTACHMENT_MARGIN = 8;
-	const messageHeight = compact ? MESSAGE_HEIGHT_COMPACT : MESSAGE_HEIGHT_COZY;
 	let totalHeight = 0;
 	const messageCounts: Array<number> = [];
 	for (let i = 0; i < messageGroups; i++) {
 		const count = Math.floor(random() * groupRange) + 1;
 		messageCounts.push(count);
 		totalHeight += groupSpacing * scale;
-		totalHeight += messageHeight * scale;
-		totalHeight += (count - 1) * messageHeight * scale;
+		totalHeight += groupStartMessageHeight * scale;
+		totalHeight += (count - 1) * groupedMessageHeight * scale;
 	}
 	const availableGroupIndices = messageCounts.map((_, i) => i);
 	const attachmentSpecs: Array<

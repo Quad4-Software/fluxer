@@ -182,7 +182,7 @@ export function buildMessageEmbedCopyText(embed: MessageEmbed, options: EmbedCop
 	appendCopyBlock(blocks, embed.author?.name);
 	appendCopyBlock(blocks, renderMarkdownCopyText(embed.title, EMBED_INLINE_COPY_PARSER_FLAGS, options));
 	appendCopyBlock(blocks, renderMarkdownCopyText(embed.description, EMBED_DESCRIPTION_COPY_PARSER_FLAGS, options));
-	if (options.includeFields !== false && embed.type !== MessageEmbedTypes.BLUESKY) {
+	if (options.includeFields !== false) {
 		for (const field of embed.fields ?? []) {
 			const fieldName = renderMarkdownCopyText(field.name, EMBED_INLINE_COPY_PARSER_FLAGS, options);
 			const fieldValue = renderMarkdownCopyText(field.value, EMBED_DESCRIPTION_COPY_PARSER_FLAGS, options);

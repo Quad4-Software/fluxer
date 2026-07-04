@@ -17,7 +17,7 @@ function computeSignature(payloadBase64: string, secret: string): Buffer {
 }
 
 function isConnectionType(value: unknown): value is ConnectionType {
-	return value === ConnectionTypes.BLUESKY || value === ConnectionTypes.DOMAIN;
+	return value === ConnectionTypes.DOMAIN;
 }
 
 function isConnectionInitiationTokenPayload(value: unknown): value is ConnectionInitiationTokenPayload {

@@ -8,7 +8,7 @@ import {
 } from '@fluxer/schema/src/domains/admin/GatewayRolloutSchemas';
 import type {IKVProvider, IKVSubscription} from '@pkgs/kv_client/src/IKVProvider';
 import {Config} from '../Config';
-import type {APIConfig, BlueskyOAuthConfig, BlueskyOAuthKeyConfig} from '../config/APIConfig';
+import type {APIConfig} from '../config/APIConfig';
 import {sanitizeLimitConfigForInstance} from '../constants/LimitConfig';
 import {fetchMany, fetchOne, upsertOne} from '../database/CassandraQueryExecution';
 import type {InstanceConfigurationRow} from '../database/types/InstanceConfigTypes';
@@ -86,7 +86,6 @@ export interface InstancePolicyConfig {
 	premium_mode: InstancePremiumMode;
 	gif_enabled: boolean | null;
 	youtube_enabled: boolean | null;
-	bluesky_enabled: boolean | null;
 }
 
 interface InstanceCommunityPublicConfig {
@@ -98,7 +97,6 @@ interface InstanceCommunityPublicConfig {
 interface InstanceServicesPublicConfig {
 	gif_enabled: boolean;
 	youtube_enabled: boolean;
-	bluesky_enabled: boolean;
 }
 
 export type InstanceCaptchaProvider = 'hcaptcha' | 'turnstile' | 'altcha' | 'none';
@@ -138,21 +136,6 @@ interface InstanceEmailIntegrationConfig {
 	disable_new_ip_authorization: boolean | null;
 }
 
-interface InstanceBlueskyKeyIntegrationConfig {
-	kid: string;
-	private_key: string | null;
-}
-
-interface InstanceBlueskyIntegrationConfig {
-	enabled: boolean | null;
-	client_name: string | null;
-	client_uri: string | null;
-	logo_uri: string | null;
-	tos_uri: string | null;
-	policy_uri: string | null;
-	keys: Array<InstanceBlueskyKeyIntegrationConfig>;
-}
-
 interface InstanceSentryIntegrationConfig {
 	enabled: boolean | null;
 	client_enabled: boolean | null;
@@ -165,7 +148,6 @@ interface InstanceIntegrationsConfig {
 	youtube: InstanceYoutubeIntegrationConfig;
 	captcha: InstanceCaptchaIntegrationConfig;
 	email: InstanceEmailIntegrationConfig;
-	bluesky: InstanceBlueskyIntegrationConfig;
 	sentry: InstanceSentryIntegrationConfig;
 }
 
@@ -236,16 +218,6 @@ interface InstanceIntegrationsAdminConfig {
 		disable_new_ip_authorization: boolean;
 		effective_disable_new_ip_authorization: boolean;
 	};
-	bluesky: {
-		enabled: boolean | null;
-		effective_enabled: boolean;
-		client_name: string | null;
-		client_uri: string | null;
-		logo_uri: string | null;
-		tos_uri: string | null;
-		policy_uri: string | null;
-		key_count: number;
-	};
 	sentry: {
 		enabled: boolean | null;
 		effective_enabled: boolean;
@@ -298,9 +270,6 @@ interface InstanceIntegrationsConfigPatch {
 	captcha?: Partial<InstanceCaptchaIntegrationConfig>;
 	email?: Partial<Omit<InstanceEmailIntegrationConfig, 'smtp'>> & {
 		smtp?: Partial<InstanceEmailSmtpIntegrationConfig>;
-	};
-	bluesky?: Partial<Omit<InstanceBlueskyIntegrationConfig, 'keys'>> & {
-		keys?: Array<Partial<InstanceBlueskyKeyIntegrationConfig>>;
 	};
 	sentry?: Partial<InstanceSentryIntegrationConfig>;
 }
@@ -450,7 +419,6 @@ const DEFAULT_INSTANCE_POLICY_CONFIG: InstancePolicyConfig = {
 	premium_mode: 'everyone',
 	gif_enabled: null,
 	youtube_enabled: null,
-	bluesky_enabled: null,
 };
 
 function isPremiumMode(value: unknown): value is InstancePremiumMode {
@@ -474,7 +442,6 @@ function normalizeInstancePolicyConfig(value: unknown): InstancePolicyConfig {
 		premium_mode: isPremiumMode(value.premium_mode) ? value.premium_mode : DEFAULT_INSTANCE_POLICY_CONFIG.premium_mode,
 		gif_enabled: normalizeNullableBoolean(value.gif_enabled),
 		youtube_enabled: normalizeNullableBoolean(value.youtube_enabled),
-		bluesky_enabled: normalizeNullableBoolean(value.bluesky_enabled),
 	};
 }
 
@@ -506,15 +473,6 @@ const DEFAULT_INSTANCE_INTEGRATIONS_CONFIG: InstanceIntegrationsConfig = {
 			secure: null,
 		},
 		disable_new_ip_authorization: null,
-	},
-	bluesky: {
-		enabled: null,
-		client_name: null,
-		client_uri: null,
-		logo_uri: null,
-		tos_uri: null,
-		policy_uri: null,
-		keys: [],
 	},
 	sentry: {
 		enabled: null,
@@ -614,13 +572,6 @@ function stripSelfHostedIntegrationSecrets(config: InstanceIntegrationsConfig): 
 				password: null,
 			},
 		},
-		bluesky: {
-			...config.bluesky,
-			keys: config.bluesky.keys.map((key) => ({
-				...key,
-				private_key: null,
-			})),
-		},
 	};
 }
 
@@ -644,16 +595,6 @@ function normalizeNullableCurve(value: unknown): number | null {
 	return value;
 }
 
-function normalizeBlueskyKey(value: unknown): InstanceBlueskyKeyIntegrationConfig | null {
-	if (!isJsonRecord(value)) return null;
-	const kid = normalizePublicString(value.kid);
-	if (!kid) return null;
-	return {
-		kid,
-		private_key: normalizeSecretString(value.private_key),
-	};
-}
-
 function normalizeInstanceIntegrationsConfig(value: unknown): InstanceIntegrationsConfig {
 	const defaults = DEFAULT_INSTANCE_INTEGRATIONS_CONFIG;
 	if (!isJsonRecord(value)) {
@@ -664,14 +605,7 @@ function normalizeInstanceIntegrationsConfig(value: unknown): InstanceIntegratio
 	const captcha = isJsonRecord(value.captcha) ? value.captcha : {};
 	const email = isJsonRecord(value.email) ? value.email : {};
 	const smtp = isJsonRecord(email.smtp) ? email.smtp : {};
-	const bluesky = isJsonRecord(value.bluesky) ? value.bluesky : {};
 	const sentry = isJsonRecord(value.sentry) ? value.sentry : {};
-	const blueskyKeys = Array.isArray(bluesky.keys)
-		? bluesky.keys.flatMap((entry) => {
-				const normalized = normalizeBlueskyKey(entry);
-				return normalized ? [normalized] : [];
-			})
-		: defaults.bluesky.keys;
 	return {
 		gif: {
 			klipy_api_key: normalizeSecretString(gif.klipy_api_key),
@@ -700,15 +634,6 @@ function normalizeInstanceIntegrationsConfig(value: unknown): InstanceIntegratio
 				secure: normalizeNullableBoolean(smtp.secure),
 			},
 			disable_new_ip_authorization: normalizeNullableBoolean(email.disable_new_ip_authorization),
-		},
-		bluesky: {
-			enabled: normalizeNullableBoolean(bluesky.enabled),
-			client_name: normalizePublicString(bluesky.client_name),
-			client_uri: normalizePublicString(bluesky.client_uri),
-			logo_uri: normalizePublicString(bluesky.logo_uri),
-			tos_uri: normalizePublicString(bluesky.tos_uri),
-			policy_uri: normalizePublicString(bluesky.policy_uri),
-			keys: blueskyKeys,
 		},
 		sentry: {
 			enabled: normalizeNullableBoolean(sentry.enabled),
@@ -1256,11 +1181,6 @@ export class InstanceConfigRepository {
 					...(config.email?.smtp ?? {}),
 				},
 			},
-			bluesky: {
-				...current.bluesky,
-				...(config.bluesky ?? {}),
-				keys: config.bluesky?.keys ?? current.bluesky.keys,
-			},
 			sentry: {
 				...current.sentry,
 				...(config.sentry ?? {}),
@@ -1438,28 +1358,6 @@ export class InstanceConfigRepository {
 		return (await this.getEffectiveEmailConfig()).enabled;
 	}
 
-	async getEffectiveBlueskyConfig(): Promise<BlueskyOAuthConfig> {
-		const integrations = await this.getInstanceIntegrationsConfig();
-		const runtimeKeys = Config.instance.selfHosted
-			? Config.auth.bluesky.keys
-			: integrations.bluesky.keys.flatMap((key): Array<BlueskyOAuthKeyConfig> => {
-					if (!key.private_key) return [];
-					return [{kid: key.kid, private_key: key.private_key}];
-				});
-		const keys = runtimeKeys.length > 0 ? runtimeKeys : Config.auth.bluesky.keys;
-		const enabled = (integrations.bluesky.enabled ?? Config.auth.bluesky.enabled) && keys.length > 0;
-		return {
-			...Config.auth.bluesky,
-			enabled,
-			client_name: integrations.bluesky.client_name ?? Config.auth.bluesky.client_name,
-			client_uri: integrations.bluesky.client_uri ?? Config.auth.bluesky.client_uri,
-			logo_uri: integrations.bluesky.logo_uri ?? Config.auth.bluesky.logo_uri,
-			tos_uri: integrations.bluesky.tos_uri ?? Config.auth.bluesky.tos_uri,
-			policy_uri: integrations.bluesky.policy_uri ?? Config.auth.bluesky.policy_uri,
-			keys,
-		};
-	}
-
 	async getEffectiveSentryConfig(): Promise<InstanceSentryEffectiveConfig> {
 		const integrations = await this.getInstanceIntegrationsConfig();
 		const enabled = resolveSelfHostedBoolean(integrations.sentry.enabled, Config.sentry.enabled);
@@ -1487,13 +1385,12 @@ export class InstanceConfigRepository {
 	}
 
 	async getInstanceIntegrationsAdminConfig(): Promise<InstanceIntegrationsAdminConfig> {
-		const [integrations, gif, youtubeApiKey, captcha, email, bluesky, sentry] = await Promise.all([
+		const [integrations, gif, youtubeApiKey, captcha, email, sentry] = await Promise.all([
 			this.getInstanceIntegrationsConfig(),
 			this.getEffectiveGifConfig(),
 			this.getEffectiveYoutubeApiKey(),
 			this.getEffectiveCaptchaConfig(),
 			this.getEffectiveEmailConfig(),
-			this.getEffectiveBlueskyConfig(),
 			this.getEffectiveSentryConfig(),
 		]);
 		return {
@@ -1536,16 +1433,6 @@ export class InstanceConfigRepository {
 				disable_new_ip_authorization: integrations.email.disable_new_ip_authorization ?? false,
 				effective_disable_new_ip_authorization: integrations.email.disable_new_ip_authorization || !email.enabled,
 			},
-			bluesky: {
-				enabled: integrations.bluesky.enabled,
-				effective_enabled: bluesky.enabled,
-				client_name: bluesky.client_name || null,
-				client_uri: bluesky.client_uri || null,
-				logo_uri: bluesky.logo_uri || null,
-				tos_uri: bluesky.tos_uri || null,
-				policy_uri: bluesky.policy_uri || null,
-				key_count: bluesky.keys.length,
-			},
 			sentry: {
 				enabled: integrations.sentry.enabled,
 				effective_enabled: sentry.enabled,
@@ -1569,16 +1456,14 @@ export class InstanceConfigRepository {
 	}
 
 	async getResolvedServicesConfig(): Promise<InstanceServicesPublicConfig> {
-		const [policy, gif, youtubeApiKey, bluesky] = await Promise.all([
+		const [policy, gif, youtubeApiKey] = await Promise.all([
 			this.getInstancePolicyConfig(),
 			this.getEffectiveGifConfig(),
 			this.getEffectiveYoutubeApiKey(),
-			this.getEffectiveBlueskyConfig(),
 		]);
 		return {
 			gif_enabled: policy.gif_enabled ?? gif.available,
 			youtube_enabled: policy.youtube_enabled ?? Boolean(youtubeApiKey),
-			bluesky_enabled: policy.bluesky_enabled ?? bluesky.enabled,
 		};
 	}
 

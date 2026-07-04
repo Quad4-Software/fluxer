@@ -280,12 +280,6 @@ const ERROR_I18N_LT_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'Spalvos vertė negali viršyti 0xffffff.',
 	'colors.color_value_too_low': 'Spalvos vertė negali būti mažesnė nei 0x000000.',
 	'connections.already_exists': 'Tokio tipo ryšys su šiuo identifikatoriumi jau yra.',
-	'connections.bluesky_oauth_authorization_failed':
-		'Nepavyko rasti šio "Bluesky" slapyvardžio. Patikrink ir pabandyk dar kartą.',
-	'connections.bluesky_oauth_callback_failed': 'Nepavyko užbaigti "Bluesky" ryšio. Pabandyk dar kartą.',
-	'connections.bluesky_oauth_not_enabled': '"Bluesky" ryšiai šioje sistemoje neįjungti.',
-	'connections.bluesky_oauth_session_expired': 'Tavo "Bluesky" sesija baigėsi. Iš naujo prisijunk prie paskyros.',
-	'connections.bluesky_oauth_state_invalid': 'Autorizacijos užklausa baigėsi arba negalioja. Pabandyk dar kartą.',
 	'connections.initiation_token_invalid': 'Ryšio inicijavimo žetonas yra negaliojantis arba nebegalioja.',
 	'connections.invalid_identifier': 'Ryšio identifikatorius negalioja.',
 	'connections.invalid_type': 'Ryšio tipas nepalaikomas.',

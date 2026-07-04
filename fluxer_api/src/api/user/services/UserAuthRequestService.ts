@@ -21,7 +21,7 @@ import type {
 import type {ApiContext} from '../../ApiContext';
 import * as AuthMfa from '../../auth/AuthMfa';
 import * as AuthPhone from '../../auth/AuthPhone';
-import {requireEmailVerified} from '../../auth/EmailVerificationUtils';
+import {requireEmailVerifiedIfEnabled} from '../../auth/EmailVerificationUtils';
 import type {SudoVerificationResult} from '../../auth/services/SudoVerificationService';
 import type {IGuildRepositoryAggregate} from '../../guild/repositories/IGuildRepositoryAggregate';
 import type {User} from '../../models/User';
@@ -87,7 +87,7 @@ export class UserAuthRequestService {
 		data,
 		sudoContext,
 	}: UserAuthWithSudoRequest<EnableMfaTotpRequest>): Promise<MfaBackupCodesResponse> {
-		requireEmailVerified(user, 'mfa');
+		await requireEmailVerifiedIfEnabled(user, 'mfa');
 		const backupCodes = await UserAuth.enableMfaTotp(this.apiContext, {
 			user,
 			secret: data.secret,
@@ -176,13 +176,13 @@ export class UserAuthRequestService {
 	}
 
 	async generateWebAuthnRegistrationOptions(user: User): Promise<WebAuthnChallengeResponse> {
-		requireEmailVerified(user, 'mfa');
+		await requireEmailVerifiedIfEnabled(user, 'mfa');
 		const options = await AuthMfa.generateWebAuthnRegistrationOptions(this.apiContext, user.id);
 		return this.toWebAuthnChallengeResponse(options);
 	}
 
 	async registerWebAuthnCredential({user, data}: UserAuthWebAuthnRegisterRequest): Promise<void> {
-		requireEmailVerified(user, 'mfa');
+		await requireEmailVerifiedIfEnabled(user, 'mfa');
 		await AuthMfa.verifyWebAuthnRegistration(this.apiContext, user.id, data.response, data.challenge, data.name);
 	}
 

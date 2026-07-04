@@ -16,7 +16,6 @@ import {z} from 'zod';
 const ConnectionTypeSchema = withOpenApiType(
 	createNamedStringLiteralUnion(
 		[
-			[ConnectionTypes.BLUESKY, 'BLUESKY', 'Bluesky social account connection'],
 			[ConnectionTypes.DOMAIN, 'DOMAIN', 'Custom domain ownership connection'],
 		] as const,
 		'The type of external connection',

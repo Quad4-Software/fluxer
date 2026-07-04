@@ -100,7 +100,6 @@ import {
 	getVoiceRoomStoreInstance,
 	getVoiceTopology,
 	getWorkerService,
-	resolveBlueskyOAuthService,
 } from './ServiceRegistry';
 import {
 	createUserCacheService,
@@ -433,8 +432,7 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 		voiceAvailabilityService,
 		ipInfoService,
 	});
-	const blueskyOAuthService = await resolveBlueskyOAuthService(getInstanceConfigRepository());
-	const connectionService = new ConnectionService(connectionRepository, gatewayService, blueskyOAuthService);
+	const connectionService = new ConnectionService(connectionRepository, gatewayService);
 	const favoriteMemeService = new FavoriteMemeService(
 		apiContext,
 		favoriteMemeRepository,
@@ -619,7 +617,6 @@ export const ServiceMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => 
 		'connectionRequestService',
 		new ConnectionRequestService(connectionService, Config.auth.connectionInitiationSecret),
 	);
-	ctx.set('blueskyOAuthService', blueskyOAuthService);
 	ctx.set('streamPreviewService', getStreamPreviewService());
 	ctx.set('streamService', new StreamService(cacheService, channelService, gatewayService, getStreamPreviewService()));
 	ctx.set('downloadService', getDownloadService());

@@ -16,7 +16,6 @@ export type WizardStep =
 	| 'integration_youtube'
 	| 'integration_captcha'
 	| 'integration_email'
-	| 'integration_bluesky'
 	| 'services'
 	| 'premium'
 	| 'finish';
@@ -35,7 +34,6 @@ export const CONFIGURE_STEPS: ReadonlyArray<WizardStep> = [
 	'integration_youtube',
 	'integration_captcha',
 	'integration_email',
-	'integration_bluesky',
 	'services',
 	'premium',
 	'finish',

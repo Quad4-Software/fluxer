@@ -2,7 +2,7 @@
 
 import type {MasterConfig} from '@fluxer/config/src/MasterConfig';
 import {parseGeoipSourceConfig, resolveGeoipRuntimeSourceConfig} from '@pkgs/geoip/src/GeoipStartup';
-import type {APIConfig, BlueskyOAuthConfig} from './config/APIConfig';
+import type {APIConfig} from './config/APIConfig';
 import type {WorkerTaskName} from './worker/WorkerLaneConfig';
 
 function extractHostname(url: string): string {
@@ -368,7 +368,6 @@ export function buildAPIConfigFromMaster(master: MasterConfig): APIConfig {
 				privateKey: master.auth.vapid.private_key,
 				email: master.auth.vapid.email,
 			},
-			bluesky: master.auth.bluesky as BlueskyOAuthConfig,
 		},
 		cookie: master.cookie,
 		klipy: {

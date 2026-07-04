@@ -292,12 +292,6 @@ const ERROR_I18N_BG_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'Стойността на цвета не трябва да надвишава 0xffffff.',
 	'colors.color_value_too_low': 'Стойността на цвета трябва да е поне 0x000000.',
 	'connections.already_exists': 'Връзка от този тип с този идентификатор вече съществува.',
-	'connections.bluesky_oauth_authorization_failed':
-		'Не успяхме да намерим този Bluesky идентификатор. Моля, провери го и опитай пак.',
-	'connections.bluesky_oauth_callback_failed': 'Не успяхме да установим връзката с Bluesky. Моля, опитай пак.',
-	'connections.bluesky_oauth_not_enabled': 'Връзките с Bluesky не са активирани на тази инстанция.',
-	'connections.bluesky_oauth_session_expired': 'Сесията ти в Bluesky е изтекла. Моля, свържи акаунта си отново.',
-	'connections.bluesky_oauth_state_invalid': 'Заявката за оторизация е изтекла или е невалидна. Моля, опитай пак.',
 	'connections.initiation_token_invalid': 'Токенът за иницииране на връзка е невалиден или е изтекъл.',
 	'connections.invalid_identifier': 'Идентификаторът на връзката е невалиден.',
 	'connections.invalid_type': 'Типът на връзката не се поддържа.',

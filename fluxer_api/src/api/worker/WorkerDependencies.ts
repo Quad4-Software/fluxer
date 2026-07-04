@@ -58,7 +58,6 @@ import {
 	getVoiceRoomStoreInstance,
 	getVoiceTopology,
 	getWorkerService,
-	resolveBlueskyOAuthService,
 } from '../middleware/ServiceRegistry';
 import {
 	createUserCacheService,
@@ -205,8 +204,7 @@ export async function initializeWorkerDependencies(snowflakeService: ISnowflakeS
 	const purgeQueue = getPurgeQueue();
 	const gatewayService = getGatewayService();
 	const instanceConfigRepository = getInstanceConfigRepository();
-	const blueskyOAuthService = await resolveBlueskyOAuthService(instanceConfigRepository);
-	const connectionService = new ConnectionService(connectionRepository, gatewayService, blueskyOAuthService);
+	const connectionService = new ConnectionService(connectionRepository, gatewayService);
 	const mediaService = getMediaService();
 	const discriminatorService = getDiscriminatorService();
 	const ncmecSubmissionService = getNcmecSubmissionService();

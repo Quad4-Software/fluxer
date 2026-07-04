@@ -2,7 +2,6 @@
 
 export function classifyKeyType(key: string): string {
 	if (key.startsWith('lock:')) return 'lock';
-	if (key.startsWith('bluesky:')) return 'bluesky';
 	if (key.includes(':session:')) return 'session';
 	if (key.includes(':user:')) return 'user';
 	if (key.includes(':guild:')) return 'guild';

@@ -5,11 +5,7 @@ import {KVClient} from '@pkgs/kv_client/src/KVClient';
 import {NatsConnectionManager} from '@pkgs/nats/src/NatsConnectionManager';
 import type {IWorkerService} from '@pkgs/worker/src/contracts/IWorkerService';
 import {BillingRepository} from '../billing/repositories/BillingRepository';
-import {BlueskyOAuthService} from '../bluesky/BlueskyOAuthService';
-import {DisabledBlueskyOAuthService} from '../bluesky/DisabledBlueskyOAuthService';
-import type {IBlueskyOAuthService} from '../bluesky/IBlueskyOAuthService';
 import {Config} from '../Config';
-import type {BlueskyOAuthConfig} from '../config/APIConfig';
 import {DisabledLiveKitService} from '../infrastructure/DisabledLiveKitService';
 import {GatewayService as ProdGatewayService} from '../infrastructure/GatewayService';
 import type {IGatewayService} from '../infrastructure/IGatewayService';
@@ -22,8 +18,6 @@ import {LiveKitService} from '../infrastructure/LiveKitService';
 import {MediaService as ProdMediaService} from '../infrastructure/MediaService';
 import {SnowflakeService} from '../infrastructure/SnowflakeService';
 import {VoiceRoomStore} from '../infrastructure/VoiceRoomStore';
-import type {InstanceConfigRepository} from '../instance/InstanceConfigRepository';
-import {Logger} from '../Logger';
 import {setInjectedSearchProvider} from '../SearchFactory';
 import type {ISearchProvider} from '../search/ISearchProvider';
 import {VoiceAvailabilityService} from '../voice/VoiceAvailabilityService';
@@ -174,74 +168,6 @@ export function setInjectedSearchProviderService(provider: ISearchProvider | und
 
 export function getInjectedSearchProvider(): ISearchProvider | undefined {
 	return _injectedSearchProvider;
-}
-
-let _injectedBlueskyOAuthService: IBlueskyOAuthService | undefined;
-let _blueskyOAuthService: IBlueskyOAuthService | undefined;
-let _blueskyOAuthInitializationPromise: Promise<IBlueskyOAuthService> | null = null;
-let _blueskyOAuthConfigSignature: string | null = null;
-let _blueskyOAuthInitializationSignature: string | null = null;
-let _disabledBlueskyOAuthService: DisabledBlueskyOAuthService | undefined;
-
-export function setInjectedBlueskyOAuthService(service: IBlueskyOAuthService | undefined): void {
-	_injectedBlueskyOAuthService = service;
-}
-
-function getDisabledBlueskyOAuthService(): DisabledBlueskyOAuthService {
-	if (!_disabledBlueskyOAuthService) {
-		_disabledBlueskyOAuthService = new DisabledBlueskyOAuthService();
-	}
-	return _disabledBlueskyOAuthService;
-}
-
-function getBlueskyOAuthConfigSignature(config: BlueskyOAuthConfig): string {
-	return JSON.stringify(config);
-}
-
-export async function resolveBlueskyOAuthService(
-	instanceConfigRepository?: Pick<InstanceConfigRepository, 'getEffectiveBlueskyConfig'>,
-): Promise<IBlueskyOAuthService> {
-	if (_injectedBlueskyOAuthService) {
-		return _injectedBlueskyOAuthService;
-	}
-	const blueskyConfig = instanceConfigRepository
-		? await instanceConfigRepository.getEffectiveBlueskyConfig()
-		: Config.auth.bluesky;
-	const signature = getBlueskyOAuthConfigSignature(blueskyConfig);
-	if (_blueskyOAuthService !== undefined && _blueskyOAuthConfigSignature === signature) {
-		return _blueskyOAuthService;
-	}
-	if (!blueskyConfig.enabled) {
-		_blueskyOAuthService = getDisabledBlueskyOAuthService();
-		_blueskyOAuthConfigSignature = signature;
-		return _blueskyOAuthService;
-	}
-	if (blueskyConfig.keys.length === 0) {
-		Logger.warn(
-			'Bluesky OAuth is enabled but no signing keys are configured – disabling. Run scripts/bootstrap/generate_bluesky_oauth_keys.sh or configure keys manually.',
-		);
-		_blueskyOAuthService = getDisabledBlueskyOAuthService();
-		_blueskyOAuthConfigSignature = signature;
-		return _blueskyOAuthService;
-	}
-	if (!_blueskyOAuthInitializationPromise || _blueskyOAuthInitializationSignature !== signature) {
-		_blueskyOAuthInitializationSignature = signature;
-		_blueskyOAuthInitializationPromise = BlueskyOAuthService.create(
-			blueskyConfig,
-			getKVClient(),
-			Config.endpoints.apiPublic,
-		)
-			.then((service) => {
-				_blueskyOAuthService = service;
-				_blueskyOAuthConfigSignature = signature;
-				return service;
-			})
-			.finally(() => {
-				_blueskyOAuthInitializationPromise = null;
-				_blueskyOAuthInitializationSignature = null;
-			});
-	}
-	return _blueskyOAuthInitializationPromise;
 }
 
 let voiceTopology: VoiceTopology | null = null;

@@ -127,11 +127,17 @@
 	color: var(--text-tertiary);
 }
 
-.passwordToggle {
+.passwordActions {
 	position: absolute;
 	top: 50%;
-	right: 0.75rem;
+	right: 0.5rem;
 	transform: translateY(-50%);
+	display: flex;
+	align-items: center;
+	gap: 0.125rem;
+}
+
+.passwordToggle {
 	border-radius: 0.25rem;
 	padding: 0.375rem;
 	color: var(--text-tertiary);

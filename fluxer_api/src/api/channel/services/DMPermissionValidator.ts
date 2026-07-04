@@ -12,6 +12,7 @@ import type {UserSettings} from '../../models/UserSettings';
 import type {IUserRepository} from '../../user/IUserRepository';
 import {isBugHunterBotUser} from '../../user/UserHelpers';
 import {checkGuildVerificationWithGuildModel} from '../../utils/GuildVerificationUtils';
+import {getInstanceConfigRepository} from '../../middleware/ServiceSingletons';
 import {getMutualGuildsForDmAccess} from '../../utils/MutualGuildDmAccess';
 
 interface DMPermissionValidatorDeps {
@@ -114,6 +115,7 @@ export class DMPermissionValidator {
 		userToVerifyId: UserID;
 		mutualGuilds: Array<Guild>;
 	}): Promise<void> {
+		const emailEnabled = await getInstanceConfigRepository().isEmailEnabled();
 		const restrictedGuildIds = usesBotRestrictions ? settings.botRestrictedGuilds : settings.restrictedGuilds;
 		const eligibleGuilds = mutualGuilds.filter((guild) => !restrictedGuildIds.has(guild.id));
 		if (eligibleGuilds.length === 0) {
@@ -125,7 +127,7 @@ export class DMPermissionValidator {
 				continue;
 			}
 			try {
-				checkGuildVerificationWithGuildModel({user: userToVerify, guild, member});
+				checkGuildVerificationWithGuildModel({user: userToVerify, guild, member, emailEnabled});
 				return;
 			} catch {}
 		}

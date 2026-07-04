@@ -26,38 +26,7 @@ export function isMediaOnlyEmbed(embed: MediaOnlyEmbedFields): boolean {
 	return Boolean(embed.image || embed.thumbnail || embed.video || embed.audio);
 }
 
-export const BLUESKY_EMBED_MIN_CONTENT_WIDTH = 320;
-export const BLUESKY_EMBED_MEDIA_FALLBACK_OUTER_WIDTH = 432;
-export const BLUESKY_EMBED_TEXT_OUTER_WIDTH = 516;
-const normalizePositiveWidth = (width: number): number => {
-	if (!Number.isFinite(width) || width <= 0) {
-		return 0;
-	}
-	return Math.round(width);
-};
-
-export function calculateBlueskyMediaContainerWidth(mediaWidth?: number): number | undefined {
-	if (mediaWidth === undefined) return undefined;
-	const normalizedWidth = normalizePositiveWidth(mediaWidth);
-	return Math.max(normalizedWidth, BLUESKY_EMBED_MIN_CONTENT_WIDTH);
-}
-
-export function calculateBlueskyOuterMaxWidth({
-	mediaWidth,
-	hasMedia,
-	chromeWidth,
-}: {
-	mediaWidth?: number;
-	hasMedia: boolean;
-	chromeWidth: number;
-}): number {
-	const mediaContainerWidth = calculateBlueskyMediaContainerWidth(mediaWidth);
-	if (mediaContainerWidth !== undefined) {
-		return mediaContainerWidth + normalizePositiveWidth(chromeWidth);
-	}
-	return hasMedia ? BLUESKY_EMBED_MEDIA_FALLBACK_OUTER_WIDTH : BLUESKY_EMBED_TEXT_OUTER_WIDTH;
-}
-
 export function formatResponsiveEmbedWidth(width: number): string {
-	return `min(100%, ${normalizePositiveWidth(width)}px)`;
+	const normalizedWidth = Number.isFinite(width) && width > 0 ? Math.round(width) : 0;
+	return `min(100%, ${normalizedWidth}px)`;
 }

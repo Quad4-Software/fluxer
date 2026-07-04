@@ -1,19 +1,15 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import {randomUUID} from 'node:crypto';
 import {
 	type ConnectionType,
 	ConnectionTypes,
-	ConnectionVisibilityFlags,
 	MAX_CONNECTIONS_PER_USER,
 } from '@fluxer/constants/src/ConnectionConstants';
 import type {UserID} from '../BrandedTypes';
-import type {IBlueskyOAuthService} from '../bluesky/IBlueskyOAuthService';
 import type {UserConnectionRow} from '../database/types/ConnectionTypes';
 import type {IGatewayService} from '../infrastructure/IGatewayService';
 import {mapConnectionToResponse} from './ConnectionMappers';
 import {createDomainConnectionId} from './DomainConnectionId';
-import {BlueskyOAuthNotEnabledError} from './errors/BlueskyOAuthNotEnabledError';
 import {ConnectionAlreadyExistsError} from './errors/ConnectionAlreadyExistsError';
 import {ConnectionInvalidTypeError} from './errors/ConnectionInvalidTypeError';
 import {ConnectionLimitReachedError} from './errors/ConnectionLimitReachedError';
@@ -21,7 +17,6 @@ import {ConnectionNotFoundError} from './errors/ConnectionNotFoundError';
 import {ConnectionVerificationFailedError} from './errors/ConnectionVerificationFailedError';
 import type {IConnectionRepository, UpdateConnectionParams} from './IConnectionRepository';
 import {IConnectionService, type InitiateConnectionResult} from './IConnectionService';
-import {BlueskyOAuthVerifier} from './verification/BlueskyOAuthVerifier';
 import {DomainConnectionVerifier} from './verification/DomainConnectionVerifier';
 import type {IConnectionVerifier} from './verification/IConnectionVerifier';
 
@@ -29,7 +24,6 @@ export class ConnectionService extends IConnectionService {
 	constructor(
 		private readonly repository: IConnectionRepository,
 		private readonly gateway: IGatewayService,
-		private readonly blueskyOAuthService: IBlueskyOAuthService,
 	) {
 		super();
 	}
@@ -48,9 +42,6 @@ export class ConnectionService extends IConnectionService {
 	}
 
 	private assertConnectionTypeCanBeCreated(type: ConnectionType): void {
-		if (type === ConnectionTypes.BLUESKY) {
-			throw new BlueskyOAuthNotEnabledError();
-		}
 		if (type !== ConnectionTypes.DOMAIN) {
 			throw new ConnectionInvalidTypeError();
 		}
@@ -185,40 +176,6 @@ export class ConnectionService extends IConnectionService {
 		await this.dispatchConnectionsUpdate(userId);
 	}
 
-	async createOrUpdateBlueskyConnection(userId: UserID, did: string, handle: string): Promise<UserConnectionRow> {
-		const existing = await this.repository.findByTypeAndIdentifier(userId, ConnectionTypes.BLUESKY, did);
-		if (existing) {
-			const now = new Date();
-			await this.repository.update(userId, ConnectionTypes.BLUESKY, existing.connection_id, {
-				name: handle,
-				verified: true,
-				verified_at: existing.verified_at ?? now,
-				last_verified_at: now,
-			});
-			const updated = await this.repository.findById(userId, ConnectionTypes.BLUESKY, existing.connection_id);
-			await this.dispatchConnectionsUpdate(userId);
-			return updated!;
-		}
-		const count = await this.requireAvailableConnectionSlot(userId);
-		const connectionId = randomUUID();
-		const now = new Date();
-		const created = await this.repository.create({
-			user_id: userId,
-			connection_id: connectionId,
-			connection_type: ConnectionTypes.BLUESKY,
-			identifier: did,
-			name: handle,
-			visibility_flags: ConnectionVisibilityFlags.EVERYONE,
-			sort_order: count,
-			verification_token: '',
-			verified: true,
-			verified_at: now,
-			last_verified_at: now,
-		});
-		await this.dispatchConnectionsUpdate(userId);
-		return created;
-	}
-
 	async revalidateConnection(connection: UserConnectionRow): Promise<{
 		isValid: boolean;
 		updateParams: UpdateConnectionParams | null;
@@ -253,9 +210,6 @@ export class ConnectionService extends IConnectionService {
 	}
 
 	private getVerifier(type: ConnectionType): IConnectionVerifier {
-		if (type === ConnectionTypes.BLUESKY) {
-			return new BlueskyOAuthVerifier(this.blueskyOAuthService);
-		}
 		if (type === ConnectionTypes.DOMAIN) {
 			return new DomainConnectionVerifier();
 		}

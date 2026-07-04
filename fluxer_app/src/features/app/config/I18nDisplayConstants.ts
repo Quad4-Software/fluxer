@@ -13,7 +13,6 @@ export const CANARY_RELEASE_CHANNEL_NAME = `${PRODUCT_NAME} Canary`;
 export const CANARY_TESTERS_COMMUNITY_NAME = `${PRODUCT_NAME} Testers`;
 export const VOICE_PROVIDER_NAME = 'LiveKit';
 export const PAYMENT_PROVIDER_NAME = 'Stripe';
-export const BLUESKY_PROVIDER_NAME = 'Bluesky';
 export const APP_STORE_NAME = 'App Store';
 export const GOOGLE_PLAY_NAME = 'Google Play';
 export const MACOS_SYSTEM_SETTINGS_NAME = 'System Settings';
@@ -61,7 +60,6 @@ export const DESKTOP_DOWNLOAD_URL =
 	Config.PUBLIC_RELEASE_CHANNEL === 'canary' ? 'https://canary.fluxer.app/download' : 'https://fluxer.app/download';
 export const FLUXER_DOCS_DOMAIN = 'fluxer.dev';
 export const FLUXER_DOCS_URL = `https://${FLUXER_DOCS_DOMAIN}`;
-export const FLUXER_BLUESKY_HANDLE = '@fluxer.app';
 export const SPLASH_IRC_SERVER = 'irc.fluxer.com:6667';
 export const YOUTUBE_PROVIDER_NAME = 'YouTube';
 export const EVERYONE_MENTION = '@everyone';

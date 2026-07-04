@@ -12,8 +12,12 @@ const STREAM_TYPE_DIVIDER = 'DIVIDER';
 const STREAM_TYPE_MESSAGE_GROUP_BLOCKED = 'MESSAGE_GROUP_BLOCKED';
 const STREAM_TYPE_MESSAGE_GROUP_SPAMMER = 'MESSAGE_GROUP_SPAMMER';
 
-const MESSAGE_HEIGHT_COZY_PX = 22;
-const MESSAGE_HEIGHT_COMPACT_PX = 16;
+const MESSAGE_HEIGHT_COZY_GROUPED_PX = 22;
+const MESSAGE_HEIGHT_COZY_GROUP_START_PX = 52;
+const MESSAGE_HEIGHT_COMPACT_GROUPED_PX = 16;
+const MESSAGE_HEIGHT_COMPACT_GROUP_START_PX = 24;
+const MESSAGE_REACTION_ROW_HEIGHT_PX = 32;
+const MESSAGE_REPLY_HEIGHT_PX = 22;
 const GROUP_SPACER_HALF_RATIO = 0.5;
 const DATE_DIVIDER_SPACING_PX = 16;
 const DIVIDER_HEIGHT_PX = 32;
@@ -22,6 +26,13 @@ const BLOCKED_GROUP_HEIGHT_PX = 56;
 const BLOCKED_GROUP_MESSAGE_HEIGHT_PX = 20;
 const ATTACHMENT_HEIGHT_ESTIMATE_PX = 200;
 const EMBED_HEIGHT_ESTIMATE_PX = 180;
+
+export const MESSAGE_LIST_ROW_HEIGHT_ESTIMATES = {
+	cozyGroupedPx: MESSAGE_HEIGHT_COZY_GROUPED_PX,
+	cozyGroupStartPx: MESSAGE_HEIGHT_COZY_GROUP_START_PX,
+	compactGroupedPx: MESSAGE_HEIGHT_COMPACT_GROUPED_PX,
+	compactGroupStartPx: MESSAGE_HEIGHT_COMPACT_GROUP_START_PX,
+} as const;
 
 type MessageGroupKind = 'system' | 'regular';
 
@@ -192,10 +203,23 @@ export function buildMessageListRows({
 	return rows;
 }
 
-function estimateMessageHeight(message: Message, compact: boolean, fontSize: number): number {
+function estimateMessageHeight(
+	message: Message,
+	compact: boolean,
+	fontSize: number,
+	isGroupStart: boolean,
+): number {
 	const scale = fontSize / 16;
-	const baseHeight = (compact ? MESSAGE_HEIGHT_COMPACT_PX : MESSAGE_HEIGHT_COZY_PX) * scale;
-	let height = baseHeight;
+	const groupedHeight = (compact ? MESSAGE_HEIGHT_COMPACT_GROUPED_PX : MESSAGE_HEIGHT_COZY_GROUPED_PX) * scale;
+	const groupStartHeight =
+		(compact ? MESSAGE_HEIGHT_COMPACT_GROUP_START_PX : MESSAGE_HEIGHT_COZY_GROUP_START_PX) * scale;
+	let height = isGroupStart ? groupStartHeight : groupedHeight;
+	if (message.referencedMessage != null) {
+		height += MESSAGE_REPLY_HEIGHT_PX * scale;
+	}
+	if (message.reactions.length > 0) {
+		height += MESSAGE_REACTION_ROW_HEIGHT_PX * scale;
+	}
 	if (message.attachments.length > 0) {
 		height += ATTACHMENT_HEIGHT_ESTIMATE_PX * scale;
 	}
@@ -203,7 +227,7 @@ function estimateMessageHeight(message: Message, compact: boolean, fontSize: num
 		height += EMBED_HEIGHT_ESTIMATE_PX * scale * message.embeds.length;
 	}
 	if (message.content && message.content.length > 120) {
-		height += baseHeight * Math.min(4, Math.floor(message.content.length / 120));
+		height += groupedHeight * Math.min(4, Math.floor(message.content.length / 120));
 	}
 	return height;
 }
@@ -222,7 +246,10 @@ export function estimateMessageListRowHeight(
 		case 'messageGroup': {
 			let height = 0;
 			for (let i = 0; i < row.messages.length; i++) {
-				height += estimateMessageHeight(row.messages[i], compact, fontSize);
+				height += estimateMessageHeight(row.messages[i], compact, fontSize, i === 0);
+			}
+			if (row.unreadDividerBeforeMessageId != null) {
+				height += UNREAD_DIVIDER_HEIGHT_PX * scale;
 			}
 			return height;
 		}
@@ -231,7 +258,7 @@ export function estimateMessageListRowHeight(
 				let height = BLOCKED_GROUP_HEIGHT_PX * scale;
 				for (const group of row.messageGroups) {
 					if (group.type === STREAM_TYPE_MESSAGE && group.content) {
-						height += estimateMessageHeight(group.content as Message, compact, fontSize);
+						height += estimateMessageHeight(group.content as Message, compact, fontSize, false);
 					}
 				}
 				return height;

@@ -68,12 +68,12 @@ describe('setNestedValue', () => {
 	});
 	test('creates arrays for numeric path keys', () => {
 		const target: Record<string, unknown> = {};
-		setNestedValue(target, ['auth', 'bluesky', 'keys', 0, 'kid'], 'key-1');
-		setNestedValue(target, ['auth', 'bluesky', 'keys', 0, 'private_key_path'], '/etc/fluxer/keys/key.pem');
+		setNestedValue(target, ['auth', 'passkeys', 'additional_allowed_origins', 0], 'https://a.example');
+		setNestedValue(target, ['auth', 'passkeys', 'additional_allowed_origins', 1], 'https://b.example');
 		expect(target).toEqual({
 			auth: {
-				bluesky: {
-					keys: [{kid: 'key-1', private_key_path: '/etc/fluxer/keys/key.pem'}],
+				passkeys: {
+					additional_allowed_origins: ['https://a.example', 'https://b.example'],
 				},
 			},
 		});
@@ -87,7 +87,6 @@ describe('buildNamedFluxerEnvOverrides', () => {
 			FLUXER_API_ENDPOINT: 'https://canonical.example/api',
 			FLUXER_PASSKEY_ADDITIONAL_ALLOWED_ORIGINS: 'https://a.example, https://b.example',
 			FLUXER_S3_FORCE_PATH_STYLE: 'true',
-			FLUXER_AUTH_BLUESKY_KEYS: '[{"kid":"key-1","private_key_path":"/etc/fluxer/keys/bluesky.pem"}]',
 			FLUXER_ADMIN_BASE_PATH: '',
 			FLUXER_STRIPE_PRICE_MONTHLY_USD: 'price_monthly_usd',
 		});
@@ -97,7 +96,6 @@ describe('buildNamedFluxerEnvOverrides', () => {
 			endpoint_overrides: {api: 'https://canonical.example/api'},
 			auth: {
 				passkeys: {additional_allowed_origins: ['https://a.example', 'https://b.example']},
-				bluesky: {keys: [{kid: 'key-1', private_key_path: '/etc/fluxer/keys/bluesky.pem'}]},
 			},
 			s3: {force_path_style: true},
 			services: {

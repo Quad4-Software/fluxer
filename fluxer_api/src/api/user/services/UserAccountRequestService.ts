@@ -15,7 +15,7 @@ import type {UserPrivateResponse, UserProfileFullResponse} from '@fluxer/schema/
 import type {Context} from 'hono';
 import type {z} from 'zod';
 import * as AuthEmailRevert from '../../auth/AuthEmailRevert';
-import {requireEmailVerified} from '../../auth/EmailVerificationUtils';
+import {requireEmailVerifiedIfEnabled} from '../../auth/EmailVerificationUtils';
 import type {IRegistrationRiskEvaluator} from '../../auth/services/IRegistrationRiskEvaluator';
 import {assertSsoManagedAccountActionAllowed} from '../../auth/services/SsoAccountSecurityGuard';
 import {requireSudoMode, type SudoVerificationResult} from '../../auth/services/SudoVerificationService';
@@ -219,7 +219,7 @@ export class UserAccountRequestService {
 			}
 		}
 		if (!isUnclaimed && hasProfileCustomizationUpdate(userUpdateData)) {
-			requireEmailVerified(user, 'profile');
+			await requireEmailVerifiedIfEnabled(user, 'profile');
 		}
 		let emailFromToken: string | null = null;
 		let emailVerifiedViaToken = false;

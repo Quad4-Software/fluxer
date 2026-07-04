@@ -58,7 +58,6 @@ export interface InstanceCommunity {
 export interface InstanceServices {
 	gif_enabled: boolean;
 	youtube_enabled: boolean;
-	bluesky_enabled: boolean;
 }
 
 export interface InstancePush {

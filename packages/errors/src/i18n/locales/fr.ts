@@ -310,12 +310,6 @@ const ERROR_I18N_FR_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'La valeur de couleur ne doit pas dépasser 0xffffff.',
 	'colors.color_value_too_low': 'La valeur de couleur doit être au moins 0x000000.',
 	'connections.already_exists': 'Une connexion de ce type avec cet identifiant existe déjà.',
-	'connections.bluesky_oauth_authorization_failed':
-		"Nous n'avons pas pu résoudre ce pseudo Bluesky. Vérifie-le et réessaie.",
-	'connections.bluesky_oauth_callback_failed': "Nous n'avons pas pu établir la connexion Bluesky. Réessaie.",
-	'connections.bluesky_oauth_not_enabled': 'Les connexions Bluesky ne sont pas activées sur cette instance.',
-	'connections.bluesky_oauth_session_expired': 'Ta session Bluesky a expiré. Reconnecte-toi.',
-	'connections.bluesky_oauth_state_invalid': "La demande d'autorisation a expiré ou est invalide. Réessaie.",
 	'connections.initiation_token_invalid': "Le jeton d'initialisation de la connexion est invalide ou a expiré.",
 	'connections.invalid_identifier': "L'identifiant de connexion est invalide.",
 	'connections.invalid_type': "Le type de connexion n'est pas pris en charge.",

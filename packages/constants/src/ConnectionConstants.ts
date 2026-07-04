@@ -3,7 +3,6 @@
 import type {ValueOf} from '@fluxer/constants/src/ValueOf';
 
 export const ConnectionTypes = {
-	BLUESKY: 'bsky',
 	DOMAIN: 'domain',
 } as const;
 

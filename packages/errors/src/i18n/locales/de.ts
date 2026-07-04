@@ -297,15 +297,6 @@ const ERROR_I18N_DE_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'Der Farbwert darf 0xffffff nicht überschreiten.',
 	'colors.color_value_too_low': 'Der Farbwert muss mindestens 0x000000 betragen.',
 	'connections.already_exists': 'Eine Verbindung dieses Typs mit dieser ID besteht bereits.',
-	'connections.bluesky_oauth_authorization_failed':
-		'Wir konnten den Bluesky-Handle nicht auflösen. Überprüfe ihn bitte und versuch es noch mal.',
-	'connections.bluesky_oauth_callback_failed':
-		'Wir konnten die Bluesky-Verbindung nicht herstellen. Versuch es noch mal.',
-	'connections.bluesky_oauth_not_enabled': 'Auf dieser Instanz sind Bluesky-Verbindungen nicht aktiviert.',
-	'connections.bluesky_oauth_session_expired':
-		'Deine Bluesky-Sitzung ist abgelaufen. Verbinde dein Konto bitte erneut.',
-	'connections.bluesky_oauth_state_invalid':
-		'Die Autorisierungsanforderung ist abgelaufen oder ungültig. Versuch es noch mal.',
 	'connections.initiation_token_invalid': 'Das Token zur Verbindungsherstellung ist ungültig oder abgelaufen.',
 	'connections.invalid_identifier': 'Die Verbindungs-ID ist ungültig.',
 	'connections.invalid_type': 'Dieser Verbindungstyp wird nicht unterstützt.',

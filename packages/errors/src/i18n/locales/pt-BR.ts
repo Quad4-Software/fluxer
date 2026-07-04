@@ -291,14 +291,6 @@ const ERROR_I18N_PT_BR_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'O valor da cor não pode ultrapassar 0xffffff.',
 	'colors.color_value_too_low': 'O valor da cor deve ser pelo menos 0x000000.',
 	'connections.already_exists': 'Já existe uma conexão deste tipo com este identificador.',
-	'connections.bluesky_oauth_authorization_failed':
-		'Não conseguimos resolver esse nome de usuário do Bluesky. Por favor, verifique e tente novamente.',
-	'connections.bluesky_oauth_callback_failed':
-		'Não foi possível finalizar a conexão com o Bluesky. Por favor, tente novamente.',
-	'connections.bluesky_oauth_not_enabled': 'As conexões do Bluesky não estão habilitadas nesta instância.',
-	'connections.bluesky_oauth_session_expired': 'Sua sessão do Bluesky expirou. Reconecte sua conta.',
-	'connections.bluesky_oauth_state_invalid':
-		'A solicitação de autorização expirou ou é inválida. Por favor, tente novamente.',
 	'connections.initiation_token_invalid': 'O token de conexão é inválido ou expirou.',
 	'connections.invalid_identifier': 'O identificador de conexão é inválido.',
 	'connections.invalid_type': 'O tipo de conexão não é suportado.',

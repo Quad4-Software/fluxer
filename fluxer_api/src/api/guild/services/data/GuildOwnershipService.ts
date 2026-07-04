@@ -13,6 +13,7 @@ import type {GuildMember} from '../../../models/GuildMember';
 import type {User} from '../../../models/User';
 import type {IUserRepository} from '../../../user/IUserRepository';
 import {checkGuildVerificationWithGuildModel} from '../../../utils/GuildVerificationUtils';
+import {getInstanceConfigRepository} from '../../../middleware/ServiceSingletons';
 import {mapGuildToGuildResponse} from '../../GuildModel';
 import type {IGuildRepositoryAggregate} from '../../repositories/IGuildRepositoryAggregate';
 import type {GuildDataHelpers} from './GuildDataHelpers';
@@ -72,6 +73,7 @@ export class GuildOwnershipService {
 
 	async checkGuildVerification(params: {user: User; guild: Guild; member: GuildMember}): Promise<void> {
 		const {user, guild, member} = params;
-		checkGuildVerificationWithGuildModel({user, guild, member});
+		const emailEnabled = await getInstanceConfigRepository().isEmailEnabled();
+		checkGuildVerificationWithGuildModel({user, guild, member, emailEnabled});
 	}
 }

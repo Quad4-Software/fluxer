@@ -279,13 +279,6 @@ const ERROR_I18N_JA_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'カラー値は0xffffffを超えてはなりません。',
 	'colors.color_value_too_low': 'カラー値は最低でも0x000000である必要があります。',
 	'connections.already_exists': 'この識別子を持つこのタイプの接続はすでに登録されています。',
-	'connections.bluesky_oauth_authorization_failed':
-		'Blueskyハンドルが見つかりませんでした。確認してもう一度お試しください。',
-	'connections.bluesky_oauth_callback_failed': 'Blueskyへの接続ができませんでした。もう一度お試しください。',
-	'connections.bluesky_oauth_not_enabled': 'このインスタンスではBluesky接続は利用できません。',
-	'connections.bluesky_oauth_session_expired':
-		'Blueskyセッションの有効期限が切れました。アカウントに再接続してください。',
-	'connections.bluesky_oauth_state_invalid': '認証リクエストは有効期限切れか無効です。もう一度お試しください。',
 	'connections.initiation_token_invalid': '接続開始トークンが無効であるか、有効期限が切れています。',
 	'connections.invalid_identifier': '接続識別子が無効です。',
 	'connections.invalid_type': 'この接続タイプはサポート対象外です。',

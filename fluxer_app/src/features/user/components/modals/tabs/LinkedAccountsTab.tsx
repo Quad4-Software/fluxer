@@ -7,9 +7,8 @@ import {StatusSlate} from '@app/features/app/components/dialogs/shared/StatusSla
 import {computeVerticalDropPosition} from '@app/features/app/components/layout/dnd/DndDropPosition';
 import type {ConnectionDragItem} from '@app/features/app/components/layout/types/DndTypes';
 import {DND_TYPES} from '@app/features/app/components/layout/types/DndTypes';
-import {BLUESKY_PROVIDER_NAME, PRODUCT_NAME} from '@app/features/app/config/I18nDisplayConstants';
+import {PRODUCT_NAME} from '@app/features/app/config/I18nDisplayConstants';
 import {useMergeRefs} from '@app/features/app/hooks/useMergeRefs';
-import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import * as ConnectionCommands from '@app/features/connection/commands/ConnectionCommands';
 import {AddConnectionModal} from '@app/features/connection/components/modals/AddConnectionModal';
 import {EditConnectionModal} from '@app/features/connection/components/modals/EditConnectionModal';
@@ -20,13 +19,11 @@ import {StreamerModeGate} from '@app/features/streamer_mode/components/StreamerM
 import StreamerMode from '@app/features/streamer_mode/state/StreamerMode';
 import * as ModalCommands from '@app/features/ui/commands/ModalCommands';
 import {modal} from '@app/features/ui/commands/ModalCommands';
-import {BlueskyIcon} from '@app/features/ui/components/icons/BlueskyIcon';
 import {UnverifiedConnectionIcon} from '@app/features/ui/components/icons/UnverifiedConnectionIcon';
 import {VerifiedConnectionIcon} from '@app/features/ui/components/icons/VerifiedConnectionIcon';
 import {Spinner} from '@app/features/ui/components/Spinner';
 import {Tooltip} from '@app/features/ui/tooltip/Tooltip';
 import styles from '@app/features/user/components/modals/tabs/LinkedAccountsTab.module.css';
-import {type ConnectionType, ConnectionTypes} from '@fluxer/constants/src/ConnectionConstants';
 import {msg} from '@lingui/core/macro';
 import {Trans, useLingui} from '@lingui/react/macro';
 import {DotsSixVerticalIcon, GlobeSimpleIcon, PencilSimpleIcon, TrashIcon, UserListIcon} from '@phosphor-icons/react';
@@ -61,11 +58,6 @@ const REMOVE_CONNECTION_DESCRIPTOR = msg({
 const ARE_YOU_SURE_YOU_WANT_TO_REMOVE_THIS_DESCRIPTOR = msg({
 	message: "Remove this connection? Can't be undone.",
 	comment: 'Error message in the linked accounts tab. Keep the tone plain and specific.',
-});
-const ADD_CONNECTION_DESCRIPTOR = msg({
-	message: 'Add {blueskyProviderName} connection',
-	comment:
-		'Button or menu action label in the linked accounts tab. Keep it concise. Preserve {blueskyProviderName}; it is inserted by code.',
 });
 const ADD_DOMAIN_CONNECTION_DESCRIPTOR = msg({
 	message: 'Add domain connection',
@@ -155,16 +147,13 @@ const ConnectionCard: React.FC<ConnectionCardProps> = observer(
 			[dropRef],
 		);
 		const mergedRef = useMergeRefs([dropConnectorRef, cardRef]);
-		const icon =
-			connection.type === ConnectionTypes.BLUESKY ? (
-				<BlueskyIcon size={20} data-flx="user.linked-accounts-tab.connection-card.bluesky-icon" />
-			) : (
-				<GlobeSimpleIcon
-					size={20}
-					className={styles.domainIcon}
-					data-flx="user.linked-accounts-tab.connection-card.domain-icon"
-				/>
-			);
+		const icon = (
+			<GlobeSimpleIcon
+				size={20}
+				className={styles.domainIcon}
+				data-flx="user.linked-accounts-tab.connection-card.domain-icon"
+			/>
+		);
 		return (
 			<div
 				ref={mergedRef}
@@ -187,10 +176,7 @@ const ConnectionCard: React.FC<ConnectionCardProps> = observer(
 						data-flx="user.linked-accounts-tab.connection-card.dots-six-vertical-icon"
 					/>
 				</div>
-				<Tooltip
-					text={connection.type === ConnectionTypes.BLUESKY ? BLUESKY_PROVIDER_NAME : i18n._(DOMAIN_DESCRIPTOR)}
-					data-flx="user.linked-accounts-tab.connection-card.tooltip"
-				>
+				<Tooltip text={i18n._(DOMAIN_DESCRIPTOR)} data-flx="user.linked-accounts-tab.connection-card.tooltip">
 					<div
 						className={styles.cardIconSquircle}
 						data-flx="user.linked-accounts-tab.connection-card.card-icon-squircle"
@@ -326,13 +312,10 @@ const LinkedAccountsTab: React.FC = observer(() => {
 			)),
 		);
 	}, []);
-	const handleAddConnection = useCallback((connectionType: ConnectionType) => {
+	const handleAddConnection = useCallback(() => {
 		ModalCommands.push(
 			modal(() => (
-				<AddConnectionModal
-					defaultType={connectionType}
-					data-flx="user.linked-accounts-tab.handle-add-connection.add-connection-modal"
-				/>
+				<AddConnectionModal data-flx="user.linked-accounts-tab.handle-add-connection.add-connection-modal" />
 			)),
 		);
 	}, []);
@@ -367,24 +350,11 @@ const LinkedAccountsTab: React.FC = observer(() => {
 					data-flx="user.linked-accounts-tab.connections"
 				>
 					<div className={styles.platformRow} data-flx="user.linked-accounts-tab.platform-row">
-						{RuntimeConfig.blueskyConnectionsEnabled && (
-							<Tooltip text={BLUESKY_PROVIDER_NAME} data-flx="user.linked-accounts-tab.tooltip">
-								<button
-									type="button"
-									className={styles.platformIconButton}
-									onClick={() => handleAddConnection(ConnectionTypes.BLUESKY)}
-									aria-label={i18n._(ADD_CONNECTION_DESCRIPTOR, {blueskyProviderName: BLUESKY_PROVIDER_NAME})}
-									data-flx="user.linked-accounts-tab.platform-icon-button.add-connection"
-								>
-									<BlueskyIcon size={28} data-flx="user.linked-accounts-tab.bluesky-icon" />
-								</button>
-							</Tooltip>
-						)}
 						<Tooltip text={i18n._(DOMAIN_DESCRIPTOR)} data-flx="user.linked-accounts-tab.tooltip--2">
 							<button
 								type="button"
 								className={styles.platformIconButton}
-								onClick={() => handleAddConnection(ConnectionTypes.DOMAIN)}
+								onClick={handleAddConnection}
 								aria-label={i18n._(ADD_DOMAIN_CONNECTION_DESCRIPTOR)}
 								data-flx="user.linked-accounts-tab.platform-icon-button.add-connection--2"
 							>
@@ -402,10 +372,7 @@ const LinkedAccountsTab: React.FC = observer(() => {
 								Icon={UserListIcon}
 								title={<Trans>No connections yet</Trans>}
 								description={
-									<Trans>
-										Link your {BLUESKY_PROVIDER_NAME} account or verify domain ownership to display them on your
-										profile.
-									</Trans>
+									<Trans>Verify domain ownership to display it on your profile.</Trans>
 								}
 								data-flx="user.linked-accounts-tab.status-slate"
 							/>

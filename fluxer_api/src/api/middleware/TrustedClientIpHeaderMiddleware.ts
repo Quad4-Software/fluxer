@@ -20,8 +20,6 @@ const defaultExemptPaths: Array<string> = [
 	'/_health',
 	'/webhooks/livekit',
 	'/test',
-	'/connections/bluesky/client-metadata.json',
-	'/connections/bluesky/jwks.json',
 ];
 
 export function TrustedClientIpHeaderMiddleware({

@@ -295,13 +295,6 @@ const ERROR_I18N_RO_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'Valoarea culorii nu trebuie să depășească 0xffffff.',
 	'colors.color_value_too_low': 'Valoarea culorii trebuie să fie cel puțin 0x000000.',
 	'connections.already_exists': 'Există deja o conexiune de acest tip cu acest identificator.',
-	'connections.bluesky_oauth_authorization_failed':
-		'Nu s-a putut rezolva contul Bluesky. Te rugăm să-l verifici și să încerci din nou.',
-	'connections.bluesky_oauth_callback_failed': 'Nu am putut finaliza conexiunea Bluesky. Te rugăm să încerci din nou.',
-	'connections.bluesky_oauth_not_enabled': 'Conexiunile Bluesky nu sunt activate pentru această instanță.',
-	'connections.bluesky_oauth_session_expired': 'Sesiunea ta Bluesky a expirat. Te rugăm să reconectezi contul.',
-	'connections.bluesky_oauth_state_invalid':
-		'Cererea de autorizare a expirat sau este nevalidă. Te rugăm să încerci din nou.',
 	'connections.initiation_token_invalid': 'Tokenul de inițiere a conexiunii este nevalid sau a expirat.',
 	'connections.invalid_identifier': 'Identificatorul conexiunii este nevalid.',
 	'connections.invalid_type': 'Tipul de conexiune nu este acceptat.',

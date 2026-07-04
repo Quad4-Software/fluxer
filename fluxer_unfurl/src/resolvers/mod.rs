@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-pub mod bluesky;
-mod default_helpers;
+pub mod default_helpers;
 pub mod default_resolver;
 pub mod fxtwitter;
 pub mod hacker_news;
@@ -65,7 +64,6 @@ pub fn build_resolver_chain() -> Vec<Box<dyn Resolver>> {
         Box::new(xkcd::XkcdResolver),
         Box::new(youtube::YouTubeResolver),
         Box::new(wikipedia::WikipediaResolver),
-        Box::new(bluesky::BlueskyResolver),
         Box::new(fxtwitter::FxTwitterResolver),
         Box::new(default_resolver::DefaultResolver),
     ]

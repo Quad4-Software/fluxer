@@ -283,12 +283,6 @@ const ERROR_I18N_HR_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'Vrijednost boje ne smije prelaziti 0xffffff.',
 	'colors.color_value_too_low': 'Vrijednost boje mora biti najmanje 0x000000.',
 	'connections.already_exists': 'Već postoji veza ove vrste s ovim identifikatorom.',
-	'connections.bluesky_oauth_authorization_failed':
-		'Nismo ti mogli razriješiti to Bluesky korisničko ime. Provjeri ga i pokušaj ponovno.',
-	'connections.bluesky_oauth_callback_failed': 'Nismo ti mogli dovršiti Bluesky vezu. Pokušaj ponovno.',
-	'connections.bluesky_oauth_not_enabled': 'Bluesky veze nisu omogućene na ovoj instanci.',
-	'connections.bluesky_oauth_session_expired': 'Bluesky sesija ti je istekla. Ponovno poveži svoj račun.',
-	'connections.bluesky_oauth_state_invalid': 'Zahtjev za autorizaciju je istekao ili je nevažeći. Pokušaj ponovno.',
 	'connections.initiation_token_invalid': 'Token za uspostavu veze je nevažeći ili je istekao.',
 	'connections.invalid_identifier': 'ID veze je nevažeći.',
 	'connections.invalid_type': 'Ova vrsta veze nije podržana.',

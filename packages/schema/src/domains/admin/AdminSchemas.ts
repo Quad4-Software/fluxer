@@ -517,17 +517,14 @@ const InstancePolicyResponse = z.object({
 	services: z.object({
 		gif_enabled: z.boolean().nullable(),
 		youtube_enabled: z.boolean().nullable(),
-		bluesky_enabled: z.boolean().nullable(),
 	}),
 	services_resolved: z.object({
 		gif_enabled: z.boolean(),
 		youtube_enabled: z.boolean(),
-		bluesky_enabled: z.boolean(),
 	}),
 	services_available: z.object({
 		gif: z.boolean(),
 		youtube: z.boolean(),
-		bluesky: z.boolean(),
 	}),
 });
 
@@ -597,16 +594,6 @@ const InstanceIntegrationsResponse = z.object({
 		}),
 		disable_new_ip_authorization: z.boolean(),
 		effective_disable_new_ip_authorization: z.boolean(),
-	}),
-	bluesky: z.object({
-		enabled: z.boolean().nullable(),
-		effective_enabled: z.boolean(),
-		client_name: z.string().nullable(),
-		client_uri: z.string().nullable(),
-		logo_uri: z.string().nullable(),
-		tos_uri: z.string().nullable(),
-		policy_uri: z.string().nullable(),
-		key_count: z.number().int().min(0),
 	}),
 	sentry: z.object({
 		enabled: z.boolean().nullable(),
@@ -699,25 +686,6 @@ export const InstanceConfigUpdateRequest = z.object({
 					disable_new_ip_authorization: z.boolean().nullish(),
 				})
 				.nullish(),
-			bluesky: z
-				.object({
-					enabled: z.boolean().nullish(),
-					client_name: z.string().trim().max(120).nullish(),
-					client_uri: z.string().trim().max(2048).nullish(),
-					logo_uri: z.string().trim().max(2048).nullish(),
-					tos_uri: z.string().trim().max(2048).nullish(),
-					policy_uri: z.string().trim().max(2048).nullish(),
-					keys: z
-						.array(
-							z.object({
-								kid: z.string().trim().min(1).max(255),
-								private_key: z.string().trim().max(10000).nullish(),
-							}),
-						)
-						.max(8)
-						.optional(),
-				})
-				.nullish(),
 			sentry: z
 				.object({
 					enabled: z.boolean().nullish(),
@@ -755,7 +723,6 @@ export const InstanceConfigUpdateRequest = z.object({
 				.object({
 					gif_enabled: z.boolean().nullish(),
 					youtube_enabled: z.boolean().nullish(),
-					bluesky_enabled: z.boolean().nullish(),
 				})
 				.nullish(),
 		})

@@ -22,7 +22,7 @@ import type {
 } from '@fluxer/schema/src/domains/user/UserRequestSchemas';
 import {extractTimestamp} from '@fluxer/snowflake/src/SnowflakeUtils';
 import type {ApiContext} from '../../ApiContext';
-import {requireEmailVerified} from '../../auth/EmailVerificationUtils';
+import {requireEmailVerifiedIfEnabled} from '../../auth/EmailVerificationUtils';
 import type {UserID} from '../../BrandedTypes';
 import type {IGatewayService} from '../../infrastructure/IGatewayService';
 import type {UserCacheService} from '../../infrastructure/UserCacheService';
@@ -474,7 +474,7 @@ export class UserRelationshipService {
 		if (requesterUser.isUnclaimedAccount()) {
 			throw new UnclaimedAccountCannotSendFriendRequestsError();
 		}
-		requireEmailVerified(requesterUser, 'friend_request');
+		await requireEmailVerifiedIfEnabled(requesterUser, 'friend_request');
 		if (requesterUser.isBot) {
 			throw new BotsCannotSendFriendRequestsError();
 		}
@@ -588,7 +588,7 @@ export class UserRelationshipService {
 		if (requesterUser?.isUnclaimedAccount()) {
 			throw new UnclaimedAccountCannotSendFriendRequestsError();
 		}
-		requireEmailVerified(requesterUser, 'friend_request');
+		await requireEmailVerifiedIfEnabled(requesterUser, 'friend_request');
 		if (requesterUser?.isBot) {
 			throw new BotsCannotSendFriendRequestsError();
 		}
@@ -706,7 +706,7 @@ export class UserRelationshipService {
 		if (requesterUser.isUnclaimedAccount()) {
 			throw new UnclaimedAccountCannotSendFriendRequestsError();
 		}
-		requireEmailVerified(requesterUser, 'friend_request');
+		await requireEmailVerifiedIfEnabled(requesterUser, 'friend_request');
 		if (requesterUser.isBot) {
 			throw new BotsCannotSendFriendRequestsError();
 		}

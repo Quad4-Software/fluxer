@@ -270,12 +270,6 @@ const ERROR_I18N_AR_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'لا يمكن أن تتجاوز قيمة اللون 0xffffff.',
 	'colors.color_value_too_low': 'يجب أن لا تقل قيمة اللون عن 0x000000.',
 	'connections.already_exists': 'يوجد بالفعل اتصال من هذا النوع بهذا المعرف.',
-	'connections.bluesky_oauth_authorization_failed':
-		'لم نتمكن من حل معرّف Bluesky هذا. يُرجى التأكد منه والمحاولة مرة أخرى.',
-	'connections.bluesky_oauth_callback_failed': 'لم نتمكن من إكمال الاتصال بـ Bluesky. يُرجى المحاولة مرة أخرى.',
-	'connections.bluesky_oauth_not_enabled': 'ميزة الاتصال بـ Bluesky غير ممكّنة في هذا المثيل.',
-	'connections.bluesky_oauth_session_expired': 'انتهت صلاحية جلسة Bluesky. أعد ربط حسابك.',
-	'connections.bluesky_oauth_state_invalid': 'انتهت صلاحية طلب التفويض أو غير صالح. يُرجى المحاولة مرة أخرى.',
 	'connections.initiation_token_invalid': 'رمز بدء الاتصال غير صالح أو انتهت صلاحيته.',
 	'connections.invalid_identifier': 'معرف الاتصال غير صالح.',
 	'connections.invalid_type': 'نوع الاتصال غير مدعوم.',

@@ -4,6 +4,7 @@ import type {GuildMemberResponse} from '@fluxer/schema/src/domains/guild/GuildMe
 import type {GuildResponse} from '@fluxer/schema/src/domains/guild/GuildResponseSchemas';
 import type {User} from '../../../models/User';
 import {checkGuildVerificationWithResponse} from '../../../utils/GuildVerificationUtils';
+import {getInstanceConfigRepository} from '../../../middleware/ServiceSingletons';
 import {BaseChannelAuthService, type ChannelAuthOptions} from '../BaseChannelAuthService';
 
 export class MessageChannelAuthService extends BaseChannelAuthService {
@@ -21,6 +22,7 @@ export class MessageChannelAuthService extends BaseChannelAuthService {
 		guild: GuildResponse;
 		member: GuildMemberResponse;
 	}): Promise<void> {
-		checkGuildVerificationWithResponse({user, guild, member});
+		const emailEnabled = await getInstanceConfigRepository().isEmailEnabled();
+		checkGuildVerificationWithResponse({user, guild, member, emailEnabled});
 	}
 }

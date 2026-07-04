@@ -285,12 +285,6 @@ const ERROR_I18N_RU_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'Значение цвета не должно превышать 0xffffff.',
 	'colors.color_value_too_low': 'Значение цвета должно быть не менее 0x000000.',
 	'connections.already_exists': 'Уже существует подключение такого типа с этим идентификатором.',
-	'connections.bluesky_oauth_authorization_failed':
-		'Не удалось найти этот ник в Bluesky. Проверь его и попробуй ещё раз.',
-	'connections.bluesky_oauth_callback_failed': 'Не удалось завершить подключение к Bluesky. Попробуй ещё раз.',
-	'connections.bluesky_oauth_not_enabled': 'На этом экземпляре не включены подключения Bluesky.',
-	'connections.bluesky_oauth_session_expired': 'Срок действия твоей сессии Bluesky истёк. Переподключи аккаунт.',
-	'connections.bluesky_oauth_state_invalid': 'Истёк или недействителен запрос авторизации. Попробуй ещё раз.',
 	'connections.initiation_token_invalid': 'Недействителен или истёк токен для начала подключения.',
 	'connections.invalid_identifier': 'Идентификатор подключения недействителен.',
 	'connections.invalid_type': 'Этот тип подключения не поддерживается.',

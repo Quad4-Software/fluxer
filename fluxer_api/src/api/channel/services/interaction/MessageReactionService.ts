@@ -24,7 +24,7 @@ import type {GuildResponse} from '@fluxer/schema/src/domains/guild/GuildResponse
 import type {UserPartialResponse} from '@fluxer/schema/src/domains/user/UserResponseSchemas';
 import {isValidSingleUnicodeEmoji} from '@fluxer/schema/src/primitives/EmojiValidators';
 import {snowflakeToDate} from '@fluxer/snowflake/src/Snowflake';
-import {requireEmailVerified} from '../../../auth/EmailVerificationUtils';
+import {requireEmailVerifiedIfEnabled} from '../../../auth/EmailVerificationUtils';
 import {createEmojiID, type MessageID, type UserID} from '../../../BrandedTypes';
 import type {IGuildRepositoryAggregate} from '../../../guild/repositories/IGuildRepositoryAggregate';
 import type {IGatewayService} from '../../../infrastructure/IGatewayService';
@@ -179,7 +179,7 @@ export class MessageReactionService extends MessageInteractionBase {
 		if (!message) throw new UnknownMessageError();
 		const requestingUser = await this.userRepository.findUnique(userId);
 		if (requestingUser) {
-			requireEmailVerified(requestingUser, 'reaction');
+			await requireEmailVerifiedIfEnabled(requestingUser, 'reaction');
 		}
 		const guildFeatures = guild?.features ?? null;
 		const maxUsersPerReaction = this.resolveLimitForUser({

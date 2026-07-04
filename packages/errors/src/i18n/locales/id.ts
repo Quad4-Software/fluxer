@@ -276,13 +276,6 @@ const ERROR_I18N_ID_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'Nilai warna tidak boleh melebihi 0xffffff.',
 	'colors.color_value_too_low': 'Nilai warna minimal 0x000000.',
 	'connections.already_exists': 'Koneksi jenis ini dengan pengidentifikasi ini sudah ada.',
-	'connections.bluesky_oauth_authorization_failed':
-		'Tidak bisa menyelesaikan handle Bluesky tersebut. Silakan periksa dan coba lagi.',
-	'connections.bluesky_oauth_callback_failed': 'Tidak bisa menyelesaikan koneksi Bluesky. Silakan coba lagi.',
-	'connections.bluesky_oauth_not_enabled': 'Koneksi Bluesky tidak diaktifkan pada instans ini.',
-	'connections.bluesky_oauth_session_expired': 'Sesi Bluesky kamu telah kedaluwarsa. Sambungkan kembali akun kamu.',
-	'connections.bluesky_oauth_state_invalid':
-		'Permintaan otorisasi sudah kedaluwarsa atau tidak valid. Silakan coba lagi.',
 	'connections.initiation_token_invalid': 'Token inisiasi koneksi tidak valid atau sudah kedaluwarsa.',
 	'connections.invalid_identifier': 'Pengidentifikasi koneksi tidak valid.',
 	'connections.invalid_type': 'Jenis koneksi tidak didukung.',

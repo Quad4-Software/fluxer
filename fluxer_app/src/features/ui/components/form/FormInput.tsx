@@ -93,6 +93,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 	rightElement?: React.ReactNode;
 	leftIcon?: React.ReactNode;
 	rightIcon?: React.ReactNode;
+	passwordExtraActions?: React.ReactNode;
 	renderInput?: (args: RenderInputArgs) => React.ReactNode;
 };
 
@@ -108,6 +109,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 			rightElement,
 			leftIcon,
 			rightIcon,
+			passwordExtraActions,
 			className,
 			renderInput,
 			disabled,
@@ -130,8 +132,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 		}, [isPasswordType, showPassword, type]);
 		const inputType = useMemo(() => resolveInputType(), [resolveInputType]);
 		const hasRightElement = useMemo(
-			() => isPasswordType || rightElement || rightIcon,
-			[isPasswordType, rightElement, rightIcon],
+			() => isPasswordType || rightElement || rightIcon || passwordExtraActions,
+			[isPasswordType, rightElement, rightIcon, passwordExtraActions],
 		);
 		const hasLeftElement = useMemo(() => !!leftElement, [leftElement]);
 		const hasLeftIcon = useMemo(() => !!leftIcon, [leftIcon]);
@@ -244,20 +246,25 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 						</div>
 					)}
 					{renderedInput}
-					{isPasswordType && (
-						<button
-							type="button"
-							className={styles.passwordToggle}
-							onClick={handlePasswordToggle}
-							aria-label={passwordToggleLabel}
-							data-flx="ui.form.input.input-content.password-toggle.button"
-						>
-							{showPassword ? (
-								<EyeSlashIcon size={18} weight="fill" data-flx="ui.form.input.input-content.eye-slash-icon" />
-							) : (
-								<EyeIcon size={18} weight="fill" data-flx="ui.form.input.input-content.eye-icon" />
+					{(isPasswordType || passwordExtraActions) && (
+						<div className={styles.passwordActions} data-flx="ui.form.input.input-content.password-actions">
+							{passwordExtraActions}
+							{isPasswordType && (
+								<button
+									type="button"
+									className={styles.passwordToggle}
+									onClick={handlePasswordToggle}
+									aria-label={passwordToggleLabel}
+									data-flx="ui.form.input.input-content.password-toggle.button"
+								>
+									{showPassword ? (
+										<EyeSlashIcon size={18} weight="fill" data-flx="ui.form.input.input-content.eye-slash-icon" />
+									) : (
+										<EyeIcon size={18} weight="fill" data-flx="ui.form.input.input-content.eye-icon" />
+									)}
+								</button>
 							)}
-						</button>
+						</div>
 					)}
 					{!isPasswordType && rightIcon && (
 						<div className={styles.rightIcon} data-flx="ui.form.input.input-content.right-icon">
@@ -280,6 +287,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 				handlePasswordToggle,
 				passwordToggleLabel,
 				showPassword,
+				passwordExtraActions,
 				rightIcon,
 				rightElement,
 			],

@@ -158,15 +158,6 @@ function defaultConfig(): MasterConfig {
 				private_key: '',
 				email: '',
 			},
-			bluesky: {
-				enabled: true,
-				client_name: 'Fluxer',
-				client_uri: '',
-				logo_uri: '',
-				tos_uri: 'https://fluxer.app/terms',
-				policy_uri: 'https://fluxer.app/privacy',
-				keys: [],
-			},
 		},
 		cookie: {
 			domain: '',

@@ -23,7 +23,7 @@ import type {GuildMemberResponse} from '@fluxer/schema/src/domains/guild/GuildMe
 import type {GuildMemberUpdateRequest} from '@fluxer/schema/src/domains/guild/GuildRequestSchemas';
 import type {IRateLimitService} from '@pkgs/rate_limit/src/IRateLimitService';
 import {ms} from 'itty-time';
-import {requireEmailVerified} from '../../../auth/EmailVerificationUtils';
+import {requireEmailVerifiedIfEnabled} from '../../../auth/EmailVerificationUtils';
 import type {GuildID, InviteCode, RoleID, UserID} from '../../../BrandedTypes';
 import {createChannelID, createRoleID} from '../../../BrandedTypes';
 import type {ChannelService} from '../../../channel/services/ChannelService';
@@ -658,7 +658,7 @@ export class GuildMemberOperationsService {
 	}): Promise<void> {
 		const {targetId, guildId, targetUser, targetMember, data, updateData, preparedAssets} = params;
 		if (hasSelfProfileCustomizationUpdate(data)) {
-			requireEmailVerified(targetUser, 'profile');
+			await requireEmailVerifiedIfEnabled(targetUser, 'profile');
 		}
 		const ctx = createLimitMatchContext({user: targetUser});
 		const hasGuildProfileCustomization = resolveLimitSafe(

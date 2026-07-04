@@ -25,6 +25,13 @@ struct GatewayQuery {
 
 #[derive(Deserialize)]
 #[allow(dead_code)]
+struct InstanceConfigQuery {
+    smtp_test: Option<String>,
+    smtp_error: Option<String>,
+}
+
+#[derive(Deserialize)]
+#[allow(dead_code)]
 struct AuditLogsQuery {
     q: Option<String>,
     admin_user_id: Option<String>,
@@ -212,6 +219,7 @@ async fn instance_config_page(
     State(state): State<AppState>,
     auth: axum::Extension<AuthContext>,
     csrf: axum::Extension<CsrfToken>,
+    Query(query): Query<InstanceConfigQuery>,
 ) -> Response {
     let config = state.config();
     let client =
@@ -230,6 +238,8 @@ async fn instance_config_page(
         &csrf.0.0,
         instance_config.as_ref(),
         limit_config.as_ref(),
+        query.smtp_test.as_deref(),
+        query.smtp_error.as_deref(),
     );
     Html(markup.into_string()).into_response()
 }

@@ -71,6 +71,8 @@ pub fn instance_config_page(
     csrf_token: &str,
     instance_config: Option<&InstanceConfigResponse>,
     limit_config: Option<&LimitConfigResponse>,
+    smtp_test: Option<&str>,
+    smtp_error: Option<&str>,
 ) -> Markup {
     let base = &config.base_path;
     let content = html! {
@@ -118,7 +120,13 @@ pub fn instance_config_page(
                     "Runtime integrations",
                     "Credentials and provider choices that override environment variables at runtime.",
                     html! {
-                        (integrations_config_section(base, csrf_token, &instance_config.integrations))
+                        (integrations_config_section(
+                            base,
+                            csrf_token,
+                            &instance_config.integrations,
+                            smtp_test,
+                            smtp_error,
+                        ))
                     },
                 ))
                 (config_group(
@@ -326,7 +334,7 @@ fn service_select(name: &str, label: &str, override_value: Option<bool>, resolve
 
 fn services_form(base: &str, csrf_token: &str, policy: &InstancePolicyResponse) -> Markup {
     let available = &policy.services_available;
-    if !available.gif && !available.youtube && !available.bluesky {
+    if !available.gif && !available.youtube {
         return html! {
             div class="space-y-4 border-t border-neutral-200 pt-6" {
                 h3 class="text-sm font-semibold text-neutral-900" { "Optional services" }
@@ -363,14 +371,6 @@ fn services_form(base: &str, csrf_token: &str, policy: &InstancePolicyResponse) 
                                 policy.services_resolved.youtube_enabled,
                             ))
                         }
-                        @if available.bluesky {
-                            (service_select(
-                                "policy_service_bluesky",
-                                "Bluesky embeds",
-                                policy.services.bluesky_enabled,
-                                policy.services_resolved.bluesky_enabled,
-                            ))
-                        }
                     }
                     (form_actions(html! {
                         (submit_button("Save optional services"))
@@ -403,10 +403,29 @@ fn password_input(name: &str, label: &str, helper: Option<&str>) -> Markup {
     )
 }
 
+fn smtp_test_result_markup(smtp_test: Option<&str>, smtp_error: Option<&str>) -> Markup {
+    html! {
+        @if let Some(status) = smtp_test {
+            div class="mb-3" {
+                @if status == "ok" {
+                    (badge("SMTP connection verified", BadgeVariant::Success))
+                } @else {
+                    (badge("SMTP validation failed", BadgeVariant::Danger))
+                    @if let Some(error) = smtp_error {
+                        p class="text-sm text-red-600 mt-2 whitespace-pre-wrap break-words" { (error) }
+                    }
+                }
+            }
+        }
+    }
+}
+
 fn integrations_config_section(
     base: &str,
     csrf_token: &str,
     integrations: &InstanceIntegrationsResponse,
+    smtp_test: Option<&str>,
+    smtp_error: Option<&str>,
 ) -> Markup {
     let captcha_provider = integrations
         .captcha
@@ -472,7 +491,7 @@ fn integrations_config_section(
                                 "",
                             ))
                             (password_input("integration_turnstile_secret_key", "Turnstile secret key", Some("Leave blank to keep the current secret.")))
-                            (password_input("integration_altcha_hmac_secret", "ALTCHA HMAC secret", Some("Leave blank to keep the current secret.")))
+                            (password_input("integration_altcha_hmac_secret", "ALTCHA HMAC secret", Some("Leave blank to keep the current secret. Generate with: openssl rand -hex 32")))
                             @if let Some(challenge_url) = integrations.captcha.altcha_challenge_url.as_deref() {
                                 p class="text-sm text-neutral-600" {
                                     strong { "ALTCHA challenge URL: " }
@@ -533,6 +552,7 @@ fn integrations_config_section(
                         }
                         (checkbox("integration_smtp_secure", "true", "Use TLS", integrations.email.smtp.secure.unwrap_or(true), true))
                         (checkbox("integration_email_disable_new_ip_authorization", "true", "Disable new IP login authorisation", integrations.email.disable_new_ip_authorization, true))
+                        (smtp_test_result_markup(smtp_test, smtp_error))
                         div class="flex flex-wrap gap-2" {
                             button type="submit"
                                 formaction={(base) "/instance-config?action=test_smtp"}
@@ -584,53 +604,6 @@ fn integrations_config_section(
                                 class="inline-flex w-fit items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-neutral-50 px-4 py-2 font-medium text-base text-neutral-700 transition-all duration-150 hover:border-neutral-400 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white" {
                                 span { "Send test event" }
                             }
-                        }
-                    }
-
-                    div class="space-y-4 border-t border-neutral-200 pt-6" {
-                        div class="flex flex-wrap items-center gap-2" {
-                            h3 class="text-sm font-semibold text-neutral-900" { "Bluesky OAuth" }
-                            @if integrations.bluesky.effective_enabled {
-                                (badge("Effective: enabled", BadgeVariant::Success))
-                            } @else {
-                                (badge("Effective: disabled", BadgeVariant::Default))
-                            }
-                            (badge(&format!("{} signing key(s)", integrations.bluesky.key_count), BadgeVariant::Default))
-                        }
-                        (checkbox("integration_bluesky_enabled", "true", "Enable Bluesky OAuth", integrations.bluesky.effective_enabled, true))
-                        div class="grid grid-cols-1 gap-4 sm:grid-cols-2" {
-                            (text_input(
-                                "integration_bluesky_client_name",
-                                "Client name",
-                                integrations.bluesky.client_name.as_deref().unwrap_or(""),
-                                "Fluxer",
-                            ))
-                            (text_input(
-                                "integration_bluesky_client_uri",
-                                "Client URL",
-                                integrations.bluesky.client_uri.as_deref().unwrap_or(""),
-                                "https://example.com",
-                            ))
-                            (text_input(
-                                "integration_bluesky_logo_uri",
-                                "Logo URL",
-                                integrations.bluesky.logo_uri.as_deref().unwrap_or(""),
-                                "https://example.com/logo.png",
-                            ))
-                            (text_input(
-                                "integration_bluesky_tos_uri",
-                                "Terms URL",
-                                integrations.bluesky.tos_uri.as_deref().unwrap_or(""),
-                                "https://example.com/terms",
-                            ))
-                            (text_input(
-                                "integration_bluesky_policy_uri",
-                                "Privacy URL",
-                                integrations.bluesky.policy_uri.as_deref().unwrap_or(""),
-                                "https://example.com/privacy",
-                            ))
-                            (text_input("integration_bluesky_key_id", "New signing key ID", "", "atproto-key-1"))
-                            (password_input("integration_bluesky_private_key", "New private key", Some("Provide this only when adding or replacing runtime Bluesky keys.")))
                         }
                     }
 

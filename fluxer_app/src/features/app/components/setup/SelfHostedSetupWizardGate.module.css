@@ -258,6 +258,43 @@
 	min-width: 0;
 }
 
+.integrationStatusSuccess {
+	min-width: 0;
+	color: var(--status-positive);
+	font-size: 0.8125rem;
+	line-height: 1.35;
+	text-align: right;
+}
+
+.integrationStatusError {
+	min-width: 0;
+	color: var(--status-danger);
+	font-size: 0.8125rem;
+	line-height: 1.35;
+	text-align: right;
+}
+
+.copyCommandLink {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: var(--text-link);
+	font-size: 0.8125rem;
+	line-height: 1.35;
+	text-align: left;
+	cursor: pointer;
+}
+
+.copyCommandLink:hover {
+	text-decoration: underline;
+}
+
+.copyCommandLink:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
 .integrationStatus {
 	min-width: 0;
 	color: var(--text-secondary);

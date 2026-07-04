@@ -289,12 +289,6 @@ const ERROR_I18N_PL_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'Wartość koloru nie może przekraczać 0xffffff.',
 	'colors.color_value_too_low': 'Wartość koloru musi wynosić co najmniej 0x000000.',
 	'connections.already_exists': 'Połączenie tego typu z tym identyfikatorem już istnieje.',
-	'connections.bluesky_oauth_authorization_failed':
-		'Nie udało się rozpoznać tego identyfikatora Bluesky. Sprawdź i spróbuj ponownie.',
-	'connections.bluesky_oauth_callback_failed': 'Nie udało się nawiązać połączenia z Bluesky. Spróbuj ponownie.',
-	'connections.bluesky_oauth_not_enabled': 'Połączenia Bluesky nie są włączone na tej instancji.',
-	'connections.bluesky_oauth_session_expired': 'Twoja sesja Bluesky wygasła. Połącz ponownie swoje konto.',
-	'connections.bluesky_oauth_state_invalid': 'Żądanie autoryzacji wygasło lub jest niepoprawne. Spróbuj ponownie.',
 	'connections.initiation_token_invalid': 'Token inicjujący połączenie jest nieprawidłowy lub wygasł.',
 	'connections.invalid_identifier': 'Identyfikator połączenia jest nieprawidłowy.',
 	'connections.invalid_type': 'Typ połączenia jest nieobsługiwany.',

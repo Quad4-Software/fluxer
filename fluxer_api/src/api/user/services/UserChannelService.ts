@@ -19,7 +19,7 @@ import type {MessageResponse} from '@fluxer/schema/src/domains/message/MessageRe
 import type {CreatePrivateChannelRequest} from '@fluxer/schema/src/domains/user/UserRequestSchemas';
 import * as BucketUtils from '@fluxer/snowflake/src/SnowflakeBuckets';
 import type {ApiContext} from '../../ApiContext';
-import {requireEmailVerified} from '../../auth/EmailVerificationUtils';
+import {requireEmailVerifiedIfEnabled} from '../../auth/EmailVerificationUtils';
 import type {ChannelID, UserID} from '../../BrandedTypes';
 import {createChannelID, createMessageID, createUserID} from '../../BrandedTypes';
 import {mapChannelToResponse} from '../../channel/ChannelMappers';
@@ -153,7 +153,7 @@ export class UserChannelService {
 			}
 			throw new UnclaimedAccountCannotSendDirectMessagesError();
 		}
-		requireEmailVerified(callingUser, 'direct_message');
+		await requireEmailVerifiedIfEnabled(callingUser, 'direct_message');
 		if (data.recipients !== undefined) {
 			return await this.createGroupDMChannel({
 				userId,

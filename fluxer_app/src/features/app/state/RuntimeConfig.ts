@@ -97,7 +97,6 @@ export function normalizeInstanceCommunity(community?: InstanceCommunity | null)
 export const DEFAULT_INSTANCE_SERVICES: InstanceServices = {
 	gif_enabled: true,
 	youtube_enabled: false,
-	bluesky_enabled: false,
 };
 
 export function normalizeInstanceServices(services?: InstanceServices | null): InstanceServices {
@@ -433,7 +432,6 @@ class RuntimeConfig {
 			this.services = normalizeInstanceServices({
 				gif_enabled: config.policy.services_resolved.gif_enabled,
 				youtube_enabled: config.policy.services_resolved.youtube_enabled,
-				bluesky_enabled: config.policy.services_resolved.bluesky_enabled,
 			});
 			this.appPublic = appPublic;
 		});
@@ -641,10 +639,6 @@ class RuntimeConfig {
 
 	get gifEnabled(): boolean {
 		return this.services.gif_enabled;
-	}
-
-	get blueskyConnectionsEnabled(): boolean {
-		return this.services.bluesky_enabled;
 	}
 
 	get marketingHost(): string {

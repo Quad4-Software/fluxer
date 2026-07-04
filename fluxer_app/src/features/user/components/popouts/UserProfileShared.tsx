@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import {BLUESKY_PROVIDER_NAME, PRODUCT_NAME} from '@app/features/app/config/I18nDisplayConstants';
+import {PRODUCT_NAME} from '@app/features/app/config/I18nDisplayConstants';
 import {useShouldAnimate} from '@app/features/app/hooks/useShouldAnimate';
 import {GuildIcon} from '@app/features/guild/components/popouts/GuildIcon';
 import {AddRoleButton, RoleList} from '@app/features/guild/components/RoleManagement';
@@ -16,7 +16,6 @@ import {MarkdownContext} from '@app/features/messaging/components/markdown/rende
 import {openExternalUrlWithWarning} from '@app/features/messaging/utils/ExternalLinkUtils';
 import StreamerMode from '@app/features/streamer_mode/state/StreamerMode';
 import markupStyles from '@app/features/theme/styles/Markup.module.css';
-import {BlueskyIcon} from '@app/features/ui/components/icons/BlueskyIcon';
 import {FluxerIcon} from '@app/features/ui/components/icons/FluxerIcon';
 import {UnverifiedConnectionIcon} from '@app/features/ui/components/icons/UnverifiedConnectionIcon';
 import {VerifiedConnectionIcon} from '@app/features/ui/components/icons/VerifiedConnectionIcon';
@@ -27,7 +26,6 @@ import type {Profile} from '@app/features/user/models/Profile';
 import type {User} from '@app/features/user/models/User';
 import * as DateUtils from '@app/features/user/utils/DateFormatting';
 import {getCurrentLocale} from '@app/features/user/utils/LocaleUtils';
-import {ConnectionTypes} from '@fluxer/constants/src/ConnectionConstants';
 import type {UserProfile} from '@fluxer/schema/src/domains/user/UserResponseSchemas';
 import type {I18n} from '@lingui/core';
 import {msg} from '@lingui/core/macro';
@@ -458,8 +456,8 @@ export const UserProfileRoles: React.FC<{
 	) : null;
 });
 
-function getConnectionUrl(type: string, name: string): string {
-	return type === ConnectionTypes.BLUESKY ? `https://bsky.app/profile/${name}` : `https://${name}`;
+function getConnectionUrl(name: string): string {
+	return `https://${name}`;
 }
 
 const ConnectionCard: React.FC<{
@@ -468,20 +466,16 @@ const ConnectionCard: React.FC<{
 	mobile?: boolean;
 }> = ({connection, onLinkClick, mobile}) => {
 	const {i18n} = useLingui();
-	const url = getConnectionUrl(connection.type, connection.name);
-	const iconLabel = connection.type === ConnectionTypes.BLUESKY ? BLUESKY_PROVIDER_NAME : i18n._(DOMAIN_DESCRIPTOR);
+	const url = getConnectionUrl(connection.name);
+	const iconLabel = i18n._(DOMAIN_DESCRIPTOR);
 	const icon = (
 		<Tooltip text={iconLabel} data-flx="user.user-profile-shared.connection-card.tooltip">
 			<div className={styles.connectionIcon} data-flx="user.user-profile-shared.connection-card.connection-icon">
-				{connection.type === ConnectionTypes.BLUESKY ? (
-					<BlueskyIcon size={18} data-flx="user.user-profile-shared.connection-card.bluesky-icon" />
-				) : (
-					<GlobeSimpleIcon
-						size={18}
-						className={styles.connectionDomainIcon}
-						data-flx="user.user-profile-shared.connection-card.connection-domain-icon"
-					/>
-				)}
+				<GlobeSimpleIcon
+					size={18}
+					className={styles.connectionDomainIcon}
+					data-flx="user.user-profile-shared.connection-card.connection-domain-icon"
+				/>
 			</div>
 		</Tooltip>
 	);
@@ -597,7 +591,7 @@ export const UserProfileConnections: React.FC<{
 					data-flx="user.user-profile-shared.user-profile-connections.connections-compact"
 				>
 					{connections.map((connection) => {
-						const url = getConnectionUrl(connection.type, connection.name);
+						const url = getConnectionUrl(connection.name);
 						return (
 							<Tooltip
 								key={connection.id}
@@ -638,18 +632,11 @@ export const UserProfileConnections: React.FC<{
 										onClick={(e) => handleConnectionClick(e, url)}
 										data-flx="user.user-profile-shared.user-profile-connections.connection-compact-icon.connection-click"
 									>
-										{connection.type === ConnectionTypes.BLUESKY ? (
-											<BlueskyIcon
-												size={16}
-												data-flx="user.user-profile-shared.user-profile-connections.bluesky-icon"
-											/>
-										) : (
-											<GlobeSimpleIcon
-												size={16}
-												className={styles.connectionDomainIcon}
-												data-flx="user.user-profile-shared.user-profile-connections.connection-domain-icon"
-											/>
-										)}
+										<GlobeSimpleIcon
+											size={16}
+											className={styles.connectionDomainIcon}
+											data-flx="user.user-profile-shared.user-profile-connections.connection-domain-icon"
+										/>
 									</a>
 								</div>
 							</Tooltip>

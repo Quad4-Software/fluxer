@@ -301,12 +301,6 @@ const ERROR_I18N_EL_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'Η τιμή χρώματος δεν μπορεί να ξεπερνά το 0xffffff.',
 	'colors.color_value_too_low': 'Η τιμή χρώματος πρέπει να είναι τουλάχιστον 0x000000.',
 	'connections.already_exists': 'Υπάρχει ήδη μια σύνδεση αυτού του τύπου με αυτό το αναγνωριστικό.',
-	'connections.bluesky_oauth_authorization_failed':
-		'Δεν μπορέσαμε να επιλύσουμε το όνομα χρήστη Bluesky. Ελέγξτε το και δοκιμάστε ξανά.',
-	'connections.bluesky_oauth_callback_failed': 'Αδυνατούμε να ολοκληρώσουμε τη σύνδεση Bluesky. Δοκιμάστε ξανά.',
-	'connections.bluesky_oauth_not_enabled': 'Οι συνδέσεις Bluesky δεν είναι ενεργοποιημένες σε αυτήν την εγκατάσταση.',
-	'connections.bluesky_oauth_session_expired': 'Η συνεδρία σας στο Bluesky έχει λήξει. Συνδεθείτε ξανά.',
-	'connections.bluesky_oauth_state_invalid': 'Το αίτημα εξουσιοδότησης έχει λήξει ή είναι μη έγκυρο. Δοκιμάστε ξανά.',
 	'connections.initiation_token_invalid': 'Το token έναρξης σύνδεσης είναι άκυρο ή έχει λήξει.',
 	'connections.invalid_identifier': 'Το αναγνωριστικό σύνδεσης είναι άκυρο.',
 	'connections.invalid_type': 'Ο τύπος σύνδεσης δεν υποστηρίζεται.',

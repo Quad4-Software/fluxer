@@ -2,6 +2,7 @@
 
 import {createLogger} from '@fluxer/logger/src/Logger';
 import type {EmailMessage, IEmailProvider} from '@pkgs/email/src/EmailProviderTypes';
+import {formatSmtpVerifyError} from '@pkgs/email/src/SmtpVerifyError';
 import nodemailer from 'nodemailer';
 
 const logger = createLogger('@pkgs/email/src/SmtpEmailProvider');
@@ -36,8 +37,12 @@ export class SmtpEmailProvider implements IEmailProvider {
 	}
 
 	async verify(): Promise<boolean> {
-		await this.transporter.verify();
-		return true;
+		try {
+			await this.transporter.verify();
+			return true;
+		} catch (error) {
+			throw new Error(formatSmtpVerifyError(error));
+		}
 	}
 
 	async sendEmail(message: EmailMessage): Promise<boolean> {

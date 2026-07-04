@@ -8,8 +8,7 @@ use crate::{
             AppPublicConfigUpdateRequest, AppRegistrationConfigUpdateRequest,
             AppSetupConfigUpdateRequest, CreateRegistrationUrlRequest,
             GatewayRolloutConfigUpdateRequest, GatewayRolloutMode,
-            InstanceAttachmentDecayUpdateRequest, InstanceBlueskyIntegrationUpdateRequest,
-            InstanceBlueskyKeyIntegrationUpdateRequest, InstanceCaptchaIntegrationUpdateRequest,
+            InstanceAttachmentDecayUpdateRequest, InstanceCaptchaIntegrationUpdateRequest,
             InstanceConfigUpdateRequest, InstanceEmailIntegrationUpdateRequest,
             InstanceEmailSmtpIntegrationUpdateRequest, InstanceEmailSmtpTestRequest,
             InstanceGifIntegrationUpdateRequest, InstanceIntegrationsUpdateRequest,
@@ -164,6 +163,40 @@ pub async fn instance_config_post(
     };
     let client = AdminApiClient::new(state.http_client(), config, &auth.0.session);
     let action = aq.action.as_deref().unwrap_or("");
+    if action == "test_smtp" {
+        let (flash, smtp_status, smtp_error) = match build_smtp_test_request(&form) {
+            Ok(request) => match client.test_instance_smtp_config(&request).await {
+                Ok(response) if response.ok => (
+                    FlashData::success("SMTP connection verified"),
+                    "ok",
+                    None,
+                ),
+                Ok(response) => {
+                    let error = response
+                        .error
+                        .unwrap_or_else(|| "SMTP validation failed".to_owned());
+                    (FlashData::error(error.clone()), "error", Some(error))
+                }
+                Err(error) => {
+                    tracing::warn!(%error, "admin API request failed: test SMTP config");
+                    (
+                        FlashData::error("Failed to validate SMTP configuration"),
+                        "error",
+                        Some("Failed to validate SMTP configuration".to_owned()),
+                    )
+                }
+            },
+            Err(message) => (FlashData::error(message.clone()), "error", Some(message)),
+        };
+        if htmx::is_htmx_request(&headers) {
+            return htmx::toast_response(&flash);
+        }
+        let mut url = format!("{base}/instance-config?smtp_test={smtp_status}");
+        if let Some(error) = smtp_error {
+            url.push_str(&format!("&smtp_error={}", urlencoding::encode(&error)));
+        }
+        return flash::redirect_with_flash(&url, flash, config.is_production());
+    }
     let flash = match action {
         "update_sso" => {
             let update = build_sso_update(&form);
@@ -201,21 +234,6 @@ pub async fn instance_config_post(
             let update = build_media_update(&form);
             instance_config_result(client.update_instance_config(&update).await)
         }
-        "test_smtp" => match build_smtp_test_request(&form) {
-            Ok(request) => match client.test_instance_smtp_config(&request).await {
-                Ok(response) if response.ok => FlashData::success("SMTP connection verified"),
-                Ok(response) => FlashData::error(
-                    response
-                        .error
-                        .unwrap_or_else(|| "SMTP validation failed".to_owned()),
-                ),
-                Err(error) => {
-                    tracing::warn!(%error, "admin API request failed: test SMTP config");
-                    FlashData::error("Failed to validate SMTP configuration")
-                }
-            },
-            Err(message) => FlashData::error(message),
-        },
         "test_sentry" => match build_sentry_test_request(&form) {
             Ok(request) => match client.test_instance_sentry_config(&request).await {
                 Ok(response) if response.ok => FlashData::success(
@@ -592,14 +610,12 @@ fn build_services_update(form: &MultiValueForm) -> Option<InstanceServicesUpdate
     };
     let gif_enabled = parse_tristate("policy_service_gif");
     let youtube_enabled = parse_tristate("policy_service_youtube");
-    let bluesky_enabled = parse_tristate("policy_service_bluesky");
-    if gif_enabled.is_none() && youtube_enabled.is_none() && bluesky_enabled.is_none() {
+    if gif_enabled.is_none() && youtube_enabled.is_none() {
         None
     } else {
         Some(InstanceServicesUpdateRequest {
             gif_enabled,
             youtube_enabled,
-            bluesky_enabled,
         })
     }
 }
@@ -609,15 +625,6 @@ fn build_integrations_update(form: &MultiValueForm) -> InstanceConfigUpdateReque
     let smtp_port = form
         .first("integration_smtp_port")
         .and_then(|value| value.trim().parse::<u16>().ok());
-    let bluesky_key_id = clean("integration_bluesky_key_id");
-    let bluesky_private_key = clean("integration_bluesky_private_key");
-    let bluesky_keys = match (bluesky_key_id, bluesky_private_key) {
-        (Some(kid), private_key) => Some(vec![InstanceBlueskyKeyIntegrationUpdateRequest {
-            kid,
-            private_key,
-        }]),
-        _ => None,
-    };
     InstanceConfigUpdateRequest {
         gateway_rollout: None,
         registration: None,
@@ -654,15 +661,6 @@ fn build_integrations_update(form: &MultiValueForm) -> InstanceConfigUpdateReque
                 disable_new_ip_authorization: Some(
                     form.bool_value("integration_email_disable_new_ip_authorization"),
                 ),
-            }),
-            bluesky: Some(InstanceBlueskyIntegrationUpdateRequest {
-                enabled: Some(form.bool_value("integration_bluesky_enabled")),
-                client_name: clean("integration_bluesky_client_name"),
-                client_uri: clean("integration_bluesky_client_uri"),
-                logo_uri: clean("integration_bluesky_logo_uri"),
-                tos_uri: clean("integration_bluesky_tos_uri"),
-                policy_uri: clean("integration_bluesky_policy_uri"),
-                keys: bluesky_keys,
             }),
             sentry: Some(InstanceSentryIntegrationUpdateRequest {
                 enabled: Some(form.bool_value("integration_sentry_enabled")),

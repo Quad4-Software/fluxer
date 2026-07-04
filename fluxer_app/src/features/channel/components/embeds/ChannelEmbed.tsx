@@ -3,7 +3,6 @@
 import Accessibility from '@app/features/accessibility/state/Accessibility';
 import {SpoilerOverlay} from '@app/features/app/components/shared/SpoilerOverlay';
 import styles from '@app/features/channel/components/embeds/ChannelEmbed.module.css';
-import {BlueskyEmbed} from '@app/features/channel/components/embeds/channel_embed/BlueskyEmbed';
 import {
 	calculateMediaDimensions,
 	type EmbedProps,
@@ -337,27 +336,15 @@ export const Embed: FC<EmbedProps> = observer(({embed, message, embedIndex, cont
 					<XIcon size={16} weight="bold" data-flx="channel.embeds.embed.x-icon" />
 				</button>
 			)}
-			{embed.type === MessageEmbedTypes.BLUESKY ? (
-				<BlueskyEmbed
-					embed={embed}
-					message={message}
-					embedIndex={embedIndex}
-					contextualEmbeds={contextualEmbeds}
-					onDelete={onDelete}
-					isPreview={isPreview}
-					data-flx="channel.embeds.channel-embed.embed.bluesky-embed"
-				/>
-			) : (
-				<RichEmbed
-					embed={embed}
-					message={message}
-					embedIndex={embedIndex}
-					contextualEmbeds={contextualEmbeds}
-					onDelete={onDelete}
-					isPreview={isPreview}
-					data-flx="channel.embeds.channel-embed.embed.rich-embed"
-				/>
-			)}
+			<RichEmbed
+				embed={embed}
+				message={message}
+				embedIndex={embedIndex}
+				contextualEmbeds={contextualEmbeds}
+				onDelete={onDelete}
+				isPreview={isPreview}
+				data-flx="channel.embeds.channel-embed.embed.rich-embed"
+			/>
 		</div>,
 	);
 });

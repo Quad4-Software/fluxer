@@ -132,7 +132,6 @@ export const MessageEmbedTypes = {
 	VIDEO: 'video',
 	AUDIO: 'audio',
 	GIFV: 'gifv',
-	BLUESKY: 'bluesky',
 } as const;
 export const MessageStates = {
 	SENT: 'SENT',

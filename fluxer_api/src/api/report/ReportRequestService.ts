@@ -11,7 +11,7 @@ import type {
 	ReportUserRequest,
 	TicketResponse,
 } from '@fluxer/schema/src/domains/report/ReportSchemas';
-import {requireEmailVerified} from '../auth/EmailVerificationUtils';
+import {requireEmailVerifiedIfEnabled} from '../auth/EmailVerificationUtils';
 import {createChannelID, createGuildID, createInviteCode, createMessageID, createUserID} from '../BrandedTypes';
 import type {User} from '../models/User';
 import {type ReportStatus, reportStatusToString} from './IReportRepository';
@@ -36,7 +36,7 @@ export class ReportRequestService {
 	constructor(private reportService: ReportService) {}
 
 	async reportMessage({user, data}: ReportUserRequestContext<ReportMessageRequest>): Promise<ReportResponse> {
-		this.requireVerifiedAccount(user);
+		await this.requireVerifiedAccount(user);
 		const report = await this.reportService.reportMessage(
 			this.createReporter(user),
 			createChannelID(data.channel_id),
@@ -47,7 +47,7 @@ export class ReportRequestService {
 	}
 
 	async reportUser({user, data}: ReportUserRequestContext<ReportUserRequest>): Promise<ReportResponse> {
-		this.requireVerifiedAccount(user);
+		await this.requireVerifiedAccount(user);
 		const report = await this.reportService.reportUser(
 			this.createReporter(user),
 			createUserID(data.user_id),
@@ -58,7 +58,7 @@ export class ReportRequestService {
 	}
 
 	async reportGuild({user, data}: ReportUserRequestContext<ReportGuildRequest>): Promise<ReportResponse> {
-		this.requireVerifiedAccount(user);
+		await this.requireVerifiedAccount(user);
 		const report = await this.reportService.reportGuild(
 			this.createReporter(user),
 			createGuildID(data.guild_id),
@@ -82,11 +82,11 @@ export class ReportRequestService {
 		return this.toReportResponse(report);
 	}
 
-	private requireVerifiedAccount(user: User): void {
+	private async requireVerifiedAccount(user: User): Promise<void> {
 		if (user.isUnclaimedAccount()) {
 			throw new UnclaimedAccountCannotSubmitReportsError();
 		}
-		requireEmailVerified(user, 'report');
+		await requireEmailVerifiedIfEnabled(user, 'report');
 	}
 
 	private createReporter(user: User) {

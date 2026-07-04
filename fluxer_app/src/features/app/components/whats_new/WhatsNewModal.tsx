@@ -3,18 +3,15 @@
 import * as Modal from '@app/features/app/components/dialogs/Modal';
 import {WHATS_NEW_ENTRIES, type WhatsNewEntry} from '@app/features/app/components/whats_new/WhatsNewEntries';
 import styles from '@app/features/app/components/whats_new/WhatsNewModal.module.css';
-import {BLUESKY_PROVIDER_NAME} from '@app/features/app/config/I18nDisplayConstants';
 import {SafeMarkdown} from '@app/features/messaging/components/markdown';
 import {MarkdownContext} from '@app/features/messaging/components/markdown/renderers/RendererTypes';
 import markupStyles from '@app/features/theme/styles/Markup.module.css';
 import {Button} from '@app/features/ui/button/Button';
 import * as ModalCommands from '@app/features/ui/commands/ModalCommands';
 import {modal} from '@app/features/ui/commands/ModalCommands';
-import {BlueskyIcon} from '@app/features/ui/components/icons/BlueskyIcon';
 import type {ScrollerHandle} from '@app/features/ui/components/Scroller';
 import WhatsNew from '@app/features/ui/state/WhatsNew';
 import {getCurrentLocale} from '@app/features/user/utils/LocaleUtils';
-import {ExternalUrls} from '@fluxer/constants/src/ExternalUrls';
 import {getFormattedLongDate} from '@fluxer/date_utils/src/DateFormatting';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
@@ -28,10 +25,6 @@ const WHAT_S_NEW_DESCRIPTOR = msg({
 const SCROLL_TO_BOTTOM_DESCRIPTOR = msg({
 	message: 'Scroll to bottom',
 	comment: 'Short label in the whats new modal.',
-});
-const FOLLOW_US_ON_DESCRIPTOR = msg({
-	message: 'Follow us on {blueskyProviderName}',
-	comment: 'Short label in the whats new modal. Preserve {blueskyProviderName}; it is inserted by code.',
 });
 const GOT_IT_DESCRIPTOR = msg({
 	message: 'Got it',
@@ -159,16 +152,6 @@ export function WhatsNewModal({entry}: WhatsNewModalProps) {
 				</button>
 			</div>
 			<Modal.Footer className={styles.footer} data-flx="app.whats-new.whats-new-modal.footer">
-				<a
-					href={ExternalUrls.BLUESKY}
-					target="_blank"
-					rel="noopener noreferrer"
-					className={styles.blueskyLink}
-					data-flx="app.whats-new.whats-new-modal.bluesky-link"
-				>
-					<BlueskyIcon size={16} className={styles.blueskyIcon} data-flx="app.whats-new.whats-new-modal.bluesky-icon" />
-					{i18n._(FOLLOW_US_ON_DESCRIPTOR, {blueskyProviderName: BLUESKY_PROVIDER_NAME})}
-				</a>
 				<Button
 					variant="primary"
 					fitContent

@@ -24,10 +24,11 @@ interface VerificationParams {
 	verificationLevel: number;
 	memberJoinedAt?: Date | string | null;
 	memberRoles?: Set<RoleID>;
+	emailEnabled?: boolean;
 }
 
 function checkGuildVerification(params: VerificationParams): void {
-	const {user, ownerId, verificationLevel, memberJoinedAt, memberRoles} = params;
+	const {user, ownerId, verificationLevel, memberJoinedAt, memberRoles, emailEnabled = true} = params;
 	if (user.id === ownerId) {
 		return;
 	}
@@ -50,7 +51,7 @@ function checkGuildVerification(params: VerificationParams): void {
 		throw new GuildVerificationRequiredError('You need to claim your account to send messages in this guild.');
 	}
 	if (verificationLevel >= GuildVerificationLevel.LOW) {
-		if (!user.emailVerified) {
+		if (emailEnabled && !user.emailVerified) {
 			throw new GuildEmailVerificationRequiredError();
 		}
 	}
@@ -79,10 +80,12 @@ export function checkGuildVerificationWithGuildModel({
 	user,
 	guild,
 	member,
+	emailEnabled = true,
 }: {
 	user: User;
 	guild: Guild;
 	member: GuildMember;
+	emailEnabled?: boolean;
 }): void {
 	checkGuildVerification({
 		user,
@@ -93,6 +96,7 @@ export function checkGuildVerificationWithGuildModel({
 		),
 		memberJoinedAt: member.joinedAt,
 		memberRoles: member.roleIds,
+		emailEnabled,
 	});
 }
 
@@ -100,10 +104,12 @@ export function checkGuildVerificationWithResponse({
 	user,
 	guild,
 	member,
+	emailEnabled = true,
 }: {
 	user: User;
 	guild: GuildResponse;
 	member: GuildMemberResponse;
+	emailEnabled?: boolean;
 }): void {
 	if (!guild.owner_id) {
 		throw new Error('Guild owner_id is missing - cannot perform verification');
@@ -118,5 +124,6 @@ export function checkGuildVerificationWithResponse({
 		),
 		memberJoinedAt: member.joined_at,
 		memberRoles: createRoleIDSet(new Set(member.roles.map((roleId) => BigInt(roleId)))),
+		emailEnabled,
 	});
 }

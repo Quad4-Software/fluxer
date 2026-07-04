@@ -11,13 +11,10 @@
 		"start:worker": "tsx src/WorkerEntrypoint.ts"
 	},
 	"dependencies": {
-		"@atproto/api": "catalog:",
 		"altcha-lib": "2.2.0",
 		"@aws-sdk/client-s3": "catalog:",
 		"@aws-sdk/lib-storage": "catalog:",
 		"@aws-sdk/s3-request-presigner": "catalog:",
-		"@bluesky-social/jwk-jose": "catalog:",
-		"@bluesky-social/oauth-client-node": "catalog:",
 		"@bufbuild/protobuf": "^2.12.0",
 		"@fluxer/config": "workspace:*",
 		"@fluxer/constants": "workspace:*",

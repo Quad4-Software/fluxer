@@ -290,12 +290,6 @@ const ERROR_I18N_NL_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'Kleurwaarde mag niet hoger zijn dan 0xffffff.',
 	'colors.color_value_too_low': 'Kleurwaarde moet minstens 0x000000 zijn.',
 	'connections.already_exists': 'Een verbinding van dit type met deze identificatie bestaat al.',
-	'connections.bluesky_oauth_authorization_failed':
-		'We konden die Bluesky-gebruikersnaam niet vinden. Controleer deze en probeer het opnieuw.',
-	'connections.bluesky_oauth_callback_failed': 'We konden de Bluesky-verbinding niet voltooien. Probeer het opnieuw.',
-	'connections.bluesky_oauth_not_enabled': 'Bluesky-verbindingen zijn niet ingeschakeld voor deze instantie.',
-	'connections.bluesky_oauth_session_expired': 'Je Bluesky-sessie is verlopen. Verbind je account opnieuw.',
-	'connections.bluesky_oauth_state_invalid': 'Het autorisatieverzoek is verlopen of ongeldig. Probeer het nog eens.',
 	'connections.initiation_token_invalid': 'Het token voor verbinding is ongeldig of verlopen.',
 	'connections.invalid_identifier': 'De verbindingsidentificatie is ongeldig.',
 	'connections.invalid_type': 'Het verbindingstype wordt niet ondersteund.',

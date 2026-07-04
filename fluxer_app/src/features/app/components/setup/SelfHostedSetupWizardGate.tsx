@@ -62,6 +62,11 @@ import {AnimatePresence, motion, type Transition, useReducedMotion} from 'framer
 import {observer} from 'mobx-react-lite';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
+const SMTP_VALIDATION_FAILED_DESCRIPTOR = msg({
+	message: 'SMTP validation failed.',
+	comment: 'Fallback message when SMTP credential validation fails without a specific error.',
+});
+
 const logger = new Logger('SelfHostedSetupWizardGate');
 
 const SETUP_WIZARD_DESCRIPTOR = msg({
@@ -164,15 +169,6 @@ const DEFAULT_INTEGRATION_DRAFT: ServiceIntegrationDraft = {
 	smtpUsername: '',
 	smtpPassword: '',
 	smtpSecure: true,
-	blueskyMode: 'later',
-	blueskyEnabled: true,
-	blueskyClientName: '',
-	blueskyClientUri: '',
-	blueskyLogoUri: '',
-	blueskyTosUri: '',
-	blueskyPolicyUri: '',
-	blueskyKeyId: '',
-	blueskyPrivateKey: '',
 };
 
 const DEFAULT_MEDIA_EXPIRY_DRAFT: MediaExpiryDraft = {
@@ -197,8 +193,6 @@ function wizardStepToIntegrationKind(step: WizardStep): IntegrationStepKind | nu
 			return 'captcha';
 		case 'integration_email':
 			return 'email';
-		case 'integration_bluesky':
-			return 'bluesky';
 		default:
 			return null;
 	}
@@ -289,14 +283,6 @@ function isIntegrationStepValid(kind: IntegrationStepKind, draft: ServiceIntegra
 				draft.smtpUsername.trim().length > 0 &&
 				draft.smtpPassword.trim().length > 0
 			);
-		case 'bluesky':
-			if (draft.blueskyMode === 'later' || !draft.blueskyEnabled) return true;
-			return (
-				draft.blueskyClientName.trim().length > 0 &&
-				draft.blueskyClientUri.trim().length > 0 &&
-				draft.blueskyKeyId.trim().length > 0 &&
-				draft.blueskyPrivateKey.trim().length > 0
-			);
 	}
 }
 
@@ -329,15 +315,6 @@ function buildIntegrationsPatch(draft: ServiceIntegrationDraft) {
 				password: string;
 				secure: boolean;
 			};
-		};
-		bluesky?: {
-			enabled: boolean;
-			client_name: string;
-			client_uri: string;
-			logo_uri?: string;
-			tos_uri?: string;
-			policy_uri?: string;
-			keys?: Array<{kid: string; private_key: string}>;
 		};
 	} = {};
 	if (draft.gifMode === 'configure') {
@@ -380,20 +357,6 @@ function buildIntegrationsPatch(draft: ServiceIntegrationDraft) {
 				password: draft.smtpPassword.trim(),
 				secure: draft.smtpSecure,
 			},
-		};
-	}
-	if (draft.blueskyMode === 'configure') {
-		integrations.bluesky = {
-			enabled: draft.blueskyEnabled,
-			client_name: draft.blueskyClientName.trim(),
-			client_uri: draft.blueskyClientUri.trim(),
-			logo_uri: draft.blueskyLogoUri.trim() || undefined,
-			tos_uri: draft.blueskyTosUri.trim() || undefined,
-			policy_uri: draft.blueskyPolicyUri.trim() || undefined,
-			keys:
-				draft.blueskyKeyId.trim() && draft.blueskyPrivateKey.trim()
-					? [{kid: draft.blueskyKeyId.trim(), private_key: draft.blueskyPrivateKey.trim()}]
-					: undefined,
 		};
 	}
 	return Object.keys(integrations).length > 0 ? integrations : undefined;
@@ -462,7 +425,6 @@ export const SelfHostedSetupWizardGate = observer(() => {
 	const [serviceSelection, setServiceSelection] = useState<ServiceSelection>({
 		gif: false,
 		youtube: false,
-		bluesky: false,
 	});
 	const [premiumMode, setPremiumMode] = useState<PremiumMode>('mirror');
 	const [assets, setAssets] = useState<ReadonlyArray<BrandingAssetState>>(() =>
@@ -577,7 +539,6 @@ export const SelfHostedSetupWizardGate = observer(() => {
 		setServiceSelection({
 			gif: next.policy.services_resolved.gif_enabled,
 			youtube: next.policy.services_resolved.youtube_enabled,
-			bluesky: next.policy.services_resolved.bluesky_enabled,
 		});
 		setIntegrationDraft((current) => ({
 			...current,
@@ -594,12 +555,6 @@ export const SelfHostedSetupWizardGate = observer(() => {
 			smtpPort: next.integrations.email.smtp.port ? String(next.integrations.email.smtp.port) : current.smtpPort,
 			smtpUsername: next.integrations.email.smtp.username ?? current.smtpUsername,
 			smtpSecure: next.integrations.email.smtp.secure ?? current.smtpSecure,
-			blueskyEnabled: next.integrations.bluesky.effective_enabled || next.integrations.bluesky.enabled !== false,
-			blueskyClientName: next.integrations.bluesky.client_name ?? current.blueskyClientName,
-			blueskyClientUri: next.integrations.bluesky.client_uri ?? current.blueskyClientUri,
-			blueskyLogoUri: next.integrations.bluesky.logo_uri ?? current.blueskyLogoUri,
-			blueskyTosUri: next.integrations.bluesky.tos_uri ?? current.blueskyTosUri,
-			blueskyPolicyUri: next.integrations.bluesky.policy_uri ?? current.blueskyPolicyUri,
 		}));
 		setMediaExpiryDraft(() => {
 			const attachmentDecay = next.media.attachment_decay;
@@ -651,12 +606,6 @@ export const SelfHostedSetupWizardGate = observer(() => {
 			youtube:
 				(config?.policy.services_available.youtube ?? false) ||
 				(integrationDraft.youtubeMode === 'configure' && integrationDraft.youtubeApiKey.trim().length > 0),
-			bluesky:
-				(config?.policy.services_available.bluesky ?? false) ||
-				(integrationDraft.blueskyMode === 'configure' &&
-					integrationDraft.blueskyEnabled &&
-					integrationDraft.blueskyKeyId.trim().length > 0 &&
-					integrationDraft.blueskyPrivateKey.trim().length > 0),
 		}),
 		[config, integrationDraft],
 	);
@@ -748,7 +697,7 @@ export const SelfHostedSetupWizardGate = observer(() => {
 				password: integrationDraft.smtpPassword,
 				secure: integrationDraft.smtpSecure,
 			});
-			setSmtpTestResult(result.ok ? 'ok' : (result.error ?? 'SMTP validation failed.'));
+			setSmtpTestResult(result.ok ? 'ok' : (result.error ?? i18n._(SMTP_VALIDATION_FAILED_DESCRIPTOR)));
 		} catch (error) {
 			logger.error('Failed to validate SMTP configuration', error);
 			setSmtpTestResult(FormUtils.extractErrorMessage(i18n, error));
@@ -789,7 +738,6 @@ export const SelfHostedSetupWizardGate = observer(() => {
 					services: {
 						gif_enabled: serviceAvailability.gif ? serviceSelection.gif : undefined,
 						youtube_enabled: serviceAvailability.youtube ? serviceSelection.youtube : undefined,
-						bluesky_enabled: serviceAvailability.bluesky ? serviceSelection.bluesky : undefined,
 					},
 				},
 			});

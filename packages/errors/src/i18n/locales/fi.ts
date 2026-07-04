@@ -280,12 +280,6 @@ const ERROR_I18N_FI_MESSAGES = defineErrorI18nLocaleMessages({
 	'colors.color_value_too_high': 'Väriarvo ei saa ylittää 0xffffff.',
 	'colors.color_value_too_low': 'Väriarvon täytyy olla vähintään 0x000000.',
 	'connections.already_exists': 'Tämän tyyppinen yhteys tällä tunnisteella on jo olemassa.',
-	'connections.bluesky_oauth_authorization_failed':
-		'Emme voineet ratkaista Bluesky-tunnusta. Tarkista tunnus ja yritä uudelleen.',
-	'connections.bluesky_oauth_callback_failed': 'Emme voineet muodostaa Bluesky-yhteyttä. Yritä uudelleen.',
-	'connections.bluesky_oauth_not_enabled': 'Bluesky-yhteydet eivät ole käytössä tässä instanssissa.',
-	'connections.bluesky_oauth_session_expired': 'Bluesky-istuntosi on vanhentunut. Yhdistä tilisi uudelleen.',
-	'connections.bluesky_oauth_state_invalid': 'Valtuutuspyyntö on vanhentunut tai virheellinen. Yritä uudelleen.',
 	'connections.initiation_token_invalid': 'Yhteyden aloitustunnus on virheellinen tai vanhentunut.',
 	'connections.invalid_identifier': 'Yhteyden tunniste on virheellinen.',
 	'connections.invalid_type': 'Yhteyden tyyppiä ei tueta.',

@@ -9,6 +9,7 @@ import {
 } from '@app/features/app/components/setup/SetupWizardWelcomeRotation';
 import {AuthRegisterFormCore} from '@app/features/auth/flow/AuthRegisterFormCore';
 import {Button} from '@app/features/ui/button/Button';
+import * as TextCopyCommands from '@app/features/ui/commands/TextCopyCommands';
 import {ColorPickerField} from '@app/features/ui/components/form/ColorPickerField';
 import {Input} from '@app/features/ui/components/form/FormInput';
 import {Switch} from '@app/features/ui/components/form/FormSwitch';
@@ -21,7 +22,7 @@ import type {ThemeType} from '@fluxer/constants/src/UserConstants';
 import type {MessageDescriptor} from '@lingui/core';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
-import {ImageIcon, TrashIcon, UploadSimpleIcon} from '@phosphor-icons/react';
+import {ImageIcon, TrashIcon, UploadSimpleIcon, DiceSixIcon} from '@phosphor-icons/react';
 import {AnimatePresence, motion, type Transition, useReducedMotion} from 'framer-motion';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
@@ -289,14 +290,6 @@ const SERVICE_YOUTUBE_LABEL_DESCRIPTOR = msg({
 const SERVICE_YOUTUBE_DESC_DESCRIPTOR = msg({
 	message: 'Show rich previews for YouTube links.',
 	comment: 'Description for the YouTube enrichment service toggle in the setup wizard.',
-});
-const SERVICE_BLUESKY_LABEL_DESCRIPTOR = msg({
-	message: 'Bluesky connections',
-	comment: 'Label for the Bluesky connections service toggle in the setup wizard.',
-});
-const SERVICE_BLUESKY_DESC_DESCRIPTOR = msg({
-	message: 'Let people link their Bluesky account to their profile.',
-	comment: 'Description for the Bluesky connections service toggle in the setup wizard.',
 });
 
 const PREMIUM_TITLE_DESCRIPTOR = msg({
@@ -811,13 +804,11 @@ export const CommunityStep = observer(
 export interface ServiceAvailability {
 	gif: boolean;
 	youtube: boolean;
-	bluesky: boolean;
 }
 
 export interface ServiceSelection {
 	gif: boolean;
 	youtube: boolean;
-	bluesky: boolean;
 }
 
 export interface MediaExpiryDraft {
@@ -832,7 +823,7 @@ export interface MediaExpiryDraft {
 	renewWindowDays: string;
 }
 
-export type IntegrationStepKind = 'gif' | 'youtube' | 'captcha' | 'email' | 'bluesky';
+export type IntegrationStepKind = 'gif' | 'youtube' | 'captcha' | 'email';
 export type IntegrationSetupMode = 'later' | 'configure';
 export type CaptchaProvider = 'altcha' | 'hcaptcha' | 'turnstile';
 
@@ -857,15 +848,6 @@ export interface ServiceIntegrationDraft {
 	smtpUsername: string;
 	smtpPassword: string;
 	smtpSecure: boolean;
-	blueskyMode: IntegrationSetupMode;
-	blueskyEnabled: boolean;
-	blueskyClientName: string;
-	blueskyClientUri: string;
-	blueskyLogoUri: string;
-	blueskyTosUri: string;
-	blueskyPolicyUri: string;
-	blueskyKeyId: string;
-	blueskyPrivateKey: string;
 }
 
 const INTEGRATION_LATER_NAME_DESCRIPTOR = msg({
@@ -916,14 +898,6 @@ const EMAIL_SETUP_BODY_DESCRIPTOR = msg({
 	message: 'Add SMTP credentials so the instance can send verification and notification email.',
 	comment: 'Setup wizard body for SMTP integration credentials.',
 });
-const BLUESKY_SETUP_TITLE_DESCRIPTOR = msg({
-	message: 'Bluesky OAuth',
-	comment: 'Setup wizard title for Bluesky integration credentials.',
-});
-const BLUESKY_SETUP_BODY_DESCRIPTOR = msg({
-	message: 'Add Bluesky OAuth client metadata and a signing key.',
-	comment: 'Setup wizard body for Bluesky integration credentials.',
-});
 const PROVIDER_LABEL_DESCRIPTOR = msg({
 	message: 'Provider',
 	comment: 'Label for an integration provider choice.',
@@ -948,6 +922,25 @@ const HMAC_SECRET_LABEL_DESCRIPTOR = msg({
 	message: 'HMAC secret',
 	comment: 'Label for an ALTCHA HMAC secret input.',
 });
+const HMAC_GENERATE_SECRET_DESCRIPTOR = msg({
+	message: 'Generate HMAC secret',
+	comment: 'Accessible label for a button that generates a random ALTCHA HMAC secret.',
+});
+const HMAC_COPY_COMMAND_DESCRIPTOR = msg({
+	message: 'Copy command to generate a secure HMAC secret',
+	comment: 'Accessible label for copying the openssl command that generates an ALTCHA HMAC secret.',
+});
+const HMAC_COPY_COMMAND_TEXT_DESCRIPTOR = msg({
+	message: 'Copy command: openssl rand -hex 32',
+	comment: 'Link text that copies the openssl command for generating an ALTCHA HMAC secret.',
+});
+const ALTCHA_HMAC_OPENSSL_COMMAND = 'openssl rand -hex 32';
+
+function generateRandomHexSecret(byteLength = 32): string {
+	const bytes = new Uint8Array(byteLength);
+	crypto.getRandomValues(bytes);
+	return Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+}
 const ENABLE_EMAIL_LABEL_DESCRIPTOR = msg({
 	message: 'Enable email delivery',
 	comment: 'Label for enabling SMTP email delivery in setup.',
@@ -976,38 +969,24 @@ const SMTP_TEST_OK_DESCRIPTOR = msg({
 	message: 'SMTP connection verified.',
 	comment: 'Success message after validating SMTP credentials.',
 });
-const BLUESKY_ENABLED_LABEL_DESCRIPTOR = msg({
-	message: 'Enable Bluesky OAuth',
-	comment: 'Label for enabling Bluesky OAuth in setup.',
-});
-const BLUESKY_CLIENT_NAME_LABEL_DESCRIPTOR = msg({
-	message: 'Client name',
-	comment: 'Label for Bluesky OAuth client name input.',
-});
-const BLUESKY_CLIENT_URI_LABEL_DESCRIPTOR = msg({
-	message: 'Client URL',
-	comment: 'Label for Bluesky OAuth client URL input.',
-});
-const BLUESKY_LOGO_URI_LABEL_DESCRIPTOR = msg({
-	message: 'Logo URL',
-	comment: 'Label for Bluesky OAuth logo URL input.',
-});
-const BLUESKY_TOS_URI_LABEL_DESCRIPTOR = msg({
-	message: 'Terms URL',
-	comment: 'Label for Bluesky OAuth terms URL input.',
-});
-const BLUESKY_POLICY_URI_LABEL_DESCRIPTOR = msg({
-	message: 'Privacy URL',
-	comment: 'Label for Bluesky OAuth privacy URL input.',
-});
-const BLUESKY_KEY_ID_LABEL_DESCRIPTOR = msg({
-	message: 'Signing key ID',
-	comment: 'Label for Bluesky OAuth signing key ID input.',
-});
-const BLUESKY_PRIVATE_KEY_LABEL_DESCRIPTOR = msg({
-	message: 'Private key',
-	comment: 'Label for Bluesky OAuth private key input.',
-});
+
+function SmtpTestStatus({
+	result,
+	i18n,
+}: {
+	result: string;
+	i18n: ReturnType<typeof useLingui>['i18n'];
+}) {
+	const isSuccess = result === 'ok';
+	return (
+		<span
+			className={isSuccess ? styles.integrationStatusSuccess : styles.integrationStatusError}
+			role="status"
+		>
+			{isSuccess ? i18n._(SMTP_TEST_OK_DESCRIPTOR) : result}
+		</span>
+	);
+}
 
 function buildIntegrationModeOptions(
 	i18n: ReturnType<typeof useLingui>['i18n'],
@@ -1036,8 +1015,6 @@ function getIntegrationMode(draft: ServiceIntegrationDraft, kind: IntegrationSte
 			return draft.captchaMode;
 		case 'email':
 			return draft.emailMode;
-		case 'bluesky':
-			return draft.blueskyMode;
 	}
 }
 
@@ -1051,8 +1028,6 @@ function getIntegrationCopy(kind: IntegrationStepKind): {title: MessageDescripto
 			return {title: CAPTCHA_SETUP_TITLE_DESCRIPTOR, body: CAPTCHA_SETUP_BODY_DESCRIPTOR};
 		case 'email':
 			return {title: EMAIL_SETUP_TITLE_DESCRIPTOR, body: EMAIL_SETUP_BODY_DESCRIPTOR};
-		case 'bluesky':
-			return {title: BLUESKY_SETUP_TITLE_DESCRIPTOR, body: BLUESKY_SETUP_BODY_DESCRIPTOR};
 	}
 }
 
@@ -1213,9 +1188,6 @@ export const IntegrationStep = observer(
 					case 'email':
 						onDraftChange({emailMode: next});
 						break;
-					case 'bluesky':
-						onDraftChange({blueskyMode: next});
-						break;
 				}
 			},
 			[kind, onDraftChange],
@@ -1270,6 +1242,30 @@ export const IntegrationStep = observer(
 										value={draft.altchaHmacSecret}
 										onChange={(event) => onDraftChange({altchaHmacSecret: event.target.value})}
 										disabled={disabled}
+										passwordExtraActions={
+											<Button
+												variant="secondary"
+												small
+												square
+												icon={<DiceSixIcon size={16} weight="bold" />}
+												aria-label={i18n._(HMAC_GENERATE_SECRET_DESCRIPTOR)}
+												disabled={disabled}
+												onClick={() => onDraftChange({altchaHmacSecret: generateRandomHexSecret()})}
+												data-flx="app.self-hosted-setup-wizard-gate.altcha-hmac-generate-button"
+											/>
+										}
+										footer={
+											<button
+												type="button"
+												className={styles.copyCommandLink}
+												disabled={disabled}
+												aria-label={i18n._(HMAC_COPY_COMMAND_DESCRIPTOR)}
+												onClick={() => TextCopyCommands.copy(i18n, ALTCHA_HMAC_OPENSSL_COMMAND)}
+												data-flx="app.self-hosted-setup-wizard-gate.altcha-hmac-copy-command"
+											>
+												{i18n._(HMAC_COPY_COMMAND_TEXT_DESCRIPTOR)}
+											</button>
+										}
 									/>
 								) : (
 									<>
@@ -1372,67 +1368,8 @@ export const IntegrationStep = observer(
 									>
 										{i18n._(SMTP_TEST_DESCRIPTOR)}
 									</Button>
-									{smtpTestResult && (
-										<span className={styles.integrationStatus} role="status">
-											{smtpTestResult === 'ok' ? i18n._(SMTP_TEST_OK_DESCRIPTOR) : smtpTestResult}
-										</span>
-									)}
+									{smtpTestResult && <SmtpTestStatus result={smtpTestResult} i18n={i18n} />}
 								</div>
-							</>
-						)}
-						{kind === 'bluesky' && (
-							<>
-								<Switch
-									label={i18n._(BLUESKY_ENABLED_LABEL_DESCRIPTOR)}
-									value={draft.blueskyEnabled}
-									onChange={(value) => onDraftChange({blueskyEnabled: value})}
-									disabled={disabled}
-								/>
-								<Input
-									label={i18n._(BLUESKY_CLIENT_NAME_LABEL_DESCRIPTOR)}
-									value={draft.blueskyClientName}
-									onChange={(event) => onDraftChange({blueskyClientName: event.target.value})}
-									disabled={disabled}
-								/>
-								<Input
-									label={i18n._(BLUESKY_CLIENT_URI_LABEL_DESCRIPTOR)}
-									value={draft.blueskyClientUri}
-									onChange={(event) => onDraftChange({blueskyClientUri: event.target.value})}
-									disabled={disabled}
-								/>
-								<Input
-									label={i18n._(BLUESKY_LOGO_URI_LABEL_DESCRIPTOR)}
-									value={draft.blueskyLogoUri}
-									onChange={(event) => onDraftChange({blueskyLogoUri: event.target.value})}
-									disabled={disabled}
-								/>
-								<div className={styles.integrationGrid}>
-									<Input
-										label={i18n._(BLUESKY_TOS_URI_LABEL_DESCRIPTOR)}
-										value={draft.blueskyTosUri}
-										onChange={(event) => onDraftChange({blueskyTosUri: event.target.value})}
-										disabled={disabled}
-									/>
-									<Input
-										label={i18n._(BLUESKY_POLICY_URI_LABEL_DESCRIPTOR)}
-										value={draft.blueskyPolicyUri}
-										onChange={(event) => onDraftChange({blueskyPolicyUri: event.target.value})}
-										disabled={disabled}
-									/>
-								</div>
-								<Input
-									label={i18n._(BLUESKY_KEY_ID_LABEL_DESCRIPTOR)}
-									value={draft.blueskyKeyId}
-									onChange={(event) => onDraftChange({blueskyKeyId: event.target.value})}
-									disabled={disabled}
-								/>
-								<Input
-									label={i18n._(BLUESKY_PRIVATE_KEY_LABEL_DESCRIPTOR)}
-									type="password"
-									value={draft.blueskyPrivateKey}
-									onChange={(event) => onDraftChange({blueskyPrivateKey: event.target.value})}
-									disabled={disabled}
-								/>
 							</>
 						)}
 					</div>
@@ -1455,7 +1392,7 @@ export const ServicesStep = observer(
 		onToggle: (service: keyof ServiceSelection, value: boolean) => void;
 	}) => {
 		const {i18n} = useLingui();
-		const anyAvailable = available.gif || available.youtube || available.bluesky;
+		const anyAvailable = available.gif || available.youtube;
 		return (
 			<section className={styles.step} data-flx="app.self-hosted-setup-wizard-gate.services-step">
 				<StepHeader title={i18n._(SERVICES_TITLE_DESCRIPTOR)} body={i18n._(SERVICES_BODY_DESCRIPTOR)} />
@@ -1482,16 +1419,6 @@ export const ServicesStep = observer(
 						onChange={(value) => onToggle('youtube', value)}
 						disabled={disabled}
 						data-flx="app.self-hosted-setup-wizard-gate.service-youtube-switch"
-					/>
-				)}
-				{available.bluesky && (
-					<Switch
-						label={i18n._(SERVICE_BLUESKY_LABEL_DESCRIPTOR)}
-						description={i18n._(SERVICE_BLUESKY_DESC_DESCRIPTOR)}
-						value={selection.bluesky}
-						onChange={(value) => onToggle('bluesky', value)}
-						disabled={disabled}
-						data-flx="app.self-hosted-setup-wizard-gate.service-bluesky-switch"
 					/>
 				)}
 			</section>

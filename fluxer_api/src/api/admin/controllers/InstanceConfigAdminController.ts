@@ -103,13 +103,11 @@ async function buildInstanceConfigResponse(): Promise<InstanceConfigResponse> {
 			services: {
 				gif_enabled: policy.gif_enabled,
 				youtube_enabled: policy.youtube_enabled,
-				bluesky_enabled: policy.bluesky_enabled,
 			},
 			services_resolved: resolvedServices,
 			services_available: {
 				gif: integrations.gif.effective_available,
 				youtube: integrations.youtube.effective_available,
-				bluesky: integrations.bluesky.effective_enabled,
 			},
 		},
 		integrations,
@@ -338,19 +336,6 @@ export function InstanceConfigAdminController(app: HonoApp) {
 											secure: readOptionalField(data.integrations.email.smtp, 'secure'),
 										})
 									: undefined,
-							}
-						: undefined,
-					bluesky: data.integrations.bluesky
-						? {
-								...omitUndefinedFields({
-									enabled: readOptionalField(data.integrations.bluesky, 'enabled'),
-									client_name: readOptionalField(data.integrations.bluesky, 'client_name'),
-									client_uri: readOptionalField(data.integrations.bluesky, 'client_uri'),
-									logo_uri: readOptionalField(data.integrations.bluesky, 'logo_uri'),
-									tos_uri: readOptionalField(data.integrations.bluesky, 'tos_uri'),
-									policy_uri: readOptionalField(data.integrations.bluesky, 'policy_uri'),
-								}),
-								keys: readOptionalField(data.integrations.bluesky, 'keys'),
 							}
 						: undefined,
 					sentry: data.integrations.sentry
@@ -654,9 +639,6 @@ async function applyInstancePolicyUpdate(
 		}
 		if (policy.services.youtube_enabled !== undefined) {
 			patch.youtube_enabled = policy.services.youtube_enabled ?? null;
-		}
-		if (policy.services.bluesky_enabled !== undefined) {
-			patch.bluesky_enabled = policy.services.bluesky_enabled ?? null;
 		}
 	}
 	if (Object.keys(patch).length > 0) {
