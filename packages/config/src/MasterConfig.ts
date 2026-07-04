@@ -244,6 +244,7 @@ export interface MasterConfig {
 			username: string;
 			password: string;
 			tls_reject_unauthorized: boolean;
+			max_total_hits: number;
 		};
 		stripe: {
 			enabled: boolean;

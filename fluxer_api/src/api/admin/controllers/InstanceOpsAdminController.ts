@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {AdminACLs} from '@fluxer/constants/src/AdminACLs';
-import {getDefaultPostgresClient} from '@pkgs/postgres/src/Client';
 import {
 	InstanceHealthResponse,
 	InstanceIntegrationTestResponse,
 	InstanceS3IntegrationTestRequest,
 	type InstanceServiceHealthStatus,
 } from '@fluxer/schema/src/domains/admin/AdminSchemas';
+import {getDefaultPostgresClient} from '@pkgs/postgres/src/Client';
 import {createMiddleware} from 'hono/factory';
 import {Config} from '../../Config';
 import {requireAdminACL} from '../../middleware/AdminMiddleware';

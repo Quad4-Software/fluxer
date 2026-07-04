@@ -238,6 +238,7 @@ const NAMED_FLUXER_ENV_OVERRIDES: Record<string, NamedEnvOverride> = {
 		path: ['integrations', 'search', 'tls_reject_unauthorized'],
 		parse: parseEnvValue,
 	},
+	FLUXER_SEARCH_MAX_TOTAL_HITS: {path: ['integrations', 'search', 'max_total_hits'], parse: parseEnvValue},
 	FLUXER_STRIPE_ENABLED: {path: ['integrations', 'stripe', 'enabled'], parse: parseEnvValue},
 	FLUXER_STRIPE_SECRET_KEY: {path: ['integrations', 'stripe', 'secret_key']},
 	FLUXER_STRIPE_WEBHOOK_SECRET: {path: ['integrations', 'stripe', 'webhook_secret']},

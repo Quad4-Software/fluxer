@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import {extractClientIpDetails, requireClientIp} from '@fluxer/ip_utils/src/ClientIp';
+import {extractClientIpDetails, MissingClientIpError, requireClientIp} from '@fluxer/ip_utils/src/ClientIp';
 import type {Context} from 'hono';
 import {createMiddleware} from 'hono/factory';
 import * as AuthSession from '../auth/AuthSession';
@@ -18,7 +18,7 @@ interface ParsedAuthHeader {
 	type: TokenType;
 }
 
-const SKIP_PATHS = new Set(['/_health', '/webhooks/livekit', '/webhooks/sweego']);
+const SKIP_PATHS = new Set(['/_health', '/webhooks/livekit', '/webhooks/sweego', '/.well-known/fluxer']);
 const SESSION_TOKEN_PATTERN = /^flx_[A-Za-z0-9]{36}$/;
 
 function parseAuthHeader(authHeader?: string | null): ParsedAuthHeader | null {
@@ -57,17 +57,30 @@ function parseAuthHeader(authHeader?: string | null): ParsedAuthHeader | null {
 	};
 }
 
+function resolveClientIpOrNull(ctx: Context<HonoEnv>): string | null {
+	try {
+		return requireClientIp(ctx.req.raw, {
+			trustClientIpHeader: Config.proxy.trust_client_ip_header,
+			clientIpHeaderName: Config.proxy.client_ip_header,
+		});
+	} catch (error) {
+		if (error instanceof MissingClientIpError) {
+			return null;
+		}
+		throw error;
+	}
+}
+
 function setUserInContext(ctx: Context<HonoEnv>, user: User, trackActivity: boolean): void {
 	ctx.set('user', user);
 	if (trackActivity) {
 		const now = new Date();
-		const ip = requireClientIp(ctx.req.raw, {
-			trustClientIpHeader: Config.proxy.trust_client_ip_header,
-			clientIpHeaderName: Config.proxy.client_ip_header,
-		});
+		const ip = resolveClientIpOrNull(ctx);
 		const kvActivityTracker = ctx.get('kvActivityTracker');
 		const userActivityBuffer = ctx.get('userActivityBuffer');
-		userActivityBuffer.recordActivity(user.id, now, ip);
+		if (ip !== null) {
+			userActivityBuffer.recordActivity(user.id, now, ip);
+		}
 		void kvActivityTracker.updateActivity(user.id, now).catch((error: unknown) => {
 			Logger.warn({error, userId: user.id}, 'Failed to update real-time user activity');
 		});
@@ -85,12 +98,7 @@ export const UserMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => {
 		trustClientIpHeader: Config.proxy.trust_client_ip_header,
 		clientIpHeaderName: Config.proxy.client_ip_header,
 	});
-	const resolvedClientIp =
-		extractedClientIp?.ip ??
-		requireClientIp(ctx.req.raw, {
-			trustClientIpHeader: Config.proxy.trust_client_ip_header,
-			clientIpHeaderName: Config.proxy.client_ip_header,
-		});
+	const resolvedClientIp = extractedClientIp?.ip ?? resolveClientIpOrNull(ctx);
 	ctx.set('oauthBearerToken', undefined);
 	ctx.set('oauthBearerApplicationId', undefined);
 	ctx.set('oauthBearerAllowed', false);
@@ -113,16 +121,18 @@ export const UserMiddleware = createMiddleware<HonoEnv>(async (ctx, next) => {
 			void AuthSession.updateAuthSessionLastUsed(apiContext, authSession.sessionIdHash);
 			const user = await apiContext.services.users.findUniqueAssert(authSession.userId);
 			const sessionId = Buffer.from(authSession.sessionIdHash).toString('base64url');
-			void AuthSession.updateUserActivity(apiContext, {
-				userId: authSession.userId,
-				clientIp: resolvedClientIp,
-				user,
-				action: 'session_authenticated',
-				tokenType: 'session',
-				sessionId,
-			}).catch((error: unknown) => {
-				Logger.warn({error, userId: authSession.userId}, 'Failed to update user activity telemetry');
-			});
+			if (resolvedClientIp !== null) {
+				void AuthSession.updateUserActivity(apiContext, {
+					userId: authSession.userId,
+					clientIp: resolvedClientIp,
+					user,
+					action: 'session_authenticated',
+					tokenType: 'session',
+					sessionId,
+				}).catch((error: unknown) => {
+					Logger.warn({error, userId: authSession.userId}, 'Failed to update user activity telemetry');
+				});
+			}
 			ctx.set('authSession', authSession);
 			ctx.set('authTokenType', 'session');
 			setUserInContext(ctx, user, true);

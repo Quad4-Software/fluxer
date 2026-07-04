@@ -1319,8 +1319,7 @@ class Accessibility {
 			this.firstClickPassThroughWhenUnfocused = validated.firstClickPassThroughWhenUnfocused;
 		if (validated.scrollToBottomOnMessageSend !== undefined)
 			this.scrollToBottomOnMessageSend = validated.scrollToBottomOnMessageSend;
-		if (validated.sequentialFileSend !== undefined)
-			this.sequentialFileSend = validated.sequentialFileSend;
+		if (validated.sequentialFileSend !== undefined) this.sequentialFileSend = validated.sequentialFileSend;
 		if (validated.showNeko !== undefined && validated.showNeko !== this.showNeko) {
 			this.showNeko = validated.showNeko;
 			persistLocalShowNeko(validated.showNeko);

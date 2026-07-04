@@ -61,6 +61,7 @@ import {
 } from '@fluxer/schema/src/domains/user/UserResponseSchemas';
 import {uint8ArrayToBase64} from 'uint8array-extras';
 import * as AuthSession from '../../auth/AuthSession';
+import {assertSsoManagedAccountActionAllowed} from '../../auth/services/SsoAccountSecurityGuard';
 import {requireSudoMode} from '../../auth/services/SudoVerificationService';
 import {createGuildID, createUserID} from '../../BrandedTypes';
 import {DefaultUserOnly, LoginRequired, LoginRequiredAllowSuspicious} from '../../middleware/AuthMiddleware';
@@ -153,6 +154,7 @@ export function UserAccountController(app: HonoApp) {
 		}),
 		async (ctx) => {
 			const user = ctx.get('user');
+			await assertSsoManagedAccountActionAllowed(ctx, user);
 			const result = await ctx.get('emailChangeService').start(user);
 			return ctx.json(result);
 		},

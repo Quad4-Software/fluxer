@@ -13,7 +13,7 @@ export interface ThemeHydrationResult {
 export function useThemeHydration(themePreference: ThemeType): ThemeHydrationResult {
 	const systemPrefersDark = Theme.systemPrefersDark;
 	const resolvedTheme =
-		themePreference === ThemeTypes.SYSTEM ? (systemPrefersDark ? ThemeTypes.DARK : ThemeTypes.LIGHT) : themePreference;
+		themePreference === ThemeTypes.SYSTEM ? (systemPrefersDark ? ThemeTypes.EMBER : ThemeTypes.LIGHT) : themePreference;
 	const defaultVariableValues =
 		resolvedTheme === ThemeTypes.LIGHT
 			? THEME_STUDIO_LIGHT_DEFAULT_VARIABLE_VALUES

@@ -3,9 +3,9 @@
 import type {Channel} from '@app/features/channel/models/Channel';
 import type {Message} from '@app/features/messaging/models/MessagingMessage';
 import type {ChannelMessages} from '@app/features/messaging/state/ChannelMessages';
-import {buildMessageListRows} from '@app/features/messaging/utils/MessageListRowUtils';
+import type {ChannelStreamItem} from '@app/features/messaging/utils/MessageGroupingUtils';
 import {renderMessageListRow} from '@app/features/messaging/utils/MessageListRowRenderer';
-import {type ChannelStreamItem} from '@app/features/messaging/utils/MessageGroupingUtils';
+import {buildMessageListRows} from '@app/features/messaging/utils/MessageListRowUtils';
 import {IS_DEV} from '@app/features/platform/types/Env';
 import {Logger} from '@app/features/platform/utils/AppLogger';
 import type React from 'react';

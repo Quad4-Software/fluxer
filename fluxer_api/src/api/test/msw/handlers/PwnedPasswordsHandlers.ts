@@ -2,9 +2,7 @@
 
 import {HttpResponse, http} from 'msw';
 
-export function createPwnedPasswordsRangeHandler(options?: {
-	suffixes?: Array<{suffix: string; count: number}>;
-}) {
+export function createPwnedPasswordsRangeHandler(options?: {suffixes?: Array<{suffix: string; count: number}>}) {
 	return http.get('https://api.pwnedpasswords.com/range/:prefix', () => {
 		const suffixes = options?.suffixes ?? [];
 		const body = suffixes.map(({suffix, count}) => `${suffix}:${count}`).join('\n');

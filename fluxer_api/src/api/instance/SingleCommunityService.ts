@@ -55,8 +55,36 @@ export class SingleCommunityService {
 		const guildId = createGuildID(BigInt(guild.id));
 		await this.instanceConfigRepository.setInstancePolicyConfig({
 			single_community_enabled: true,
+			single_community_locked: false,
 			single_community_guild_id: guildId.toString(),
 		});
 		return guildId;
+	}
+
+	async enableStockCommunity(params: {owner: User; name: string; existingGuildId: GuildID | null}): Promise<GuildID> {
+		if (params.existingGuildId && (await this.guildStillExists(params.existingGuildId))) {
+			await this.instanceConfigRepository.setInstancePolicyConfig({
+				single_community_enabled: true,
+				single_community_locked: false,
+				single_community_guild_id: params.existingGuildId.toString(),
+			});
+			return params.existingGuildId;
+		}
+		if (params.existingGuildId) {
+			Logger.warn(
+				{guildId: params.existingGuildId.toString()},
+				'Previous single community guild no longer exists, creating a new stock community',
+			);
+		}
+		return this.createStockCommunity({owner: params.owner, name: params.name});
+	}
+
+	private async guildStillExists(guildId: GuildID): Promise<boolean> {
+		try {
+			await this.guildDataService.getGuildSystem(guildId);
+			return true;
+		} catch {
+			return false;
+		}
 	}
 }

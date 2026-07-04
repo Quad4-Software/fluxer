@@ -32,20 +32,24 @@ export function selectUserAreaMicrophoneState(signals: UserAreaMicrophoneSignals
 	if (hardMuted) {
 		return {
 			effectiveMuted: true,
-			muteToggleLocked: muteToggleLocked || signals.isPushToTalkEffective,
+			muteToggleLocked,
+		};
+	}
+	const safetyMuted = signals.effectiveAudioMuted || signals.muteReason === 'self';
+	if (safetyMuted) {
+		return {
+			effectiveMuted: true,
+			muteToggleLocked,
 		};
 	}
 	if (signals.isPushToTalkEffective) {
 		return {
 			effectiveMuted: !signals.isPushToTalkHeld,
-			muteToggleLocked: true,
+			muteToggleLocked,
 		};
 	}
 	return {
-		effectiveMuted:
-			signals.effectiveAudioMuted ||
-			signals.muteReason !== null ||
-			(signals.isPushToMuteEffective && signals.isPushToMuteHeld),
+		effectiveMuted: signals.muteReason !== null || (signals.isPushToMuteEffective && signals.isPushToMuteHeld),
 		muteToggleLocked,
 	};
 }

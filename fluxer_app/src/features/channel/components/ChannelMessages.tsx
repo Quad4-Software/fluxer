@@ -3,15 +3,15 @@
 import Accessibility from '@app/features/accessibility/state/Accessibility';
 import {usePlaceholderSpecs} from '@app/features/app/utils/PlaceholderSpecs';
 import styles from '@app/features/channel/components/ChannelMessages.module.css';
-import {
-	VirtualizedChannelMessageStream,
-	type VirtualizedChannelMessageStreamHandle,
-} from '@app/features/channel/components/VirtualizedChannelMessageStream';
 import {ChannelWelcomeSection} from '@app/features/channel/components/ChannelWelcomeSection';
 import {CollapsedMessageVisibilityProvider} from '@app/features/channel/components/CollapsedMessageVisibilityContext';
 import {NewMessagesBar} from '@app/features/channel/components/NewMessagesBar';
 import ScrollFillerSkeleton from '@app/features/channel/components/ScrollFillerSkeleton';
 import {UploadManager} from '@app/features/channel/components/UploadManager';
+import {
+	VirtualizedChannelMessageStream,
+	type VirtualizedChannelMessageStreamHandle,
+} from '@app/features/channel/components/VirtualizedChannelMessageStream';
 import type {Channel} from '@app/features/channel/models/Channel';
 import GatewayConnection from '@app/features/gateway/transport/GatewayConnection';
 import GuildVerification from '@app/features/guild/state/GuildVerification';

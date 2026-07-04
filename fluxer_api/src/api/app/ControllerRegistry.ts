@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {registerAdminControllers} from '../admin/controllers/index';
+import {AltchaController} from '../altcha/AltchaController';
 import {AuthController} from '../auth/AuthController';
 import {BlueskyOAuthController} from '../bluesky/BlueskyOAuthController';
 import {Config} from '../Config';
@@ -16,7 +17,6 @@ import {GatewayController} from '../gateway/GatewayController';
 import {GeolocationController} from '../geolocation/GeolocationController';
 import {GifController} from '../gif/GifController';
 import {GuildController} from '../guild/GuildController';
-import {AltchaController} from '../altcha/AltchaController';
 import {InstanceController} from '../instance/InstanceController';
 import {InviteController} from '../invite/InviteController';
 import {Logger} from '../Logger';

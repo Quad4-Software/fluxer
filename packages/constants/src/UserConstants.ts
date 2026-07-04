@@ -204,6 +204,7 @@ export const PHONE_ADD_CLEARABLE_FLAGS =
 	SuspiciousActivityFlags.REQUIRE_REVERIFIED_EMAIL_OR_REVERIFIED_PHONE |
 	SuspiciousActivityFlags.REQUIRE_INBOUND_PHONE_VERIFICATION;
 export const ThemeTypes = {
+	EMBER: 'ember',
 	DARK: 'dark',
 	DARK_LEGACY: 'dark_legacy',
 	COAL: 'coal',

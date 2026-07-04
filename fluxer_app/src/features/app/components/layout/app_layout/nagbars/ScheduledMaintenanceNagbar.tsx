@@ -7,10 +7,10 @@ import {
 import {Nagbar} from '@app/features/app/components/layout/Nagbar';
 import {NagbarButton} from '@app/features/app/components/layout/NagbarButton';
 import {NagbarContent} from '@app/features/app/components/layout/NagbarContent';
+import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import {getCachedNumberFormat} from '@app/features/i18n/utils/IntlCache';
 import {openExternalUrlWithWarning} from '@app/features/messaging/utils/ExternalLinkUtils';
 import NagbarState from '@app/features/ui/state/Nagbar';
-import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import StatusPage, {type MaintenanceStatus, type StatusPageMaintenance} from '@app/features/user/state/StatusPage';
 import * as LocaleUtils from '@app/features/user/utils/LocaleUtils';
 import {HOURS_PER_DAY, MINUTES_PER_HOUR, MS_PER_HOUR} from '@fluxer/date_utils/src/DateConstants';

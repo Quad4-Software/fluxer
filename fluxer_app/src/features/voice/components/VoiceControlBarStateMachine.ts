@@ -74,8 +74,9 @@ function selectMuteLabel(signals: VoiceControlBarSignals): VoiceControlBarMuteLa
 	if (signals.isGuildDeafened) return 'moderatorDeafened';
 	if (signals.isGuildMuted) return 'moderatorMuted';
 	if (signals.isPermissionMuted) return 'permissionMuted';
+	if (signals.effectiveMuted) return 'unmute';
 	if (signals.isPushToTalkEffective) return 'pushToTalkHoldHint';
-	return signals.effectiveMuted ? 'unmute' : 'mute';
+	return 'mute';
 }
 
 function selectDeafenLabel(signals: VoiceControlBarSignals): VoiceControlBarDeafenLabel {
@@ -97,7 +98,7 @@ function selectScreenShareLabel(signals: VoiceControlBarSignals): VoiceControlBa
 
 export function selectVoiceControlBarState(signals: VoiceControlBarSignals): VoiceControlBarState {
 	const isMicLocked = signals.isGuildMuted || signals.isGuildDeafened || signals.isPermissionMuted;
-	const isMuteToggleLocked = isMicLocked || signals.isPushToTalkEffective;
+	const isMuteToggleLocked = isMicLocked;
 	return {
 		mute: {
 			disabled: isMuteToggleLocked,

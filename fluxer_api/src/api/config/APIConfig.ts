@@ -84,6 +84,7 @@ export interface APIConfig {
 		username: string;
 		password: string;
 		tlsRejectUnauthorized: boolean;
+		maxTotalHits: number;
 	};
 	mediaProxy: {
 		host: string;

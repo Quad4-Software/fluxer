@@ -47,6 +47,13 @@ interface DisconnectParticipantParams {
 	serverId: string;
 }
 
+interface DisconnectParticipantByIdentityParams {
+	roomName: string;
+	participantIdentity: string;
+	regionId: string;
+	serverId: string;
+}
+
 interface UpdateParticipantPermissionsParams {
 	userId: UserID;
 	guildId?: GuildID;
@@ -285,6 +292,27 @@ export class LiveKitService extends ILiveKitService {
 				return;
 			}
 			Logger.error({error}, 'Error disconnecting LiveKit participant');
+		}
+	}
+
+	async disconnectParticipantByIdentity(params: DisconnectParticipantByIdentityParams): Promise<void> {
+		const {roomName, participantIdentity, regionId, serverId} = params;
+		const server = this.tryResolveServerClient(regionId, serverId);
+		if (server === null) {
+			Logger.debug(
+				{regionId, serverId, participantIdentity, roomName},
+				'LiveKit disconnect by identity skipped — server no longer exists in topology',
+			);
+			return;
+		}
+		try {
+			await server.roomServiceClient.removeParticipant(roomName, participantIdentity);
+		} catch (error) {
+			if (LiveKitService.isHttp404(error)) {
+				Logger.debug({participantIdentity, roomName}, 'LiveKit participant already disconnected');
+				return;
+			}
+			Logger.error({error, participantIdentity, roomName}, 'Error disconnecting LiveKit participant by identity');
 		}
 	}
 

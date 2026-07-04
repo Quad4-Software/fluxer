@@ -54,6 +54,13 @@ interface DisconnectParticipantParams {
 	serverId: string;
 }
 
+interface DisconnectParticipantByIdentityParams {
+	roomName: string;
+	participantIdentity: string;
+	regionId: string;
+	serverId: string;
+}
+
 interface ListParticipantsParams {
 	guildId?: GuildID;
 	channelId: ChannelID;
@@ -108,6 +115,13 @@ export abstract class ILiveKitService {
 	abstract updateParticipantPermissions(params: UpdateParticipantPermissionsParams): Promise<void>;
 
 	abstract disconnectParticipant(params: DisconnectParticipantParams): Promise<void>;
+
+	/**
+	 * Removes a participant from a room by its raw LiveKit identity, without requiring
+	 * a Fluxer-issued user/connection mapping. Used to eject participants that joined
+	 * with a token that was not issued through Fluxer (e.g. a hand-crafted LiveKit token).
+	 */
+	abstract disconnectParticipantByIdentity(params: DisconnectParticipantByIdentityParams): Promise<void>;
 
 	abstract listParticipants(params: ListParticipantsParams): Promise<ListParticipantsResult>;
 

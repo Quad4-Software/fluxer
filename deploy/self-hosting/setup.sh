@@ -5,6 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
 DOMAIN=""
+PORT="443"
 START=false
 VERIFY=false
 CLOUDFLARE_TUNNEL=false
@@ -20,6 +21,8 @@ generate required secrets.
 
 Options:
   --domain HOST            Public hostname (for example chat.example.com)
+  --port PORT              Public HTTPS port if not 443 (for example behind a
+                           reverse proxy that exposes Fluxer on a non-standard port)
   --cloudflare-tunnel      Listen on :80 inside Caddy for Cloudflare Tunnel
   --easypwned              Enable offline breached-password checks (easypwned)
   --force-secrets          Regenerate secrets even if .env already has values
@@ -32,6 +35,7 @@ Examples:
   ./setup.sh --domain chat.example.com --start
   ./setup.sh --domain chat.example.com --cloudflare-tunnel --start --verify
   ./setup.sh --domain chat.example.com --easypwned --start
+  ./setup.sh --domain chat.example.com --port 4443
 EOF
 }
 
@@ -39,6 +43,10 @@ while [[ $# -gt 0 ]]; do
 	case "$1" in
 		--domain)
 			DOMAIN="${2:-}"
+			shift 2
+			;;
+		--port)
+			PORT="${2:-}"
 			shift 2
 			;;
 		--cloudflare-tunnel)
@@ -105,6 +113,17 @@ env_needs_secret() {
 	[[ -z "$value" || "$value" == "CHANGE_ME" ]]
 }
 
+public_url_for() {
+	local scheme="$1"
+	local domain="$2"
+	local port="$3"
+	if [[ ("$scheme" == "https" && "$port" == "443") || ("$scheme" == "http" && "$port" == "80") ]]; then
+		printf '%s://%s' "$scheme" "$domain"
+	else
+		printf '%s://%s:%s' "$scheme" "$domain" "$port"
+	fi
+}
+
 random_hex() {
 	openssl rand -hex 32
 }
@@ -149,6 +168,11 @@ if [[ -z "$DOMAIN" ]]; then
 	exit 1
 fi
 
+if ! [[ "$PORT" =~ ^[0-9]+$ ]] || ((PORT < 1 || PORT > 65535)); then
+	echo "Invalid --port: ${PORT}. Must be an integer between 1 and 65535." >&2
+	exit 1
+fi
+
 CADDY_SITE="$DOMAIN"
 if [[ "$CLOUDFLARE_TUNNEL" == true ]]; then
 	CADDY_SITE=":80"
@@ -156,7 +180,8 @@ fi
 
 set_env FLUXER_DOMAIN "$DOMAIN"
 set_env FLUXER_PUBLIC_SCHEME https
-set_env FLUXER_PUBLIC_PORT 443
+set_env FLUXER_PUBLIC_PORT "$PORT"
+set_env FLUXER_PUBLIC_URL "$(public_url_for https "$DOMAIN" "$PORT")"
 set_env FLUXER_CADDY_SITE_ADDRESS "$CADDY_SITE"
 set_env FLUXER_VAPID_EMAIL "admin@${DOMAIN}"
 set_env FLUXER_CAPTCHA_ENABLED true
@@ -220,8 +245,10 @@ if [[ "$EASYPWNED" == true ]]; then
 EOF
 fi
 
+PUBLIC_URL="$(public_url_for https "$DOMAIN" "$PORT")"
+
 cat <<EOF
-  4. Open https://${DOMAIN} and register the first account (it becomes admin).
+  4. Open ${PUBLIC_URL} and register the first account (it becomes admin).
 
 EOF
 
@@ -243,7 +270,7 @@ if [[ "$VERIFY" == true ]]; then
 	echo "Waiting for health endpoints..."
 	sleep 10
 	for path in /_health /api/_health /gateway/_health /media/_health /admin/_health; do
-		code="$(curl -k -s -o /dev/null -w '%{http_code}' "https://${DOMAIN}${path}" || true)"
+		code="$(curl -k -s -o /dev/null -w '%{http_code}' "${PUBLIC_URL}${path}" || true)"
 		printf '%s %s\n' "$path" "$code"
 	done
 fi

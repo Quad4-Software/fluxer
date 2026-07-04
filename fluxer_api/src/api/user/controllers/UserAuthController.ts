@@ -19,6 +19,7 @@ import {
 	WebAuthnRegisterRequest,
 } from '@fluxer/schema/src/domains/auth/AuthSchemas';
 import {CredentialIdParam} from '@fluxer/schema/src/domains/common/CommonParamSchemas';
+import {assertSsoManagedAccountActionAllowed} from '../../auth/services/SsoAccountSecurityGuard';
 import {requireSudoMode} from '../../auth/services/SudoVerificationService';
 import {Config} from '../../Config';
 import {DefaultUserOnly, LoginRequired, LoginRequiredAllowSuspicious} from '../../middleware/AuthMiddleware';
@@ -50,6 +51,7 @@ export function UserAuthController(app: HonoApp) {
 		async (ctx) => {
 			const body = ctx.req.valid('json');
 			const user = ctx.get('user');
+			await assertSsoManagedAccountActionAllowed(ctx, user);
 			const sudoResult = await requireSudoMode(ctx, user, body);
 			return ctx.json(
 				await ctx.get('userAuthRequestService').enableTotp({
@@ -244,6 +246,7 @@ export function UserAuthController(app: HonoApp) {
 		async (ctx) => {
 			const user = ctx.get('user');
 			const body = ctx.req.valid('json');
+			await assertSsoManagedAccountActionAllowed(ctx, user);
 			await requireSudoMode(ctx, user, body, {
 				issueSudoToken: false,
 			});

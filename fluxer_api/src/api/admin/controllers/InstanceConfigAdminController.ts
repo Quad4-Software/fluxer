@@ -20,7 +20,7 @@ import {SmtpEmailProvider} from '@pkgs/email/src/SmtpEmailProvider';
 import {sendSentryTestEvent} from '@pkgs/initialization/src/SentryTest';
 import type {Context} from 'hono';
 import {createMiddleware} from 'hono/factory';
-import {createUserID} from '../../BrandedTypes';
+import {createGuildID, createUserID} from '../../BrandedTypes';
 import {Config} from '../../Config';
 import {
 	type InstanceBrandingConfig,
@@ -29,11 +29,11 @@ import {
 	REGISTRATION_REJECTED_TRAIT,
 } from '../../instance/InstanceConfigRepository';
 import {deriveSsoRedirectUri, normalizeAndValidateSsoConfig} from '../../instance/SsoConfigValidation';
-import {applyInstanceSentryMonitoring} from '../../monitoring/InstanceSentryMonitoring';
 import {requireAdminACL} from '../../middleware/AdminMiddleware';
 import {RateLimitMiddleware} from '../../middleware/RateLimitMiddleware';
 import {OpenAPI} from '../../middleware/ResponseTypeMiddleware';
 import {getGatewayRolloutConfigPublisher, getInstanceConfigRepository} from '../../middleware/ServiceSingletons';
+import {applyInstanceSentryMonitoring} from '../../monitoring/InstanceSentryMonitoring';
 import {RateLimitConfigs} from '../../RateLimitConfig';
 import type {HonoApp, HonoEnv} from '../../types/HonoEnv';
 import {Validator} from '../../Validator';
@@ -324,7 +324,10 @@ export function InstanceConfigAdminController(app: HonoApp) {
 									provider: readOptionalField(data.integrations.email, 'provider'),
 									from_email: readOptionalField(data.integrations.email, 'from_email'),
 									from_name: readOptionalField(data.integrations.email, 'from_name'),
-									disable_new_ip_authorization: readOptionalField(data.integrations.email, 'disable_new_ip_authorization'),
+									disable_new_ip_authorization: readOptionalField(
+										data.integrations.email,
+										'disable_new_ip_authorization',
+									),
 								}),
 								smtp: data.integrations.email.smtp
 									? omitUndefinedFields({
@@ -614,16 +617,16 @@ async function applyInstancePolicyUpdate(
 		policy.single_community_enabled !== current.single_community_enabled
 	) {
 		if (policy.single_community_enabled) {
-			if (appPublic.setup.configured || current.single_community_locked) {
-				throw new InstancePolicyTransitionNotAllowedError();
-			}
 			const adminUser = await ctx.get('userRepository').findUnique(ctx.get('adminUserId'));
 			if (!adminUser) {
 				throw new InstancePolicyTransitionNotAllowedError();
 			}
-			await ctx.get('singleCommunityService').createStockCommunity({
+			await ctx.get('singleCommunityService').enableStockCommunity({
 				owner: adminUser,
 				name: policy.single_community_name?.trim() || appPublic.branding.product_name,
+				existingGuildId: current.single_community_guild_id
+					? createGuildID(BigInt(current.single_community_guild_id))
+					: null,
 			});
 		} else {
 			patch.single_community_enabled = false;

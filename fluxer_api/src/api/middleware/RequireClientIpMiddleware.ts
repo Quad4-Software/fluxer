@@ -20,6 +20,7 @@ const defaultExemptPaths: Array<string> = [
 	'/test',
 	'/connections/bluesky/client-metadata.json',
 	'/connections/bluesky/jwks.json',
+	'/.well-known/fluxer',
 ];
 
 export function RequireClientIpMiddleware({

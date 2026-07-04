@@ -1,9 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import {
-	resolveStatusPageIncidentHistoryUrl,
-	resolveStatusPageUrl,
-} from '@app/features/app/utils/StatusPageUrlUtils';
+import {resolveStatusPageIncidentHistoryUrl, resolveStatusPageUrl} from '@app/features/app/utils/StatusPageUrlUtils';
 import {describe, expect, test} from 'vitest';
 
 const DEFAULT_HOSTED_URL = 'https://status.example.com';

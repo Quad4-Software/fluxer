@@ -288,6 +288,7 @@ export const ErrorCodeToI18nKey = {
 	[APIErrorCodes.SESSION_TOKEN_MISMATCH]: 'account.session_token_mismatch',
 	[APIErrorCodes.SLOWMODE_RATE_LIMITED]: 'rate_limits.slowmode_rate_limited',
 	[APIErrorCodes.SMS_VERIFICATION_UNAVAILABLE]: 'http.service_unavailable',
+	[APIErrorCodes.SSO_MANAGED_ACCOUNT_ACTION_FORBIDDEN]: 'auth_and_oauth.sso_managed_account_action_forbidden',
 	[APIErrorCodes.SSO_REQUIRED]: 'misc.invalid_request_generic',
 	[APIErrorCodes.STREAM_KEY_CHANNEL_MISMATCH]: 'calls_and_voice.stream_key_channel_mismatch',
 	[APIErrorCodes.STREAM_KEY_SCOPE_MISMATCH]: 'calls_and_voice.stream_key_scope_mismatch',

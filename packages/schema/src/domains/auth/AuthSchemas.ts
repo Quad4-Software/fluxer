@@ -23,6 +23,7 @@ import {z} from 'zod';
 
 const RegisterThemeType = createNamedStringLiteralUnion(
 	[
+		[ThemeTypes.EMBER, 'EMBER', 'Red and black colour theme'],
 		[ThemeTypes.DARK, 'DARK', 'Dark colour theme'],
 		[ThemeTypes.DARK_LEGACY, 'DARK_LEGACY', 'Legacy dark colour theme (original neutral grey palette)'],
 		[ThemeTypes.COAL, 'COAL', 'Coal/darker colour theme'],

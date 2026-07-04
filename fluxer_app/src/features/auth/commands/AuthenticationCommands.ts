@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {Endpoints} from '@app/features/app/constants/Endpoints';
+import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import AccountManager from '@app/features/auth/state/AccountManager';
 import type {UserData} from '@app/features/auth/state/AccountStorage';
 import Authentication from '@app/features/auth/state/Authentication';
 import GatewayConnection from '@app/features/gateway/transport/GatewayConnection';
 import {http} from '@app/features/platform/transport/RestTransport';
 import {HttpError} from '@app/features/platform/types/EndpointError';
-import RuntimeConfig from '@app/features/app/state/RuntimeConfig';
 import {Logger} from '@app/features/platform/utils/AppLogger';
 import {failureCode} from '@app/features/platform/utils/ResponseInspection';
 import {isDesktop} from '@app/features/ui/utils/NativeUtils';
@@ -159,8 +159,7 @@ function captchaHeaders({captchaToken, captchaType}: CaptchaParams): Record<stri
 		return {};
 	}
 	const resolvedType =
-		captchaType ??
-		(RuntimeConfig.captchaProvider === 'none' ? 'hcaptcha' : RuntimeConfig.captchaProvider);
+		captchaType ?? (RuntimeConfig.captchaProvider === 'none' ? 'hcaptcha' : RuntimeConfig.captchaProvider);
 	return {
 		'X-Captcha-Token': captchaToken,
 		'X-Captcha-Type': resolvedType,

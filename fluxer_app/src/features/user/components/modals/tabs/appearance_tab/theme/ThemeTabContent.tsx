@@ -18,6 +18,14 @@ import type React from 'react';
 import {useCallback, useEffect, useMemo, useRef} from 'react';
 import {ThemeButton} from './ThemeButton';
 
+const EMBER_THEME_DESCRIPTOR = msg({
+	message: 'Ember theme',
+	comment: 'Short label in the theme tab content. Keep it concise.',
+});
+const USE_EMBER_THEME_RED_AND_BLACK_PALETTE_DESCRIPTOR = msg({
+	message: 'Use ember theme (red and black palette)',
+	comment: 'Label in the theme tab content.',
+});
 const DARK_THEME_DESCRIPTOR = msg({
 	message: 'Dark theme',
 	comment: 'Short label in the theme tab content. Keep it concise.',
@@ -106,6 +114,14 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = observer(
 			() =>
 				[
 					{
+						type: ThemeTypes.EMBER,
+						label: i18n._(EMBER_THEME_DESCRIPTOR),
+						backgroundColor: 'hsl(240, 4%, 4%)',
+						isLight: false,
+						icon: null,
+						tooltip: i18n._(USE_EMBER_THEME_RED_AND_BLACK_PALETTE_DESCRIPTOR),
+					},
+					{
 						type: ThemeTypes.DARK,
 						label: i18n._(DARK_THEME_DESCRIPTOR),
 						backgroundColor: 'hsl(258, calc(10% * var(--saturation-factor)), 12.04%)',
@@ -140,9 +156,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = observer(
 					{
 						type: ThemeTypes.SYSTEM,
 						label: i18n._(SYSTEM_THEME_DESCRIPTOR),
-						backgroundColor: systemPrefersDark
-							? 'hsl(258, calc(10% * var(--saturation-factor)), 5%)'
-							: 'hsl(220, 10%, 98.5%)',
+						backgroundColor: systemPrefersDark ? 'hsl(240, 4%, 4%)' : 'hsl(220, 10%, 98.5%)',
 						isLight: !systemPrefersDark,
 						icon: (
 							<ArrowsCounterClockwiseIcon

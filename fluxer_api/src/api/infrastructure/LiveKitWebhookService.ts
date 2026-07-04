@@ -255,18 +255,43 @@ export class LiveKitWebhookService {
 		}
 	}
 
-	async handleParticipantJoined(event: WebhookEvent): Promise<void> {
+	private async ejectUnrecognizedParticipant(event: WebhookEvent, apiKey: string, reason: string): Promise<void> {
+		const roomName = event.room?.name;
+		const participantIdentity = event.participant?.identity;
+		if (!roomName || !participantIdentity) {
+			return;
+		}
+		const sourceServer = this.serverMap.get(apiKey);
+		if (!sourceServer) {
+			Logger.warn({roomName, participantIdentity}, 'Cannot eject unrecognized participant, source server unknown');
+			return;
+		}
+		Logger.warn(
+			{roomName, participantIdentity, reason, regionId: sourceServer.regionId, serverId: sourceServer.serverId},
+			'Ejecting participant that joined without a Fluxer-issued voice token',
+		);
+		await this.liveKitService.disconnectParticipantByIdentity({
+			roomName,
+			participantIdentity,
+			regionId: sourceServer.regionId,
+			serverId: sourceServer.serverId,
+		});
+	}
+
+	async handleParticipantJoined(event: WebhookEvent, apiKey: string): Promise<void> {
 		if (event.event !== 'participant_joined') {
 			return;
 		}
 		const {participant} = event;
 		if (!participant?.metadata) {
 			Logger.debug('Participant joined without metadata, skipping');
+			await this.ejectUnrecognizedParticipant(event, apiKey, 'missing_metadata');
 			return;
 		}
 		const parsed = parseParticipantMetadataWithRaw(participant.metadata);
 		if (!parsed) {
 			Logger.warn({metadata: participant.metadata}, 'Failed to parse participant metadata');
+			await this.ejectUnrecognizedParticipant(event, apiKey, 'unparseable_metadata');
 			return;
 		}
 		const {context, raw} = parsed;
@@ -675,7 +700,7 @@ export class LiveKitWebhookService {
 		Logger.debug({event: event.event, apiKey}, 'Dispatching LiveKit webhook event');
 		switch (event.event) {
 			case 'participant_joined':
-				await this.handleParticipantJoined(event);
+				await this.handleParticipantJoined(event, apiKey);
 				break;
 			case 'participant_left':
 			case 'participant_connection_aborted':

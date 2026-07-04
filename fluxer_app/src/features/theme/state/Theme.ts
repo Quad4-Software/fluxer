@@ -9,6 +9,7 @@ import {ThemeTypes} from '@fluxer/constants/src/UserConstants';
 import {makeAutoObservable, reaction, runInAction} from 'mobx';
 
 type ExplicitTheme =
+	| typeof ThemeTypes.EMBER
 	| typeof ThemeTypes.DARK
 	| typeof ThemeTypes.DARK_LEGACY
 	| typeof ThemeTypes.LIGHT
@@ -20,7 +21,13 @@ export interface ThemePreferenceSnapshot {
 	serverTheme: ThemeType;
 }
 
-const EXPLICIT_THEMES = new Set<string>([ThemeTypes.DARK, ThemeTypes.DARK_LEGACY, ThemeTypes.LIGHT, ThemeTypes.COAL]);
+const EXPLICIT_THEMES = new Set<string>([
+	ThemeTypes.EMBER,
+	ThemeTypes.DARK,
+	ThemeTypes.DARK_LEGACY,
+	ThemeTypes.LIGHT,
+	ThemeTypes.COAL,
+]);
 const VALID_THEMES = new Set<string>(Object.values(ThemeTypes));
 const STORAGE_KEY = 'theme';
 
@@ -51,8 +58,8 @@ function persistThemeToLocalStorage(theme: string): void {
 
 class Theme {
 	syncAcrossDevices = true;
-	localTheme: ThemeType = ThemeTypes.DARK;
-	serverTheme: ThemeType = ThemeTypes.DARK;
+	localTheme: ThemeType = ThemeTypes.EMBER;
+	serverTheme: ThemeType = ThemeTypes.EMBER;
 	systemPrefersDark = false;
 	private _hydrated = false;
 	private _pendingServerTheme: ThemeType | null = null;
@@ -85,7 +92,7 @@ class Theme {
 		}
 		const preference = this.themePreference;
 		if (preference === ThemeTypes.SYSTEM) {
-			return this.systemPrefersDark ? ThemeTypes.DARK : ThemeTypes.LIGHT;
+			return this.systemPrefersDark ? ThemeTypes.EMBER : ThemeTypes.LIGHT;
 		}
 		return preference;
 	}
@@ -107,7 +114,7 @@ class Theme {
 		}
 		if (sync) {
 			this.syncAcrossDevices = true;
-			this.localTheme = ThemeTypes.DARK;
+			this.localTheme = ThemeTypes.EMBER;
 		} else {
 			const currentPreference = this.themePreference;
 			this.syncAcrossDevices = false;
@@ -125,12 +132,12 @@ class Theme {
 
 	applyPreferenceSnapshot(snapshot: ThemePreferenceSnapshot): void {
 		this.syncAcrossDevices = Boolean(snapshot.syncAcrossDevices);
-		this.localTheme = isValidTheme(snapshot.localTheme) ? snapshot.localTheme : ThemeTypes.DARK;
-		this.serverTheme = isValidTheme(snapshot.serverTheme) ? snapshot.serverTheme : ThemeTypes.DARK;
+		this.localTheme = isValidTheme(snapshot.localTheme) ? snapshot.localTheme : ThemeTypes.EMBER;
+		this.serverTheme = isValidTheme(snapshot.serverTheme) ? snapshot.serverTheme : ThemeTypes.EMBER;
 	}
 
 	updateServerTheme(theme: string | null | undefined): void {
-		const normalized = isValidTheme(theme) ? theme : ThemeTypes.DARK;
+		const normalized = isValidTheme(theme) ? theme : ThemeTypes.EMBER;
 		this.serverTheme = normalized;
 		if (!this._hydrated) {
 			this._pendingServerTheme = normalized;

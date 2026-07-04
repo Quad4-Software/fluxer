@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import type {Channel} from '@app/features/channel/models/Channel';
-import type React from 'react';
 import type {Message} from '@app/features/messaging/models/MessagingMessage';
 import type {ChannelMessages} from '@app/features/messaging/state/ChannelMessages';
 import type {ChannelStreamItem} from '@app/features/messaging/utils/MessageGroupingUtils';
 import {MessageTypes} from '@fluxer/constants/src/ChannelConstants';
+import type React from 'react';
 
 const STREAM_TYPE_MESSAGE = 'MESSAGE';
 const STREAM_TYPE_DIVIDER = 'DIVIDER';
@@ -121,10 +121,7 @@ export function buildMessageListRows({
 		if (pendingMessages.length === 0) return;
 		const groupKey = pendingGroupId ?? pendingMessages[0].id;
 		const groupKind = getMessageGroupKind(pendingMessages[0]);
-		const unreadDividerBeforeMessageId = getUnreadDividerBeforeMessageId(
-			pendingStreamItems,
-			suppressUnreadIndicator,
-		);
+		const unreadDividerBeforeMessageId = getUnreadDividerBeforeMessageId(pendingStreamItems, suppressUnreadIndicator);
 		const firstMessageHasUnreadDivider = unreadDividerBeforeMessageId === pendingMessages[0].id;
 		pushSpacerIfNeeded(groupKind, groupKey, firstMessageHasUnreadDivider);
 		rows.push({
@@ -162,10 +159,7 @@ export function buildMessageListRows({
 				lastRenderedGroupKind = null;
 				continue;
 			}
-			if (
-				item.type === STREAM_TYPE_MESSAGE_GROUP_BLOCKED ||
-				item.type === STREAM_TYPE_MESSAGE_GROUP_SPAMMER
-			) {
+			if (item.type === STREAM_TYPE_MESSAGE_GROUP_BLOCKED || item.type === STREAM_TYPE_MESSAGE_GROUP_SPAMMER) {
 				const variant = item.type === STREAM_TYPE_MESSAGE_GROUP_SPAMMER ? 'spammer' : 'blocked';
 				pushSpacerIfNeeded('regular', item.key ?? `${variant}-${i}`);
 				rows.push({
@@ -264,10 +258,7 @@ export function getMessageListRowAnchorMessageId(row: MessageListRow): string | 
 	}
 }
 
-export function findMessageListRowIndexByMessageId(
-	rows: ReadonlyArray<MessageListRow>,
-	messageId: string,
-): number {
+export function findMessageListRowIndexByMessageId(rows: ReadonlyArray<MessageListRow>, messageId: string): number {
 	for (let index = 0; index < rows.length; index++) {
 		const row = rows[index];
 		if (row.kind === 'messageGroup') {

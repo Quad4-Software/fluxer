@@ -4,7 +4,8 @@ import styles from '@app/features/channel/components/ChannelMessages.module.css'
 import type {Channel} from '@app/features/channel/models/Channel';
 import type {Message} from '@app/features/messaging/models/MessagingMessage';
 import type {ChannelMessages} from '@app/features/messaging/state/ChannelMessages';
-import {type ChannelStreamItem} from '@app/features/messaging/utils/MessageGroupingUtils';
+import type {ChannelStreamItem} from '@app/features/messaging/utils/MessageGroupingUtils';
+import {renderMessageListRow} from '@app/features/messaging/utils/MessageListRowRenderer';
 import {
 	buildMessageListRows,
 	collectPinnedMessageListRowIndices,
@@ -12,12 +13,11 @@ import {
 	findMessageListRowIndexByMessageId,
 	type RenderMessageListRowProps,
 } from '@app/features/messaging/utils/MessageListRowUtils';
-import {renderMessageListRow} from '@app/features/messaging/utils/MessageListRowRenderer';
 import type {ScrollManager} from '@app/features/platform/utils/ScrollManager';
-import {defaultRangeExtractor, useVirtualizer, type Range} from '@tanstack/react-virtual';
+import {defaultRangeExtractor, type Range, useVirtualizer} from '@tanstack/react-virtual';
 import {observer} from 'mobx-react-lite';
 import type React from 'react';
-import {useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, forwardRef} from 'react';
+import {forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef} from 'react';
 
 const MESSAGE_LIST_OVERSCAN_ROWS = 8;
 const MESSAGE_LIST_RANGE_BUFFER_PX = 480;
@@ -113,10 +113,7 @@ export const VirtualizedChannelMessageStream = observer(
 			);
 			const pinnedRowIndicesRef = useRef(pinnedRowIndices);
 			pinnedRowIndicesRef.current = pinnedRowIndices;
-			const rangeExtractor = useCallback(
-				(range: Range) => extendVirtualRange(range, pinnedRowIndicesRef.current),
-				[],
-			);
+			const rangeExtractor = useCallback((range: Range) => extendVirtualRange(range, pinnedRowIndicesRef.current), []);
 			const virtualizer = useVirtualizer({
 				count: rows.length,
 				getScrollElement: () => scrollManager.ref.current?.getScrollerNode() ?? null,

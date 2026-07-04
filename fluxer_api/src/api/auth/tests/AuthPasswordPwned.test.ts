@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {afterEach, beforeEach, describe, expect, it} from 'vitest';
-import * as AuthPassword from '../AuthPassword';
 import {getConfig} from '../../Config';
 import {createEasypwnedCheckHandler} from '../../test/msw/handlers/EasypwnedHandlers';
 import {createPwnedPasswordsRangeHandler} from '../../test/msw/handlers/PwnedPasswordsHandlers';
 import {server} from '../../test/msw/server';
+import * as AuthPassword from '../AuthPassword';
 
 describe('isPasswordPwned', () => {
 	const originalEasypwned = getConfig().easypwned;

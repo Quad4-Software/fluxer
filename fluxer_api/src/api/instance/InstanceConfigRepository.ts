@@ -1390,9 +1390,7 @@ export class InstanceConfigRepository {
 						: false;
 		const enabled = provider !== 'none' && providerReady;
 		const altchaChallengeUrl =
-			enabled && provider === 'altcha'
-				? `${Config.endpoints.apiPublic.replace(/\/+$/u, '')}/altcha/challenge`
-				: null;
+			enabled && provider === 'altcha' ? `${Config.endpoints.apiPublic.replace(/\/+$/u, '')}/altcha/challenge` : null;
 		return {
 			enabled,
 			provider,
@@ -1468,7 +1466,8 @@ export class InstanceConfigRepository {
 		const clientEnabled = resolveSelfHostedBoolean(integrations.sentry.client_enabled, Config.sentry.clientEnabled);
 		const dsn = resolveSelfHostedString(integrations.sentry.dsn ?? '', Config.sentry.dsn).trim() || null;
 		const environment =
-			resolveSelfHostedString(integrations.sentry.environment ?? '', Config.sentry.environment).trim() || Config.nodeEnv;
+			resolveSelfHostedString(integrations.sentry.environment ?? '', Config.sentry.environment).trim() ||
+			Config.nodeEnv;
 		const hasDsn = Boolean(dsn);
 		return {
 			enabled: enabled && hasDsn,

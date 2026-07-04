@@ -27,10 +27,10 @@ describe('selectUserAreaMicrophoneState', () => {
 		});
 	});
 
-	it('shows push-to-talk released as muted', () => {
+	it('shows push-to-talk released as muted but leaves the toggle available for safety mute', () => {
 		expect(selectUserAreaMicrophoneState({...baseSignals, isPushToTalkEffective: true})).toEqual({
 			effectiveMuted: true,
-			muteToggleLocked: true,
+			muteToggleLocked: false,
 		});
 	});
 
@@ -41,7 +41,7 @@ describe('selectUserAreaMicrophoneState', () => {
 		});
 	});
 
-	it('shows push-to-talk held as unmuted even with persisted self mute state', () => {
+	it('keeps persisted self mute muted while push-to-talk is held', () => {
 		expect(
 			selectUserAreaMicrophoneState({
 				...baseSignals,
@@ -51,8 +51,8 @@ describe('selectUserAreaMicrophoneState', () => {
 				isPushToTalkHeld: true,
 			}),
 		).toEqual({
-			effectiveMuted: false,
-			muteToggleLocked: true,
+			effectiveMuted: true,
+			muteToggleLocked: false,
 		});
 	});
 

@@ -38,6 +38,13 @@ interface DisconnectParticipantParams {
 	serverId: string;
 }
 
+interface DisconnectParticipantByIdentityParams {
+	roomName: string;
+	participantIdentity: string;
+	regionId: string;
+	serverId: string;
+}
+
 interface UpdateParticipantPermissionsParams {
 	userId: UserID;
 	guildId?: GuildID;
@@ -64,6 +71,8 @@ export class DisabledLiveKitService implements ILiveKitService {
 	async updateParticipantPermissions(_params: UpdateParticipantPermissionsParams): Promise<void> {}
 
 	async disconnectParticipant(_params: DisconnectParticipantParams): Promise<void> {}
+
+	async disconnectParticipantByIdentity(_params: DisconnectParticipantByIdentityParams): Promise<void> {}
 
 	async listParticipants(_params: {
 		guildId?: GuildID;

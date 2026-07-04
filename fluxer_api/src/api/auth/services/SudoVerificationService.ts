@@ -87,7 +87,8 @@ async function verifySudoMode(
 		return {verified: true, sudoToken, method: 'mfa'};
 	}
 	const isUnclaimedAccount = user.isUnclaimedAccount();
-	if (isUnclaimedAccount && !hasMfa) {
+	const isPasswordlessSsoAccount = user.passwordHash === null && user.traits.has('sso');
+	if ((isUnclaimedAccount || isPasswordlessSsoAccount) && !hasMfa) {
 		return {verified: true, method: 'password'};
 	}
 	if (body.password && !hasMfa) {

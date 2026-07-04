@@ -17,6 +17,7 @@ import type {z} from 'zod';
 import * as AuthEmailRevert from '../../auth/AuthEmailRevert';
 import {requireEmailVerified} from '../../auth/EmailVerificationUtils';
 import type {IRegistrationRiskEvaluator} from '../../auth/services/IRegistrationRiskEvaluator';
+import {assertSsoManagedAccountActionAllowed} from '../../auth/services/SsoAccountSecurityGuard';
 import {requireSudoMode, type SudoVerificationResult} from '../../auth/services/SudoVerificationService';
 import {createChannelID, createGuildID, type UserID} from '../../BrandedTypes';
 import {Config} from '../../Config';
@@ -201,6 +202,9 @@ export class UserAccountRequestService {
 			throw InputValidationError.fromCode('email', ValidationErrorCodes.EMAIL_MUST_BE_CHANGED_VIA_TOKEN);
 		}
 		const isUnclaimed = user.isUnclaimedAccount();
+		if (userUpdateData.new_password !== undefined) {
+			await assertSsoManagedAccountActionAllowed(ctx, user);
+		}
 		if (!isUnclaimed && userUpdateData.new_password !== undefined && !userUpdateData.password) {
 			throw InputValidationError.fromCode('password', ValidationErrorCodes.PASSWORD_NOT_SET);
 		}

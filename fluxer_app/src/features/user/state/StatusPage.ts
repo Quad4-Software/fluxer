@@ -191,7 +191,6 @@ export class StatusPage {
 	private checkInFlight: Promise<void> | null = null;
 	private lastCheckedAt = 0;
 	private pollingStarted = false;
-	private readonly isSelfHosted = RuntimeConfig.isSelfHosted();
 
 	constructor() {
 		makeAutoObservable<StatusPage, 'checkInFlight' | 'lastCheckedAt' | 'pollingStarted' | 'pollTimerId'>(
@@ -207,7 +206,7 @@ export class StatusPage {
 	}
 
 	startPolling(): void {
-		if (this.isSelfHosted || this.pollingStarted || !RuntimeConfig.statusPageUrl) {
+		if (RuntimeConfig.isSelfHosted() || this.pollingStarted || !RuntimeConfig.statusPageUrl) {
 			return;
 		}
 
@@ -238,7 +237,7 @@ export class StatusPage {
 	}
 
 	async checkIncidents(): Promise<void> {
-		if (this.isSelfHosted || !RuntimeConfig.statusPageUrl) {
+		if (RuntimeConfig.isSelfHosted() || !RuntimeConfig.statusPageUrl) {
 			return;
 		}
 		if (this.checkInFlight) {

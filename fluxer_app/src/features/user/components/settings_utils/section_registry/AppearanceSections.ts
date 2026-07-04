@@ -55,6 +55,10 @@ const LIGHT_DESCRIPTOR = msg({
 	message: 'Light',
 	comment: 'Settings search synonym. Used to match this term when the user types it in the settings search bar.',
 });
+const EMBER_DESCRIPTOR = msg({
+	message: 'Ember',
+	comment: 'Settings search synonym. Used to match this term when the user types it in the settings search bar.',
+});
 const COAL_DESCRIPTOR = msg({
 	message: 'Coal',
 	comment: 'Settings search synonym. Used to match this term when the user types it in the settings search bar.',
@@ -486,6 +490,7 @@ export const appearanceSections = [
 			LIGHT_MODE_DESCRIPTOR,
 			DARK_DESCRIPTOR,
 			LIGHT_DESCRIPTOR,
+			EMBER_DESCRIPTOR,
 			COAL_DESCRIPTOR,
 			COLOR_SCHEME_DESCRIPTOR,
 			SYSTEM_THEME_DESCRIPTOR,

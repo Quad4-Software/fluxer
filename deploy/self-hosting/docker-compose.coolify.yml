@@ -12,7 +12,7 @@ x-fluxer-env: &fluxer-env
   FLUXER_PUBLIC_SCHEME: ${FLUXER_PUBLIC_SCHEME:-https}
   FLUXER_PUBLIC_PORT: ${FLUXER_PUBLIC_PORT:-443}
   FLUXER_TRUST_CLIENT_IP_HEADER: "true"
-  FLUXER_CLIENT_IP_HEADER_NAME: x-forwarded-for
+  FLUXER_CLIENT_IP_HEADER_NAME: ${FLUXER_CLIENT_IP_HEADER_NAME:-x-forwarded-for}
 
   FLUXER_DATABASE_BACKEND: postgres
   FLUXER_POSTGRES_HOST: postgres
@@ -96,10 +96,10 @@ x-fluxer-env: &fluxer-env
   FLUXER_INTERNAL_API_ENDPOINT: http://api:8080
   FLUXER_INTERNAL_GATEWAY_ENDPOINT: http://gateway:8080
   FLUXER_INTERNAL_MEDIA_PROXY_ENDPOINT: http://media-proxy:8080
-  FLUXER_MARKETING_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}
+  FLUXER_MARKETING_ENDPOINT: ${FLUXER_PUBLIC_URL:-https://${FLUXER_DOMAIN}}
   FLUXER_MEDIA_PROXY_ENDPOINT: http://media-proxy:8080
-  FLUXER_MEDIA_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}/media
-  FLUXER_MEDIA_PROXY_UPLOAD_RELAY_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}/media
+  FLUXER_MEDIA_ENDPOINT: ${FLUXER_PUBLIC_URL:-https://${FLUXER_DOMAIN}}/media
+  FLUXER_MEDIA_PROXY_UPLOAD_RELAY_ENDPOINT: ${FLUXER_PUBLIC_URL:-https://${FLUXER_DOMAIN}}/media
 
 x-fluxer-service: &fluxer-service
   restart: unless-stopped
@@ -327,8 +327,8 @@ services:
     environment:
       <<: *fluxer-env
       FLUXER_GATEWAY_PORT: "8080"
-      FLUXER_GATEWAY_MEDIA_PROXY_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}/media
-      FLUXER_GATEWAY_STATIC_CDN_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}
+      FLUXER_GATEWAY_MEDIA_PROXY_ENDPOINT: ${FLUXER_PUBLIC_URL:-https://${FLUXER_DOMAIN}}/media
+      FLUXER_GATEWAY_STATIC_CDN_ENDPOINT: ${FLUXER_PUBLIC_URL:-https://${FLUXER_DOMAIN}}
       FLUXER_GATEWAY_LOGGER_LEVEL: info
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8080/_health >/dev/null || exit 1"]
@@ -371,7 +371,7 @@ services:
       FLUXER_APP_PROXY_PORT: "8080"
       DISCOVERY_UPSTREAM_URL: http://caddy:8088/api/.well-known/fluxer
       PUBLIC_BOOTSTRAP_API_ENDPOINT: /api
-      PUBLIC_BOOTSTRAP_API_PUBLIC_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}/api
+      PUBLIC_BOOTSTRAP_API_PUBLIC_ENDPOINT: ${FLUXER_PUBLIC_URL:-https://${FLUXER_DOMAIN}}/api
     depends_on:
       api: {condition: service_healthy}
       caddy: {condition: service_started}
@@ -421,7 +421,7 @@ services:
       <<: *fluxer-env
       FLUXER_SVC_NAME: gifs
       FLUXER_SVC_MODE: router
-      FLUXER_MEDIA_PROXY_PUBLIC_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}/media
+      FLUXER_MEDIA_PROXY_PUBLIC_ENDPOINT: ${FLUXER_PUBLIC_URL:-https://${FLUXER_DOMAIN}}/media
     depends_on:
       nats: {condition: service_started}
 
@@ -433,7 +433,7 @@ services:
       FLUXER_SVC_NAME: gifs
       FLUXER_SVC_MODE: shard
       FLUXER_SVC_SHARD_ID: "0"
-      FLUXER_MEDIA_PROXY_PUBLIC_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}/media
+      FLUXER_MEDIA_PROXY_PUBLIC_ENDPOINT: ${FLUXER_PUBLIC_URL:-https://${FLUXER_DOMAIN}}/media
     depends_on:
       nats: {condition: service_started}
 
@@ -488,11 +488,11 @@ services:
       FLUXER_INTERNAL_GATEWAY_ENDPOINT: http://gateway:8080
       FLUXER_INTERNAL_MEDIA_PROXY_ENDPOINT: http://media-proxy:8080
       FLUXER_BACKUP_META_PATH: /backups/data/latest-meta.json
-      FLUXER_ADMIN_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}/admin
-      FLUXER_APP_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}
-      FLUXER_MEDIA_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}/media
-      FLUXER_STATIC_CDN_ENDPOINT: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}
-      FLUXER_ADMIN_OAUTH_REDIRECT_URI: ${FLUXER_PUBLIC_SCHEME:-https}://${FLUXER_DOMAIN}/admin/oauth2_callback
+      FLUXER_ADMIN_ENDPOINT: ${FLUXER_PUBLIC_URL:-https://${FLUXER_DOMAIN}}/admin
+      FLUXER_APP_ENDPOINT: ${FLUXER_PUBLIC_URL:-https://${FLUXER_DOMAIN}}
+      FLUXER_MEDIA_ENDPOINT: ${FLUXER_PUBLIC_URL:-https://${FLUXER_DOMAIN}}/media
+      FLUXER_STATIC_CDN_ENDPOINT: ${FLUXER_PUBLIC_URL:-https://${FLUXER_DOMAIN}}
+      FLUXER_ADMIN_OAUTH_REDIRECT_URI: ${FLUXER_PUBLIC_URL:-https://${FLUXER_DOMAIN}}/admin/oauth2_callback
     volumes:
       - ./backups/data:/backups/data:ro
     depends_on:

@@ -163,6 +163,8 @@ export const ERROR_I18N_MESSAGES = {
 	'auth_and_oauth.registration_url_invalid': 'This registration link is invalid or has expired.',
 	'auth_and_oauth.response_type_must_be_code_for_non_bot_scopes': 'Response type must be code for non-bot scopes.',
 	'auth_and_oauth.sso_identity_mismatch': 'SSO identity mismatch between id_token and userinfo.',
+	'auth_and_oauth.sso_managed_account_action_forbidden':
+		'This account is managed by single sign-on. Contact your identity provider to change this setting.',
 	'auth_and_oauth.sso_misconfigured': 'SSO is misconfigured. Please contact your administrator.',
 	'auth_and_oauth.sso_provider_did_not_return_email': "Your SSO provider didn't return an email address.",
 	'auth_and_oauth.sso_test_code_missing_email': 'SSO test code is missing the email payload.',

@@ -3,7 +3,6 @@
 import type {LoggerInterface} from '@fluxer/logger/src/LoggerInterface';
 import type {ICaptchaProvider} from '@pkgs/captcha/src/ICaptchaProvider';
 import {AltchaProvider} from '@pkgs/captcha/src/providers/AltchaProvider';
-import type {Store} from 'altcha-lib/frameworks/types';
 import {HcaptchaProvider} from '@pkgs/captcha/src/providers/HcaptchaProvider';
 import type {HttpCaptchaProviderOptions} from '@pkgs/captcha/src/providers/HttpCaptchaProvider';
 import type {RecaptchaProviderOptions} from '@pkgs/captcha/src/providers/RecaptchaProvider';
@@ -11,6 +10,7 @@ import {RecaptchaProvider} from '@pkgs/captcha/src/providers/RecaptchaProvider';
 import {TestCaptchaProvider} from '@pkgs/captcha/src/providers/TestProvider';
 import {TurnstileProvider} from '@pkgs/captcha/src/providers/TurnstileProvider';
 import {UnavailableCaptchaProvider} from '@pkgs/captcha/src/providers/UnavailableCaptchaProvider';
+import type {Store} from 'altcha-lib/frameworks/types';
 
 interface BaseCaptchaProviderFactoryParams {
 	logger?: LoggerInterface;

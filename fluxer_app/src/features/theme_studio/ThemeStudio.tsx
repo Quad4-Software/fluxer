@@ -62,6 +62,10 @@ const THEME_STUDIO_NAVIGATION_DESCRIPTOR = msg({
 	message: 'Theme studio navigation',
 	comment: 'Short label in the theme studio. Keep it concise.',
 });
+const EMBER_BASE_DESCRIPTOR = msg({
+	message: 'Ember base',
+	comment: 'Short label in the theme studio. Keep it concise.',
+});
 const DARK_BASE_DESCRIPTOR = msg({
 	message: 'Dark base',
 	comment: 'Short label in the theme studio. Keep it concise.',
@@ -181,6 +185,8 @@ const ThemeStudioInner: React.FC<ThemeStudioProps> = observer(
 			switch (effectiveTheme) {
 				case ThemeTypes.LIGHT:
 					return i18n._(LIGHT_BASE_DESCRIPTOR);
+				case ThemeTypes.EMBER:
+					return i18n._(EMBER_BASE_DESCRIPTOR);
 				case ThemeTypes.DARK_LEGACY:
 					return i18n._(DARK_LEGACY_BASE_DESCRIPTOR);
 				case ThemeTypes.COAL:

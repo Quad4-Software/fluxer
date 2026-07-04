@@ -6,8 +6,8 @@ import {initializeLogger} from '@app/api/Logger';
 import {Config} from '@app/Config';
 import {shutdownInstrumentation} from '@app/Instrument';
 import {Logger} from '@app/Logger';
-import {captureSentryException} from '@pkgs/initialization/src/SentryService';
 import {createServer, setupGracefulShutdown} from '@fluxer/hono/src/Server';
+import {captureSentryException} from '@pkgs/initialization/src/SentryService';
 
 async function closeHttpServer(server: {close: (callback: (error?: Error) => void) => void}): Promise<void> {
 	await new Promise<void>((resolve, reject) => {

@@ -6,6 +6,7 @@ import {resolveErrorStatus} from '@fluxer/errors/src/error_handling/ErrorIntrosp
 import {createMetricsMiddleware} from '@fluxer/hono/src/middleware/Metrics';
 import {LOCKED_DOWN_PERMISSIONS_POLICY, securityHeaders} from '@fluxer/hono/src/middleware/SecurityHeaders';
 import {setIsDevelopment} from '@fluxer/schema/src/primitives/UrlValidators';
+import {captureSentryException} from '@pkgs/initialization/src/SentryService';
 import type {Context} from 'hono';
 import {Hono} from 'hono';
 import {createInitializer, createShutdown} from './app/APILifecycle';
@@ -14,7 +15,6 @@ import {configureMiddleware} from './app/MiddlewarePipeline';
 import type {APIConfig} from './config/APIConfig';
 import type {ILogger} from './ILogger';
 import {recordHttpClientError} from './middleware/AbusiveIpAutoBanner';
-import {captureSentryException} from '@pkgs/initialization/src/SentryService';
 import type {HonoApp, HonoEnv} from './types/HonoEnv';
 
 interface CreateAPIAppOptions {

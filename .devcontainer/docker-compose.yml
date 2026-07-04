@@ -10,6 +10,7 @@ services:
     env_file:
       - ../config/env/development.env
     environment:
+      FLUXER_DEV_IGNORE_LOCAL_ENV: "true"
       FLUXER_SEARCH_ENGINE: meilisearch
       FLUXER_SEARCH_URL: http://meilisearch:7700
       FLUXER_SEARCH_API_KEY: fluxer-dev-meilisearch

@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import type {SearchOptions, SearchResult} from '@fluxer/schema/src/contracts/search/SearchAdapterTypes';
+import {Config} from '../../Config';
 import type {MeilisearchClient, MeilisearchTask} from './MeilisearchClient';
 import type {MeilisearchFilter} from './MeilisearchFilterUtils';
 import {joinMeiliFilters} from './MeilisearchFilterUtils';
 import type {MeilisearchIndexDefinition} from './MeilisearchIndexDefinitions';
-
-const MAX_SEARCH_LIMIT = 1000;
 
 interface MeilisearchIndexAdapterOptions<TFilters> {
 	client: MeilisearchClient;
@@ -60,6 +59,7 @@ export class MeilisearchIndexAdapter<
 			this.applySetting('searchable-attributes', this.indexDefinition.searchableAttributes),
 			this.applySetting('filterable-attributes', this.indexDefinition.filterableAttributes),
 			this.applySetting('sortable-attributes', this.indexDefinition.sortableAttributes),
+			this.applySetting('pagination', {maxTotalHits: Config.search.maxTotalHits}),
 		]);
 		this.initialized = true;
 	}
@@ -134,7 +134,7 @@ export class MeilisearchIndexAdapter<
 	async search(query: string, filters: TFilters, options?: SearchOptions): Promise<SearchResult<TResult>> {
 		this.assertInitialised();
 		const requestedLimit = options?.limit ?? options?.hitsPerPage ?? 25;
-		const limit = Math.min(Math.max(requestedLimit, 0), MAX_SEARCH_LIMIT);
+		const limit = Math.min(Math.max(requestedLimit, 0), Config.search.maxTotalHits);
 		const offset = options?.offset ?? (options?.page ? (options.page - 1) * (options.hitsPerPage ?? 25) : 0);
 		const filter = joinMeiliFilters(this.buildFilters(filters));
 		const result = await this.client.request<MeilisearchSearchResponse<TResult>>(
@@ -177,9 +177,10 @@ export class MeilisearchIndexAdapter<
 		}
 	}
 
-	private async applySetting(setting: string, value: Array<string>): Promise<void> {
+	private async applySetting(setting: string, value: Array<string> | {maxTotalHits: number}): Promise<void> {
+		const method = setting === 'pagination' ? 'PATCH' : 'PUT';
 		const task = await this.client.request<MeilisearchTask>(
-			'PUT',
+			method,
 			`/indexes/${encodeURIComponent(this.indexDefinition.uid)}/settings/${setting}`,
 			value,
 		);

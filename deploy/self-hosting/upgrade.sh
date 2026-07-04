@@ -265,6 +265,29 @@ generate_vapid_keys() {
 	exit 1
 }
 
+public_url_for() {
+	local scheme="$1"
+	local domain="$2"
+	local port="$3"
+	if [[ ("$scheme" == "https" && "$port" == "443") || ("$scheme" == "http" && "$port" == "80") ]]; then
+		printf '%s://%s' "$scheme" "$domain"
+	else
+		printf '%s://%s:%s' "$scheme" "$domain" "$port"
+	fi
+}
+
+ensure_public_url() {
+	local domain scheme port
+	domain="$(env_value FLUXER_DOMAIN)"
+	scheme="$(env_value FLUXER_PUBLIC_SCHEME)"
+	port="$(env_value FLUXER_PUBLIC_PORT)"
+	[[ -z "$domain" ]] && return
+	[[ -z "$scheme" ]] && scheme=https
+	[[ -z "$port" ]] && port=443
+	echo "Setting FLUXER_PUBLIC_URL from FLUXER_DOMAIN/FLUXER_PUBLIC_SCHEME/FLUXER_PUBLIC_PORT"
+	set_env FLUXER_PUBLIC_URL "$(public_url_for "$scheme" "$domain" "$port")"
+}
+
 merge_env_from_example() {
 	local line key
 	while IFS= read -r line || [[ -n "$line" ]]; do
@@ -368,23 +391,27 @@ download_stack_files() {
 }
 
 wait_for_health() {
-	local domain scheme
+	local domain scheme port base_url
 	if [[ ! -f .env ]]; then
 		echo "No .env file; skipping health checks." >&2
 		return
 	fi
 	domain="$(env_value FLUXER_DOMAIN)"
 	scheme="$(env_value FLUXER_PUBLIC_SCHEME)"
+	port="$(env_value FLUXER_PUBLIC_PORT)"
 	[[ -z "$scheme" ]] && scheme=https
+	[[ -z "$port" ]] && port=443
 	if [[ -z "$domain" ]]; then
 		echo "FLUXER_DOMAIN is not set; skipping health checks." >&2
 		return
 	fi
+	base_url="$(env_value FLUXER_PUBLIC_URL)"
+	[[ -z "$base_url" ]] && base_url="$(public_url_for "$scheme" "$domain" "$port")"
 	echo "Waiting for health endpoints..."
 	sleep 15
 	local path code
 	for path in /_health /api/_health /gateway/_health /media/_health /admin/_health; do
-		code="$(curl -k -s -o /dev/null -w '%{http_code}' "${scheme}://${domain}${path}" || true)"
+		code="$(curl -k -s -o /dev/null -w '%{http_code}' "${base_url}${path}" || true)"
 		printf '%s %s\n' "$path" "$code"
 	done
 }
@@ -568,6 +595,7 @@ run_upgrade() {
 
 	configure_fork_images
 	ensure_secrets
+	ensure_public_url
 
 	cat <<EOF
 

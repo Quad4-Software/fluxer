@@ -53,6 +53,16 @@ pub fn merge_env_layers(layers: &[BTreeMap<String, String>]) -> BTreeMap<String,
     merged
 }
 
+fn should_skip_local_env_overrides(
+    current: &BTreeMap<String, String>,
+    baseline: &BTreeMap<String, String>,
+) -> bool {
+    [current, baseline]
+        .into_iter()
+        .flat_map(|env| env.get("FLUXER_DEV_IGNORE_LOCAL_ENV"))
+        .any(|value| value == "1" || value.eq_ignore_ascii_case("true"))
+}
+
 pub fn merge_default_env_with_current(
     development_path: &Path,
     local_path: &Path,
@@ -76,8 +86,16 @@ fn merge_default_env_with_current_and_baseline(
     baseline: BTreeMap<String, String>,
 ) -> Result<BTreeMap<String, String>> {
     let development = read_env_file(development_path)?;
-    let local = read_env_file(local_path)?;
-    let root_local = read_env_file(root_local_path)?;
+    let local = if should_skip_local_env_overrides(&current, &baseline) {
+        BTreeMap::new()
+    } else {
+        read_env_file(local_path)?
+    };
+    let root_local = if should_skip_local_env_overrides(&current, &baseline) {
+        BTreeMap::new()
+    } else {
+        read_env_file(root_local_path)?
+    };
     let mut effective_current = current;
     for (key, value) in &development {
         let has_file_override = local.contains_key(key) || root_local.contains_key(key);
@@ -186,6 +204,33 @@ mod tests {
         assert_eq!(merged.get("A").map(String::as_str), Some("local"));
         assert_eq!(merged.get("B").map(String::as_str), Some("custom"));
         assert_eq!(merged.get("C").map(String::as_str), Some("default"));
+    }
+
+    #[test]
+    fn ignore_local_env_flag_skips_local_overrides() {
+        let dir = tempfile::tempdir().unwrap();
+        let development = dir.path().join("development.env");
+        let local = dir.path().join("local.env");
+        let root_local = dir.path().join(".env.local");
+        std::fs::write(&development, "FLUXER_SEARCH_URL=http://meilisearch:7700\n").unwrap();
+        std::fs::write(&local, "FLUXER_SEARCH_URL=http://127.0.0.1:7700\n").unwrap();
+        std::fs::write(&root_local, "").unwrap();
+        let current = BTreeMap::from([(
+            "FLUXER_DEV_IGNORE_LOCAL_ENV".to_owned(),
+            "true".to_owned(),
+        )]);
+        let merged = merge_default_env_with_current_and_baseline(
+            &development,
+            &local,
+            &root_local,
+            current,
+            BTreeMap::new(),
+        )
+        .unwrap();
+        assert_eq!(
+            merged.get("FLUXER_SEARCH_URL").map(String::as_str),
+            Some("http://meilisearch:7700")
+        );
     }
 
     #[test]

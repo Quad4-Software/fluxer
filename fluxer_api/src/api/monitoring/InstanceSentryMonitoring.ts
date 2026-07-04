@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import {Config} from '@app/Config';
 import {applyServiceInstrumentation} from '@pkgs/initialization/src/CreateServiceInstrumentation';
 import type {ResolvedSentryRuntimeConfig} from '@pkgs/initialization/src/SentryService';
-import {Config} from '@app/Config';
 
 const SERVICE_NAME = 'fluxer-api';
 

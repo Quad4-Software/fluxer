@@ -31,8 +31,8 @@ import {
 	getReportRepository,
 	getUserRepository,
 } from '../middleware/ServiceSingletons';
-import {applyInstanceSentryMonitoring} from '../monitoring/InstanceSentryMonitoring';
 import {torExitListCache} from '../middleware/TorExitListCache';
+import {applyInstanceSentryMonitoring} from '../monitoring/InstanceSentryMonitoring';
 import {initializeSearch, shutdownSearch} from '../SearchFactory';
 import {warmupAdminSearchIndexes} from '../search/SearchWarmup';
 import {VisionarySlotInitializer} from '../stripe/VisionarySlotInitializer';

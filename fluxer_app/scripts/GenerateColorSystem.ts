@@ -41,6 +41,7 @@ interface Config {
 		light: Array<TokenDef>;
 		coal: Array<TokenDef>;
 		darkLegacy: Array<TokenDef>;
+		ember: Array<TokenDef>;
 	};
 }
 
@@ -305,6 +306,8 @@ const CONFIG: Config = {
 		legacyLink: {hue: 210, saturation: 100, useSaturationFactor: true},
 		legacyAccentPurple: {hue: 270, saturation: 80, useSaturationFactor: true},
 		legacyStatusOnline: {hue: 142, saturation: 76, useSaturationFactor: true},
+		emberNeutral: {hue: 240, saturation: 4, useSaturationFactor: true},
+		emberRed: {hue: 0, saturation: 84, useSaturationFactor: true},
 		statusIdle: {hue: 45, saturation: 93, useSaturationFactor: true},
 		statusDnd: {hue: 0, saturation: 84, useSaturationFactor: true},
 		statusOffline: {hue: 218, saturation: 11, useSaturationFactor: true},
@@ -417,6 +420,39 @@ const CONFIG: Config = {
 		legacyDarkText: {
 			family: 'legacyDark',
 			range: [52, 96],
+			curve: 'easeInOut',
+			stops: [
+				{name: '--text-tertiary-secondary', position: 0},
+				{name: '--text-tertiary-muted', position: 0.2},
+				{name: '--text-tertiary', position: 0.38},
+				{name: '--text-primary-muted', position: 0.55},
+				{name: '--text-chat-muted', position: 0.55},
+				{name: '--text-secondary', position: 0.72},
+				{name: '--text-chat', position: 0.82},
+				{name: '--text-primary', position: 1},
+			],
+		},
+		emberSurface: {
+			family: 'emberNeutral',
+			range: [3.5, 15],
+			curve: 'easeOut',
+			stops: [
+				{name: '--background-primary', position: 0},
+				{name: '--background-secondary', position: 0.16},
+				{name: '--background-secondary-lighter', position: 0.22},
+				{name: '--background-secondary-alt', position: 0.28},
+				{name: '--background-tertiary', position: 0.4},
+				{name: '--background-channel-header', position: 0.34},
+				{name: '--guild-list-foreground', position: 0.38},
+				{name: '--background-header-secondary', position: 0.5},
+				{name: '--background-header-primary', position: 0.5},
+				{name: '--background-textarea', position: 0.68},
+				{name: '--background-header-primary-hover', position: 0.85},
+			],
+		},
+		emberText: {
+			family: 'emberNeutral',
+			range: [58, 94],
 			curve: 'easeInOut',
 			stops: [
 				{name: '--text-tertiary-secondary', position: 0},
@@ -779,6 +815,76 @@ hsl(220, calc(13% * var(--saturation-factor)), 2%) 20%
 			{name: '--alert-tip-color', family: 'legacyStatusOnline', lightness: 45},
 			{name: '--alert-important-color', family: 'legacyAccentPurple', lightness: 65},
 		],
+		ember: [
+			{scale: 'emberSurface'},
+			{scale: 'emberText'},
+			{
+				name: '--panel-control-bg',
+				value: `color-mix(
+in srgb,
+var(--background-secondary-alt) 80%,
+hsl(240, calc(4% * var(--saturation-factor)), 2%) 20%
+)`,
+			},
+			{name: '--panel-control-border', family: 'emberNeutral', saturation: 8, lightness: 30, alpha: 0.45},
+			{name: '--panel-control-divider', family: 'emberNeutral', saturation: 8, lightness: 25, alpha: 0.35},
+			{name: '--background-modifier-hover', family: 'emberNeutral', lightness: 100, alpha: 0.05},
+			{name: '--background-modifier-selected', family: 'emberNeutral', lightness: 100, alpha: 0.1},
+			{name: '--background-modifier-accent', family: 'emberRed', saturation: 60, lightness: 55, alpha: 0.15},
+			{name: '--background-modifier-accent-focus', family: 'emberRed', saturation: 60, lightness: 55, alpha: 0.22},
+			{name: '--control-button-hover-bg', family: 'emberNeutral', lightness: 18},
+			{name: '--control-button-active-bg', family: 'emberNeutral', lightness: 20},
+			{name: '--brand-primary', family: 'emberRed', lightness: 60},
+			{name: '--brand-secondary', family: 'emberRed', saturation: 72, lightness: 51},
+			{name: '--brand-primary-light', family: 'emberRed', saturation: 91, lightness: 71},
+			{name: '--text-link', family: 'emberRed', lightness: 65},
+			{name: '--text-selection', hue: 0, saturation: 84, useSaturationFactor: true, lightness: 60, alpha: 0.35},
+			{name: '--markup-mention-border', family: 'emberRed', lightness: 65, alpha: 0.3},
+			{name: '--markup-everyone-text', hue: 0, saturation: 80, useSaturationFactor: true, lightness: 72},
+			{
+				name: '--markup-everyone-fill',
+				value: 'color-mix(in srgb, hsl(0, calc(80% * var(--saturation-factor)), 72%) 18%, transparent)',
+			},
+			{name: '--markup-everyone-border', hue: 0, saturation: 80, useSaturationFactor: true, lightness: 72, alpha: 0.3},
+			{
+				name: '--interactive-muted',
+				value: `color-mix(
+in oklab,
+hsl(240, calc(4% * var(--saturation-factor)), 30%) 100%,
+hsl(0, calc(84% * var(--saturation-factor)), 65%) 30%
+)`,
+			},
+			{
+				name: '--interactive-active',
+				value: `color-mix(
+in oklab,
+hsl(0, calc(0% * var(--saturation-factor)), 100%) 100%,
+hsl(0, calc(84% * var(--saturation-factor)), 65%) 25%
+)`,
+			},
+			{name: '--button-primary-fill', family: 'emberRed', saturation: 72, lightness: 51},
+			{name: '--button-primary-active-fill', family: 'emberRed', saturation: 72, lightness: 45},
+			{name: '--border-color', family: 'emberNeutral', lightness: 50, alpha: 0.22},
+			{name: '--border-color-hover', family: 'emberNeutral', lightness: 50, alpha: 0.32},
+			{name: '--border-color-focus', hue: 0, saturation: 84, useSaturationFactor: true, lightness: 60, alpha: 0.45},
+			{name: '--accent-purple', family: 'emberRed', lightness: 65},
+			{name: '--alert-note-color', family: 'emberRed', lightness: 65},
+			{name: '--alert-important-color', family: 'emberRed', lightness: 65},
+			{
+				name: '--code-text',
+				value: 'color-mix(in srgb, var(--text-secondary) 82%, hsl(0, calc(84% * var(--saturation-factor)), 90%) 18%)',
+			},
+			{
+				name: '--code-inline-bg',
+				value: 'color-mix(in srgb, var(--background-secondary-alt) 88%, var(--background-tertiary) 12%)',
+			},
+			{
+				name: '--code-block-bg',
+				value: 'color-mix(in srgb, var(--background-secondary-alt) 92%, var(--background-primary) 8%)',
+			},
+			{name: '--scrollbar-thumb-bg', value: 'rgba(154, 154, 163, 0.4)'},
+			{name: '--scrollbar-thumb-bg-hover', value: 'rgba(154, 154, 163, 0.7)'},
+		],
 	},
 };
 
@@ -938,12 +1044,14 @@ function generateCSS(
 	lightTokens: Array<OutputToken>,
 	coalTokens: Array<OutputToken>,
 	darkLegacyTokens: Array<OutputToken>,
+	emberTokens: Array<OutputToken>,
 ): string {
 	const blocks = [
 		renderBlock(':root', rootTokens, cfg.families),
 		renderBlock('.theme-light', lightTokens, cfg.families),
 		renderBlock('.theme-coal', coalTokens, cfg.families),
 		renderBlock('.theme-dark_legacy', darkLegacyTokens, cfg.families),
+		renderBlock('.theme-ember', emberTokens, cfg.families),
 	];
 	return `/* SPDX-License-Identifier: AGPL-3.0-or-later */\n\n${blocks.join('\n\n')}\n`;
 }
@@ -955,9 +1063,10 @@ function main() {
 	const lightTokens = expandTokens(CONFIG.tokens.light, CONFIG.scales);
 	const coalTokens = expandTokens(CONFIG.tokens.coal, CONFIG.scales);
 	const darkLegacyTokens = expandTokens(CONFIG.tokens.darkLegacy, CONFIG.scales);
+	const emberTokens = expandTokens(CONFIG.tokens.ember, CONFIG.scales);
 	const cssPath = join(appDir, 'src', 'features', 'theme', 'styles', 'generated', 'color-system.css');
 	mkdirSync(dirname(cssPath), {recursive: true});
-	const css = generateCSS(CONFIG, rootTokens, lightTokens, coalTokens, darkLegacyTokens);
+	const css = generateCSS(CONFIG, rootTokens, lightTokens, coalTokens, darkLegacyTokens, emberTokens);
 	writeFileSync(cssPath, css);
 	const relCSS = relative(appDir, cssPath);
 	console.log(`Wrote ${relCSS}`);

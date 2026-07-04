@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import type {Hono} from 'hono';
+import {z} from 'zod';
 import {RateLimitMiddleware} from '../middleware/RateLimitMiddleware';
 import {OpenAPI} from '../middleware/ResponseTypeMiddleware';
 import {RateLimitConfigs} from '../RateLimitConfig';
 import type {HonoEnv} from '../types/HonoEnv';
 import {handleAltchaChallenge} from './AltchaService';
-import {z} from 'zod';
 
 const AltchaChallengeResponseSchema = z.record(z.string(), z.unknown());
 
@@ -21,8 +21,7 @@ export function AltchaController(app: Hono<HonoEnv>): void {
 			statusCode: 200,
 			security: [],
 			tags: ['Instance'],
-			description:
-				'Returns a proof-of-work challenge for the ALTCHA widget. Used when captcha.provider is altcha.',
+			description: 'Returns a proof-of-work challenge for the ALTCHA widget. Used when captcha.provider is altcha.',
 		}),
 		async (ctx) => {
 			const captcha = await ctx.get('instanceConfigRepository').getEffectiveCaptchaConfig();

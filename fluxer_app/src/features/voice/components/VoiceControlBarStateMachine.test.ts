@@ -43,7 +43,7 @@ describe('VoiceControlBarStateMachine', () => {
 		});
 	});
 
-	it('locks microphone controls for moderation, permission, and effective push-to-talk states', () => {
+	it('locks microphone controls for moderation and permission states', () => {
 		expect(transitionVoiceControlBarState(signals({isGuildDeafened: true, effectiveMuted: true})).mute).toEqual({
 			disabled: true,
 			pressed: true,
@@ -59,9 +59,20 @@ describe('VoiceControlBarStateMachine', () => {
 			pressed: true,
 			label: 'permissionMuted',
 		});
+	});
+
+	it('allows safety-muting while push-to-talk is effective', () => {
 		expect(transitionVoiceControlBarState(signals({isPushToTalkEffective: true})).mute).toMatchObject({
-			disabled: true,
+			disabled: false,
+			pressed: false,
 			label: 'pushToTalkHoldHint',
+		});
+		expect(
+			transitionVoiceControlBarState(signals({isPushToTalkEffective: true, effectiveMuted: true})).mute,
+		).toMatchObject({
+			disabled: false,
+			pressed: true,
+			label: 'unmute',
 		});
 	});
 

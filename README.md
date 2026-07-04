@@ -126,7 +126,42 @@ When building container images from this repository, set `FLUXER_REGISTRY_OWNER=
 
 ### Development
 
-This fork adds a [Taskfile](https://taskfile.dev/) for common local and CI workflows. Install [Task](https://taskfile.dev/installation/), then run `task --list-all` from the repository root. Useful entry points include `task install`, `task bootstrap`, `task build`, `task test`, and `task validate`.
+This fork adds a [Taskfile](https://taskfile.dev/) for common local and CI workflows. Install [Task](https://taskfile.dev/installation/), then run `task --list-all` from the repository root.
+
+#### Docker Compose dev (recommended)
+
+```bash
+task compose:up          # first time: builds the workspace image
+task compose:bootstrap   # first time only
+task compose:dev         # start everything; open http://localhost:8088
+```
+
+#### Native host (advanced)
+
+If you prefer running `task dev` directly on your machine instead of inside the workspace container, install the tooling yourself:
+
+| Tool | Purpose |
+| --- | --- |
+| [Docker](https://docs.docker.com/get-docker/) | Postgres, Valkey, NATS, LiveKit, Meilisearch, Mailpit (`task infra:up`) |
+| [Rust](https://rustup.rs/) (`rustfmt`, `clippy`, `wasm32-unknown-unknown`) | API microservices, media proxy, marketing, app proxy |
+| `cargo-watch` | Hot-reload for admin and marketing during `task dev` |
+| [Node.js](https://nodejs.org/) + [pnpm](https://pnpm.io/) 11.x | Web app, API, admin, workers |
+| [Erlang](https://www.erlang.org/) + [rebar3](https://www.rebar3.org/) | Gateway |
+| [Task](https://taskfile.dev/installation/) | Convenience wrappers |
+| `seaweedfs` (`weed` binary) | Local S3 object store on the host |
+| `aws-cli` | S3 health checks and bucket setup during `task dev` / `task bootstrap` |
+
+Native host networking: copy `config/env/local.env.example` to `config/env/local.env` so service hostnames resolve to `127.0.0.1` instead of Docker network names.
+
+```bash
+task install
+task infra:up
+cp config/env/local.env.example config/env/local.env
+task bootstrap
+task dev
+```
+
+Useful entry points: `task compose:dev`, `task dev`, `task dev:app` (frontend only), `task build`, `task test`, `task validate`, `task infra:down`.
 
 ### CI and releases
 

@@ -51,11 +51,5 @@ export const AltchaWidget = observer(({challengeUrl, onVerify, onExpire, onError
 		return () => widget.removeEventListener('statechange', handleStateChange);
 	}, [onVerify, onExpire, onError]);
 
-	return (
-		<altcha-widget
-			ref={widgetRef}
-			challenge={challengeUrl}
-			data-flx="auth.altcha-widget.altcha-widget"
-		/>
-	);
+	return <altcha-widget ref={widgetRef} challenge={challengeUrl} data-flx="auth.altcha-widget.altcha-widget" />;
 });

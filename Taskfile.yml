@@ -186,6 +186,38 @@ tasks:
       - infra:down
       - infra:up
 
+  compose:build:
+    desc: Build the dev workspace container image
+    cmds:
+      - '{{.COMPOSE}} build workspace'
+
+  compose:up:
+    desc: Start the dev workspace container and infrastructure
+    cmds:
+      - '{{.COMPOSE}} up -d workspace'
+
+  compose:down:
+    desc: Stop the dev workspace and infrastructure containers
+    cmds:
+      - '{{.COMPOSE}} down'
+
+  compose:shell:
+    desc: Open an interactive shell in the dev workspace container
+    cmds:
+      - '{{.COMPOSE}} exec -it workspace bash'
+
+  compose:bootstrap:
+    desc: Run first-time bootstrap inside the dev workspace container
+    cmds:
+      - '{{.COMPOSE}} up -d workspace'
+      - '{{.COMPOSE}} exec workspace bash -lc "cd /workspaces/fluxer && cargo run -p fluxer-dev -- bootstrap"'
+
+  compose:dev:
+    desc: Run the full dev stack inside the workspace container (pass task names after --)
+    cmds:
+      - '{{.COMPOSE}} up -d workspace'
+      - '{{.COMPOSE}} exec -it workspace bash -lc "cd /workspaces/fluxer && cargo run -p fluxer-dev -- dev {{.CLI_ARGS}}"'
+
   cassandra:diff:
     desc: Show Cassandra schema drift
     cmds:

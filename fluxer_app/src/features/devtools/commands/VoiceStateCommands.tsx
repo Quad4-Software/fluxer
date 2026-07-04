@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import GatewayConnection from '@app/features/gateway/transport/GatewayConnection';
-import Keybind from '@app/features/input/state/InputKeybind';
 import {SoundType} from '@app/features/notification/utils/SoundUtils';
 import {handleMediaPermissionBlocked} from '@app/features/permissions/system/commands/MacPermissionsModalCommands';
 import MediaPermission from '@app/features/permissions/system/state/MediaPermission';
@@ -119,10 +118,6 @@ const requestMicrophoneDirectly = async (): Promise<boolean> => {
 };
 
 export async function toggleSelfMute(_guildId: string | null = null): Promise<void> {
-	if (Keybind.isPushToTalkEffective()) {
-		logger.debug('Ignoring self-mute toggle: push-to-talk controls the microphone');
-		return;
-	}
 	const room = MediaEngine.room;
 	const connectedChannelId = MediaEngine.channelId;
 	const currentMute = LocalVoiceState.getSelfMute();

@@ -7,10 +7,7 @@ import {
 	type GifProviderInfoInput,
 	normalizeGifProviderInfo,
 } from '@app/features/app/state/GifProviderConfig';
-import {
-	resolveStatusPageIncidentHistoryUrl,
-	resolveStatusPageUrl,
-} from '@app/features/app/utils/StatusPageUrlUtils';
+import {resolveStatusPageIncidentHistoryUrl, resolveStatusPageUrl} from '@app/features/app/utils/StatusPageUrlUtils';
 import DeveloperOptions from '@app/features/devtools/state/DeveloperOptions';
 import {configureClientSentry} from '@app/features/platform/monitoring/SentryClient';
 import {http} from '@app/features/platform/transport/RestTransport';

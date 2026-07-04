@@ -6,8 +6,8 @@ import type {
 	InstanceIntegrationTestResponse,
 } from '@fluxer/schema/src/domains/admin/AdminSchemas';
 import {afterEach, beforeEach, describe, expect, test} from 'vitest';
-import {Config} from '../../Config';
 import {createTestAccount, setUserACLs, type TestAccount} from '../../auth/tests/AuthTestUtils';
+import {Config} from '../../Config';
 import {type ApiTestHarness, createApiTestHarness} from '../../test/ApiTestHarness';
 import {HTTP_STATUS} from '../../test/TestConstants';
 import {createBuilder, createBuilderWithoutAuth} from '../../test/TestRequestBuilder';
@@ -37,10 +37,7 @@ describe('InstanceOpsAdminController', () => {
 	});
 
 	test('instance health requires authentication', async () => {
-		await createBuilderWithoutAuth(harness)
-			.get('/admin/instance-health')
-			.expect(HTTP_STATUS.UNAUTHORIZED)
-			.execute();
+		await createBuilderWithoutAuth(harness).get('/admin/instance-health').expect(HTTP_STATUS.UNAUTHORIZED).execute();
 	});
 
 	test('instance health requires INSTANCE_CONFIG_VIEW', async () => {

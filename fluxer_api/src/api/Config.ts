@@ -172,6 +172,7 @@ export function buildAPIConfigFromMaster(master: MasterConfig): APIConfig {
 			username: master.integrations.search?.username ?? '',
 			password: master.integrations.search?.password ?? '',
 			tlsRejectUnauthorized: master.integrations.search?.tls_reject_unauthorized ?? true,
+			maxTotalHits: master.integrations.search?.max_total_hits ?? 10000,
 		},
 		mediaProxy: {
 			host: extractHostname(master.internal.media_proxy),

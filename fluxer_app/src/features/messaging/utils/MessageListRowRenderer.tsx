@@ -4,10 +4,7 @@ import {BlockedMessageGroups} from '@app/features/channel/components/BlockedMess
 import {Divider} from '@app/features/channel/components/ChannelDivider';
 import styles from '@app/features/channel/components/ChannelMessages.module.css';
 import {MessageGroup} from '@app/features/channel/components/MessageGroup';
-import type {
-	MessageListRow,
-	RenderMessageListRowProps,
-} from '@app/features/messaging/utils/MessageListRowUtils';
+import type {MessageListRow, RenderMessageListRowProps} from '@app/features/messaging/utils/MessageListRowUtils';
 import type React from 'react';
 
 export function renderMessageListRow(row: MessageListRow, props: RenderMessageListRowProps): React.ReactNode {

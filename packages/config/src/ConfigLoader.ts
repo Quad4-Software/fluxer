@@ -200,6 +200,7 @@ function defaultConfig(): MasterConfig {
 				username: '',
 				password: '',
 				tls_reject_unauthorized: true,
+				max_total_hits: 10000,
 			},
 			stripe: {
 				enabled: false,
@@ -402,7 +403,11 @@ function normalizeConfig(config: MasterConfig): MasterConfig {
 	assertOneOf(config.internal.kv_provider, ['redis'], 'FLUXER_KV_PROVIDER');
 	assertOneOf(config.internal.kv_mode, ['standalone', 'cluster'], 'FLUXER_KV_MODE');
 	assertOneOf(config.integrations.email.provider, ['smtp', 'none'], 'FLUXER_EMAIL_PROVIDER');
-	assertOneOf(config.integrations.captcha.provider, ['hcaptcha', 'turnstile', 'altcha', 'none'], 'FLUXER_CAPTCHA_PROVIDER');
+	assertOneOf(
+		config.integrations.captcha.provider,
+		['hcaptcha', 'turnstile', 'altcha', 'none'],
+		'FLUXER_CAPTCHA_PROVIDER',
+	);
 	assertOneOf(config.integrations.search.engine, ['elasticsearch', 'meilisearch'], 'FLUXER_SEARCH_ENGINE');
 	assertOneOf(
 		config.instance.abuse_policy.direct_contact_spam.action,

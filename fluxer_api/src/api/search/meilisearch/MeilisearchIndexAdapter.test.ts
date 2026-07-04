@@ -32,6 +32,9 @@ class FakeMeilisearchClient implements MeilisearchClient {
 		if (method === 'PUT' && path.includes('/settings/')) {
 			return this.nextTask() as TResponse;
 		}
+		if (method === 'PATCH' && path.includes('/settings/')) {
+			return this.nextTask() as TResponse;
+		}
 		if (method === 'POST' && path.endsWith('/documents')) {
 			return this.nextTask() as TResponse;
 		}
@@ -69,14 +72,18 @@ describe('MeilisearchMessageAdapter', () => {
 		await adapter.initialize();
 
 		expect(adapter.isAvailable()).toBe(true);
-		expect(client.requests.map((request) => `${request.method} ${request.path}`)).toEqual([
-			'GET /indexes/messages',
-			'POST /indexes',
-			'PUT /indexes/messages/settings/searchable-attributes',
-			'PUT /indexes/messages/settings/filterable-attributes',
-			'PUT /indexes/messages/settings/sortable-attributes',
-		]);
-		expect(client.waitedTaskUids).toEqual([1, 2, 3, 4]);
+		expect(client.requests.map((request) => `${request.method} ${request.path}`)).toEqual(
+			expect.arrayContaining([
+				'GET /indexes/messages',
+				'POST /indexes',
+				'PUT /indexes/messages/settings/searchable-attributes',
+				'PUT /indexes/messages/settings/filterable-attributes',
+				'PUT /indexes/messages/settings/sortable-attributes',
+				'PATCH /indexes/messages/settings/pagination',
+			]),
+		);
+		expect(client.requests).toHaveLength(6);
+		expect(client.waitedTaskUids.slice().sort()).toEqual([1, 2, 3, 4, 5]);
 	});
 
 	it('builds Meilisearch search requests from message filters', async () => {
@@ -127,6 +134,6 @@ describe('MeilisearchMessageAdapter', () => {
 
 		expect(client.waitedTaskUids).toEqual([]);
 		await adapter.refreshIndex();
-		expect(client.waitedTaskUids).toEqual([4]);
+		expect(client.waitedTaskUids).toEqual([5]);
 	});
 });

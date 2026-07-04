@@ -461,8 +461,7 @@ export function zodToOpenAPISchema(schema: ZodTypeAny, depth = 0): OpenAPISchema
 				return {type: 'object'};
 			}
 			const objectAnnotation = parseFluxerTypeAnnotation(getDescription(schema));
-			const namedObjectName =
-				objectAnnotation?.typeName === 'NamedObject' ? objectAnnotation.objectName : undefined;
+			const namedObjectName = objectAnnotation?.typeName === 'NamedObject' ? objectAnnotation.objectName : undefined;
 			if (namedObjectName && depth > 0 && namedObjectRegistry.has(namedObjectName)) {
 				return makeNamedObjectRef(namedObjectName, objectAnnotation?.fieldDescription);
 			}

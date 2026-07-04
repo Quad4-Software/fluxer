@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import * as Sentry from '@sentry/node';
 import {validateSentryDsn} from '@pkgs/initialization/src/SentryDsn';
+import * as Sentry from '@sentry/node';
 
 export interface ResolvedSentryRuntimeConfig {
 	enabled: boolean;

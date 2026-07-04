@@ -123,10 +123,19 @@ export function mergeWithCurrentDefaults(
 		for (const key of LIMIT_KEYS) {
 			const existingValue = existingRule.limits[key];
 			const defaultValue = defaultRule.limits[key];
-			if (existingValue !== undefined && existingValue !== defaultValue) {
-				mergedLimits[key] = existingValue;
-				modifiedFields.push(key);
+			if (existingValue === undefined || existingValue === defaultValue) {
+				continue;
 			}
+			// A value that still matches one of the known tier defaults (restricted or stock) is
+			// carried over from a prior premium-mode selection rather than an intentional admin
+			// override, so it must not be preserved when the tier defaults for this mode differ.
+			const isKnownTierDefault =
+				existingValue === DEFAULT_RESTRICTED_LIMITS[key] || existingValue === DEFAULT_STOCK_LIMITS[key];
+			if (isKnownTierDefault) {
+				continue;
+			}
+			mergedLimits[key] = existingValue;
+			modifiedFields.push(key);
 		}
 		mergedRules.push({
 			id: existingRule.id,

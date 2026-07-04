@@ -58,13 +58,7 @@ export class AltchaProvider implements ICaptchaProvider {
 		}
 		const runtime = await this.getRuntime();
 		const hmacKeySignatureSecret = await this.getHmacKeySignatureSecret();
-		const result = await runtime.verify(
-			payload,
-			deriveKey,
-			this.hmacSecret,
-			hmacKeySignatureSecret,
-			this.store,
-		);
+		const result = await runtime.verify(payload, deriveKey, this.hmacSecret, hmacKeySignatureSecret, this.store);
 		return result.verification?.verified === true;
 	}
 }
