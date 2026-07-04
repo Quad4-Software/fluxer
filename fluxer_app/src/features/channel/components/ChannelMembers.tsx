@@ -30,6 +30,7 @@ import {
 	buildMemberListRenderWindow,
 	type NormalizedMemberListRanges,
 	normalizeMemberListRanges,
+	type MemberListRanges,
 } from '@app/features/member/utils/MemberListRangeUtils';
 import type {GroupDMMemberGroup} from '@app/features/member/utils/MemberListUtils';
 import * as MemberListUtils from '@app/features/member/utils/MemberListUtils';
@@ -119,6 +120,20 @@ function createInitialFrozenMemberListSnapshot(channelId: string): FrozenMemberL
 		virtualContentHeight: 0,
 		rows: [],
 	};
+}
+
+function hasMemberListItemsForRanges(
+	list: NonNullable<ReturnType<typeof MemberSidebar.getList>>,
+	ranges: MemberListRanges,
+): boolean {
+	for (const [start, end] of ranges) {
+		for (let index = start; index <= end; index += 1) {
+			if (list.items.has(index)) {
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 function getSeededRandom(seed: number): number {
@@ -401,7 +416,8 @@ const LazyMemberList = observer(function LazyMemberList({guild, channel}: LazyMe
 		!isSubscriptionPaused &&
 		memberListState != null &&
 		memberListState.hasReceivedInitialPayload &&
-		areNormalizedMemberListRangesCovered(subscriptionRangesRef.current, subscribedRanges);
+		areNormalizedMemberListRangesCovered(subscriptionRangesRef.current, subscribedRanges) &&
+		hasMemberListItemsForRanges(memberListState, subscriptionRangesRef.current);
 	const shouldStartResumeFreeze =
 		!isSubscriptionPaused &&
 		wasSubscriptionPausedRef.current &&
@@ -545,6 +561,12 @@ const LazyMemberList = observer(function LazyMemberList({guild, channel}: LazyMe
 			setKeepFrozenAfterResume(false);
 		}
 	}, [keepFrozenAfterResume, canThawFrozenMemberList]);
+	useEffect(() => {
+		if (isSubscriptionPaused || !canThawFrozenMemberList) {
+			return;
+		}
+		scheduleRangeUpdateFromScroller();
+	}, [isSubscriptionPaused, canThawFrozenMemberList, scheduleRangeUpdateFromScroller]);
 	useEffect(() => {
 		return () => {
 			if (scrollFrameRef.current != null) {

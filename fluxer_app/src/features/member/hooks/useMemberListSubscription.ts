@@ -13,6 +13,7 @@ import MemberSidebar from '@app/features/member/state/MemberSidebar';
 import {
 	areNormalizedMemberListRangesCovered,
 	normalizeMemberListRanges,
+	type MemberListRanges,
 } from '@app/features/member/utils/MemberListRangeUtils';
 import Window from '@app/features/window/state/Window';
 import {reaction} from 'mobx';
@@ -30,15 +31,15 @@ interface UseMemberListSubscriptionResult {
 	isPaused: boolean;
 }
 
-function subscribeToWindowFocus(onChange: () => void): () => void {
+function subscribeToWindowForeground(onChange: () => void): () => void {
 	return reaction(
-		() => Window.focused,
+		() => Window.focused && Window.visible,
 		() => onChange(),
 	);
 }
 
-function getWindowFocusSnapshot(): boolean {
-	return Window.focused;
+function getWindowForegroundSnapshot(): boolean {
+	return Window.focused && Window.visible;
 }
 
 let nextMemberListSubscriptionOwnerId = 0;
@@ -48,17 +49,35 @@ function createMemberListSubscriptionOwnerId(): string {
 	return `member-list-subscription:${nextMemberListSubscriptionOwnerId}`;
 }
 
+function hasMemberListItemsForRanges(
+	list: NonNullable<ReturnType<typeof MemberSidebar.getList>>,
+	ranges: MemberListRanges,
+): boolean {
+	for (const [start, end] of ranges) {
+		for (let index = start; index <= end; index += 1) {
+			if (list.items.has(index)) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 export function useMemberListSubscription({
 	guildId,
 	channelId,
 	enabled,
 }: UseMemberListSubscriptionOptions): UseMemberListSubscriptionResult {
-	const isWindowFocused = useSyncExternalStore(subscribeToWindowFocus, getWindowFocusSnapshot, getWindowFocusSnapshot);
-	const isPaused = enabled && !isWindowFocused;
+	const isWindowForeground = useSyncExternalStore(
+		subscribeToWindowForeground,
+		getWindowForegroundSnapshot,
+		getWindowForegroundSnapshot,
+	);
+	const isPaused = enabled && !isWindowForeground;
 	const subscriptionSnapshotRef = useRef(
 		createMemberListSubscriptionSnapshot({
 			enabled,
-			paused: enabled && !Window.focused,
+			paused: enabled && !(Window.focused && Window.visible),
 			desiredRanges: [INITIAL_MEMBER_LIST_SUBSCRIPTION_RANGE],
 		}),
 	);
@@ -270,16 +289,16 @@ export function useMemberListSubscription({
 		if (!enabled) {
 			return;
 		}
-		if (isWindowFocused) {
+		if (isWindowForeground) {
 			MemberSidebar.claimMemberListSubscription(guildId, channelId, ownerId);
 			sendSubscriptionEvent({type: 'memberListSubscription.resumed'});
 			resubscribe();
 			return;
 		}
 		pauseSubscription();
-	}, [guildId, channelId, enabled, isWindowFocused, ownerId, pauseSubscription, resubscribe, sendSubscriptionEvent]);
+	}, [guildId, channelId, enabled, isWindowForeground, ownerId, pauseSubscription, resubscribe, sendSubscriptionEvent]);
 	useEffect(() => {
-		if (!enabled || !isWindowFocused) {
+		if (!enabled || !isWindowForeground) {
 			return;
 		}
 		const scheduleRetry = () => {
@@ -294,7 +313,8 @@ export function useMemberListSubscription({
 					return;
 				}
 				const list = MemberSidebar.getList(guildId, channelId);
-				if (list && list.items.size > 0) {
+				const {desiredRanges} = readSubscriptionModel();
+				if (list && hasMemberListItemsForRanges(list, desiredRanges)) {
 					sendSubscriptionEvent({type: 'memberListSubscription.retrySucceeded'});
 					return;
 				}
@@ -306,7 +326,10 @@ export function useMemberListSubscription({
 		const disposeRetryReaction = reaction(
 			() => {
 				const list = MemberSidebar.getList(guildId, channelId);
-				return list != null && list.items.size > 0;
+				if (!list) {
+					return false;
+				}
+				return hasMemberListItemsForRanges(list, readSubscriptionModel().desiredRanges);
 			},
 			(hasData) => {
 				if (hasData) {
@@ -328,7 +351,7 @@ export function useMemberListSubscription({
 		guildId,
 		channelId,
 		enabled,
-		isWindowFocused,
+		isWindowForeground,
 		attemptSubscribe,
 		clearRetryTimer,
 		ownerId,
@@ -339,13 +362,13 @@ export function useMemberListSubscription({
 		const {isActive, isSubscribed, desiredRanges} = readSubscriptionModel();
 		if (
 			enabled &&
-			isWindowFocused &&
+			isWindowForeground &&
 			isActive &&
 			!isSubscribed &&
 			MemberSidebar.isActiveMemberListSubscriptionOwner(guildId, channelId, ownerId)
 		) {
 			queueSubscribe(desiredRanges);
 		}
-	}, [guildId, channelId, enabled, isWindowFocused, ownerId, queueSubscribe, readSubscriptionModel]);
+	}, [guildId, channelId, enabled, isWindowForeground, ownerId, queueSubscribe, readSubscriptionModel]);
 	return {subscribe, unsubscribe, isPaused};
 }

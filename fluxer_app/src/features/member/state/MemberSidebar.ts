@@ -870,7 +870,7 @@ class MemberSidebar {
 		this.clearChannelSubscription({
 			guildId,
 			channelId,
-			clearLocalSubscription: true,
+			clearLocalSubscription: false,
 			ownerId,
 			updateGateway: false,
 		});
