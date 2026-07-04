@@ -20,6 +20,8 @@ import {
 	LogoutAuthSessionsRequest,
 	MfaTicketRequest,
 	MfaTotpRequest,
+	PasswordBreachCheckRequest,
+	PasswordBreachCheckResponse,
 	RegisterRequest,
 	ResetPasswordRequest,
 	ResetPasswordTokenParam,
@@ -47,6 +49,7 @@ import {SudoModeMiddleware} from '../middleware/SudoModeMiddleware';
 import {RateLimitConfigs} from '../RateLimitConfig';
 import type {HonoApp} from '../types/HonoEnv';
 import {Validator} from '../Validator';
+import * as AuthPassword from './AuthPassword';
 import {requireSudoMode} from './services/SudoVerificationService';
 
 export function AuthController(app: HonoApp) {
@@ -535,6 +538,26 @@ export function AuthController(app: HonoApp) {
 				globalName: ctx.req.valid('json').global_name,
 			});
 			return ctx.json(response);
+		},
+	);
+	app.post(
+		'/auth/password-breach-check',
+		LocalAuthMiddleware,
+		RateLimitMiddleware(RateLimitConfigs.AUTH_PASSWORD_BREACH_CHECK),
+		Validator('json', PasswordBreachCheckRequest),
+		OpenAPI({
+			operationId: 'check_password_breach',
+			summary: 'Check password breach status',
+			responseSchema: PasswordBreachCheckResponse,
+			statusCode: 200,
+			security: [],
+			tags: ['Auth'],
+			description:
+				'Check whether a password hash appears in the configured breach database. Intended for registration UX feedback.',
+		}),
+		async (ctx) => {
+			const breached = await AuthPassword.isPasswordHashPwned(ctx.req.valid('json').hash);
+			return ctx.json({breached});
 		},
 	);
 	app.post(

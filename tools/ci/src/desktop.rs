@@ -2475,8 +2475,7 @@ async fn download_handoff_step() -> Result<()> {
             "No desktop handoff artifacts were downloaded from GitHub Actions."
         );
         println!("Using GitHub Actions handoff artifacts:");
-        print_tree(artifacts, 3);
-        return Ok(());
+        return print_tree(artifacts, 3);
     }
 
     let client = s3_client(None).await?;

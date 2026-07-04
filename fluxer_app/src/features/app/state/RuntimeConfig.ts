@@ -68,12 +68,13 @@ export interface RuntimeConfigSnapshot {
 	appPublic: InstanceAppPublic;
 }
 
-const DEFAULT_INSTANCE_FEATURES: InstanceFeatures = {
+export const DEFAULT_INSTANCE_FEATURES: InstanceFeatures = {
 	voice_enabled: false,
 	stripe_enabled: false,
 	self_hosted: false,
 	presigned_attachment_uploads: false,
 	emails_enabled: false,
+	easypwned_enabled: false,
 };
 
 export const DEFAULT_INSTANCE_REGISTRATION: InstanceRegistration = {

@@ -93,6 +93,9 @@ export const WellKnownFluxerResponse = z.object({
 				.boolean()
 				.describe('Whether clients can request presigned attachment upload URLs'),
 			emails_enabled: z.boolean().describe('Whether the instance sends emails (verification, password reset, etc.)'),
+			easypwned_enabled: z
+				.boolean()
+				.describe('Whether the instance uses the local easypwned service for password breach checks'),
 		})
 		.describe('Feature flags for this instance'),
 	gif: z

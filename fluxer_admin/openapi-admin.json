@@ -12899,9 +12899,16 @@
 									"environment",
 									"effective_environment"
 								]
+							},
+							"easypwned": {
+								"type": "object",
+								"properties": {
+									"effective_enabled": {"type": "boolean"}
+								},
+								"required": ["effective_enabled"]
 							}
 						},
-						"required": ["gif", "youtube", "captcha", "email", "sentry"]
+						"required": ["gif", "youtube", "captcha", "email", "sentry", "easypwned"]
 					},
 					"media": {
 						"type": "object",

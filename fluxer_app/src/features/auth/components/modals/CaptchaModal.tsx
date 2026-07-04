@@ -10,6 +10,7 @@ import * as ModalCommands from '@app/features/ui/commands/ModalCommands';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import {msg} from '@lingui/core/macro';
 import {Trans, useLingui} from '@lingui/react/macro';
+import {ShieldCheckIcon, WarningCircleIcon} from '@phosphor-icons/react';
 import {observer} from 'mobx-react-lite';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
@@ -127,17 +128,29 @@ export const CaptchaModal = observer(
 				/>
 				<Modal.Content data-flx="auth.captcha-modal.modal-content">
 					<Modal.ContentLayout className={styles.container} data-flx="auth.captcha-modal.container">
-						<Modal.Description data-flx="auth.captcha-modal.description">
-							<Trans>We need to make sure you're not a bot. Complete the verification below.</Trans>
-						</Modal.Description>
+						<div className={styles.hero} data-flx="auth.captcha-modal.hero">
+							<div className={styles.iconBadge} data-flx="auth.captcha-modal.icon-badge">
+								<ShieldCheckIcon size={24} weight="fill" data-flx="auth.captcha-modal.shield-check-icon" />
+							</div>
+							<p className={styles.description} data-flx="auth.captcha-modal.description">
+								<Trans>We need to make sure you're not a bot. Complete the verification below.</Trans>
+							</p>
+						</div>
 						{error && (
 							<div className={styles.errorBox} data-flx="auth.captcha-modal.error-box">
+								<WarningCircleIcon
+									size={18}
+									weight="fill"
+									className={styles.errorIcon}
+									data-flx="auth.captcha-modal.error-icon"
+								/>
 								<p className={styles.errorText} data-flx="auth.captcha-modal.error-text">
 									{error}
 								</p>
 							</div>
 						)}
-						<div className={styles.captchaContainer} data-flx="auth.captcha-modal.captcha-container">
+						<div className={styles.captchaCard} data-flx="auth.captcha-modal.captcha-card">
+							<div className={styles.captchaContainer} data-flx="auth.captcha-modal.captcha-container">
 							{captchaType === 'altcha' ? (
 								<AltchaWidget
 									challengeUrl={RuntimeConfig.altchaChallengeUrl ?? ''}
@@ -166,6 +179,7 @@ export const CaptchaModal = observer(
 									data-flx="auth.captcha-modal.h-captcha-component"
 								/>
 							)}
+							</div>
 						</div>
 						{showSwitchButton && (
 							<div className={styles.switchContainer} data-flx="auth.captcha-modal.switch-container">

@@ -605,6 +605,9 @@ const InstanceIntegrationsResponse = z.object({
 		environment: z.string().nullable(),
 		effective_environment: z.string(),
 	}),
+	easypwned: z.object({
+		effective_enabled: z.boolean(),
+	}),
 });
 
 export const InstanceConfigResponse = z.object({

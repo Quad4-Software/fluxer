@@ -206,7 +206,7 @@ export class StatusPage {
 	}
 
 	startPolling(): void {
-		if (RuntimeConfig.isSelfHosted() || this.pollingStarted || !RuntimeConfig.statusPageUrl) {
+		if (this.pollingStarted || !RuntimeConfig.statusPageUrl) {
 			return;
 		}
 
@@ -237,7 +237,7 @@ export class StatusPage {
 	}
 
 	async checkIncidents(): Promise<void> {
-		if (RuntimeConfig.isSelfHosted() || !RuntimeConfig.statusPageUrl) {
+		if (!RuntimeConfig.statusPageUrl) {
 			return;
 		}
 		if (this.checkInFlight) {

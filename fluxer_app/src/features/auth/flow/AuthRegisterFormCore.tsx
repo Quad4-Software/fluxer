@@ -20,6 +20,7 @@ import {
 import {EMAIL_DESCRIPTOR, PASSWORD_DESCRIPTOR} from '@app/features/i18n/utils/CommonMessageDescriptors';
 import {useLocation} from '@app/features/platform/components/router/RouterReact';
 import {Button} from '@app/features/ui/button/Button';
+import {PasswordStrengthFeedback} from '@app/features/ui/components/form/PasswordStrengthFeedback';
 import {useUsernameSuggestions} from '@app/features/user/hooks/useUsernameSuggestions';
 import type {ThemeType} from '@fluxer/constants/src/UserConstants';
 import {msg} from '@lingui/core/macro';
@@ -397,18 +398,24 @@ export const AuthRegisterFormCore = observer(function AuthRegisterFormCore({
 				</AnimatePresence>
 			</div>
 			{showPassword && (
-				<FormField
-					id={passwordId}
-					name="password"
-					type="password"
-					autoComplete="new-password"
-					required
-					label={i18n._(PASSWORD_DESCRIPTOR)}
-					value={form.getValue('password')}
-					onChange={(value) => setDraftedFormValue('password', value)}
-					error={form.getError('password') || fieldErrors?.password}
-					data-flx="auth.flow.auth-register-form-core.form-field.set-drafted-form-value.password"
-				/>
+				<div data-flx="auth.flow.auth-register-form-core.password-field">
+					<FormField
+						id={passwordId}
+						name="password"
+						type="password"
+						autoComplete="new-password"
+						required
+						label={i18n._(PASSWORD_DESCRIPTOR)}
+						value={form.getValue('password')}
+						onChange={(value) => setDraftedFormValue('password', value)}
+						error={form.getError('password') || fieldErrors?.password}
+						data-flx="auth.flow.auth-register-form-core.form-field.set-drafted-form-value.password"
+					/>
+					<PasswordStrengthFeedback
+						password={form.getValue('password')}
+						data-flx="auth.flow.auth-register-form-core.password-strength-feedback"
+					/>
+				</div>
 			)}
 			{showPassword && showPasswordConfirmation && (
 				<FormField

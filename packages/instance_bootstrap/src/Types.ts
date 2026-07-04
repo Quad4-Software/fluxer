@@ -29,6 +29,7 @@ export interface InstanceFeatures {
 	self_hosted: boolean;
 	presigned_attachment_uploads: boolean;
 	emails_enabled: boolean;
+	easypwned_enabled: boolean;
 }
 
 export interface InstanceGif {

@@ -224,6 +224,21 @@ export const UsernameSuggestionsResponse = z.object({
 
 export type UsernameSuggestionsResponse = z.infer<typeof UsernameSuggestionsResponse>;
 
+export const PasswordBreachCheckRequest = z.object({
+	hash: z
+		.string()
+		.regex(/^[0-9A-Fa-f]{40}$/u)
+		.describe('SHA-1 hash of the password in hexadecimal form'),
+});
+
+export type PasswordBreachCheckRequest = z.infer<typeof PasswordBreachCheckRequest>;
+
+export const PasswordBreachCheckResponse = z.object({
+	breached: z.boolean().describe('Whether the password hash appears in a known breach database'),
+});
+
+export type PasswordBreachCheckResponse = z.infer<typeof PasswordBreachCheckResponse>;
+
 export const HandoffInitiateResponse = z.object({
 	code: z.string().describe('Handoff code to share with the receiving device'),
 	expires_at: z.iso.datetime().describe('ISO 8601 timestamp when the handoff code expires'),

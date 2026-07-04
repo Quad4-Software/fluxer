@@ -124,6 +124,7 @@ pub fn instance_config_page(
                             base,
                             csrf_token,
                             &instance_config.integrations,
+                            instance_config.self_hosted,
                             smtp_test,
                             smtp_error,
                         ))
@@ -424,6 +425,7 @@ fn integrations_config_section(
     base: &str,
     csrf_token: &str,
     integrations: &InstanceIntegrationsResponse,
+    self_hosted: bool,
     smtp_test: Option<&str>,
     smtp_error: Option<&str>,
 ) -> Markup {
@@ -603,6 +605,22 @@ fn integrations_config_section(
                                 formaction={(base) "/instance-config?action=test_sentry"}
                                 class="inline-flex w-fit items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-neutral-50 px-4 py-2 font-medium text-base text-neutral-700 transition-all duration-150 hover:border-neutral-400 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white" {
                                 span { "Send test event" }
+                            }
+                        }
+                    }
+
+                    @if self_hosted {
+                        div class="space-y-4 border-t border-neutral-200 pt-6" {
+                            div class="flex flex-wrap items-center gap-2" {
+                                h3 class="text-sm font-semibold text-neutral-900" { "Breached-password checks (easypwned)" }
+                                @if integrations.easypwned.effective_enabled {
+                                    (badge("Enabled", BadgeVariant::Success))
+                                } @else {
+                                    (badge("Disabled", BadgeVariant::Default))
+                                }
+                            }
+                            p class="text-sm text-neutral-600" {
+                                "Set FLUXER_EASYPWNED_ENABLED=true and start the stack with the easypwned Compose profile to check passwords offline during registration."
                             }
                         }
                     }

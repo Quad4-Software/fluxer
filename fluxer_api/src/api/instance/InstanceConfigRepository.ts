@@ -228,6 +228,9 @@ interface InstanceIntegrationsAdminConfig {
 		environment: string | null;
 		effective_environment: string;
 	};
+	easypwned: {
+		effective_enabled: boolean;
+	};
 }
 
 interface InstanceAttachmentDecayConfig {
@@ -1418,6 +1421,9 @@ export class InstanceConfigRepository {
 				dsn_set: secretIsSet(integrations.sentry.dsn) || secretIsSet(Config.sentry.dsn),
 				environment: integrations.sentry.environment,
 				effective_environment: sentry.environment,
+			},
+			easypwned: {
+				effective_enabled: Config.easypwned.enabled,
 			},
 		};
 	}

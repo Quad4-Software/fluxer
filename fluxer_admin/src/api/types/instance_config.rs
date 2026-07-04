@@ -91,6 +91,14 @@ pub struct InstanceIntegrationsResponse {
     pub email: InstanceEmailIntegrationResponse,
     #[serde(default)]
     pub sentry: InstanceSentryIntegrationResponse,
+    #[serde(default)]
+    pub easypwned: InstanceEasypwnedIntegrationResponse,
+}
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct InstanceEasypwnedIntegrationResponse {
+    #[serde(default)]
+    pub effective_enabled: bool,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]

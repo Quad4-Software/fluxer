@@ -13,6 +13,7 @@ export const Endpoints = {
 	AUTH_LOGOUT: '/auth/logout',
 	AUTH_REGISTER: '/auth/register',
 	AUTH_USERNAME_SUGGESTIONS: '/auth/username-suggestions',
+	AUTH_PASSWORD_BREACH_CHECK: '/auth/password-breach-check',
 	AUTH_SESSIONS: '/auth/sessions',
 	AUTH_SESSIONS_LOGOUT: '/auth/sessions/logout',
 	AUTH_HANDOFF_INITIATE: '/auth/handoff/initiate',

@@ -215,16 +215,24 @@ export async function verifyPassword(
 
 export async function isPasswordPwned(_ctx: ApiContext, password: string): Promise<boolean> {
 	const hashed = sha1PasswordHash(password);
-	const cachedResult = pwnedPasswordCache.get(hashed);
+	return isPasswordHashPwned(hashed);
+}
+
+export async function isPasswordHashPwned(hashedPassword: string): Promise<boolean> {
+	const normalizedHash = hashedPassword.trim().toUpperCase();
+	if (!/^[0-9A-F]{40}$/u.test(normalizedHash)) {
+		return false;
+	}
+	const cachedResult = pwnedPasswordCache.get(normalizedHash);
 	if (cachedResult !== undefined) {
 		return cachedResult;
 	}
-	const hashPrefix = hashed.slice(0, 5);
-	const hashSuffix = hashed.slice(5);
+	const hashPrefix = normalizedHash.slice(0, 5);
+	const hashSuffix = normalizedHash.slice(5);
 	const isPwned = Config.easypwned.enabled
-		? await checkPasswordPwnedViaEasypwned(hashed)
+		? await checkPasswordPwnedViaEasypwned(normalizedHash)
 		: await checkPasswordPwnedViaHibp(hashPrefix, hashSuffix);
-	pwnedPasswordCache.set(hashed, isPwned);
+	pwnedPasswordCache.set(normalizedHash, isPwned);
 	return isPwned;
 }
 

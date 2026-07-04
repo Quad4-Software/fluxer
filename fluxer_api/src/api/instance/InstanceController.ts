@@ -53,6 +53,7 @@ function buildDiscoveryStaticInput(
 			self_hosted: Config.instance.selfHosted,
 			presigned_attachment_uploads: Config.presignedAttachmentUploadsEnabled,
 			emails_enabled: runtime.emailEnabled,
+			easypwned_enabled: Config.easypwned.enabled,
 		},
 		gif: {
 			provider: gifProvider?.meta.name ?? 'klipy',

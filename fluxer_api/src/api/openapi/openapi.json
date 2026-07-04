@@ -1663,6 +1663,37 @@
 				}
 			}
 		},
+		"/auth/password-breach-check": {
+			"post": {
+				"operationId": "check_password_breach",
+				"summary": "Check password breach status",
+				"tags": ["Auth"],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/PasswordBreachCheckResponse"}}}
+					},
+					"400": {
+						"description": "Bad Request - The request was malformed or contained invalid data",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"429": {
+						"description": "Too Many Requests - You are being rate limited",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					},
+					"500": {
+						"description": "Internal Server Error - An unexpected error occurred",
+						"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Error"}}}
+					}
+				},
+				"x-mint": {"metadata": {"title": "Check password breach status"}},
+				"description": "Check whether a password hash appears in the configured breach database. Intended for registration UX feedback.",
+				"requestBody": {
+					"required": true,
+					"content": {"application/json": {"schema": {"$ref": "#/components/schemas/PasswordBreachCheckRequest"}}}
+				}
+			}
+		},
 		"/auth/verify": {
 			"post": {
 				"operationId": "verify_email",
@@ -24785,6 +24816,10 @@
 							"emails_enabled": {
 								"type": "boolean",
 								"description": "Whether the instance sends emails (verification, password reset, etc.)"
+							},
+							"easypwned_enabled": {
+								"type": "boolean",
+								"description": "Whether the instance uses the local easypwned service for password breach checks"
 							}
 						},
 						"required": [
@@ -24792,7 +24827,8 @@
 							"stripe_enabled",
 							"self_hosted",
 							"presigned_attachment_uploads",
-							"emails_enabled"
+							"emails_enabled",
+							"easypwned_enabled"
 						],
 						"description": "Feature flags for this instance"
 					},
@@ -26378,6 +26414,27 @@
 					"global_name": {"type": "string", "description": "Display name to generate username suggestions from"}
 				},
 				"required": ["global_name"]
+			},
+			"PasswordBreachCheckRequest": {
+				"type": "object",
+				"properties": {
+					"hash": {
+						"type": "string",
+						"pattern": "^[0-9A-Fa-f]{40}$",
+						"description": "SHA-1 hash of the password in hexadecimal form"
+					}
+				},
+				"required": ["hash"]
+			},
+			"PasswordBreachCheckResponse": {
+				"type": "object",
+				"properties": {
+					"breached": {
+						"type": "boolean",
+						"description": "Whether the password hash appears in a known breach database"
+					}
+				},
+				"required": ["breached"]
 			},
 			"VerifyEmailRequest": {
 				"type": "object",

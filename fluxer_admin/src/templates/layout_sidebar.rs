@@ -19,7 +19,7 @@ pub fn render_sidebar(
                 a href={(base) "/users"} class="rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900" {
                     h1 class="font-semibold text-base" { "Fluxer Admin" }
                 }
-                button type="button" data-sidebar-close="" class="inline-flex h-11 w-11 items-center justify-center rounded-md text-neutral-200 transition-colors hover:bg-neutral-800 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 lg:hidden" aria-label="Close sidebar" {
+                button type="button" data-sidebar-close="" class="sidebar-icon-button inline-flex h-11 w-11 items-center justify-center rounded-md transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 lg:hidden" aria-label="Close sidebar" {
                     svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" {
                         line x1="18" y1="6" x2="6" y2="18" {}
                         line x1="6" y1="6" x2="18" y2="18" {}
@@ -38,11 +38,11 @@ pub fn render_sidebar(
                         .collect();
                     @if !visible_items.is_empty() {
                         div {
-                            div class="mb-2 text-neutral-400 text-xs uppercase" { (section.title) }
+                            div class="mb-2 sidebar-section-label text-xs uppercase" { (section.title) }
                             div class="space-y-1" {
                                 @for item in &visible_items {
                                     @let active = active_page == item.active_key;
-                                    @let base_classes = "block min-h-[44px] px-3 py-2.5 rounded text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900";
+                                    @let base_classes = "sidebar-nav-link block min-h-[44px] px-3 py-2.5 rounded text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900";
                                     @let item_path = if item.active_key == "voice-servers" {
                                         if let Some(region_id) = inspected_voice_region_id {
                                             let encoded = urlencoding::encode(region_id);
@@ -54,9 +54,9 @@ pub fn render_sidebar(
                                         item.path.to_owned()
                                     };
                                     @let classes = if active {
-                                        format!("{base_classes} bg-neutral-800 text-white")
+                                        format!("{base_classes} bg-neutral-800")
                                     } else {
-                                        format!("{base_classes} text-neutral-300 hover:bg-neutral-800 hover:text-white")
+                                        base_classes.to_owned()
                                     };
                                     a href={(base) (item_path)} class=(classes) aria-current=[active.then_some("page")] data-active=[active.then_some("")] {
                                         (item.title)
@@ -65,6 +65,14 @@ pub fn render_sidebar(
                             }
                         }
                     }
+                }
+            }
+            div class="border-t border-neutral-800 px-4 py-3 text-xs" {
+                div class="sidebar-build-version truncate font-medium" {
+                    (config.build_version)
+                }
+                div class="sidebar-build-channel truncate" {
+                    (config.release_channel)
                 }
             }
             script defer { (PreEscaped(SIDEBAR_ACTIVE_SCROLL_SCRIPT)) }

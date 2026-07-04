@@ -128,6 +128,10 @@ export const AuthRateLimitConfigs = {
 		bucket: 'auth:handoff:cancel',
 		config: {limit: 10, windowMs: ms('1 minute')},
 	} as RouteRateLimitConfig,
+	AUTH_PASSWORD_BREACH_CHECK: {
+		bucket: 'auth:password_breach_check',
+		config: {limit: 30, windowMs: ms('1 minute')},
+	} as RouteRateLimitConfig,
 	SUDO_WEBAUTHN_OPTIONS: {
 		bucket: 'sudo:webauthn:options',
 		config: {limit: 10, windowMs: ms('1 minute')},
