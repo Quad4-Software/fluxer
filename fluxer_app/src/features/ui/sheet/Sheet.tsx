@@ -4,6 +4,7 @@ import {useBottomSheetBackHandler} from '@app/features/app/hooks/useBottomSheetB
 import {CLOSE_DESCRIPTOR} from '@app/features/i18n/utils/CommonMessageDescriptors';
 import {resolvePortalHost, usePortalHost} from '@app/features/ui/overlay/PortalHostContext';
 import styles from '@app/features/ui/sheet/Sheet.module.css';
+import MobileLayout from '@app/features/ui/state/MobileLayout';
 import OverlayStack from '@app/features/ui/state/OverlayStack';
 import {msg} from '@lingui/core/macro';
 import {useLingui} from '@lingui/react/macro';
@@ -34,6 +35,7 @@ const HIGH_VELOCITY_THRESHOLD = 850;
 const LOW_VELOCITY_THRESHOLD = 80;
 const CLOSE_SNAP_INDEX = 0;
 const DEFAULT_MODAL_EFFECT_ROOT_ID = 'root';
+const DISABLED_MODAL_EFFECT_ROOT_ID = '';
 const INTERACTIVE_DRAG_IGNORE_SELECTOR = [
 	'input',
 	'textarea',
@@ -289,7 +291,7 @@ const RootComponent: React.FC<RootProps> = ({
 	snapPoints = [0, 0.6, 1],
 	surface = 'secondary',
 	zIndex: explicitZIndex,
-	modalEffectRootId = DEFAULT_MODAL_EFFECT_ROOT_ID,
+	modalEffectRootId = MobileLayout.isMobileLayout() ? DISABLED_MODAL_EFFECT_ROOT_ID : DEFAULT_MODAL_EFFECT_ROOT_ID,
 	backdropOpacity = 0.7,
 	showBackdrop = true,
 	className,
@@ -719,15 +721,26 @@ const RootComponent: React.FC<RootProps> = ({
 			currentSnapRef.current = snapIndex;
 			setTransitionEnabled(false);
 			setSheetY(sheetHeightRef.current || getViewportHeight());
-			const frame = window.requestAnimationFrame(() => {
+			let frame = 0;
+			let settleFrame = 0;
+			frame = window.requestAnimationFrame(() => {
 				setTransitionEnabled(true);
 				snapToIndex(snapIndex);
-				const container = containerRef.current;
-				if (container && !container.contains(document.activeElement)) {
-					container.focus({preventScroll: true});
-				}
+				settleFrame = window.requestAnimationFrame(() => {
+					const openSnap = snapPointsRef.current[snapIndex];
+					if (openSnap && sheetYRef.current > openSnap.y + 2) {
+						snapToIndex(snapIndex, {immediate: true});
+					}
+					const container = containerRef.current;
+					if (container && !container.contains(document.activeElement)) {
+						container.focus({preventScroll: true});
+					}
+				});
 			});
-			return () => window.cancelAnimationFrame(frame);
+			return () => {
+				window.cancelAnimationFrame(frame);
+				window.cancelAnimationFrame(settleFrame);
+			};
 		}
 		animateClosed();
 		return undefined;

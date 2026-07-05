@@ -1,9 +1,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {Routes} from '@app/app/Routes';
+import {navigateToWithMobileHistory} from '@app/features/navigation/utils/MobileNavigation';
 import * as RouterUtils from '@app/features/navigation/utils/RouterUtils';
 import type {Router} from '@app/features/platform/components/router/RouterTypes';
 import {Logger} from '@app/features/platform/utils/AppLogger';
+import MobileLayout from '@app/features/ui/state/MobileLayout';
 import {ME} from '@fluxer/constants/src/AppConstants';
 import {action, makeAutoObservable} from 'mobx';
 
@@ -157,6 +159,10 @@ class Navigation {
 	}
 
 	private applyNavigation(path: string, mode: NavigationMode): void {
+		if (MobileLayout.isMobileLayout() && mode === 'push') {
+			navigateToWithMobileHistory(path, true);
+			return;
+		}
 		if (mode === 'replace') {
 			RouterUtils.replaceWith(path);
 		} else {

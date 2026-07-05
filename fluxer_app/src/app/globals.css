@@ -245,6 +245,13 @@ body {
 	touch-action: pan-y;
 }
 
+:global(html:not(.auth-page)),
+:global(html:not(.auth-page) body),
+:global(html:not(.auth-page) #root) {
+	height: 100%;
+	min-height: 0;
+}
+
 body {
 	scrollbar-color: var(--scrollbar-thumb-bg) var(--scrollbar-track-bg);
 	margin: 0;

@@ -351,6 +351,10 @@ export const ChannelHeader = observer(
 				onBackClick();
 				return;
 			}
+			if (isMobile && isGuildChannel && channel?.guildId) {
+				goBackOr(Routes.guildChannel(channel.guildId));
+				return;
+			}
 			if (isDM || isGroupDM || isPersonalNotes) {
 				RouterUtils.transitionTo(Routes.ME);
 			} else if (Routes.isFavoritesRoute(location.pathname)) {
@@ -360,7 +364,7 @@ export const ChannelHeader = observer(
 			} else {
 				goBackOr(Routes.ME);
 			}
-		}, [onBackClick, isDM, isGroupDM, isPersonalNotes, isGuildChannel, channel?.guildId, location.pathname]);
+		}, [onBackClick, isMobile, isDM, isGroupDM, isPersonalNotes, isGuildChannel, channel?.guildId, location.pathname]);
 		const handleChannelDetailsClick = () => {
 			setInitialTab('members');
 			setChannelDetailsOpen(true);
@@ -905,6 +909,23 @@ export const ChannelHeader = observer(
 											className={styles.buttonIconMobile}
 											weight="bold"
 											data-flx="channel.channel-header.button-icon-mobile--4"
+										/>
+									</button>
+								</FocusRing>
+							)}
+							{isMobile && channel && isGuildChannel && !isPersonalNotes && (
+								<FocusRing offset={-2} data-flx="channel.channel-header.focus-ring--members-mobile">
+									<button
+										type="button"
+										className={styles.iconButtonMobile}
+										aria-label={i18n._(SHOW_MEMBERS_DESCRIPTOR)}
+										onClick={handleChannelDetailsClick}
+										data-flx="channel.channel-header.icon-button-mobile.members"
+									>
+										<UsersIcon
+											className={styles.buttonIconMobile}
+											weight="bold"
+											data-flx="channel.channel-header.button-icon-mobile--members"
 										/>
 									</button>
 								</FocusRing>

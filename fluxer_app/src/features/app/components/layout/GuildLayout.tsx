@@ -541,25 +541,25 @@ export const GuildLayout = observer(({children}: {children: React.ReactNode}) =>
 		}
 		return (
 			<TopNagbarContext.Provider value={nagbarContextValue}>
-				{guild && (
-					<div
-						className={channelId ? styles.mobileNavbarHidden : styles.mobileNavbarSlot}
-						data-flx="app.guild-layout.mobile-navbar"
-					>
+				<div className={styles.guildLayoutMobileShell} data-flx="app.guild-layout.guild-layout-mobile-shell">
+					{guild && !channelId && (
 						<GuildNavbar guild={guild} data-flx="app.guild-layout.guild-navbar" />
-					</div>
-				)}
-				{channelId && (
-					<div
-						className={hasGuildNagbars ? styles.guildLayoutContainerWithNagbar : styles.guildLayoutContainer}
-						data-flx="app.guild-layout.guild-layout-container--2"
-					>
-						{guildNagbars}
-						<div className={styles.guildMainContent} data-flx="app.guild-layout.guild-main-content--3">
-							{children}
+					)}
+					{channelId && (
+						<div
+							className={clsx(
+								hasGuildNagbars ? styles.guildLayoutContainerWithNagbar : styles.guildLayoutContainer,
+								styles.guildLayoutMobileChannel,
+							)}
+							data-flx="app.guild-layout.guild-layout-container--2"
+						>
+							{guildNagbars}
+							<div className={styles.guildMainContent} data-flx="app.guild-layout.guild-main-content--3">
+								{children}
+							</div>
 						</div>
-					</div>
-				)}
+					)}
+				</div>
 			</TopNagbarContext.Provider>
 		);
 	}
