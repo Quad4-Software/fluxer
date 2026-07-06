@@ -56,17 +56,18 @@ function isPublicOnlyCurrentUserPayload(user: WireUser): boolean {
 	return !CURRENT_USER_PRIVATE_WIRE_KEYS.some((key) => key in user);
 }
 
+const userAccessSequence = new Set<string>();
+
 class Users {
 	users: Record<string, User> = {};
-	private accessSequence = new Set<string>();
 
 	constructor() {
 		makeAutoObservable(this, {}, {autoBind: true});
 	}
 
 	private touchAccess(userId: string): void {
-		this.accessSequence.delete(userId);
-		this.accessSequence.add(userId);
+		userAccessSequence.delete(userId);
+		userAccessSequence.add(userId);
 	}
 
 	private getPinnedUserIds(): Set<string> {
@@ -85,7 +86,7 @@ class Users {
 		while (Object.keys(this.users).length > MAX_USERS_IN_MEMORY) {
 			const pinned = this.getPinnedUserIds();
 			let evictionCandidate: string | null = null;
-			for (const userId of this.accessSequence) {
+			for (const userId of userAccessSequence) {
 				if (!pinned.has(userId)) {
 					evictionCandidate = userId;
 					break;
@@ -95,17 +96,18 @@ class Users {
 				break;
 			}
 			delete this.users[evictionCandidate];
-			this.accessSequence.delete(evictionCandidate);
+			userAccessSequence.delete(evictionCandidate);
 		}
 	}
 
+	@action
 	trimToFraction(fraction: number): void {
 		const clamped = Math.min(1, Math.max(0, fraction));
 		const target = Math.floor(MAX_USERS_IN_MEMORY * clamped);
 		const pinned = this.getPinnedUserIds();
 		while (Object.keys(this.users).length > target) {
 			let evictionCandidate: string | null = null;
-			for (const userId of this.accessSequence) {
+			for (const userId of userAccessSequence) {
 				if (!pinned.has(userId)) {
 					evictionCandidate = userId;
 					break;
@@ -115,7 +117,7 @@ class Users {
 				break;
 			}
 			delete this.users[evictionCandidate];
-			this.accessSequence.delete(evictionCandidate);
+			userAccessSequence.delete(evictionCandidate);
 		}
 	}
 
@@ -136,11 +138,7 @@ class Users {
 	}
 
 	getUser(userId: string): User | undefined {
-		const user = this.users[userId];
-		if (user) {
-			this.touchAccess(userId);
-		}
-		return user;
+		return this.users[userId];
 	}
 
 	getCurrentUser(): User | undefined {
@@ -158,7 +156,7 @@ class Users {
 	@action
 	handleConnectionOpen(currentUser: UserPrivate): void {
 		const userRecord = new User(currentUser);
-		this.accessSequence.clear();
+		userAccessSequence.clear();
 		this.users = {
 			[currentUser.id]: userRecord,
 		};
