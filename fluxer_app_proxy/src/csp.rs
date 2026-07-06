@@ -10,6 +10,7 @@ pub struct RuntimeCspSources {
     pub media_endpoint: Option<String>,
     pub s3_public_endpoint: Option<String>,
     pub s3_uploads_bucket: Option<String>,
+    pub sentry_connect_src: Option<String>,
 }
 
 const FRAME_SOURCES: &[&str] = &[
@@ -126,6 +127,7 @@ fn build_csp_directives(
     extend_from(&mut connect, config.connect_src.as_deref(), CONNECT_SOURCES);
     extend_runtime_sources(&mut connect, runtime_sources, true, true);
     extend_runtime_s3_sources(&mut connect, runtime_sources);
+    push_endpoint_source(&mut connect, runtime_sources.sentry_connect_src.as_deref());
     directives.push(format!("connect-src {}", connect.join(" ")));
 
     let mut frame = vec!["'self'".to_owned()];
@@ -222,6 +224,23 @@ fn extend_from(target: &mut Vec<String>, overrides: Option<&[String]>, defaults:
     } else {
         target.extend(defaults.iter().map(|s| (*s).to_owned()));
     }
+}
+
+pub fn sentry_dsn_connect_origin(dsn: &str) -> Option<String> {
+    let dsn = dsn.trim();
+    if dsn.is_empty() {
+        return None;
+    }
+    let (protocol, rest) = dsn.split_once("://")?;
+    if protocol != "http" && protocol != "https" {
+        return None;
+    }
+    let (_, host_and_path) = rest.split_once('@')?;
+    let host = host_and_path.split('/').next()?.trim();
+    if host.is_empty() {
+        return None;
+    }
+    Some(format!("{protocol}://{host}"))
 }
 
 #[cfg(test)]
@@ -338,5 +357,35 @@ mod tests {
         assert!(csp.contains("http://localhost:3900"));
         assert!(csp.contains("http://fluxer-uploads.localhost:3900"));
         assert!(!csp.contains("http://localhost:3900/ "));
+    }
+
+    #[test]
+    fn build_csp_includes_sentry_connect_origin() {
+        let config = default_csp_config();
+        let runtime_sources = RuntimeCspSources {
+            sentry_connect_src: Some("https://glitched.quad4.io".to_owned()),
+            ..Default::default()
+        };
+
+        let csp = build_csp(&config, "nonce1", &runtime_sources);
+
+        assert!(csp.contains("connect-src"));
+        assert!(csp.contains("https://glitched.quad4.io"));
+    }
+
+    #[test]
+    fn sentry_dsn_connect_origin_parses_glitchtip_dsn() {
+        assert_eq!(
+            sentry_dsn_connect_origin(
+                "https://2361b10f95244284a9f18c0bef868d5f@glitched.quad4.io/1"
+            ),
+            Some("https://glitched.quad4.io".to_owned())
+        );
+    }
+
+    #[test]
+    fn sentry_dsn_connect_origin_rejects_invalid_values() {
+        assert_eq!(sentry_dsn_connect_origin(""), None);
+        assert_eq!(sentry_dsn_connect_origin("not-a-dsn"), None);
     }
 }

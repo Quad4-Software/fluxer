@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 use crate::bootstrap::{build_bootstrap_script, inject_bootstrap};
-use crate::csp::{RuntimeCspSources, build_csp, generate_nonce};
+use crate::csp::{RuntimeCspSources, build_csp, generate_nonce, sentry_dsn_connect_origin};
 use crate::discovery_cache::DiscoveryResponse;
 use crate::geoip::build_geoip_response;
 use crate::invite_meta::{
@@ -192,7 +192,25 @@ fn build_runtime_csp_sources(state: &AppState, discovery: &DiscoveryResponse) ->
         media_endpoint: discovery_endpoint(discovery, "media"),
         s3_public_endpoint: state.config.s3_public_endpoint.clone(),
         s3_uploads_bucket: Some(state.config.s3_uploads_bucket.clone()),
+        sentry_connect_src: discovery_sentry_connect_src(discovery),
     }
+}
+
+fn discovery_sentry_connect_src(discovery: &DiscoveryResponse) -> Option<String> {
+    let monitoring = discovery.data.get("monitoring")?;
+    let enabled = monitoring
+        .get("sentry_enabled")
+        .and_then(|value| value.as_bool())
+        .unwrap_or(false);
+    if !enabled {
+        return None;
+    }
+    let dsn = monitoring
+        .get("sentry_dsn")
+        .and_then(|value| value.as_str())
+        .map(str::trim)
+        .filter(|value| !value.is_empty())?;
+    sentry_dsn_connect_origin(dsn)
 }
 
 fn discovery_endpoint(discovery: &DiscoveryResponse, key: &str) -> Option<String> {
