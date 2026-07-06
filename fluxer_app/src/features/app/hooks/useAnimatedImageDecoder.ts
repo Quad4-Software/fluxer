@@ -36,7 +36,7 @@ export interface AnimatedImageFrameAdvanceResult {
 }
 
 const DEFAULT_FRAME_DURATION_MS = 100;
-const DEFAULT_MAX_CACHED_FRAMES = 24;
+const DEFAULT_MAX_CACHED_FRAMES = 16;
 
 interface CachedAnimatedImageFrame {
 	image: CanvasImageSource;

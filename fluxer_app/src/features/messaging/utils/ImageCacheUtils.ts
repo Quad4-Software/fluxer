@@ -12,8 +12,8 @@ interface PendingImageLoad {
 	onErrorCallbacks: Set<() => void>;
 }
 
-const MAX_CACHE_ENTRIES = 500;
-const MAX_CACHE_BYTES = 64 * 1024 * 1024;
+const MAX_CACHE_ENTRIES = 250;
+const MAX_CACHE_BYTES = 32 * 1024 * 1024;
 const FALLBACK_IMAGE_BYTES = 256 * 1024;
 
 const estimateImageBytes = (entry: ImageCacheEntry): number => {
@@ -128,4 +128,17 @@ export function loadImage(src: string | null, onLoad: () => void, onError?: () =
 export function _clearForTests(): void {
 	imageCache.clear();
 	pendingImageLoads.clear();
+}
+
+export function trimImageCache(fraction = 0.5): void {
+	const clamped = Math.min(1, Math.max(0, fraction));
+	const targetEntries = Math.floor(MAX_CACHE_ENTRIES * clamped);
+	const targetBytes = Math.floor(MAX_CACHE_BYTES * clamped);
+	while (imageCache.size > targetEntries || imageCache.calculatedSize > targetBytes) {
+		const oldest = imageCache.keys().next().value;
+		if (oldest === undefined) {
+			return;
+		}
+		imageCache.delete(oldest);
+	}
 }

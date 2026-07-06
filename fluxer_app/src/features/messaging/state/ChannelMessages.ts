@@ -281,7 +281,7 @@ class MessageBufferSegment {
 
 export class ChannelMessages {
 	private static readonly channelCache = new Map<string, ChannelMessages>();
-	private static readonly maxChannelsInMemory = 50;
+	private static readonly maxChannelsInMemory = 30;
 	private static readonly retainedChannelIds = new Set<string>();
 	private static accessSequence: Set<string> = new Set<string>();
 	readonly channelId: string;

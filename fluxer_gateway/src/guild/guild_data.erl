@@ -144,7 +144,9 @@ build_guild_collection_data(Data, Channels, State) ->
         <<"channels">> => map_utils:ensure_list(Channels),
         <<"emojis">> => map_utils:ensure_list(maps:get(<<"emojis">>, Data, [])),
         <<"stickers">> => map_utils:ensure_list(maps:get(<<"stickers">>, Data, [])),
-        <<"soundboard_sounds">> => map_utils:ensure_list(maps:get(<<"soundboard_sounds">>, Data, [])),
+        <<"soundboard_sounds">> => map_utils:ensure_list(
+            maps:get(<<"soundboard_sounds">>, Data, [])
+        ),
         <<"member_count">> => maps:get(
             member_count, State, guild_data_index:member_count(Data)
         ),

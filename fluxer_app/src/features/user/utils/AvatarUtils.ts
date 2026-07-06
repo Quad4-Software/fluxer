@@ -11,6 +11,7 @@ import {
 	normalizeEndpoint,
 	parseAvatarHash,
 } from '@app/features/user/utils/AvatarMediaUtils';
+import {LRUMap} from '@app/lib/list/ListLruMap';
 import {
 	MEDIA_PROXY_AVATAR_SIZE_DEFAULT,
 	MEDIA_PROXY_ICON_SIZE_DEFAULT,
@@ -392,8 +393,7 @@ export function getWebhookAvatarURL({id, avatar}: AvatarOptions, animated = fals
 	});
 }
 
-const EMOJI_URL_CACHE = new Map<string, string>();
-const EMOJI_URL_CACHE_LIMIT = 4096;
+const EMOJI_URL_CACHE = new LRUMap<string, string>(2048);
 
 export function getEmojiURL({id, animated}: {id: string; animated?: boolean}) {
 	if (DeveloperOptions.forceRenderPlaceholders) {
@@ -404,7 +404,6 @@ export function getEmojiURL({id, animated}: {id: string; animated?: boolean}) {
 	const cached = EMOJI_URL_CACHE.get(key);
 	if (cached !== undefined) return cached;
 	const result = mediaUrl(setPathQueryParams(`emojis/${id}.webp`, {v: 5}), {animated: animatedFlag});
-	if (EMOJI_URL_CACHE.size >= EMOJI_URL_CACHE_LIMIT) EMOJI_URL_CACHE.clear();
 	EMOJI_URL_CACHE.set(key, result);
 	return result;
 }

@@ -30,6 +30,8 @@
 	word-break: break-word;
 	-webkit-tap-highlight-color: transparent;
 	display: grid;
+	content-visibility: auto;
+	contain-intrinsic-size: auto 4rem;
 	grid-template-columns: var(--chat-horizontal-padding, var(--message-gutter, 1rem)) var(--message-avatar-size, 2.5rem)
 		var(--message-gutter, 1rem) minmax(0, 1fr);
 	grid-template-rows: auto auto auto;

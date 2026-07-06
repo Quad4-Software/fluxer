@@ -2,9 +2,12 @@
 
 import {openClaimAccountModal} from '@app/features/auth/components/modals/ClaimAccountModal';
 import Authentication from '@app/features/auth/state/Authentication';
+import Relationships from '@app/features/relationship/state/Relationships';
 import {User} from '@app/features/user/models/User';
 import type {UserPrivate, User as WireUser} from '@fluxer/schema/src/domains/user/UserResponseSchemas';
 import {action, makeAutoObservable, reaction, runInAction} from 'mobx';
+
+const MAX_USERS_IN_MEMORY = 2500;
 
 const CURRENT_USER_PRIVATE_WIRE_KEYS = [
 	'is_staff',
@@ -55,9 +58,65 @@ function isPublicOnlyCurrentUserPayload(user: WireUser): boolean {
 
 class Users {
 	users: Record<string, User> = {};
+	private accessSequence = new Set<string>();
 
 	constructor() {
 		makeAutoObservable(this, {}, {autoBind: true});
+	}
+
+	private touchAccess(userId: string): void {
+		this.accessSequence.delete(userId);
+		this.accessSequence.add(userId);
+	}
+
+	private getPinnedUserIds(): Set<string> {
+		const pinned = new Set<string>();
+		const currentUserId = this.currentUserId;
+		if (currentUserId) {
+			pinned.add(currentUserId);
+		}
+		for (const relationshipId of Object.keys(Relationships.relationships)) {
+			pinned.add(relationshipId);
+		}
+		return pinned;
+	}
+
+	private evictIfNeeded(): void {
+		while (Object.keys(this.users).length > MAX_USERS_IN_MEMORY) {
+			const pinned = this.getPinnedUserIds();
+			let evictionCandidate: string | null = null;
+			for (const userId of this.accessSequence) {
+				if (!pinned.has(userId)) {
+					evictionCandidate = userId;
+					break;
+				}
+			}
+			if (evictionCandidate === null) {
+				break;
+			}
+			delete this.users[evictionCandidate];
+			this.accessSequence.delete(evictionCandidate);
+		}
+	}
+
+	trimToFraction(fraction: number): void {
+		const clamped = Math.min(1, Math.max(0, fraction));
+		const target = Math.floor(MAX_USERS_IN_MEMORY * clamped);
+		const pinned = this.getPinnedUserIds();
+		while (Object.keys(this.users).length > target) {
+			let evictionCandidate: string | null = null;
+			for (const userId of this.accessSequence) {
+				if (!pinned.has(userId)) {
+					evictionCandidate = userId;
+					break;
+				}
+			}
+			if (evictionCandidate === null) {
+				break;
+			}
+			delete this.users[evictionCandidate];
+			this.accessSequence.delete(evictionCandidate);
+		}
 	}
 
 	get currentUser(): User | null {
@@ -77,7 +136,11 @@ class Users {
 	}
 
 	getUser(userId: string): User | undefined {
-		return this.users[userId];
+		const user = this.users[userId];
+		if (user) {
+			this.touchAccess(userId);
+		}
+		return user;
 	}
 
 	getCurrentUser(): User | undefined {
@@ -95,9 +158,11 @@ class Users {
 	@action
 	handleConnectionOpen(currentUser: UserPrivate): void {
 		const userRecord = new User(currentUser);
+		this.accessSequence.clear();
 		this.users = {
 			[currentUser.id]: userRecord,
 		};
+		this.touchAccess(currentUser.id);
 		if (!userRecord.isClaimed()) {
 			setTimeout(async () => {
 				openClaimAccountModal();
@@ -122,6 +187,8 @@ class Users {
 			return;
 		}
 		this.users[user.id] = existingUser ? existingUser.withUpdates(user, options) : new User(user);
+		this.touchAccess(user.id);
+		this.evictIfNeeded();
 	}
 
 	cacheUsers(
@@ -138,7 +205,9 @@ class Users {
 					continue;
 				}
 				this.users[user.id] = existingUser ? existingUser.withUpdates(user) : new User(user);
+				this.touchAccess(user.id);
 			}
+			this.evictIfNeeded();
 		});
 	}
 

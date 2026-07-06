@@ -4,8 +4,8 @@ import {observeIntersection} from '@app/features/platform/utils/SharedIntersecti
 import {LRUCache} from 'lru-cache';
 import {useCallback, useEffect, useState} from 'react';
 
-const DEFAULT_ROOT_MARGIN = '900px 0px';
-const REMEMBERED_VIEWPORT_KEY_LIMIT = 1000;
+const DEFAULT_ROOT_MARGIN = '600px 0px';
+const REMEMBERED_VIEWPORT_KEY_LIMIT = 400;
 const rememberedViewportKeys = new LRUCache<string, true>({
 	max: REMEMBERED_VIEWPORT_KEY_LIMIT,
 });

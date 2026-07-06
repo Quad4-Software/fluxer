@@ -10,7 +10,7 @@ interface ParseResult {
 	nodes: Array<Node>;
 }
 
-const PARSE_CACHE_CAPACITY = 2048;
+const PARSE_CACHE_CAPACITY = 768;
 const parseCache = new LRUMap<string, ParseResult>(PARSE_CACHE_CAPACITY);
 
 function getParseCacheKey(content: string, context: MarkdownContext): string {
@@ -28,4 +28,8 @@ export function parseMarkdownContent({content, context}: {content: string; conte
 	const result = parser.parse();
 	parseCache.set(cacheKey, result);
 	return result;
+}
+
+export function trimMarkdownParseCache(fraction = 0.5): void {
+	parseCache.trimToFraction(fraction);
 }

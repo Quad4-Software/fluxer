@@ -51,6 +51,18 @@ export class LRUMap<K, V> {
 		this.store.clear();
 	}
 
+	trimToFraction(fraction: number): void {
+		const clamped = Math.min(1, Math.max(0, fraction));
+		const target = Math.floor(this.capacity * clamped);
+		while (this.store.size > target) {
+			const oldest = this.store.keys().next().value;
+			if (oldest === undefined) {
+				return;
+			}
+			this.store.delete(oldest);
+		}
+	}
+
 	keys(): IterableIterator<K> {
 		return this.store.keys();
 	}

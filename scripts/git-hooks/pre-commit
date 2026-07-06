@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-or-later
+set -euo pipefail
+
+if [[ "${FLUXER_SKIP_PRE_COMMIT:-}" == "1" ]]; then
+	exit 0
+fi
+
+ROOT="$(git rev-parse --show-toplevel)"
+exec "$ROOT/scripts/git-hooks/run-checks.sh"

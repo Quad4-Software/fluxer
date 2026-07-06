@@ -76,7 +76,7 @@ const ANIMATED_GIF_DESCRIPTOR = msg({
 	comment: 'Short label in the channel and chat embed gifv. Keep it concise.',
 });
 const EMBED_MEDIA_FADE_DURATION_SECONDS = 0.08;
-const DECODER_MAX_CACHED_FRAMES = 24;
+const DECODER_MAX_CACHED_FRAMES = 16;
 
 type GifvEmbedProps = BaseMediaProps & {
 	embedURL: string;

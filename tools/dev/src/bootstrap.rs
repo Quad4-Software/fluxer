@@ -33,7 +33,29 @@ pub async fn bootstrap(skip_install: bool, skip_desktop_install: bool) -> Result
     wait_core_infra().await?;
     bootstrap_schema_and_object_store().await?;
     run_smoke(false, false).await?;
+    install_git_hooks()?;
     println!("Fluxer dev bootstrap complete.");
+    Ok(())
+}
+
+fn install_git_hooks() -> Result<()> {
+    let script = crate::paths::ROOT.join("scripts/git-hooks/install.sh");
+    if !script.is_file() {
+        return Ok(());
+    }
+    let output = run_capture(
+        &["bash", script.to_str().expect("utf-8 path")],
+        Vec::new(),
+        false,
+    )?;
+    if !output.status.success() {
+        let stderr = String::from_utf8_lossy(&output.stderr);
+        bail!("failed to install git hooks: {stderr}");
+    }
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    if !stdout.trim().is_empty() {
+        print!("{stdout}");
+    }
     Ok(())
 }
 

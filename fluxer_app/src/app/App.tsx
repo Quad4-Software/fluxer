@@ -30,6 +30,10 @@ import GatewayConnection from '@app/features/gateway/transport/GatewayConnection
 import {startDeepLinkHandling} from '@app/features/navigation/utils/DeepLinkUtils';
 import {Outlet, RouterProvider} from '@app/features/platform/components/router/RouterReact';
 import {ensureAutostartDefaultEnabled} from '@app/features/platform/utils/Autostart';
+import {
+	installClientMemoryManager,
+	uninstallClientMemoryManager,
+} from '@app/features/platform/utils/ClientMemoryManager';
 import {startDesktopJumpListBridge} from '@app/features/platform/utils/DesktopJumpListBridge';
 import {startDesktopLocaleBridge} from '@app/features/platform/utils/DesktopLocaleBridge';
 import {PremiumCheckoutReturnWatcher} from '@app/features/premium/components/PremiumCheckoutReturnWatcher';
@@ -156,6 +160,10 @@ export const AppWrapper = observer(({children}: AppWrapperProps) => {
 	}, []);
 	useEffect(() => startScreenSharePiPController(), []);
 	useEffect(() => startMediaDeviceStartupPreload(), []);
+	useEffect(() => {
+		installClientMemoryManager();
+		return () => uninstallClientMemoryManager();
+	}, []);
 	useServiceWorkerBadge();
 	useKeybindManager(i18n);
 	useDesktopElectronBridges();

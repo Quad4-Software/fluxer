@@ -72,7 +72,7 @@ const canonicalize = (value: unknown): string => {
 	}
 	return `{${parts.filter(Boolean).join(',')}}`;
 };
-const EMBED_CACHE_CAPACITY = 4096;
+const EMBED_CACHE_CAPACITY = 1024;
 const embedCache = new LRUMap<string, string>(EMBED_CACHE_CAPACITY);
 const getOrCreateEmbedId = (embed: MessageEmbed): string => {
 	const {id: _existingId, ...rest} = embed;

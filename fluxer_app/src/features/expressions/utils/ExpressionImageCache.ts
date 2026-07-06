@@ -11,7 +11,7 @@ interface ImagePreloadEntry {
 	failedAt: number | null;
 }
 
-const MAX_IMAGE_PRELOAD_CACHE_ENTRIES = 512;
+const MAX_IMAGE_PRELOAD_CACHE_ENTRIES = 256;
 const IDLE_PRELOAD_BATCH_SIZE = 12;
 const IMAGE_PRELOAD_ERROR_RETRY_DELAY_MS = 5000;
 
@@ -148,4 +148,22 @@ export function getExpressionImagePreloadStatus(url: string | null | undefined):
 
 export function clearExpressionImagePreloadCacheForTests(): void {
 	imagePreloadCache.clear();
+}
+
+export function trimExpressionImagePreloadCache(fraction = 0.5): void {
+	const clamped = Math.min(1, Math.max(0, fraction));
+	const target = Math.floor(MAX_IMAGE_PRELOAD_CACHE_ENTRIES * clamped);
+	while (imagePreloadCache.size > target) {
+		const oldestUrl = imagePreloadCache.keys().next().value;
+		if (oldestUrl === undefined) {
+			return;
+		}
+		const entry = imagePreloadCache.get(oldestUrl);
+		if (entry?.status === 'loading') {
+			imagePreloadCache.delete(oldestUrl);
+			imagePreloadCache.set(oldestUrl, entry);
+			return;
+		}
+		imagePreloadCache.delete(oldestUrl);
+	}
 }

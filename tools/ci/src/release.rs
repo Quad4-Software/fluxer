@@ -592,9 +592,7 @@ fn assets_to_upload<'a>(
             if draft {
                 to_upload.push(asset);
             } else {
-                eprintln!(
-                    "Skipping already-uploaded immutable release asset: {filename}"
-                );
+                eprintln!("Skipping already-uploaded immutable release asset: {filename}");
             }
             continue;
         }
@@ -1128,7 +1126,11 @@ mod tests {
         let existing = BTreeSet::from(["fluxer-release-manifest.json".to_string()]);
         let assets = vec![manifest.clone()];
 
-        assert!(assets_to_upload(&assets, &existing, false).unwrap().is_empty());
+        assert!(
+            assets_to_upload(&assets, &existing, false)
+                .unwrap()
+                .is_empty()
+        );
         assert_eq!(
             assets_to_upload(&assets, &existing, true)
                 .unwrap()

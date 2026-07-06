@@ -88,7 +88,7 @@ export function resolveAttachmentUploadPartSize(fileSize: number): number {
 }
 
 export const MAX_MESSAGES_PER_CHANNEL = 50;
-export const MAX_LOADED_MESSAGES = MAX_MESSAGES_PER_CHANNEL * 4;
+export const MAX_LOADED_MESSAGES = MAX_MESSAGES_PER_CHANNEL * 3;
 export const TRUNCATED_MESSAGE_VIEW_SIZE = MAX_LOADED_MESSAGES * 0.5;
 export const MAX_MESSAGE_CACHE_SIZE = MAX_MESSAGES_PER_CHANNEL * 5;
 export const NEW_MESSAGES_BAR_BUFFER = 32;

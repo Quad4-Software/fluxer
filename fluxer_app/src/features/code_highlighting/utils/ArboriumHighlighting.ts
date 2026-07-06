@@ -127,7 +127,7 @@ const LANGUAGE_ALIAS_MAP: Record<string, string> = {
 	yml: 'yaml',
 	zshell: 'zsh',
 };
-const MAX_CACHE_ENTRIES = 500;
+const MAX_CACHE_ENTRIES = 200;
 const highlightCache = new Map<string, Promise<string>>();
 
 let arboriumModule: ArboriumModule | null = null;
@@ -268,6 +268,18 @@ function trimHighlightCache(): void {
 		return;
 	}
 	highlightCache.delete(firstKey);
+}
+
+export function trimHighlightCacheToFraction(fraction = 0.5): void {
+	const clamped = Math.min(1, Math.max(0, fraction));
+	const target = Math.floor(MAX_CACHE_ENTRIES * clamped);
+	while (highlightCache.size > target) {
+		const firstKey = highlightCache.keys().next().value;
+		if (!firstKey) {
+			return;
+		}
+		highlightCache.delete(firstKey);
+	}
 }
 
 function loadHighlightedHtml(arborium: ArboriumModule, language: string, source: string): Promise<string> {
