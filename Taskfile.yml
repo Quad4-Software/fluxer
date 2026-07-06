@@ -432,6 +432,16 @@ tasks:
     cmds:
       - '{{.CI}} ci-scripts --step test'
 
+  hooks:install:
+    desc: Install git pre-commit hooks
+    cmds:
+      - bash scripts/git-hooks/install.sh
+
+  hooks:check:
+    desc: Run all local pre-commit checks manually
+    cmds:
+      - bash scripts/git-hooks/run-checks.sh --all
+
   ci:node:
     desc: Run Node.js CI checks (install, typecheck, test, knip)
     deps:
