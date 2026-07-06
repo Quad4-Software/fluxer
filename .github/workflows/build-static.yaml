@@ -9,11 +9,6 @@ on:
         type: string
         required: false
         default: ""
-      finalise-release:
-        description: "Publish the GitHub Release after this workflow completes. Set false when an orchestrator will finalise the release."
-        type: boolean
-        required: false
-        default: true
   workflow_call:
     inputs:
       build-version:
@@ -21,11 +16,6 @@ on:
         type: string
         required: false
         default: ""
-      finalise-release:
-        description: "Publish the GitHub Release after this workflow completes. Set false when an orchestrator will finalise the release."
-        type: boolean
-        required: false
-        default: true
       approval-required:
         description: "Run an approval step before this build runs."
         type: boolean
@@ -55,5 +45,4 @@ jobs:
       image: fluxer-static
       dockerfile: fluxer_static/Dockerfile
       build-version: ${{ inputs['build-version'] }}
-      finalise-release: ${{ inputs['finalise-release'] != false }}
     secrets: inherit

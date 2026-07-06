@@ -525,26 +525,90 @@ fn release_exists(tag: &str) -> bool {
     crate::common::command_succeeds(CommandSpec::new("gh").args(["release", "view", tag]))
 }
 
+fn release_is_draft(tag: &str) -> Result<bool> {
+    let output = output_text(
+        CommandSpec::new("gh")
+            .args(["release", "view", tag])
+            .args(["--json", "isDraft"])
+            .args(["--jq", ".isDraft"]),
+    )?;
+    match output.trim() {
+        "true" => Ok(true),
+        "false" => Ok(false),
+        other => Err(anyhow!("Unexpected isDraft value for {tag}: {other}")),
+    }
+}
+
+fn release_asset_names(tag: &str) -> Result<BTreeSet<String>> {
+    let output = output_text(
+        CommandSpec::new("gh")
+            .args(["release", "view", tag])
+            .args(["--json", "assets"])
+            .args(["--jq", ".assets[].name"]),
+    )?;
+    Ok(output
+        .lines()
+        .map(str::trim)
+        .filter(|line| !line.is_empty())
+        .map(ToOwned::to_owned)
+        .collect())
+}
+
 fn upload_release_assets(version: &str, assets: &[PathBuf]) -> Result<()> {
     if assets.is_empty() {
         return Ok(());
     }
-    let mut command = CommandSpec::new("gh")
-        .args(["release", "upload", &release_tag(version)])
-        .args(["--clobber"]);
+    let tag = release_tag(version);
+    let draft = release_is_draft(&tag)?;
+    let existing_assets = release_asset_names(&tag)?;
+    let to_upload = assets_to_upload(assets, &existing_assets, draft)?;
+    if to_upload.is_empty() {
+        return Ok(());
+    }
+    let mut command = CommandSpec::new("gh").args(["release", "upload", &tag]);
+    if draft {
+        command = command.arg("--clobber");
+    }
+    for asset in to_upload {
+        command = command.arg(asset);
+    }
+    run_command(command)
+}
+
+fn assets_to_upload<'a>(
+    assets: &'a [PathBuf],
+    existing_assets: &BTreeSet<String>,
+    draft: bool,
+) -> Result<Vec<&'a PathBuf>> {
+    let mut to_upload = Vec::new();
     for asset in assets {
         ensure!(
             asset.is_file(),
             "Release asset is missing: {}",
             asset.display()
         );
-        command = command.arg(asset);
+        let filename = file_name(asset)?;
+        if existing_assets.contains(&filename) {
+            if draft {
+                to_upload.push(asset);
+            } else {
+                eprintln!(
+                    "Skipping already-uploaded immutable release asset: {filename}"
+                );
+            }
+            continue;
+        }
+        to_upload.push(asset);
     }
-    run_command(command)
+    Ok(to_upload)
 }
 
 fn publish_release(version: &str, notes_path: &Path) -> Result<()> {
     let tag = release_tag(version);
+    if !release_is_draft(&tag)? {
+        eprintln!("Release {tag} is already published; skipping.");
+        return Ok(());
+    }
     let release_id = release_database_id(&tag)?;
     let payload_dir = tempdir()?;
     let payload_path = payload_dir.path().join("release-update.json");
@@ -1054,6 +1118,25 @@ mod tests {
         assert!(notes.contains("- `fluxer-users`"));
         assert!(notes.contains("- `helm`"));
         assert!(notes.contains("- `self-hosting`"));
+    }
+
+    #[test]
+    fn assets_to_upload_skips_existing_assets_on_published_releases() {
+        let temp = tempdir().unwrap();
+        let manifest = temp.path().join("fluxer-release-manifest.json");
+        fs::write(&manifest, "{}").unwrap();
+        let existing = BTreeSet::from(["fluxer-release-manifest.json".to_string()]);
+        let assets = vec![manifest.clone()];
+
+        assert!(assets_to_upload(&assets, &existing, false).unwrap().is_empty());
+        assert_eq!(
+            assets_to_upload(&assets, &existing, true)
+                .unwrap()
+                .into_iter()
+                .map(|path| path.as_path())
+                .collect::<Vec<_>>(),
+            vec![manifest.as_path()]
+        );
     }
 
     #[test]

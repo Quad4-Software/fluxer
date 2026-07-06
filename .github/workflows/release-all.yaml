@@ -62,7 +62,6 @@ jobs:
     uses: ./.github/workflows/build-admin.yaml
     with:
       build-version: ${{ needs.meta.outputs.build_version }}
-      finalise-release: false
       approval-required: false
     secrets: inherit
 
@@ -71,7 +70,6 @@ jobs:
     uses: ./.github/workflows/build-api.yaml
     with:
       build-version: ${{ needs.meta.outputs.build_version }}
-      finalise-release: false
       approval-required: false
     secrets: inherit
 
@@ -80,7 +78,6 @@ jobs:
     uses: ./.github/workflows/build-app-proxy.yaml
     with:
       build-version: ${{ needs.meta.outputs.build_version }}
-      finalise-release: false
       approval-required: false
     secrets: inherit
 
@@ -89,7 +86,6 @@ jobs:
     uses: ./.github/workflows/build-app-proxy-self-hosted.yaml
     with:
       build-version: ${{ needs.meta.outputs.build_version }}
-      finalise-release: false
       approval-required: false
     secrets: inherit
 
@@ -98,7 +94,6 @@ jobs:
     uses: ./.github/workflows/build-docs.yaml
     with:
       build-version: ${{ needs.meta.outputs.build_version }}
-      finalise-release: false
       approval-required: false
     secrets: inherit
 
@@ -107,7 +102,6 @@ jobs:
     uses: ./.github/workflows/build-gateway.yaml
     with:
       build-version: ${{ needs.meta.outputs.build_version }}
-      finalise-release: false
       approval-required: false
     secrets: inherit
 
@@ -116,7 +110,6 @@ jobs:
     uses: ./.github/workflows/build-gifs.yaml
     with:
       build-version: ${{ needs.meta.outputs.build_version }}
-      finalise-release: false
       approval-required: false
     secrets: inherit
 
@@ -125,7 +118,6 @@ jobs:
     uses: ./.github/workflows/build-marketing.yaml
     with:
       build-version: ${{ needs.meta.outputs.build_version }}
-      finalise-release: false
       approval-required: false
     secrets: inherit
 
@@ -134,7 +126,6 @@ jobs:
     uses: ./.github/workflows/build-media-proxy.yaml
     with:
       build-version: ${{ needs.meta.outputs.build_version }}
-      finalise-release: false
       approval-required: false
     secrets: inherit
 
@@ -143,7 +134,6 @@ jobs:
     uses: ./.github/workflows/build-messages.yaml
     with:
       build-version: ${{ needs.meta.outputs.build_version }}
-      finalise-release: false
       approval-required: false
     secrets: inherit
 
@@ -152,7 +142,6 @@ jobs:
     uses: ./.github/workflows/build-snowflakes.yaml
     with:
       build-version: ${{ needs.meta.outputs.build_version }}
-      finalise-release: false
       approval-required: false
     secrets: inherit
 
@@ -161,7 +150,6 @@ jobs:
     uses: ./.github/workflows/build-static.yaml
     with:
       build-version: ${{ needs.meta.outputs.build_version }}
-      finalise-release: false
       approval-required: false
     secrets: inherit
 
@@ -170,7 +158,6 @@ jobs:
     uses: ./.github/workflows/build-unfurl.yaml
     with:
       build-version: ${{ needs.meta.outputs.build_version }}
-      finalise-release: false
       approval-required: false
     secrets: inherit
 
@@ -179,7 +166,6 @@ jobs:
     uses: ./.github/workflows/build-updater.yaml
     with:
       build-version: ${{ needs.meta.outputs.build_version }}
-      finalise-release: false
       approval-required: false
     secrets: inherit
 
@@ -188,7 +174,6 @@ jobs:
     uses: ./.github/workflows/build-users.yaml
     with:
       build-version: ${{ needs.meta.outputs.build_version }}
-      finalise-release: false
       approval-required: false
     secrets: inherit
 
