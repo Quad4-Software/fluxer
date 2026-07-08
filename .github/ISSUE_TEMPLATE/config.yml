@@ -6,3 +6,6 @@ contact_links:
   - name: Security reports
     url: https://github.com/Quad4-Software/fluxer/security/advisories/new
     about: Report vulnerabilities privately through GitHub.
+  - name: Ideas and feature requests
+    url: https://github.com/orgs/fluxerapp/discussions
+    about: Suggest an improvement or new capability.

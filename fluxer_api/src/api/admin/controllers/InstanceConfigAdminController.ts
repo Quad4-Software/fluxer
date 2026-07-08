@@ -275,11 +275,6 @@ export function InstanceConfigAdminController(app: HonoApp) {
 								),
 							})
 						: undefined,
-					setup: data.app_public.setup
-						? omitUndefinedFields({
-								configured: readOptionalField(data.app_public.setup, 'configured'),
-							})
-						: undefined,
 					legal: data.app_public.legal
 						? omitUndefinedFields({
 								terms_url: readOptionalField(data.app_public.legal, 'terms_url'),
@@ -384,6 +379,13 @@ export function InstanceConfigAdminController(app: HonoApp) {
 			}
 			if (data.policy) {
 				await applyInstancePolicyUpdate(ctx, data.policy);
+			}
+			if (data.app_public?.setup) {
+				await instanceConfigRepository.setAppPublicConfig({
+					setup: omitUndefinedFields({
+						configured: readOptionalField(data.app_public.setup, 'configured'),
+					}),
+				});
 			}
 			if (shouldGrantSetupCompleterAdmin) {
 				await grantSetupCompleterAdminACL(ctx);
